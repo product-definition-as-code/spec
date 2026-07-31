@@ -1,13 +1,15 @@
 # Handoff Contract
 
-A **Product Handoff** is the framework-independent contract between Product Definition and an SDD
+A **Product Handoff** is the delivery-neutral contract between Product Definition and whatever
+consumes it: a Spec-Driven Development framework, an AI coding agent, or a human team. This
+chapter uses "the consumer" for all three; the SDD
 framework. It selects the product subgraph relevant to one delivery increment and records enough
 provenance to detect staleness. Handoffs and Product Context documents are **generated and
 non-canonical**.
 
 A handoff MUST contain product context and traceability. It MUST NOT contain technical design,
 implementation tasks, class names, database decisions, framework choices, deployment instructions
-or any other decision owned by the SDD and implementation layers.
+or any other decision owned by the consumer and implementation layers.
 
 ## Handoff document
 
@@ -106,8 +108,9 @@ Digest recomputation resolves artifacts overlay-first from the working tree; if 
 exclusively by the digests of referenced artifacts: unrelated commits, unrelated artifact edits and
 generated-file churn MUST NOT make a handoff stale.
 
-## SDD boundary
+## Delivery boundary
 
-SDD frameworks consume handoffs; they retain native ownership of their own artifacts and workflow.
-SDD MAY report questions and contradictions back to Product Definition. SDD MUST NOT silently
-rewrite canonical product knowledge, and archiving an SDD change MUST NOT promote a Product Change.
+Consumers of a handoff (SDD frameworks, AI agents, human teams) retain native ownership of their
+own artifacts and workflow. A consumer MAY report questions and contradictions back to Product
+Definition. A consumer MUST NOT silently rewrite canonical product knowledge, and completing or
+archiving the consumer's own change artifacts MUST NOT promote a Product Change.

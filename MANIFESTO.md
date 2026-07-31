@@ -47,7 +47,7 @@ Backlogs are queues of work. They are good at ordering effort and bad at holding
 
 Spec-Driven Development is a real improvement: it makes an implementation increment explicit, reviewable and verifiable before code is written. We build on it, not against it. But an SDD spec answers a bounded question: how does this one increment change the software? It is scoped to a change, owned by a delivery workflow, and archived when the change ships. What is still missing is the thing the deltas are deltas *of*: a canonical, current, validated description of the product that every increment reads from and, once verified, writes back to.
 
-Product Definition as Code adds that layer in front. Definition first, then change, then slice, then handoff to SDD, then implementation, then verification, then explicit promotion back into the definition. The loop closes.
+Product Definition as Code adds that layer in front, and its boundary is delivery, not any one delivery discipline. Definition first, then change, then slice, then a handoff to whatever builds: an SDD framework, an AI coding agent given the handoff as its briefing, or a human team receiving a backlog item that finally carries its full context. Then implementation, verification, and explicit promotion back into the definition. The loop closes, whoever did the building.
 
 ### Explicit change or nothing
 
