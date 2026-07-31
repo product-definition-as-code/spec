@@ -2,8 +2,8 @@
 
 A **Product Handoff** is the delivery-neutral contract between Product Definition and whatever
 consumes it: a Spec-Driven Development framework, an AI coding agent, or a human team. This
-chapter uses "the consumer" for all three; the SDD
-framework. It selects the product subgraph relevant to one delivery increment and records enough
+chapter uses "the consumer" for all three.
+A handoff selects the product subgraph relevant to one delivery increment and records enough
 provenance to detect staleness. Handoffs and Product Context documents are **generated and
 non-canonical**.
 
