@@ -55,7 +55,7 @@ A definition that can be edited casually is a definition nobody can trust. So th
 
 ### What this is not
 
-Not a product-management platform: no boards, no workflow engine, no dashboards. Not a graph database: the graph is a compiled artifact of your repository, and if it disappeared nothing would be lost. Not an ontology: the artifact types are a small, opinionated vocabulary for defining products, not a universal knowledge model. Not a roadmapping tool: it says what the product is and how it changes, not when or for which quarter.
+Not a product-management platform: no boards, no workflow engine, no dashboards. Not a graph database: the graph is a compiled artifact of your repository, and if it disappeared nothing would be lost. Not a universal ontology or a semantic-web platform: PDaC defines a bounded, opinionated vocabulary for product definition, with typed relationships and closed validation, not a universal knowledge model. Not a roadmapping tool: it says what the product is and how it changes, not when or for which quarter.
 
 ### Two names, on purpose
 
