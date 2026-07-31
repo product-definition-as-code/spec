@@ -1,0 +1,22 @@
+name: Spec feedback
+description: Report ambiguity, errors or unclear text in the specification (non-normative)
+title: "feedback: <short summary>"
+labels: ["editorial"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Chapter and section
+      placeholder: "spec/validation.md, PRODUCT105"
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is unclear or wrong
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording (optional)

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Sign the manifesto
+    url: https://github.com/product-definition-as-code/spec/blob/main/SIGNATORIES.md
+    about: Signing is a pull request, not an issue.
+  - name: Reference implementation (ProductShape) issues
+    url: https://github.com/juangcarmona/productshape/issues
+    about: Tooling bugs and CLI behavior belong in the implementation repo, not the spec.

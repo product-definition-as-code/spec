@@ -1,0 +1,40 @@
+name: RFC proposal
+description: Propose a normative change to the PDaC specification
+title: "RFC: <short title>"
+labels: ["rfc"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Normative changes (anything that alters MUST / MUST NOT / SHOULD / MAY for a conforming
+        repository or implementation) start here. Editorial fixes can go straight to a pull request.
+        Process details: [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is wrong or missing in the current specification? Cite chapter and section.
+      placeholder: "spec/relationships.md, section X: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed normative text
+      description: The text as it would appear in the spec. Mark MUST/SHOULD/MAY explicitly.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Effect on existing conformant repositories, on implementations, and on the conformance corpus (which fixtures change or get added).
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What else could solve this, and why not.
+    validations:
+      required: false
