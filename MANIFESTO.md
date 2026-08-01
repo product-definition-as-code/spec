@@ -1,6 +1,6 @@
 # The Product Definition as Code Manifesto
 
-AI-assisted engineering has made implementation fast. The limiting factor of software has moved left: from writing code to knowing, precisely and verifiably, what the product is. An agent that writes code in minutes amplifies whatever understanding it is given, including none. We believe product knowledge deserves the discipline we learned to give code, and we have come to value:
+AI-assisted engineering has made implementation fast. As implementation cost falls, ambiguity and decision quality become the larger share of delivery risk: the pressure moves left, from writing code to knowing, precisely and verifiably, what the product is. An agent that writes code in minutes amplifies whatever understanding it is given, including none. We believe product knowledge deserves the discipline we learned to give code, and we have come to value:
 
 **A defined product** over a queue of tickets.
 
@@ -22,8 +22,8 @@ That is, while there is value in the items on the right, we value the items on t
 6. Uncertainty is a first-class citizen. Open questions are preserved, never resolved by fiat, and no tool or model invents a product decision.
 7. Deterministic tools enforce structure. AI does semantic work. Humans decide. The division is not negotiable.
 8. Backlog items are projections of product changes, not the source of truth.
-9. Delivery consumes product context through a one-way handoff. Implementation may reveal contradictions, but it never silently rewrites the definition.
-10. A product definition is worth exactly as much as it can be validated. Given the same files, validation produces the same answer on every machine, every time.
+9. One-way authority, two-way learning. Delivery consumes product context through the handoff and reports reality back as evidence and proposed change; it never silently rewrites the definition.
+10. Validation is deterministic and proves structure, never truth. Given the same files it produces the same answer on every machine, every time; whether the model reflects reality is answered by accountable review and delivery evidence, not by a green check.
 
 ## Signing
 
@@ -35,7 +35,7 @@ The manifesto is signed by pull request: add your name to [SIGNATORIES.md](SIGNA
 
 For decades the slowest part of building software was building it. Teams organized everything around that bottleneck: thin tickets, just-in-time specification, product knowledge living in people's heads and in the code, because the code was where all the time went anyway.
 
-AI-assisted engineering changes the constraint. When implementation accelerates, the limiting factor moves left, into questions that were always there but could be answered slowly: What is this product, and who is it for? Which actors interact with it, and what outcomes do they pursue? What behaviour is intended, and which rules govern it? What do our words mean, and where does each meaning hold? Which requirements follow from all of that, and why? When something changes, what else is affected? And when an AI agent implements an increment, what context does it actually need, precisely, and nothing else?
+AI-assisted engineering is changing the constraint. As implementation cost falls, ambiguity and decision quality become a larger share of delivery risk, and the pressure moves left, into questions that were always there but could be answered slowly: What is this product, and who is it for? Which actors interact with it, and what outcomes do they pursue? What behaviour is intended, and which rules govern it? What do our words mean, and where does each meaning hold? Which requirements follow from all of that, and why? When something changes, what else is affected? And when an AI agent implements an increment, what context does it actually need, precisely, and nothing else?
 
 The scarce asset is no longer implementation capacity. It is a product definition worth implementing.
 
@@ -47,15 +47,42 @@ Backlogs are queues of work. They are good at ordering effort and bad at holding
 
 Spec-Driven Development is a real improvement: it makes an implementation increment explicit, reviewable and verifiable before code is written. We build on it, not against it. But an SDD spec answers a bounded question: how does this one increment change the software? It is scoped to a change, owned by a delivery workflow, and archived when the change ships. What is still missing is the thing the deltas are deltas *of*: a canonical, current, validated description of the product that every increment reads from and, once verified, writes back to.
 
-Product Definition as Code adds that layer in front, and its boundary is delivery, not any one delivery discipline. Definition first, then change, then slice, then a handoff to whatever builds: an SDD framework, an AI coding agent given the handoff as its briefing, or a human team receiving a backlog item that finally carries its full context. Then implementation, verification, and explicit promotion back into the definition. The loop closes, whoever did the building.
+Product Definition as Code adds that layer in front, and its boundary is delivery, not any one delivery discipline. Definition first, then change, then slice, then a handoff to whatever builds: an SDD framework, an AI coding agent given the handoff as its briefing, or a human team receiving a backlog item that finally carries its full context. Then implementation, verification, and explicit promotion back into the definition. The loop closes, whoever did the building. And it closes under one rule: one-way authority, two-way learning. Delivery never silently rewrites accepted product intent, and everything delivery learns, contradictions, partial results, discovered constraints, flows back as evidence and proposed change. Authority moves in one direction. Information moves in both.
 
 ### Explicit change or nothing
 
 A definition that can be edited casually is a definition nobody can trust. So the baseline is modified by exactly one operation: promotion of a verified Product Change. A change states its delta explicitly, carries complete proposed future-state artifacts, keeps its open questions visible, and is validated as an overlay against the baseline before a human approves it. This is the same discipline that made code trustworthy: no direct pushes to main, every change reviewable as a diff, history that explains itself. Product knowledge deserves the pipeline code already has.
 
+### What validation proves, and what it cannot
+
+Versioning, schemas, graph checks and digests prove that a product model is well-formed, internally consistent and unchanged. They cannot prove that it reflects user needs, business reality, regulatory interpretation or deployed behaviour. A perfectly valid graph can describe the wrong product. Anyone who tells you otherwise is selling ceremony as confidence.
+
+So this methodology distinguishes four questions that a single green check must never collapse:
+
+| Layer | Question it answers | What counts as evidence |
+| --- | --- | --- |
+| Structural validity | Is the model well-formed under this spec version? | Schema and deterministic graph checks |
+| Accepted intent | Has an accountable owner approved this as the current target? | Review, decision record, promotion history |
+| Delivery correspondence | Is the target implemented, deployed or verified in a named environment? | Attested claims, tests, release evidence |
+| Outcome validity | Did the change produce the expected result? | Experiments, telemetry, research |
+
+Tooling in this methodology guarantees the first layer, records the second, and gives the third and fourth a place to land as evidence. It never claims them for free.
+
+### A kernel, a profile, a workflow
+
+Three things travel under this name, and they have different weights.
+
+The kernel is the part worth standardizing: stable immutable identity, typed relationships authored once and compiled into a graph, an accepted baseline distinct from proposed overlays, deterministic structural validation with stable codes, and a digest-bound handoff that projects a declared closure of the graph into delivery. Small, formal, testable by conformance.
+
+The artifact vocabulary, actors, journeys, use cases, business rules, domain terms, bounded contexts and requirements, is the reference profile. It is opinionated, it is a good default, and it is not the essence. A team that models with events, or pure domain-driven design, or a regulated obligation catalogue, should be able to bring its own profile and still conform to the kernel.
+
+The change flow, propose, validate as overlay, slice, hand off, verify, promote, is the reference workflow. It is the governance we recommend and practice. It is one way to operate the kernel, not the definition of it.
+
+Confusing these three layers is how methodologies die: the kernel gets dismissed because the profile looks like old ideas, or the workflow's ceremony gets mistaken for the price of entry. The layers exist so that experts can replace the outer two and keep the part that matters.
+
 ### What this is not
 
-Not a product-management platform: no boards, no workflow engine, no dashboards. Not a graph database: the graph is a compiled artifact of your repository, and if it disappeared nothing would be lost. Not a universal ontology or a semantic-web platform: PDaC defines a bounded, opinionated vocabulary for product definition, with typed relationships and closed validation, not a universal knowledge model. Not a roadmapping tool: it says what the product is and how it changes, not when or for which quarter.
+Not a product-management platform: no boards, no workflow engine, no dashboards. Not a graph database: the graph is a compiled artifact of your repository, and if it disappeared nothing would be lost. Not a universal ontology or a semantic-web platform: PDaC defines a bounded, opinionated vocabulary for product definition, with typed relationships and closed validation, not a universal knowledge model. Not a roadmapping tool: it says what the product is and how it changes, not when or for which quarter. Not a truth machine: validation proves structure, not correctness, and the model is inspectable, never automatically true. And not a replacement for discovery: interviews, research, experiments, strategy and product judgment happen before and around this methodology; it operationalizes the decisions those activities produce, it does not produce them.
 
 ### Two names, on purpose
 
