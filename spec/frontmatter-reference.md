@@ -393,7 +393,7 @@ See [Handoff Contract](handoff-contract.md).
 
 **Adapter-owned.** Written alongside an SDD change to evidence that a slice's requirements were
 implemented, and checked before archive. See
-[Adopting in an existing OpenSpec repository](../adoption/existing-openspec-repository.md).
+[Adopting in an existing OpenSpec repository](https://github.com/juangcarmona/productshape/blob/main/docs/adoption/existing-openspec-repository.md).
 
 <!-- BEGIN GENERATED: product-coverage -->
 

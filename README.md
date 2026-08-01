@@ -14,7 +14,7 @@ This repository holds the specification, the manifesto and the conformance corpu
 
 ## Status
 
-**v0.1 (request for comments), extraction in progress.** Two weeks old and labeled accordingly: this is an early draft, not a near-final standard.
+**v0.1 (request for comments), extraction in progress.** Two weeks old and labeled accordingly: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).
 
 The specification text is being extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. During extraction, chapters may still contain references to repository layouts or behaviors of the reference implementation; each of those references is being generalized or removed. v1.0 freezes after a public comment period.
 
