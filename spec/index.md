@@ -1,6 +1,6 @@
 # Product Definition as Code: Specification
 
-> **Status: v0.9 draft (request for comments).** Extracted from the reference implementation and
+> **Status: v0.1 draft (request for comments).** Extracted from the reference implementation and
 > under public review; see the [repository README](../README.md) for milestones. All chapters are
 > currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
 

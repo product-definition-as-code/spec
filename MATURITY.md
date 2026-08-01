@@ -9,7 +9,7 @@ disagrees with this one, this one wins and the other page has a bug.
 | Surface | Status |
 | --- | --- |
 | PDaC methodology | Experimental, open RFC |
-| PDaC specification | v0.9 draft, extracted from one implementation, not yet independently implemented |
+| PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
 | Conformance | Self-conformance only; independent corpus and runner planned |
 | Adoption | One listed adopter (ProductShape itself) |
@@ -22,7 +22,7 @@ interpretable against this matrix.
 
 | Dimension | Current | Governs |
 | --- | --- | --- |
-| Method / spec version | 0.9.0-rfc | Semantic rules |
+| Method / spec version | 0.1.0-rfc | Semantic rules |
 | Serialization version | v1alpha1 | File representation and schemas |
 | Conformance suite | none published | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |

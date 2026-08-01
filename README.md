@@ -14,7 +14,7 @@ This repository holds the specification, the manifesto and the conformance corpu
 
 ## Status
 
-**v0.9 (request for comments), extraction in progress.**
+**v0.1 (request for comments), extraction in progress.** Two weeks old and labeled accordingly: this is an early draft, not a near-final standard.
 
 The specification text is being extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. During extraction, chapters may still contain references to repository layouts or behaviors of the reference implementation; each of those references is being generalized or removed. v1.0 freezes after a public comment period.
 
@@ -22,7 +22,7 @@ The specification text is being extracted from the [reference implementation](ht
 | --- | --- |
 | Chapters extracted | In progress |
 | Conformance corpus published | Planned |
-| Public comment period (v0.9) | Planned |
+| Public comment period (v0.1) | Planned |
 | v1.0 freeze | Planned |
 
 ## Contents

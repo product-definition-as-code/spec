@@ -4,7 +4,7 @@ Known implementations of the Product Definition as Code specification.
 
 | Implementation | Language | Spec version targeted | Conformance | Notes |
 | --- | --- | --- | --- | --- |
-| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.9 (draft) | Pending published corpus | Reference implementation; the spec was extracted from it |
+| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.1 (draft) | Pending published corpus | Reference implementation; the spec was extracted from it |
 
 ## Listing criteria
 
