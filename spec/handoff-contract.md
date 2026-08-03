@@ -1,116 +1,108 @@
-# Handoff Contract
+# Citation Contract
 
-A **Product Handoff** is the delivery-neutral contract between Product Definition and whatever
-consumes it: a Spec-Driven Development framework, an AI coding agent, or a human team. This
-chapter uses "the consumer" for all three.
-A handoff selects the product subgraph relevant to one delivery increment and records enough
-provenance to detect staleness. Handoffs and Product Context documents are **generated and
-non-canonical**.
+A **citation** is a machine-verifiable reference from any consumer document — a Spec-Driven
+Development (SDD) spec, a task, an agent prompt file, a design doc — to canonical product text. This
+chapter uses "the consumer" for all of them.
 
-A handoff MUST contain product context and traceability. It MUST NOT contain technical design,
-implementation tasks, class names, database decisions, framework choices, deployment instructions
-or any other decision owned by the consumer and implementation layers.
+The citation contract is the delivery boundary of Product Definition as Code. Consumers do not
+re-state product knowledge; they cite it. A citation records what was cited and at what content
+digest, so that drift between a consumer document and the canonical model is machine-detectable
+rather than silent.
 
-## Handoff document
+## Citation record
 
-Schema `product-definition-as-code/handoff/v1alpha1`:
+A citation is a record, not a block of text. It MUST carry:
 
-```yaml
-schema: product-definition-as-code/handoff/v1alpha1
-id: HOF-GITHUB-123
-generated-at: 2026-01-01T10:00:00Z
-work-item:
-  provider: github
-  repository: owner/repository
-  id: '123'
-  title: Generate framework-independent Product Handoffs
-source:
-  repository: owner/repository
-  revision: <git-commit-sha>
-  product-change: CHG-HANDOFF-001
-  delivery-slice: SLI-HANDOFF-001
-implements:
-  - FR-HANDOFF-001
-affects:
-  - ACT-PRODUCT-ENGINEER
-  - UC-HANDOFF-001
-artifacts:
-  - id: FR-HANDOFF-001
-    type: functional-requirement
-    path: docs/product/changes/active/chg-handoff-001/proposed/requirements/functional/fr-handoff-001.md
-    digest: sha256:<hex>
-context:
-  path: product-context.md
-  digest: sha256:<hex>
-```
+| Field    | Presence | Meaning                                                                                             |
+| -------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `id`     | required | the target artifact's stable ID (see [Identifiers](identifiers.md))                                 |
+| `digest` | required | the content digest of the cited canonical text (see [Validation → Digests](validation.md#digests))  |
+| `anchor` | optional | a stable address within the target artifact (see Anchors below)                                     |
 
-- `artifacts[].path` is the repository-relative path (POSIX separators) of the artifact at
-  generation time; identity remains the ID, not the path.
-- Digests are `sha256:<hex>` over the artifact's UTF-8 content with line endings normalized to LF.
-- `source.revision` records the Git commit the handoff was generated from.
+A citation MAY exist in any of three forms; v0.1 does not mandate one:
 
-## Generation rules
+- an **inline structured reference** embedded in the consumer document;
+- a **Markdown marker block** delimiting an embedded projection (see Embedding below);
+- a **YAML sidecar ledger** accompanying the consumer document.
 
-The generator:
+The pilot will exercise all three forms; a follow-up normalizes. The spec defines the citation
+record shape, not a mandatory serialization.
 
-1. MUST start from an `approved` delivery slice of a validated Product Change overlay.
-2. MUST resolve all artifacts named by the slice's `implements` and `affects`.
-3. MUST include the upstream product context selected by the **closure rule** below.
-4. MUST NOT include unrelated graph regions or reproduce the entire product repository.
-5. MUST record artifact paths, content digests and the source Git revision.
-6. MUST generate a readable `product-context.md` marked as generated and non-canonical.
-7. MUST derive the handoff `id` from the work-item reference, as `HOF-<provider>-<work-item id>`.
+## Anchors
 
-Because the identifier is derived from the work item alone, one work item that delivers more than
-one slice produces several handoffs sharing an `id`. The intended shape is one work item per slice;
-the gap is recorded as `OD-009`. Consumers MUST therefore resolve a handoff by its recorded
-`source.product-change` and `source.delivery-slice`, never by `id` alone.
+An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification
+scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a
+citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within
+`FR-X`. This makes partial scope expressible as a set of cited scenario ids instead of prose.
 
-### Closure rule
+Section-slug anchors (addressing a required body section by its heading slug) are deferred to a
+follow-up. Restricting v0.1 anchors to scenario ids keeps citation resolution deterministic
+([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
 
-The included subgraph is computed deterministically:
+## Embedding
 
-- Start set: the slice's `implements` targets and `affects` targets.
-- Expand Functional Requirements via `derived-from`; Quality Requirements and Constraints via
-  `applies-to`.
-- Expand each included Use Case via `primary-actor`, `supporting-actors`, `bounded-context`,
-  `governed-by` and `uses-terms`.
-- Expand each included Domain Term via `defined-in`.
-- Add (one incoming hop) every Journey whose `steps` include an included Use Case, and that
-  journey's `primary-actor`.
-- Add every Constraint whose `applies-to` names an included artifact, and every product-wide
-  Constraint.
-- Do not expand further.
+Embedding is a projection of a citation, not its definition. A consumer MAY additionally embed the
+cited canonical text in its document; when it does:
 
-Artifacts are resolved overlay-first: a proposed future-state artifact of the handoff's Product
-Change takes precedence over its baseline counterpart.
+- the embedded block MUST be delimited by machine-readable markers carrying the citation record;
+- the embedded text MUST be byte-identical to the canonical text at the recorded `digest`;
+- the embedded block MUST be treated as read-only and regenerable.
 
-## Product Context
+A consumer that embeds canonical text without a citation record, or whose embedded text differs
+from canonical content at the recorded digest, is non-conforming (see `PRODUCT062` below).
 
-`product-context.md` presents the selected subgraph for human and AI consumption: the work item,
-the implemented requirements with their acceptance content, the affected behaviour, governing
-rules, domain language and open questions of the Product Change. It MUST begin with a generated
-marker naming the handoff ID and MUST NOT introduce content absent from the canonical sources.
+## Statuses
 
-## Status and staleness
+A conforming tool MUST compute, deterministically, exactly one status per citation:
 
-A conforming implementation MUST report exactly one of the following statuses for a handoff:
+| Status       | Meaning                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `current`    | The target resolves and its recomputed digest matches the recorded `digest`.                    |
+| `stale`      | The target resolves, but canonical content changed since the citation was recorded.              |
+| `tampered`   | Only for embedded projections: the block differs from canonical content at the recorded digest. |
+| `unresolved` | The target `id` or `anchor` does not resolve.                                                    |
 
-| Status                        | Meaning                                                                                                                          |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `current`                     | Every referenced artifact's recomputed digest matches the handoff.                                                               |
-| `stale`                       | At least one referenced artifact's content changed; the report names each stale artifact.                                        |
-| `invalid`                     | The handoff document is malformed, references unknown artifacts, or its digests cannot be interpreted.                           |
-| `source-revision-unavailable` | A referenced artifact is absent from the working tree and `source.revision` cannot be resolved (for example in a shallow clone). |
+Digest recomputation uses the normalization defined in
+[Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the
+cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a
+citation stale.
 
-Digest recomputation resolves artifacts overlay-first from the working tree; if a path is gone
-(for example after promotion), the content at `source.revision` is used. Staleness is judged
-exclusively by the digests of referenced artifacts: unrelated commits, unrelated artifact edits and
-generated-file churn MUST NOT make a handoff stale.
+## Diagnostics
+
+| Code         | Severity | Condition                                                                                                |
+| ------------ | -------- | -------------------------------------------------------------------------------------------------------- |
+| `PRODUCT042` | error    | Invalid or unverifiable citation digest.                                                                 |
+| `PRODUCT060` | error    | Unresolved citation: target `id` or `anchor` does not resolve.                                          |
+| `PRODUCT061` | warning  | Stale citation: target resolves but canonical content changed since the citation was recorded.           |
+| `PRODUCT062` | error    | Tampered embedded projection: the embedded block differs from canonical content at the recorded digest. |
+| `PRODUCT063` | error    | Anchor not found: the target resolves but the named anchor does not exist within it.                    |
+
+`PRODUCT061` is a warning; a repository MAY escalate it via its existing `warnings-as-errors`
+configuration. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the
+repository, not the kernel.
+
+## Semantic contradiction
+
+Semantic contradiction between a citation and its surrounding consumer text is explicitly
+non-normative. Tools MAY flag suspected contradictions for human review; such findings are never a
+conformance criterion. Deterministic tools enforce structure, AI does semantic work, humans decide
+([manifesto](../MANIFESTO.md) principle 7).
 
 ## Delivery boundary
 
-Consumers of a handoff (SDD frameworks, AI agents, human teams) retain native ownership of their
-own artifacts and workflow. A consumer MAY report questions and contradictions back to Product
-Definition. A consumer MUST NOT silently rewrite canonical product knowledge, and completing or
-archiving the consumer's own change artifacts MUST NOT promote a Product Change.
+Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their
+own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY
+propose a revision — a pull request — when implementation reveals a contradiction; a human decides
+whether to merge it ([manifesto](../MANIFESTO.md) principle 9). Merging is a human decision: tools
+MUST NOT merge, auto-approve or self-merge model changes.
+
+Cross-repository citation resolution — where a cited model lives in a different repository than the
+consumer document — is out of scope for this chapter and tracked under
+[RFC #2 (deployment topologies)](https://github.com/product-definition-as-code/spec/issues/2).
+
+## Handoff (non-normative)
+
+A "handoff" remains available as a non-normative convenience: a generated document composed entirely
+of citations, with a stated size budget. It is not a PDaC artifact, carries no `HOF-` ID, and is not
+required for conformance. Consumers that find a generated citation bundle useful MAY produce one;
+the citation contract is the normative surface, not the bundle.

@@ -1,8 +1,7 @@
 # Relationships
 
 The relationships are the methodology: they connect intent (actors), behaviour (journeys, use
-cases), knowledge (rules, terms, contexts) and obligations (requirements), and they carry
-traceability through changes, slices and handoffs.
+cases), knowledge (rules, terms, contexts) and obligations (requirements).
 
 ## Canonical vocabulary
 
@@ -23,14 +22,6 @@ frontmatter field, targeting an allowed set of types.
 | Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
 | Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
 | Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
-| Product Change         | `operations.add`           | any product artifact (new ID)                               |
-| Product Change         | `operations.modify`        | any existing product artifact                               |
-| Product Change         | `operations.remove`        | any existing product artifact                               |
-| Delivery Slice         | `implements[].requirement` | Functional Requirement, Quality Requirement, Constraint     |
-| Delivery Slice         | `affects`                  | any product artifact                                        |
-| Delivery Slice         | `depends-on`               | Delivery Slice                                              |
-| Product Handoff        | `implements`               | Functional Requirement, Quality Requirement, Constraint     |
-| Product Handoff        | `affects`                  | any product artifact                                        |
 
 A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a
 validation error.

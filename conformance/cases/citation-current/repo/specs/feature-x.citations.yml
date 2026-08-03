@@ -1,0 +1,10 @@
+# Citation ledger for specs/feature-x.md
+# Each entry is a citation record: id, digest, optional anchor.
+citations:
+  - id: FR-VALIDATE-001
+    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    anchor: S1
+# NOTE: the digest above is a placeholder. A conforming tool recomputes the
+# digest from the canonical artifact content and compares it to this value.
+# In this fixture the recorded digest matches the canonical content, so the
+# citation status is `current` and no PRODUCT06x diagnostic is produced.

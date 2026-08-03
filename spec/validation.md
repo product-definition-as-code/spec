@@ -37,28 +37,26 @@ them for a repository; tools MUST NOT escalate unilaterally.
 | `PRODUCT007` | Relationship targets a disallowed artifact type                                        |
 | `PRODUCT008` | Active artifact references a retired artifact                                          |
 | `PRODUCT009` | Required body section missing or out of order                                          |
-| `PRODUCT020` | Product Change addition whose ID already exists in the baseline                        |
-| `PRODUCT021` | Product Change modification of an ID that does not exist in the baseline               |
-| `PRODUCT022` | Product Change removal of an ID that does not exist in the baseline                    |
-| `PRODUCT023` | Overlay produces duplicate IDs                                                         |
-| `PRODUCT024` | Removal leaves a dangling reference from an active artifact in the overlay             |
-| `PRODUCT025` | Concurrent active Product Changes with overlapping modify/remove operations            |
-| `PRODUCT026` | Proposed artifact not listed in operations, or operation without its proposed artifact |
-| `PRODUCT027` | Baseline revision incompatible at promotion without explicit resolution                |
-| `PRODUCT030` | Delivery slice references a different Product Change than the one containing it        |
-| `PRODUCT031` | Partial requirement coverage without a `scope` field                                   |
-| `PRODUCT032` | Delivery slice dependency cycle                                                        |
-| `PRODUCT040` | Handoff generated from (or referencing) a non-approved slice                           |
-| `PRODUCT041` | Handoff missing required artifacts                                                     |
-| `PRODUCT042` | Invalid or unverifiable content digest                                                 |
-| `PRODUCT043` | Implemented requirement without a coverage mapping                                     |
-| `PRODUCT044` | Coverage evidence for a completed delivery slice missing or unverifiable at promotion  |
+| `PRODUCT042` | Invalid or unverifiable citation digest                                                 |
 | `PRODUCT050` | Invalid configuration or unknown top-level configuration key                           |
 | `PRODUCT051` | Managed integration file modified by hand                                              |
 | `PRODUCT052` | Expected managed or generated file missing                                             |
+| `PRODUCT060` | Unresolved citation: target `id` or `anchor` does not resolve                          |
+| `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation       |
+| `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
+| `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
 `PRODUCT050`–`PRODUCT052` are reported by `doctor` and integration commands; product-model
 validation does not inspect managed files.
+
+`PRODUCT060`–`PRODUCT063` are citation diagnostics; see the
+[Citation Contract](handoff-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it
+via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy
+belongs to the repository, not the kernel.
+
+Retired codes (`PRODUCT020`–`PRODUCT027`, `PRODUCT030`–`PRODUCT032`, `PRODUCT040`–`PRODUCT041`,
+`PRODUCT043`–`PRODUCT044`, `PRODUCT108`–`PRODUCT110`) are never reused, mirroring the ID
+immutability rule. Keeping them alive would keep the previous mental model alive.
 
 ## Warning codes
 
@@ -71,9 +69,6 @@ validation does not inspect managed files.
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
 | `PRODUCT106` | Domain term with no usage                                                                                                                                          |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
-| `PRODUCT108` | Product Change approved with unresolved open questions                                                                                                             |
-| `PRODUCT109` | Delivery slice affecting artifacts outside its requirements' closure                                                                                               |
-| `PRODUCT110` | Handoff context containing artifacts outside the recomputed closure                                                                                                |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to
@@ -98,7 +93,8 @@ see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 
 Content digests are SHA-256 over the artifact's UTF-8 bytes with CRLF and CR line endings
 normalized to LF, rendered as `sha256:<lowercase hex>`. This normalization is mandatory: digests
-MUST be identical across operating systems and Git line-ending configurations.
+MUST be identical across operating systems and Git line-ending configurations. Citation digests
+use the same normalization (see the [Citation Contract](handoff-contract.md)).
 
 ## Determinism requirements
 

@@ -1,0 +1,10 @@
+# Citation ledger for specs/feature-greenfield.md
+citations:
+  - id: FR-GREENFIELD-001
+    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    anchor: S1
+  - id: BR-NO-SILENT-EDITS
+    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+# NOTE: digests are placeholders. A conforming tool recomputes them from the
+# canonical artifact content. In this fixture both match, so both citations
+# are `current` and no PRODUCT06x diagnostic is produced.

@@ -18,11 +18,11 @@ That is, while there is value in the items on the right, we value the items on t
 2. Markdown is the source of truth. The product graph is compiled from it, never authored by hand, and nothing generated is authoritative.
 3. Every artifact has a stable, immutable identity.
 4. Relationships are explicit, typed and machine-readable. The relationships are the methodology: artifacts without them are just better-organized documents.
-5. The baseline changes through exactly one operation: explicit promotion of a verified Product Change by a human. Everything else is a proposal.
+5. The baseline changes through exactly one operation: a human merging a validated proposed revision. Everything else is a proposal.
 6. Uncertainty is a first-class citizen. Open questions are preserved, never resolved by fiat, and no tool or model invents a product decision.
 7. Deterministic tools enforce structure. AI does semantic work. Humans decide. The division is not negotiable.
-8. Backlog items are projections of product changes, not the source of truth.
-9. One-way authority, two-way learning. Delivery consumes product context through the handoff and reports reality back as evidence and proposed change; it never silently rewrites the definition.
+8. Backlog items are projections of accepted product intent, not the source of truth.
+9. One-way authority, two-way learning. Delivery consumes canonical product knowledge through citations and reports reality back as proposed revisions; a human decides whether to merge them. Delivery never silently rewrites the definition.
 10. Validation is deterministic and proves structure, never truth. Given the same files it produces the same answer on every machine, every time; whether the model reflects reality is answered by accountable review and delivery evidence, not by a green check.
 
 ## Signing
@@ -47,11 +47,11 @@ Backlogs are queues of work. They are good at ordering effort and bad at holding
 
 Spec-Driven Development is a real improvement: it makes an implementation increment explicit, reviewable and verifiable before code is written. We build on it, not against it. But an SDD spec answers a bounded question: how does this one increment change the software? It is scoped to a change, owned by a delivery workflow, and archived when the change ships. What is still missing is the thing the deltas are deltas *of*: a canonical, current, validated description of the product that every increment reads from and, once verified, writes back to.
 
-Product Definition as Code adds that layer in front, and its boundary is delivery, not any one delivery discipline. Definition first, then change, then slice, then a handoff to whatever builds: an SDD framework, an AI coding agent given the handoff as its briefing, or a human team receiving a backlog item that finally carries its full context. Then implementation, verification, and explicit promotion back into the definition. The loop closes, whoever did the building. And it closes under one rule: one-way authority, two-way learning. Delivery never silently rewrites accepted product intent, and everything delivery learns, contradictions, partial results, discovered constraints, flows back as evidence and proposed change. Authority moves in one direction. Information moves in both.
+Product Definition as Code adds that layer in front, and its boundary is delivery, not any one delivery discipline. Definition first, accepted on a canonical branch; then a proposed revision on a branch, validated as a full tree, merged by a human; then delivery, whatever builds: an SDD framework, an AI coding agent given citations as its briefing, or a human team receiving a backlog item that finally carries its full context. Then implementation, verification, and a proposed revision back into the definition when reality contradicts it. The loop closes, whoever did the building. And it closes under one rule: one-way authority, two-way learning. Delivery never silently rewrites accepted product intent, and everything delivery learns, contradictions, partial results, discovered constraints, flows back as proposed revisions. Authority moves in one direction. Information moves in both.
 
 ### Explicit change or nothing
 
-A definition that can be edited casually is a definition nobody can trust. So the baseline is modified by exactly one operation: promotion of a verified Product Change. A change states its delta explicitly, carries complete proposed future-state artifacts, keeps its open questions visible, and is validated as an overlay against the baseline before a human approves it. This is the same discipline that made code trustworthy: no direct pushes to main, every change reviewable as a diff, history that explains itself. Product knowledge deserves the pipeline code already has.
+A definition that can be edited casually is a definition nobody can trust. So the baseline is modified by exactly one operation: a human merging a validated proposed revision. A proposed revision is a branch bearing complete future-state artifacts, validated as a full tree before merge, with its open questions visible. This is the same discipline that made code trustworthy: no direct pushes to main, every change reviewable as a diff, history that explains itself. Product knowledge deserves the pipeline code already has.
 
 ### What validation proves, and what it cannot
 
@@ -72,11 +72,11 @@ Tooling in this methodology guarantees the first layer, records the second, and 
 
 Three things travel under this name, and they have different weights.
 
-The kernel is the part worth standardizing: stable immutable identity, typed relationships authored once and compiled into a graph, an accepted baseline distinct from proposed overlays, deterministic structural validation with stable codes, and a digest-bound handoff that projects a declared closure of the graph into delivery. Small, formal, testable by conformance.
+The kernel is the part worth standardizing: stable immutable identity, typed relationships authored once and compiled into a graph, an accepted baseline that changes only through reviewed merges, deterministic structural validation with stable codes, and verifiable citations that bind consumer documents to canonical product text. Small, formal, testable by conformance.
 
 The artifact vocabulary, actors, journeys, use cases, business rules, domain terms, bounded contexts and requirements, is the reference profile. It is opinionated, it is a good default, and it is not the essence. A team that models with events, or pure domain-driven design, or a regulated obligation catalogue, should be able to bring its own profile and still conform to the kernel.
 
-The change flow, propose, validate as overlay, slice, hand off, verify, promote, is the reference workflow. It is the governance we recommend and practice. It is one way to operate the kernel, not the definition of it.
+The change flow, propose (branch), validate (full tree), merge (human), cite (consumer), is the reference workflow. It is the governance we recommend and practice. It is one way to operate the kernel, not the definition of it.
 
 Confusing these three layers is how methodologies die: the kernel gets dismissed because the profile looks like old ideas, or the workflow's ceremony gets mistaken for the price of entry. The layers exist so that experts can replace the outer two and keep the part that matters.
 

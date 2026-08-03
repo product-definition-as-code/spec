@@ -11,13 +11,11 @@ A repository conforms to Product Definition as Code v0.1 when:
 3. Every ID satisfies the [identifier rules](identifiers.md) and every reference satisfies the
    [relationship vocabulary](relationships.md).
 4. Structural validation of the baseline reports no errors. Warnings are permitted.
-5. Every Product Change satisfies the [change contract](product-changes.md) and its overlay
-   validates without errors.
-6. Every Delivery Slice satisfies the [slice contract](delivery-slices.md).
-7. Every Product Handoff kept in the repository satisfies the
-   [handoff contract](handoff-contract.md).
-8. Semantic evolution after the initial accepted baseline happens only through Product Changes,
-   and the baseline is modified only by explicit promotion.
+5. The baseline is the accepted product intent on the repository's canonical branch; semantic
+   evolution happens only through reviewed merges, and the initial baseline enters through the same
+   mechanism as every later change (a reviewed merge into an empty model).
+6. Consumer documents outside `docs/product/model` MAY carry citations to canonical product text;
+   a conforming tool verifies those citations per the [citation contract](handoff-contract.md).
 
 ## Implementation conformance
 
@@ -29,12 +27,17 @@ An implementation (tooling) conforms when:
    derived output.
 3. It derives reverse relationships and never requires reciprocal authoring.
 4. It computes digests with the mandated LF normalization.
-5. It never mutates the baseline except during explicit promotion, and never promotes implicitly.
-6. It treats warnings as non-fatal unless the repository opts into `warnings-as-errors`.
+5. It MUST NOT merge a proposal that fails structural validation (the CI gate); the overlay is the
+   branch, and validation is full structural validation of the proposed tree.
+6. It MUST NOT merge, auto-approve or self-merge model changes: merging is a human decision.
+7. It MUST compute citation statuses deterministically per the
+   [citation contract](handoff-contract.md).
+8. It treats warnings as non-fatal unless the repository opts into `warnings-as-errors`.
 
 ## Violation mapping
 
 Each normative statement in this specification maps to a diagnostic in
-[Validation](validation.md); the conformance fixtures under `tests/fixtures` and
-`examples/invalid` exercise representative violations and assert their codes. A change to
-normative behaviour MUST update the specification, the diagnostic table and the fixtures together.
+[Validation](validation.md); the conformance fixtures under `conformance/cases/` exercise
+representative violations and assert their codes. Retired diagnostic codes are never reused, mirroring
+the ID immutability rule. A change to normative behaviour MUST update the specification, the
+diagnostic table and the fixtures together.
