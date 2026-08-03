@@ -1,8 +1,6 @@
 # Validation
 
-Structural validation is deterministic. Given the same repository content, validation MUST produce
-the same diagnostics in the same order on every platform. AI is never used to enforce structural
-invariants.
+Structural validation is deterministic. Given the same repository content, validation MUST produce the same diagnostics in the same order on every platform. AI is never used to enforce structural invariants.
 
 ## Diagnostics
 
@@ -18,11 +16,9 @@ Every diagnostic carries:
 | `field`    | when available  | frontmatter field or relationship                  |
 | `target`   | when applicable | referenced target ID                               |
 
-Diagnostics MUST be available in machine-readable JSON (`--format json`) and MUST be ordered
-deterministically (by file, then code, then target).
+Diagnostics MUST be available in machine-readable JSON (`--format json`) and MUST be ordered deterministically (by file, then code, then target).
 
-Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yaml` MAY escalate
-them for a repository; tools MUST NOT escalate unilaterally.
+Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yaml` MAY escalate them for a repository; tools MUST NOT escalate unilaterally.
 
 ## Error codes
 
@@ -45,13 +41,9 @@ them for a repository; tools MUST NOT escalate unilaterally.
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
-`PRODUCT050`-`PRODUCT052` are reported by `doctor` and integration commands; product-model
-validation does not inspect managed files.
+`PRODUCT050`-`PRODUCT052` are reported by `doctor` and integration commands; product-model validation does not inspect managed files.
 
-`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the
-[Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it
-via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy
-belongs to the repository, not the kernel.
+`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
 Diagnostic codes are stable and are never renumbered or reused.
 
@@ -69,14 +61,9 @@ Diagnostic codes are stable and are never renumbered or reused.
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
-`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to
-`<id.toLowerCase()>.md`. It renames through a temporary name so it also works on case-insensitive
-filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and
-exits non-zero when anything would change, which makes it usable as a CI gate: `PRODUCT101` is a
-warning, so it is not otherwise caught unless `warnings-as-errors` is set.
+`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. It renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes it usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.
 
-`PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair;
-see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
+`PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 
 ## Exit codes
 
@@ -89,15 +76,9 @@ see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 
 ## Digests
 
-Content digests are SHA-256 over the artifact's UTF-8 bytes with CRLF and CR line endings
-normalized to LF, rendered as `sha256:<lowercase hex>`. This normalization is mandatory: digests
-MUST be identical across operating systems and Git line-ending configurations. Citation digests
-use the same normalization (see the [Citation Contract](citation-contract.md)).
+Content digests are SHA-256 over the artifact's UTF-8 bytes with CRLF and CR line endings normalized to LF, rendered as `sha256:<lowercase hex>`. This normalization is mandatory: digests MUST be identical across operating systems and Git line-ending configurations. Citation digests use the same normalization (see the [Citation Contract](citation-contract.md)).
 
 ## Determinism requirements
 
-- Artifact discovery, graph compilation, traversal, impact analysis and diagnostic ordering MUST
-  be deterministic and platform-independent.
-- Generated outputs (`product-graph.json`, indexes, Mermaid, diagnostics JSON) MUST be
-  byte-identical for identical input content, and `product-graph.json` MUST carry a versioned
-  schema identifier.
+- Artifact discovery, graph compilation, traversal, impact analysis and diagnostic ordering MUST be deterministic and platform-independent.
+- Generated outputs (`product-graph.json`, indexes, Mermaid, diagnostics JSON) MUST be byte-identical for identical input content, and `product-graph.json` MUST carry a versioned schema identifier.

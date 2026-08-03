@@ -14,13 +14,11 @@ verification:
 
 ## Requirement
 
-The initial product baseline MUST enter through the same reviewed-merge mechanism as every later
-change: a branch, full-tree structural validation, and a human merge into an empty model.
+The initial product baseline MUST enter through the same reviewed-merge mechanism as every later change: a branch, full-tree structural validation, and a human merge into an empty model.
 
 ## Rationale
 
-There is no special-cased first increment; the initial baseline uses the same mechanism as every
-later change.
+There is no special-cased first increment; the initial baseline uses the same mechanism as every later change.
 
 ## Acceptance Scenarios
 

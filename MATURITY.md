@@ -1,8 +1,6 @@
 # Maturity and compatibility
 
-This page is the single source of truth for what each public surface of Product Definition as
-Code is today, and for which version dimensions govern which contract. If any other page
-disagrees with this one, this one wins and the other page has a bug.
+This page is the single source of truth for what each public surface of Product Definition as Code is today, and for which version dimensions govern which contract. If any other page disagrees with this one, this one wins and the other page has a bug.
 
 ## What each surface is, today
 
@@ -17,8 +15,7 @@ disagrees with this one, this one wins and the other page has a bug.
 
 ## Version dimensions
 
-These are different dimensions, not one number. Every validation result should be
-interpretable against this matrix.
+These are different dimensions, not one number. Every validation result should be interpretable against this matrix.
 
 | Dimension | Current | Governs |
 | --- | --- | --- |
@@ -38,5 +35,4 @@ These are release gates, not aspirations to be waived:
 4. Published disagreements discovered by those implementations.
 5. Governance with more than one organization represented.
 
-Until every gate is met, the accurate description of this work is: an open RFC methodology with
-a working reference implementation.
+Until every gate is met, the accurate description of this work is: an open RFC methodology with a working reference implementation.

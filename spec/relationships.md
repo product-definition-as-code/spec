@@ -1,12 +1,10 @@
 # Relationships
 
-The relationships are the methodology: they connect intent (actors), behaviour (journeys, use
-cases), knowledge (rules, terms, contexts) and obligations (requirements).
+The relationships are the methodology: they connect intent (actors), behaviour (journeys, use cases), knowledge (rules, terms, contexts) and obligations (requirements).
 
 ## Canonical vocabulary
 
-Every relationship has exactly one canonical direction: it is authored on one artifact type, in one
-frontmatter field, targeting an allowed set of types.
+Every relationship has exactly one canonical direction: it is authored on one artifact type, in one frontmatter field, targeting an allowed set of types.
 
 | Source                 | Field                      | Allowed targets                                             |
 | ---------------------- | -------------------------- | ----------------------------------------------------------- |
@@ -23,24 +21,17 @@ frontmatter field, targeting an allowed set of types.
 | Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
 | Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
 
-A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a
-validation error.
+A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a validation error.
 
 ## Derived relationships
 
-Reverse relationships are always derived by the graph compiler and MUST NOT be authored or
-manually maintained. Users never maintain reciprocal references.
+Reverse relationships are always derived by the graph compiler and MUST NOT be authored or manually maintained. Users never maintain reciprocal references.
 
 The canonical/derived split is decided once per pair. The load-bearing case:
 
-- **`Domain Term.defined-in` is canonical. `Bounded Context.owns-terms` is derived.**
-  A bounded context's owned terms are exactly the domain terms whose `defined-in` references it.
-  `owns-terms` MUST NOT appear in authored bounded-context frontmatter; schemas reject it. Tools
-  MAY display `owns-terms` in inspection output and generated indexes as a derived field.
+- **`Domain Term.defined-in` is canonical. `Bounded Context.owns-terms` is derived.** A bounded context's owned terms are exactly the domain terms whose `defined-in` references it. `owns-terms` MUST NOT appear in authored bounded-context frontmatter; schemas reject it. Tools MAY display `owns-terms` in inspection output and generated indexes as a derived field.
 
-All other reverse views (`Actor ← journeys`, `Business Rule ← governed use cases`,
-`Use Case ← derived requirements`, and so on) follow the same rule: derived, displayed, never
-authored.
+All other reverse views (`Actor ← journeys`, `Business Rule ← governed use cases`, `Use Case ← derived requirements`, and so on) follow the same rule: derived, displayed, never authored.
 
 ## Status interactions
 
@@ -50,7 +41,4 @@ authored.
 
 ## Reachability
 
-Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are
-connected if a path exists between them in the undirected view of the product graph restricted to
-the canonical product relationships above. A requirement is _reachable from an actor_ when it is
-connected to at least one Actor node under this definition.
+Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are connected if a path exists between them in the undirected view of the product graph restricted to the canonical product relationships above. A requirement is _reachable from an actor_ when it is connected to at least one Actor node under this definition.

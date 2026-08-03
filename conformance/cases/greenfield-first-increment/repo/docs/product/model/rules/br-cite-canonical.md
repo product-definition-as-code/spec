@@ -9,8 +9,7 @@ applies-to:
 
 ## Rule
 
-Consumer documents MUST cite canonical product text through the citation contract; they MUST NOT
-re-state it.
+Consumer documents MUST cite canonical product text through the citation contract; they MUST NOT re-state it.
 
 ## Rationale
 
