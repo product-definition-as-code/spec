@@ -23,20 +23,15 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
 
-An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique
-within one product repository across all artifact kinds.
+An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique within one product repository across all artifact kinds.
 
 ## Authored identifiers
 
-All artifact IDs are authored by humans (possibly assisted by AI) and accepted into the model by a
-reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable
-(`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`). Readability is encouraged but carries no semantics:
-tools MUST treat IDs as opaque.
+All artifact IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
 
 ## Immutability
 
-- An ID becomes immutable when the artifact is first accepted into the current product model by a
-  reviewed merge into the canonical branch.
+- An ID becomes immutable when the artifact is first accepted into the current product model by a reviewed merge into the canonical branch.
 - An ID MUST never be reused, including after its artifact is retired or removed.
 - The artifact's title, file path, body and relationships MAY change; the ID MUST NOT.
 - A revision that modifies an existing artifact MUST keep the same ID.
@@ -51,6 +46,4 @@ Identity is defined by the `id` field only:
 
 ## File naming
 
-An artifact's file name SHOULD be its lowercase ID followed by `.md` (for example
-`fr-validate-001.md` for `FR-VALIDATE-001`). Validation MUST treat file-name misalignment as a
-warning (`PRODUCT101`), never as an error and never as an identity mechanism.
+An artifact's file name SHOULD be its lowercase ID followed by `.md` (for example `fr-validate-001.md` for `FR-VALIDATE-001`). Validation MUST treat file-name misalignment as a warning (`PRODUCT101`), never as an error and never as an identity mechanism.

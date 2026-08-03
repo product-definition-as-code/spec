@@ -16,8 +16,7 @@ The product MUST detect references to unknown artifact IDs and report them as va
 
 ## Rationale
 
-Unresolved references break the product graph; catching them deterministically prevents silent
-drift between artifacts.
+Unresolved references break the product graph; catching them deterministically prevents silent drift between artifacts.
 
 ## Acceptance Scenarios
 

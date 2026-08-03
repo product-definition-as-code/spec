@@ -1,16 +1,10 @@
 # Frontmatter reference
 
-The exhaustive field contract of every document kind: which properties are allowed, which are
-required, and what values they accept.
+The exhaustive field contract of every document kind: which properties are allowed, which are required, and what values they accept.
 
-[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter
-defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win — the
-tables below are generated from them (`pnpm docs:frontmatter`) and a conformance test fails the
-build if they drift.
+[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win — the tables below are generated from them (`pnpm docs:frontmatter`) and a conformance test fails the build if they drift.
 
-Every kind is a **closed** object: an unknown property is a `PRODUCT002` error, not a warning and
-not silently ignored. There is no extension point. If you need to record something the schema does
-not allow, put it in the Markdown body.
+Every kind is a **closed** object: an unknown property is a `PRODUCT002` error, not a warning and not silently ignored. There is no extension point. If you need to record something the schema does not allow, put it in the Markdown body.
 
 Conforming implementations SHOULD expose this contract programmatically (for example as a schema query command), so it can be inspected without a repository.
 
@@ -24,25 +18,17 @@ Conforming implementations SHOULD expose this contract programmatically (for exa
 | Allowed values | The permitted values, or the regular expression a string must match.                                    |
 | Notes          | Constraints and guidance carried by the schema itself.                                                  |
 
-Four fields are common to every Markdown-authored kind: `id` (stable and immutable, see
-[Identifiers](identifiers.md)), `type`, `title` and `status`. Artifact `status` is
-`draft | active | deprecated | retired`.
+Four fields are common to every Markdown-authored kind: `id` (stable and immutable, see [Identifiers](identifiers.md)), `type`, `title` and `status`. Artifact `status` is `draft | active | deprecated | retired`.
 
 ## Provenance
 
-`provenance` is an optional object accepted by all nine artifact kinds. It records the **evidence**
-behind recovered knowledge: where a claim came from and how strongly the evidence supports it.
+`provenance` is an optional object accepted by all nine artifact kinds. It records the **evidence** behind recovered knowledge: where a claim came from and how strongly the evidence supports it.
 
-Set it on recovered (brownfield) artifacts. Leave it unset on greenfield artifacts authored from
-intent — there is no evidence to cite, and an empty claim of provenance is worse than none.
+Set it on recovered (brownfield) artifacts. Leave it unset on greenfield artifacts authored from intent — there is no evidence to cite, and an empty claim of provenance is worse than none.
 
-Provenance is deliberately _not_ authorship metadata. [Artifacts](artifacts.md) forbids author,
-owner, date, version and review fields because Git history already records who changed what and
-when. Provenance answers a different question: how far to trust this artifact's content.
+Provenance is deliberately _not_ authorship metadata. [Artifacts](artifacts.md) forbids author, owner, date, version and review fields because Git history already records who changed what and when. Provenance answers a different question: how far to trust this artifact's content.
 
-A `draft` artifact whose `provenance.confidence` is `low` produces a `PRODUCT111` warning, so the
-queue of candidates needing human validation is derivable from validation output rather
-than tracked by hand.
+A `draft` artifact whose `provenance.confidence` is `low` produces a `PRODUCT111` warning, so the queue of candidates needing human validation is derivable from validation output rather than tracked by hand.
 
 | Field            | Required | Allowed values                                           | Meaning                                                                                                                                                                  |
 | ---------------- | -------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -57,8 +43,7 @@ provenance:
   recovered-from: observation
 ```
 
-`provenance` itself is closed: an unrecognised sub-field such as `recovered-by` is a `PRODUCT002`
-error, and omitting `confidence` while providing `source` is too.
+`provenance` itself is closed: an unrecognised sub-field such as `recovered-by` is a `PRODUCT002` error, and omitting `confidence` while providing `source` is too.
 
 ---
 
@@ -68,8 +53,7 @@ The nine artifact types of the current product model.
 
 ### Actor
 
-`ACT-`. Who or what interacts with the product to achieve a meaningful outcome. See
-[Artifacts → Actor](artifacts.md#actor-actor-act-).
+`ACT-`. Who or what interacts with the product to achieve a meaningful outcome. See [Artifacts → Actor](artifacts.md#actor-actor-act-).
 
 <!-- BEGIN GENERATED: actor -->
 
@@ -89,9 +73,7 @@ The nine artifact types of the current product model.
 
 ### Journey
 
-`JRN-`. An end-to-end outcome pursued by an actor. `steps` defines the main ordered path only;
-branches and exceptional paths belong in the body. See
-[Artifacts → Journey](artifacts.md#journey-journey-jrn-).
+`JRN-`. An end-to-end outcome pursued by an actor. `steps` defines the main ordered path only; branches and exceptional paths belong in the body. See [Artifacts → Journey](artifacts.md#journey-journey-jrn-).
 
 <!-- BEGIN GENERATED: journey -->
 
@@ -113,8 +95,7 @@ branches and exceptional paths belong in the body. See
 
 ### Use Case
 
-`UC-`. A concrete interaction through which an actor obtains a product outcome. See
-[Artifacts → Use Case](artifacts.md#use-case-use-case-uc-).
+`UC-`. A concrete interaction through which an actor obtains a product outcome. See [Artifacts → Use Case](artifacts.md#use-case-use-case-uc-).
 
 <!-- BEGIN GENERATED: use-case -->
 
@@ -141,8 +122,7 @@ branches and exceptional paths belong in the body. See
 
 ### Business Rule
 
-`BR-`. Durable product knowledge that governs behaviour. See
-[Artifacts → Business Rule](artifacts.md#business-rule-business-rule-br-).
+`BR-`. Durable product knowledge that governs behaviour. See [Artifacts → Business Rule](artifacts.md#business-rule-business-rule-br-).
 
 <!-- BEGIN GENERATED: business-rule -->
 
@@ -163,8 +143,7 @@ branches and exceptional paths belong in the body. See
 
 ### Domain Term
 
-`TERM-`. Shared meaning within a bounded context. Ownership is authored here, on the term, and
-never on the context. See [Artifacts → Domain Term](artifacts.md#domain-term-domain-term-term-).
+`TERM-`. Shared meaning within a bounded context. Ownership is authored here, on the term, and never on the context. See [Artifacts → Domain Term](artifacts.md#domain-term-domain-term-term-).
 
 <!-- BEGIN GENERATED: domain-term -->
 
@@ -186,10 +165,7 @@ never on the context. See [Artifacts → Domain Term](artifacts.md#domain-term-d
 
 ### Bounded Context
 
-`BC-`. A product-language boundary. Note the absence of `owns-terms`: term ownership is derived
-from `Domain Term.defined-in` and MUST NOT be authored here (see
-[Relationships](relationships.md)). See
-[Artifacts → Bounded Context](artifacts.md#bounded-context-bounded-context-bc-).
+`BC-`. A product-language boundary. Note the absence of `owns-terms`: term ownership is derived from `Domain Term.defined-in` and MUST NOT be authored here (see [Relationships](relationships.md)). See [Artifacts → Bounded Context](artifacts.md#bounded-context-bounded-context-bc-).
 
 <!-- BEGIN GENERATED: bounded-context -->
 
@@ -208,9 +184,7 @@ from `Domain Term.defined-in` and MUST NOT be authored here (see
 
 ### Functional Requirement
 
-`FR-`. A derived product obligation stating what the product must do. `derived-from` is what keeps
-it traceable to the knowledge it came from. See
-[Artifacts → Functional Requirement](artifacts.md#functional-requirement-functional-requirement-fr-).
+`FR-`. A derived product obligation stating what the product must do. `derived-from` is what keeps it traceable to the knowledge it came from. See [Artifacts → Functional Requirement](artifacts.md#functional-requirement-functional-requirement-fr-).
 
 <!-- BEGIN GENERATED: functional-requirement -->
 
@@ -234,8 +208,7 @@ it traceable to the knowledge it came from. See
 
 ### Quality Requirement
 
-`QR-`. A measurable quality obligation. See
-[Artifacts → Quality Requirement](artifacts.md#quality-requirement-quality-requirement-qr-).
+`QR-`. A measurable quality obligation. See [Artifacts → Quality Requirement](artifacts.md#quality-requirement-quality-requirement-qr-).
 
 <!-- BEGIN GENERATED: quality-requirement -->
 
@@ -260,9 +233,7 @@ it traceable to the knowledge it came from. See
 
 ### Constraint
 
-`CON-`. An externally imposed or deliberately fixed boundary. When `applies-to` is absent the
-constraint applies to the entire product. See
-[Artifacts → Constraint](artifacts.md#constraint-constraint-con-).
+`CON-`. An externally imposed or deliberately fixed boundary. When `applies-to` is absent the constraint applies to the entire product. See [Artifacts → Constraint](artifacts.md#constraint-constraint-con-).
 
 <!-- BEGIN GENERATED: constraint -->
 

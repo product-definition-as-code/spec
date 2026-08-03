@@ -2,5 +2,5 @@
 # Each entry is a citation record: id, digest, optional anchor.
 citations:
   - id: FR-VALIDATE-001
-    digest: sha256:f2303c388d4e7f34b866e99c9f418775be2c72a07a8126be97183743e6af6b58
+    digest: sha256:6ba6c004045166c3bd42072b0c3c65bd7681db00ddae1341a42cb3310d9151f5
     anchor: S1
