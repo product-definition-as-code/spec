@@ -62,7 +62,7 @@ So this methodology distinguishes four questions that a single green check must 
 | Layer | Question it answers | What counts as evidence |
 | --- | --- | --- |
 | Structural validity | Is the model well-formed under this spec version? | Schema and deterministic graph checks |
-| Accepted intent | Has an accountable owner approved this as the current target? | Review, decision record, promotion history |
+| Accepted intent | Has an accountable owner approved this as the current target? | Review, decision record, merge history |
 | Delivery correspondence | Is the target implemented, deployed or verified in a named environment? | Attested claims, tests, release evidence |
 | Outcome validity | Did the change produce the expected result? | Experiments, telemetry, research |
 

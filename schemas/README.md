@@ -22,17 +22,3 @@ Versioning: directories are serialization versions (`v1alpha1`, then `v1beta1`,
 then `v1`). A schema change within a version must be backward compatible;
 anything else starts a new version directory. See [MATURITY.md](../MATURITY.md)
 for how serialization versions relate to spec and tool versions.
-
-## Retired schemas
-
-The following schemas are retired (RFC #4: delivery-model reset) and their files have been removed.
-Their `$id`s MUST never be reused, mirroring the artifact ID immutability rule:
-
-- `urn:product-definition-as-code:schema:product-change:v1alpha1`
-- `urn:product-definition-as-code:schema:delivery-slice:v1alpha1`
-- `urn:product-definition-as-code:schema:product-handoff:v1alpha1`
-- `urn:product-definition-as-code:schema:product-coverage:v1alpha1`
-
-The Product Change, Delivery Slice, Product Handoff and Product Coverage artifacts are no longer
-part of PDaC's normative core. Consumer documents bind to canonical product knowledge through the
-[Citation Contract](../spec/handoff-contract.md) instead.

@@ -23,10 +23,6 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
 
-The prefixes `CHG-` (Product Change), `SLI-` (Delivery Slice) and `HOF-` (Product Handoff) are
-retired: those artifacts are no longer part of PDaC's normative core (see RFC #4). Retired prefixes
-MUST never be reused, mirroring the ID immutability rule below.
-
 An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique
 within one product repository across all artifact kinds.
 

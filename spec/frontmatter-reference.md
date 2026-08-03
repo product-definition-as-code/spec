@@ -26,8 +26,7 @@ Conforming implementations SHOULD expose this contract programmatically (for exa
 
 Four fields are common to every Markdown-authored kind: `id` (stable and immutable, see
 [Identifiers](identifiers.md)), `type`, `title` and `status`. Artifact `status` is
-`draft | active | deprecated | retired`; Product Changes and Delivery Slices have their own
-lifecycles.
+`draft | active | deprecated | retired`.
 
 ## Provenance
 
@@ -225,7 +224,7 @@ it traceable to the knowledge it came from. See
 | `derived-from[]`            | yes      | string          | `^(UC\|BR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 |                                                                                                                                                                    |
 | `verification`              | yes      | array of object |                                                          | At least one entry.                                                                                                                                                |
 | `verification[].scenario`   | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
-| `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the scenario is citable via anchor (see [Citation Contract](handoff-contract.md)).                   |
+| `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the scenario is citable via anchor (see [Citation Contract](citation-contract.md)).                   |
 | `provenance`                | no       | object          |                                                          | Evidence behind recovered knowledge. Set on recovered (brownfield) artifacts only.                                                                                 |
 | `provenance.source`         | yes      | string          |                                                          | Where the knowledge came from: a file path, a URL, a ticket reference, or 'interview: <person>'. Must not be empty.                                                |
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
@@ -251,7 +250,7 @@ it traceable to the knowledge it came from. See
 | `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A journey, use case or bounded context.                                                                                                                            |
 | `verification`              | yes      | array of object |                                                          | At least one entry.                                                                                                                                                |
 | `verification[].scenario`   | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
-| `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the scenario is citable via anchor (see [Citation Contract](handoff-contract.md)).                   |
+| `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the scenario is citable via anchor (see [Citation Contract](citation-contract.md)).                   |
 | `provenance`                | no       | object          |                                                          | Evidence behind recovered knowledge. Set on recovered (brownfield) artifacts only.                                                                                 |
 | `provenance.source`         | yes      | string          |                                                          | Where the knowledge came from: a file path, a URL, a ticket reference, or 'interview: <person>'. Must not be empty.                                                |
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
@@ -281,12 +280,3 @@ constraint applies to the entire product. See
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
 <!-- END GENERATED: constraint -->
-
----
-
-## Retired frontmatter
-
-The Product Change (`CHG-`), Delivery Slice (`SLI-`), Product Handoff (`HOF-`) and Product Coverage
-frontmatter kinds are retired (RFC #4). Their schemas and field tables have been removed; their
-prefixes are never reused (see [Identifiers](identifiers.md)). Consumer documents cite canonical
-product text through the [Citation Contract](handoff-contract.md) instead.

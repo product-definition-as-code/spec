@@ -16,15 +16,15 @@ Product Handoff) that itself re-states knowledge into new containers, and self-h
 the pipeline does not hold:
 
 1. **No conforming greenfield path.** The initial baseline is authored without a Product Change
-   (`product-changes.md`, bootstrap exception), but every Delivery Slice must live inside a Product
-   Change (`delivery-slices.md`) and every handoff must start from an approved slice
-   (`handoff-contract.md`, generation rule 1). There is no conforming way to deliver the initial
+   ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md), bootstrap exception), but every Delivery Slice must live inside a Product
+   Change ([`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md)) and every handoff must start from an approved slice
+   ([`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md), generation rule 1). There is no conforming way to deliver the initial
    baseline.
-2. **Vacuous promotion gates.** Promotion rules 2 and 3 (`product-changes.md`) are satisfied
+2. **Vacuous promotion gates.** Promotion rules 2 and 3 ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md)) are satisfied
    vacuously by a change with zero slices: no slices to complete, no requirements to evidence. An
    implemented change can be promoted with no delivery evidence at all.
 3. **Scope loss.** A slice declares per-requirement `coverage` and `scope`, but the handoff
-   `implements[]` carries bare IDs (`frontmatter-reference.md`). Partial scope is flattened before
+   `implements[]` carries bare IDs ([`frontmatter-reference.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/frontmatter-reference.md)). Partial scope is flattened before
    it reaches any consumer, and promotion unions requirement IDs.
 4. **Unbounded context.** The closure rule has no budget. Real generated contexts have exceeded
    16,000 words for a single slice, which contradicts "exactly the product subgraph that increment
@@ -46,7 +46,7 @@ scrutiny: stable identity, typed relationships, deterministic validation and con
 - `Product Change` ceases to be a normative PDaC artifact. The term now names the repository's
   native mechanism: a branch, a review, a merge (a pull request or the host's equivalent). There is
   no `change.md`, no `operations` frontmatter, no change lifecycle and no `CHG-` artifact. The
-  `CHG-`, `SLI-` and `HOF-` prefixes are retired and, per `identifiers.md`, never reused.
+  `CHG-`, `SLI-` and `HOF-` prefixes are retired and, per [`identifiers.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/identifiers.md), never reused.
 - Validation of a proposal is full structural validation of the proposed tree. This replaces
   overlay validation; the overlay is the branch.
 - Tooling MUST NOT merge a proposal that fails structural validation (CI gate).
@@ -99,11 +99,11 @@ schema change this RFC requires.
 
 ### 4. Retired and subsumed text
 
-- Chapters removed from the normative spec: `product-changes.md`, `delivery-slices.md`. This
+- Chapters removed from the normative spec: [`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md), [`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md). This
   retires the Delivery Slice artifact, not slicing: PDaC does not own delivery decomposition.
   Consumers may slice work however their process demands; PDaC only provides accepted intent and
   verifiable citations to the product model.
-- `handoff-contract.md` is replaced by the citation contract. A "handoff" remains available as a
+- [`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md) is replaced by the citation contract. A "handoff" remains available as a
   non-normative convenience: a generated document composed entirely of citations, with a stated size
   budget.
 - Diagnostics retired, not deprecated: `PRODUCT020`–`PRODUCT027`, `PRODUCT030`–`PRODUCT032`,

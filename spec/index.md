@@ -19,17 +19,17 @@ disagree, this specification wins.
 
 ## Contents
 
-1. [Terminology](terminology.md) — definitions of the terms used normatively.
-2. [Artifacts](artifacts.md) — artifact types, frontmatter contracts, required body sections,
+1. [Terminology](terminology.md) - definitions of the terms used normatively.
+2. [Artifacts](artifacts.md) - artifact types, frontmatter contracts, required body sections,
    lifecycle states.
-3. [Frontmatter reference](frontmatter-reference.md) — the exhaustive per-kind field tables
+3. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables
    (generated from the schemas): required and optional fields, allowed values, provenance.
-4. [Identifiers](identifiers.md) — stable immutable IDs, prefixes, grammar, file naming.
-5. [Relationships](relationships.md) — canonical relationship vocabulary and derivation rules.
-6. [Citation Contract](handoff-contract.md) — machine-verifiable references from consumer
+4. [Identifiers](identifiers.md) - stable immutable IDs, prefixes, grammar, file naming.
+5. [Relationships](relationships.md) - canonical relationship vocabulary and derivation rules.
+6. [Citation Contract](citation-contract.md) - machine-verifiable references from consumer
    documents to canonical product text, citation statuses, the delivery boundary.
-7. [Validation](validation.md) — deterministic diagnostics, stable codes, exit codes.
-8. [Conformance](conformance.md) — what it means for a repository and an implementation to
+7. [Validation](validation.md) - deterministic diagnostics, stable codes, exit codes.
+8. [Conformance](conformance.md) - what it means for a repository and an implementation to
    conform.
 
 ## Canonical authority

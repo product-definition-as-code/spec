@@ -17,7 +17,7 @@ disagrees with this one, this one wins and the other page has a bug.
 
 ## Version dimensions
 
-These are different dimensions, not one number. Every validation result and handoff should be
+These are different dimensions, not one number. Every validation result should be
 interpretable against this matrix.
 
 | Dimension | Current | Governs |

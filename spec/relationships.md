@@ -52,6 +52,5 @@ authored.
 
 Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are
 connected if a path exists between them in the undirected view of the product graph restricted to
-the canonical product relationships above (excluding Product Change, Delivery Slice and Product
-Handoff edges). A requirement is _reachable from an actor_ when it is connected to at least one
-Actor node under this definition.
+the canonical product relationships above. A requirement is _reachable from an actor_ when it is
+connected to at least one Actor node under this definition.

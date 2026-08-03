@@ -5,8 +5,8 @@
 
 **Spec references:**
 
-- [Citation Contract](../../spec/handoff-contract.md) — citation record, `current` status.
-- [Validation](../../spec/validation.md) — `PRODUCT060`–`PRODUCT063` (none expected here).
+- [Citation Contract](../../../spec/citation-contract.md) - citation record, `current` status.
+- [Validation](../../../spec/validation.md) - `PRODUCT060`-`PRODUCT063` (none expected here).
 
 ## Fixture
 

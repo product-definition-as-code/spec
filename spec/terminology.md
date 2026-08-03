@@ -19,16 +19,15 @@ not part of the baseline.
 **Product Change.** The repository's native branch-review-merge mechanism: a branch bearing a
 proposed revision, a review, and a merge (a pull request or the host's equivalent). A Product Change
 is not a PDaC artifact: there is no `change.md`, no `operations` frontmatter, no change lifecycle
-and no `CHG-` ID. Validation of a proposal is full structural validation of the proposed tree.
+and no dedicated ID. Validation of a proposal is full structural validation of the proposed tree.
 
 **Proposal.** A branch bearing a proposed revision of the baseline, validated as a full tree before
-merge. The overlay is the branch: the proposed tree is validated directly, not as a delta applied to
-the baseline.
+merge. The proposed tree is validated directly, not as a delta applied to the baseline.
 
 **Citation.** A machine-verifiable reference from a consumer document to canonical product text:
 the target artifact's `id`, the content `digest` of the cited canonical text, and an optional
 `anchor` addressing a verification scenario by its stable `id`. See the
-[Citation Contract](handoff-contract.md).
+[Citation Contract](citation-contract.md).
 
 **Product Graph.** The derived directed graph whose nodes are product artifacts and whose typed
 edges are the canonical relationships declared in artifact frontmatter, together with derived
@@ -45,8 +44,8 @@ recorded for it.
 
 **Provenance.** The evidence behind a recovered claim: where the knowledge came from, how strongly
 that source supports it, and how it was recovered. Provenance is an epistemic property of an
-artifact's content, not a record of authorship — Git history remains the record of who changed what
-and when — and it is set only on artifacts recovered from an existing system. See the
+artifact's content, not a record of authorship - Git history remains the record of who changed what
+and when - and it is set only on artifacts recovered from an existing system. See the
 [Frontmatter reference](frontmatter-reference.md#provenance).
 
 **SDD (Spec-Driven Development) framework.** A framework such as OpenSpec that owns the

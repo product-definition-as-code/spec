@@ -46,17 +46,15 @@ them for a repository; tools MUST NOT escalate unilaterally.
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
-`PRODUCT050`–`PRODUCT052` are reported by `doctor` and integration commands; product-model
+`PRODUCT050`-`PRODUCT052` are reported by `doctor` and integration commands; product-model
 validation does not inspect managed files.
 
-`PRODUCT060`–`PRODUCT063` are citation diagnostics; see the
-[Citation Contract](handoff-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it
+`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the
+[Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it
 via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy
 belongs to the repository, not the kernel.
 
-Retired codes (`PRODUCT020`–`PRODUCT027`, `PRODUCT030`–`PRODUCT032`, `PRODUCT040`–`PRODUCT041`,
-`PRODUCT043`–`PRODUCT044`, `PRODUCT108`–`PRODUCT110`) are never reused, mirroring the ID
-immutability rule. Keeping them alive would keep the previous mental model alive.
+Diagnostic codes are stable and are never renumbered or reused.
 
 ## Warning codes
 
@@ -94,7 +92,7 @@ see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 Content digests are SHA-256 over the artifact's UTF-8 bytes with CRLF and CR line endings
 normalized to LF, rendered as `sha256:<lowercase hex>`. This normalization is mandatory: digests
 MUST be identical across operating systems and Git line-ending configurations. Citation digests
-use the same normalization (see the [Citation Contract](handoff-contract.md)).
+use the same normalization (see the [Citation Contract](citation-contract.md)).
 
 ## Determinism requirements
 

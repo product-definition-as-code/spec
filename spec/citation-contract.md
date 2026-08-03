@@ -1,7 +1,7 @@
 # Citation Contract
 
-A **citation** is a machine-verifiable reference from any consumer document — a Spec-Driven
-Development (SDD) spec, a task, an agent prompt file, a design doc — to canonical product text. This
+A **citation** is a machine-verifiable reference from any consumer document - a Spec-Driven
+Development (SDD) spec, a task, an agent prompt file, a design doc - to canonical product text. This
 chapter uses "the consumer" for all of them.
 
 The citation contract is the delivery boundary of Product Definition as Code. Consumers do not
@@ -92,17 +92,18 @@ conformance criterion. Deterministic tools enforce structure, AI does semantic w
 
 Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their
 own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY
-propose a revision — a pull request — when implementation reveals a contradiction; a human decides
+propose a revision - a pull request - when implementation reveals a contradiction; a human decides
 whether to merge it ([manifesto](../MANIFESTO.md) principle 9). Merging is a human decision: tools
 MUST NOT merge, auto-approve or self-merge model changes.
 
-Cross-repository citation resolution — where a cited model lives in a different repository than the
-consumer document — is out of scope for this chapter and tracked under
+Cross-repository citation resolution - where a cited model lives in a different repository than the
+consumer document - is out of scope for this chapter and tracked under
 [RFC #2 (deployment topologies)](https://github.com/product-definition-as-code/spec/issues/2).
 
-## Handoff (non-normative)
+## Generated context documents
 
-A "handoff" remains available as a non-normative convenience: a generated document composed entirely
-of citations, with a stated size budget. It is not a PDaC artifact, carries no `HOF-` ID, and is not
-required for conformance. Consumers that find a generated citation bundle useful MAY produce one;
-the citation contract is the normative surface, not the bundle.
+A repository MAY generate a readable document composed entirely of citations, for the convenience of
+a consumer that prefers a single bundle over resolving citations individually. Such a generated
+document is non-canonical, reproducible from the citations it contains, and carries an explicit size
+budget it never silently exceeds. It is not a PDaC artifact and is not required for conformance;
+the citation contract is the normative surface, not any generated bundle.

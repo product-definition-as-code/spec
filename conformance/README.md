@@ -22,9 +22,7 @@ so "conformant with v1.0" is a precise, checkable claim.
 
 ## Seed corpus (RFC #4: delivery-model reset)
 
-The pipeline fixtures (Product Change, Delivery Slice, Product Handoff) are retired and were never
-populated. The seed corpus targets the citation contract and the six acceptance scenarios from
-RFC #4:
+The seed corpus targets the citation contract and the six acceptance scenarios from RFC #4:
 
 | Case | Verifies | Status |
 | --- | --- | --- |

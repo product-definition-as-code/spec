@@ -15,7 +15,7 @@ A repository conforms to Product Definition as Code v0.1 when:
    evolution happens only through reviewed merges, and the initial baseline enters through the same
    mechanism as every later change (a reviewed merge into an empty model).
 6. Consumer documents outside `docs/product/model` MAY carry citations to canonical product text;
-   a conforming tool verifies those citations per the [citation contract](handoff-contract.md).
+   a conforming tool verifies those citations per the [citation contract](citation-contract.md).
 
 ## Implementation conformance
 
@@ -27,11 +27,11 @@ An implementation (tooling) conforms when:
    derived output.
 3. It derives reverse relationships and never requires reciprocal authoring.
 4. It computes digests with the mandated LF normalization.
-5. It MUST NOT merge a proposal that fails structural validation (the CI gate); the overlay is the
-   branch, and validation is full structural validation of the proposed tree.
+5. It MUST NOT merge a proposal that fails structural validation (the CI gate); validation is full
+   structural validation of the proposed tree.
 6. It MUST NOT merge, auto-approve or self-merge model changes: merging is a human decision.
 7. It MUST compute citation statuses deterministically per the
-   [citation contract](handoff-contract.md).
+   [citation contract](citation-contract.md).
 8. It treats warnings as non-fatal unless the repository opts into `warnings-as-errors`.
 
 ## Violation mapping

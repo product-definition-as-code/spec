@@ -19,7 +19,8 @@ change: a branch, full-tree structural validation, and a human merge into an emp
 
 ## Rationale
 
-The bootstrap exception is retired (RFC #4); there is no special-cased first increment.
+There is no special-cased first increment; the initial baseline uses the same mechanism as every
+later change.
 
 ## Acceptance Scenarios
 
