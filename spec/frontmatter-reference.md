@@ -2,7 +2,7 @@
 
 The exhaustive field contract of every document kind: which properties are allowed, which are required, and what values they accept.
 
-[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win — the tables below are generated from them (`pnpm docs:frontmatter`) and a conformance test fails the build if they drift.
+[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win: the tables below are generated from the schemas, and a conformance test fails the build if they drift.
 
 Every kind is a **closed** object: an unknown property is a `PRODUCT002` error, not a warning and not silently ignored. There is no extension point. If you need to record something the schema does not allow, put it in the Markdown body.
 
@@ -24,7 +24,7 @@ Four fields are common to every Markdown-authored kind: `id` (stable and immutab
 
 `provenance` is an optional object accepted by all nine artifact kinds. It records the **evidence** behind recovered knowledge: where a claim came from and how strongly the evidence supports it.
 
-Set it on recovered (brownfield) artifacts. Leave it unset on greenfield artifacts authored from intent — there is no evidence to cite, and an empty claim of provenance is worse than none.
+Set it on recovered (brownfield) artifacts. Leave it unset on greenfield artifacts authored from intent: there is no evidence to cite, and an empty claim of provenance is worse than none.
 
 Provenance is deliberately _not_ authorship metadata. [Artifacts](artifacts.md) forbids author, owner, date, version and review fields because Git history already records who changed what and when. Provenance answers a different question: how far to trust this artifact's content.
 

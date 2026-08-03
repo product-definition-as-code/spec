@@ -4,4 +4,4 @@ Organizations and projects using Product Definition as Code in real repositories
 
 | Adopter | Since | How |
 | --- | --- | --- |
-| [ProductShape](https://github.com/juangcarmona/productshape) | 2026 | The reference implementation defines itself with its own methodology (60+ artifacts, full change loop) |
+| [ProductShape](https://github.com/juangcarmona/productshape) | 2026 | The reference implementation defines itself with its own methodology (60+ artifacts, self-hosted product model) |

@@ -17,7 +17,7 @@ Rules of the corpus: fixtures are plain files with no tooling assumptions; expec
 
 ## Seed corpus
 
-The seed corpus targets the citation contract and the six acceptance scenarios from RFC #4:
+The seed corpus targets the citation contract and six end-to-end acceptance scenarios:
 
 | Case | Verifies | Status |
 | --- | --- | --- |

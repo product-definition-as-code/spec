@@ -6,7 +6,7 @@ This is the normative specification for Product Definition as Code. It defines t
 
 The key words **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT** and **MAY** in these documents are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
-Human-facing explanations live in the [methodology overview](https://github.com/juangcarmona/productshape/blob/main/docs/methodology/overview.md) of the reference implementation. Where any explanatory text and this specification appear to disagree, this specification wins.
+Human-facing explanations live in the [manifesto](../MANIFESTO.md), in particular the position in full. Where any explanatory text and this specification appear to disagree, this specification wins.
 
 ## Contents
 
