@@ -20,4 +20,4 @@ Both citations are `current`.
 ## Expected
 
 `expected.json` asserts zero diagnostics: the model is structurally valid, both citations resolve
-with matching digests, and no retired artifact types or prefixes are present.
+with matching digests.

@@ -55,12 +55,11 @@ belongs to the repository, not the kernel.
 
 Diagnostic codes are stable and are never renumbered or reused.
 
-Diagnostic codes are stable and are never renumbered or reused.
-
 ## Warning codes
 
 | Code         | Condition                                                                                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT101` | Artifact file name not aligned with its ID                                                                                                                         |
 | `PRODUCT102` | Active use case not present in any journey                                                                                                                         |
 | `PRODUCT103` | Requirement not reachable from any actor (see [Relationships → Reachability](relationships.md#reachability)); product-wide constraints are reachable by definition |
@@ -68,7 +67,6 @@ Diagnostic codes are stable and are never renumbered or reused.
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
 | `PRODUCT106` | Domain term with no usage                                                                                                                                          |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
-| `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to

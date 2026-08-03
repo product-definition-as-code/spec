@@ -4,6 +4,9 @@ type: use-case
 title: Validate artifact references
 status: active
 primary-actor: ACT-VALIDATOR
+governed-by:
+  - BR-NO-SILENT-EDITS
+  - BR-CITE-CANONICAL
 ---
 
 ## Goal
