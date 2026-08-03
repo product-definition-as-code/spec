@@ -39,6 +39,7 @@ tools MUST treat IDs as opaque.
   reviewed merge into the canonical branch.
 - An ID MUST never be reused, including after its artifact is retired or removed.
 - The artifact's title, file path, body and relationships MAY change; the ID MUST NOT.
+- A revision that modifies an existing artifact MUST keep the same ID.
 
 ## Identity is not location
 

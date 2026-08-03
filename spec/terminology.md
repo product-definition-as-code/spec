@@ -17,9 +17,8 @@ an accepted artifact may be unimplemented, and an implemented artifact that was 
 not part of the baseline.
 
 **Product Change.** The repository's native branch-review-merge mechanism: a branch bearing a
-proposed revision, a review, and a merge (a pull request or the host's equivalent). A Product Change
-is not a PDaC artifact: there is no `change.md`, no `operations` frontmatter, no change lifecycle
-and no dedicated ID. Validation of a proposal is full structural validation of the proposed tree.
+proposed revision, a review, and a merge (a pull request or the host's equivalent). Validation of
+a proposal is full structural validation of the proposed tree.
 
 **Proposal.** A branch bearing a proposed revision of the baseline, validated as a full tree before
 merge. The proposed tree is validated directly, not as a delta applied to the baseline.

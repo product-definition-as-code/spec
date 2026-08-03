@@ -38,6 +38,6 @@ An implementation (tooling) conforms when:
 
 Each normative statement in this specification maps to a diagnostic in
 [Validation](validation.md); the conformance fixtures under `conformance/cases/` exercise
-representative violations and assert their codes. Retired diagnostic codes are never reused, mirroring
-the ID immutability rule. A change to normative behaviour MUST update the specification, the
+representative violations and assert their codes. Diagnostic codes are stable and are never
+renumbered or reused. A change to normative behaviour MUST update the specification, the
 diagnostic table and the fixtures together.

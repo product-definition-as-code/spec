@@ -13,8 +13,9 @@ actors, two rules, and one FR with scenario ids; the PR is merged; an SDD spec c
 ## Fixture
 
 `repo/` represents the state *after* the reviewed merge: the canonical branch now contains the
-added actors, rules, and FR. A consumer spec (`repo/specs/feature-greenfield.md`) cites the FR's
-scenario `S1` and one of the business rules. Both citations are `current`.
+added actors, use case, journey, rules, and FR. A consumer spec
+(`repo/specs/feature-greenfield.md`) cites the FR's scenario `S1` and one of the business rules.
+Both citations are `current`.
 
 ## Expected
 

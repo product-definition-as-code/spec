@@ -2,9 +2,5 @@
 # Each entry is a citation record: id, digest, optional anchor.
 citations:
   - id: FR-VALIDATE-001
-    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    digest: sha256:f2303c388d4e7f34b866e99c9f418775be2c72a07a8126be97183743e6af6b58
     anchor: S1
-# NOTE: the digest above is a placeholder. A conforming tool recomputes the
-# digest from the canonical artifact content and compares it to this value.
-# In this fixture the recorded digest matches the canonical content, so the
-# citation status is `current` and no PRODUCT06x diagnostic is produced.

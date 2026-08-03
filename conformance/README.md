@@ -20,7 +20,7 @@ reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/valida
 covers exactly one normative clause wherever possible; and the corpus is versioned with the spec,
 so "conformant with v1.0" is a precise, checkable claim.
 
-## Seed corpus (RFC #4: delivery-model reset)
+## Seed corpus
 
 The seed corpus targets the citation contract and the six acceptance scenarios from RFC #4:
 
@@ -37,5 +37,3 @@ The seed corpus targets the citation contract and the six acceptance scenarios f
 | `work-over-existing-baseline` | acceptance scenario 4: cite baseline requirements directly | planned |
 | `bug-or-refactor` | acceptance scenario 5: no model PR; cite governing rule; `current` | planned |
 | `brownfield-recovery` | acceptance scenario 6: recovered artifacts enter via PRs; `PRODUCT111` | planned |
-
-The remaining cases are planned follow-ups to keep the initial RFC #4 PR reviewable.

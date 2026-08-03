@@ -136,7 +136,7 @@ A Functional Requirement is a derived product obligation stating what the produc
 
 Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or
 Constraint IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each
-optionally carrying a stable `id` for citation anchoring — see
+optionally carrying a stable `id` for citation anchoring; see
 [Frontmatter reference](frontmatter-reference.md)).
 
 Required body sections: `## Requirement`, `## Rationale`, `## Acceptance Scenarios`.
@@ -152,7 +152,7 @@ A Quality Requirement states a measurable quality obligation.
 Additional frontmatter: `quality-attribute` (required, string such as `portability`,
 `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context
 IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each optionally
-carrying a stable `id` for citation anchoring — see
+carrying a stable `id` for citation anchoring; see
 [Frontmatter reference](frontmatter-reference.md)).
 
 Required body sections: `## Requirement`, `## Measurement`, `## Verification`.

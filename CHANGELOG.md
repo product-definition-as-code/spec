@@ -15,8 +15,6 @@ specification is versioned with semantic versioning, independently of any implem
   `tampered`, `unresolved`) and emits diagnostics `PRODUCT060`-`PRODUCT063` (RFC #4).
 - Functional and Quality Requirements accept an optional stable `id` on each `verification[]`
   entry, enabling scenario-id citation anchors. Backward compatible within `v1alpha1` (RFC #4).
-- Manifesto principles 5, 8 and 9 reworded to reflect accepted intent, citations and the
-  consumer-proposes-revision mechanism (RFC #4).
 - Initial extraction of the specification chapters from the reference implementation
   (ProductShape), with implementation-specific references neutralized.
 - Manifesto restructured into a signable core (four value pairs, ten principles) plus the

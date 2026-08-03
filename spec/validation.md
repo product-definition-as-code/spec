@@ -42,7 +42,6 @@ them for a repository; tools MUST NOT escalate unilaterally.
 | `PRODUCT051` | Managed integration file modified by hand                                              |
 | `PRODUCT052` | Expected managed or generated file missing                                             |
 | `PRODUCT060` | Unresolved citation: target `id` or `anchor` does not resolve                          |
-| `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation       |
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
@@ -53,6 +52,8 @@ validation does not inspect managed files.
 [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it
 via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy
 belongs to the repository, not the kernel.
+
+Diagnostic codes are stable and are never renumbered or reused.
 
 Diagnostic codes are stable and are never renumbered or reused.
 
@@ -67,6 +68,7 @@ Diagnostic codes are stable and are never renumbered or reused.
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
 | `PRODUCT106` | Domain term with no usage                                                                                                                                          |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
+| `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to
