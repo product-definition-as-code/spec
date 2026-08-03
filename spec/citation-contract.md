@@ -25,8 +25,7 @@ A citation MAY exist in any of three forms; v0.1 does not mandate one:
 - a **Markdown marker block** delimiting an embedded projection (see Embedding below);
 - a **YAML sidecar ledger** accompanying the consumer document.
 
-The pilot will exercise all three forms; a follow-up normalizes. The spec defines the citation
-record shape, not a mandatory serialization.
+The spec defines the citation record shape, not a mandatory serialization.
 
 ## Anchors
 
