@@ -1,8 +1,7 @@
 # Artifacts
 
 This chapter defines the artifact types of the current product model, their frontmatter contracts,
-required body sections and lifecycle states. Product Changes, Delivery Slices and Product Handoffs
-are specified in their own chapters.
+required body sections and lifecycle states.
 
 ## Common contract
 
@@ -53,9 +52,7 @@ Rules:
 - An `active` artifact MUST NOT reference a `retired` artifact.
 - A reference from an `active` artifact to a `deprecated` artifact SHOULD produce a warning.
 - `draft` artifacts MAY reference other `draft` artifacts.
-- This lifecycle applies to product artifacts only. Product Changes and Delivery Slices have their
-  own lifecycles (see [Product Changes](product-changes.md) and
-  [Delivery Slices](delivery-slices.md)); the three lifecycles are distinct and MUST NOT be mixed.
+- This lifecycle applies to product artifacts only.
 
 ## Actor (`actor`, `ACT-`)
 
@@ -138,7 +135,9 @@ Required body sections: `## Responsibility`, `## Language`, `## Boundaries`,
 A Functional Requirement is a derived product obligation stating what the product must do.
 
 Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or
-Constraint IDs); `verification` (required, non-empty list of `- scenario: <text>` entries).
+Constraint IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each
+optionally carrying a stable `id` for citation anchoring; see
+[Frontmatter reference](frontmatter-reference.md)).
 
 Required body sections: `## Requirement`, `## Rationale`, `## Acceptance Scenarios`.
 
@@ -152,7 +151,9 @@ A Quality Requirement states a measurable quality obligation.
 
 Additional frontmatter: `quality-attribute` (required, string such as `portability`,
 `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context
-IDs); `verification` (required, non-empty list of `- scenario: <text>` entries).
+IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each optionally
+carrying a stable `id` for citation anchoring; see
+[Frontmatter reference](frontmatter-reference.md)).
 
 Required body sections: `## Requirement`, `## Measurement`, `## Verification`.
 

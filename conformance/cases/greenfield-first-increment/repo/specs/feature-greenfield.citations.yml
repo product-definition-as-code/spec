@@ -1,0 +1,7 @@
+# Citation ledger for specs/feature-greenfield.md
+citations:
+  - id: FR-GREENFIELD-001
+    digest: sha256:522ea7e82c3744f28ab0b1d7a904cd1620a2e0d6c3753570fc24d529e96566d4
+    anchor: S1
+  - id: BR-NO-SILENT-EDITS
+    digest: sha256:b26cb71b0dec13bdc0a927099fd03bb7cc36b035326914d8368551f04b27971b

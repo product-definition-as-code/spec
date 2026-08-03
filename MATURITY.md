@@ -11,13 +11,13 @@ disagrees with this one, this one wins and the other page has a bug.
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
-| Conformance | Self-conformance only; independent corpus and runner planned |
+| Conformance | Citation-contract corpus scaffolded; independent runner planned |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 
 ## Version dimensions
 
-These are different dimensions, not one number. Every validation result and handoff should be
+These are different dimensions, not one number. Every validation result should be
 interpretable against this matrix.
 
 | Dimension | Current | Governs |
@@ -26,7 +26,7 @@ interpretable against this matrix.
 | Serialization version | v1alpha1 | File representation and schemas |
 | Conformance suite | none published | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |
-| Integration profile | openspec adapter | Handoff landing contract |
+| Integration profile | openspec adapter | Citation contract |
 
 ## Gates before v1 may be called a standard
 

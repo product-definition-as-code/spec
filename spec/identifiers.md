@@ -22,37 +22,24 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `FR-`   | Functional Requirement |
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
-| `CHG-`  | Product Change         |
-| `SLI-`  | Delivery Slice         |
-| `HOF-`  | Product Handoff        |
 
 An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique
 within one product repository across all artifact kinds.
 
-## Generated identifiers
+## Authored identifiers
 
-`HOF-` is the one prefix whose IDs the tooling mints rather than a human authoring them. A Product
-Handoff ID is derived from the work-item reference it packages:
-`HOF-<provider>-<work-item id>`, uppercased.
-
-That derivation does not guarantee uniqueness. One work item delivering more than one delivery slice
-produces one handoff per slice, all carrying the same ID, and nothing currently rejects it. The
-intended shape is one work item per slice, which keeps IDs unique; the gap and the candidate fixes
-are recorded as `OD-009` in `OPEN-DECISIONS.md`. Consumers MUST NOT resolve a handoff by ID alone:
-evidence discovery matches on the handoff's recorded `source.product-change` and
-`source.delivery-slice`, which are unambiguous.
-
-IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`). Readability is encouraged
-but carries no semantics: tools MUST treat IDs as opaque.
+All artifact IDs are authored by humans (possibly assisted by AI) and accepted into the model by a
+reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable
+(`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`). Readability is encouraged but carries no semantics:
+tools MUST treat IDs as opaque.
 
 ## Immutability
 
-- An ID becomes immutable when the artifact is first accepted into the current product model
-  (by the initial baseline or by promotion of a Product Change).
+- An ID becomes immutable when the artifact is first accepted into the current product model by a
+  reviewed merge into the canonical branch.
 - An ID MUST never be reused, including after its artifact is retired or removed.
 - The artifact's title, file path, body and relationships MAY change; the ID MUST NOT.
-- A Product Change that modifies an existing artifact MUST use the same ID in its proposed
-  future-state artifact.
+- A revision that modifies an existing artifact MUST keep the same ID.
 
 ## Identity is not location
 

@@ -1,0 +1,6 @@
+# Citation ledger for specs/feature-x.md
+# Each entry is a citation record: id, digest, optional anchor.
+citations:
+  - id: FR-VALIDATE-001
+    digest: sha256:f2303c388d4e7f34b866e99c9f418775be2c72a07a8126be97183743e6af6b58
+    anchor: S1

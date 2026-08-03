@@ -4,41 +4,33 @@ Definitions used normatively throughout this specification.
 
 **Product Artifact.** An independently addressable unit of product knowledge with a stable
 immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional
-Requirement, Quality Requirement or Constraint. Product Changes, Delivery Slices and Product
-Handoffs also carry IDs but are not part of the current product model.
+Requirement, Quality Requirement or Constraint.
 
 **Current Product Model (Baseline).** The set of product artifacts under `docs/product/model`.
-It describes the product as currently defined, including behaviour that is implemented and
-accepted. Also called the _baseline_ when a Product Change is validated against it.
+It describes the product as currently defined, including behaviour that is accepted. The baseline
+is the accepted product intent on the repository's canonical branch; acceptance and implementation
+are distinct facts. Also called the _baseline_.
+
+**Accepted.** A product artifact is accepted when it has been merged into the canonical branch by
+a human through a reviewed merge. Acceptance is a fact about the model, not about implementation:
+an accepted artifact may be unimplemented, and an implemented artifact that was never merged is
+not part of the baseline.
+
+**Product Change.** The repository's native branch-review-merge mechanism: a branch bearing a
+proposed revision, a review, and a merge (a pull request or the host's equivalent). Validation of
+a proposal is full structural validation of the proposed tree.
+
+**Proposal.** A branch bearing a proposed revision of the baseline, validated as a full tree before
+merge. The proposed tree is validated directly, not as a delta applied to the baseline.
+
+**Citation.** A machine-verifiable reference from a consumer document to canonical product text:
+the target artifact's `id`, the content `digest` of the cited canonical text, and an optional
+`anchor` addressing a verification scenario by its stable `id`. See the
+[Citation Contract](citation-contract.md).
 
 **Product Graph.** The derived directed graph whose nodes are product artifacts and whose typed
 edges are the canonical relationships declared in artifact frontmatter, together with derived
 reverse indexes. The graph is always compiled from the canonical files and is never authored.
-
-**Product Change.** An explicit, versioned delta against the baseline: additions, modifications
-and removals, each represented by complete proposed future-state artifacts, plus rationale and open
-questions. Stored under `docs/product/changes/`.
-
-**Overlay.** The virtual product model obtained by applying a Product Change's operations to the
-baseline without modifying baseline files. Validation of a Product Change compiles and validates
-the overlay.
-
-**Delivery Slice.** A coherent, implementable, verifiable product increment carved out of an
-approved Product Change, with explicit requirement coverage and verification declarations.
-
-**Product Handoff.** A generated, framework-independent contract that packages the product
-subgraph relevant to one delivery increment — artifact list, digests, source revision, work-item
-reference — for consumption by a Spec-Driven Development (SDD) framework.
-
-**Product Context.** The generated human-readable document (`product-context.md`) accompanying a
-Product Handoff. It is non-canonical.
-
-**Promotion.** The explicit operation that applies an implemented and verified Product Change's
-operations to the baseline and moves the change to `changes/completed`.
-
-**Staleness.** The state of a Product Handoff whose referenced artifacts' content digests no
-longer match the current canonical content. Staleness is judged per referenced artifact, never by
-unrelated repository activity.
 
 **Canonical / Derived / Generated.** _Canonical_ files are authored by humans (possibly assisted
 by AI) and are the source of truth. _Derived_ or _generated_ files are produced by tooling from
@@ -51,13 +43,14 @@ recorded for it.
 
 **Provenance.** The evidence behind a recovered claim: where the knowledge came from, how strongly
 that source supports it, and how it was recovered. Provenance is an epistemic property of an
-artifact's content, not a record of authorship — Git history remains the record of who changed what
-and when — and it is set only on artifacts recovered from an existing system. See the
+artifact's content, not a record of authorship - Git history remains the record of who changed what
+and when - and it is set only on artifacts recovered from an existing system. See the
 [Frontmatter reference](frontmatter-reference.md#provenance).
 
 **SDD (Spec-Driven Development) framework.** A framework such as OpenSpec that owns the
 specification, design, task and verification workflow for one implementation increment. SDD
-frameworks consume Product Handoffs; they do not own canonical product semantics.
+frameworks consume canonical product knowledge through citations; they do not own canonical product
+semantics.
 
 **Structural impact.** The set of artifacts reachable from a given artifact through graph edges
 within a stated direction and depth. Structural impact is deterministic and makes no semantic

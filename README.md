@@ -8,7 +8,7 @@
 
 PDaC is an open methodology for the upstream layer of the AI-SDLC. It models product knowledge as a versioned, validated graph of small, related Markdown artifacts: actors, journeys, use cases, business rules, domain language and requirements. Humans and AI agents consume the same canonical model, and every implementation increment traces back to the product knowledge it serves.
 
-The boundary of the methodology is delivery itself, not one delivery discipline: the Product Handoff is a delivery-neutral package, and the same handoff briefs a Spec-Driven Development framework, an AI coding agent, or a human team working from the backlog.
+The boundary of the methodology is delivery itself, not one delivery discipline: the citation contract binds consumers to canonical product knowledge, and the same citations brief a Spec-Driven Development framework, an AI coding agent, or a human team working from the backlog.
 
 This repository holds the specification, the manifesto and the conformance corpus. It is implementation-independent by design: the spec defines contracts, not commands.
 
@@ -27,7 +27,7 @@ The specification text is being extracted from the [reference implementation](ht
 
 ## Contents
 
-The specification lives in [`spec/`](spec/index.md), in ten chapters: terminology, artifacts, frontmatter reference, identifiers, relationships, product changes, delivery slices, the handoff contract, validation, and conformance. The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+The specification lives in [`spec/`](spec/index.md), in eight chapters: terminology, artifacts, frontmatter reference, identifiers, relationships, the citation contract, validation, and conformance. The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
 The founding position is [the manifesto](MANIFESTO.md). You can [sign it](SIGNATORIES.md).
 

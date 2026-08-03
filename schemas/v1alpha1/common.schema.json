@@ -2,27 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:product-definition-as-code:schema:common:v1alpha1",
   "title": "Common definitions",
-  "description": "Shared identifier patterns and lifecycle enums. Lifecycles are deliberately separate definitions: artifacts, product changes and delivery slices each have their own state machine.",
+  "description": "Shared identifier patterns and lifecycle enums for product artifacts.",
   "$defs": {
     "artifactStatus": {
       "description": "Lifecycle of a product artifact.",
       "enum": ["draft", "active", "deprecated", "retired"]
-    },
-    "productChangeStatus": {
-      "description": "Lifecycle of a product change.",
-      "enum": [
-        "draft",
-        "proposed",
-        "approved",
-        "in-progress",
-        "implemented",
-        "rejected",
-        "superseded"
-      ]
-    },
-    "deliverySliceStatus": {
-      "description": "Lifecycle of a delivery slice.",
-      "enum": ["draft", "proposed", "approved", "in-progress", "completed", "cancelled"]
     },
     "title": {
       "type": "string",
@@ -63,18 +47,6 @@
     "constraintId": {
       "type": "string",
       "pattern": "^CON-[A-Z0-9]+(-[A-Z0-9]+)*$"
-    },
-    "productChangeId": {
-      "type": "string",
-      "pattern": "^CHG-[A-Z0-9]+(-[A-Z0-9]+)*$"
-    },
-    "deliverySliceId": {
-      "type": "string",
-      "pattern": "^SLI-[A-Z0-9]+(-[A-Z0-9]+)*$"
-    },
-    "productHandoffId": {
-      "type": "string",
-      "pattern": "^HOF-[A-Z0-9]+(-[A-Z0-9]+)*$"
     },
     "requirementId": {
       "description": "A functional requirement, quality requirement or constraint.",
@@ -124,6 +96,11 @@
           "scenario": {
             "type": "string",
             "minLength": 1
+          },
+          "id": {
+            "description": "Optional stable id, unique within the artifact. When present, the scenario is citable via anchor (see the Citation Contract).",
+            "type": "string",
+            "pattern": "^[A-Z0-9]+(-[A-Z0-9]+)*$"
           }
         }
       }
