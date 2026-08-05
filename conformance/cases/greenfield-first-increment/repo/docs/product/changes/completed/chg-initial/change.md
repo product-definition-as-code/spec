@@ -3,7 +3,7 @@ id: CHG-INITIAL
 type: product-change
 title: Establish the first Product Definition
 status: applied
-base-revision: 0000000
+base-revision: '0000000'
 operations:
   add:
     - ACT-PRODUCT-ENGINEER
