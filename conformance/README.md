@@ -15,6 +15,10 @@ conformance/cases/<case-name>/
 
 Rules of the corpus: fixtures are plain files with no tooling assumptions; expected diagnostics reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/validation.md); a case covers exactly one normative clause wherever possible; and the corpus is versioned with the spec, so "conformant with v1.0" is a precise, checkable claim.
 
+## Comparing diagnostics
+
+A runner compares `severity`, `code`, `file`, `artifact`, `field` and `target`; `message` is implementation-defined ([Validation](../spec/validation.md)) and MUST NOT be compared. A field absent from an expected diagnostic is not asserted. `file` uses POSIX separators relative to `repo/`, and expected diagnostics are listed in the deterministic order the spec mandates: by file, then code, then target.
+
 ## Seed corpus
 
 The seed corpus targets Product Change semantics, the citation contract, and the end-to-end scenarios that join them:
@@ -32,9 +36,13 @@ The seed corpus targets Product Change semantics, the citation contract, and the
 | `change-proposed-mismatch` | proposed artifact not listed in operations, and the reverse; `PRODUCT026` | planned |
 | `overlay-validation` | overlay duplicate IDs and removal leaving a dangling reference; `PRODUCT023`-`PRODUCT024` | planned |
 | `concurrent-changes` | two active changes with overlapping modify/remove sets; `PRODUCT025` | planned |
-| `apply-baseline-drift` | baseline artifact changed since `base-revision`; `PRODUCT027` at apply | planned |
-| `change-open-questions` | change approved with unresolved open questions; `PRODUCT108` warning | planned |
-| `intent-changes-mid-flight` | a change amends a cited rule; the citing spec reports `stale` | planned |
+| `apply-not-approved` | apply invoked on a change in status `proposed`; `PRODUCT028`, exit `1`, working tree untouched | planned |
+| `apply-baseline-drift` | a `modify` target changed in the baseline since `base-revision`; `PRODUCT027` at apply; `add` not drift-checked | planned |
+| `change-open-questions` | change in status `approved` with list items under `## Open Questions`; `PRODUCT108` warning | scaffolded |
+| `change-superseded-archive` | a `superseded` change archived under `superseded/`; inert history, no diagnostics | planned |
+| `intent-changes-mid-flight` | a change amends a cited rule; the product diff covers it and the citing spec reports `stale`; untouched citations stay `current` | planned |
 | `partial-scope-without-loss` | cite `S1`,`S2` of a five-scenario FR | planned |
 | `work-over-existing-baseline` | cite baseline requirements directly, with no product change at all | planned |
 | `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |
+
+Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is deferred until the corpus has its first runner. The shape of the product diff report is likewise not asserted by the corpus - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
