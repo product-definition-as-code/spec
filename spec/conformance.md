@@ -21,7 +21,7 @@ An implementation (tooling) conforms when:
 3. It derives reverse relationships and never requires reciprocal authoring.
 4. It computes digests with the mandated LF normalization.
 5. It validates a Product Change by compiling and validating its overlay, without modifying any baseline file.
-6. It applies a Product Change only under the rules in [Product Changes → Apply](product-changes.md#apply): approved status, revalidated overlay, baseline-revision compatibility, recorded impact, `--dry-run` support, never implicitly, never committing.
+6. It applies a Product Change only under the rules in [Product Changes → Apply](product-changes.md#apply): approved status, revalidated overlay, baseline-revision compatibility, computed product diff, `--dry-run` support, never implicitly, never committing. It MUST NOT treat a successful apply as acceptance.
 7. It MUST NOT merge a proposal that fails structural validation (the CI gate); validation of a proposed tree is full structural validation.
 8. It MUST NOT merge, auto-approve or self-merge model changes: merging is a human decision.
 9. It MUST compute citation statuses deterministically per the [citation contract](citation-contract.md).

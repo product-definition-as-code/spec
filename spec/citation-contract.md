@@ -51,7 +51,7 @@ A conforming tool MUST compute, deterministically, exactly one status per citati
 
 Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a citation stale.
 
-Applying a Product Change records the impacted artifacts and their resulting digests ([Product Changes → Apply](product-changes.md#apply)). That record is what makes the affected citation set derivable from a change rather than only from a full recomputation.
+Applying a Product Change computes the product diff between the baseline and the applied result ([Product Changes → Apply](product-changes.md#apply)). The affected citation set is derived from that diff and the citation index, not from the change's declared `operations`: a citation goes stale because the text it cited effectively changed, never because a change said it would.
 
 ## Diagnostics
 

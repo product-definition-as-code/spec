@@ -66,19 +66,23 @@ A change moved to `approved` while its `## Open Questions` section still contain
 
 ## Apply
 
-Apply is the only operation that writes a Product Change into the baseline. Apply:
+**Apply materializes and validates a proposal. It does not accept the change, and it does not by itself modify the accepted Product Definition.**
+
+The distinction is a distinction of location, not of file content. `docs/product/model` on a working branch is a proposal; `docs/product/model` on the canonical branch is the accepted Product Definition. Apply changes the former. Only a human merging the pull request changes the latter. An implementation that treats a successful apply as acceptance is non-conforming.
+
+Apply:
 
 1. MUST require change status `approved`.
 2. MUST revalidate the overlay.
-3. MUST check baseline-revision compatibility: if any artifact named in the change's operations changed in the baseline since `base-revision`, apply MUST fail (`PRODUCT027`) until the change is explicitly rebased - its proposed artifacts reviewed against the new baseline and `base-revision` updated.
-4. Applies additions, modifications and removals to `docs/product/model`, naming files by lowercase ID.
-5. MUST record the applied operations and the resulting content digest of every impacted artifact. This record is the product diff consumed by citation verification and impact analysis.
+3. MUST check baseline-revision compatibility: if any artifact named in the change's operations changed in the baseline since `base-revision`, apply MUST fail (`PRODUCT027`) until the change is explicitly rebased - its proposed artifacts regenerated and reviewed against the new baseline, `base-revision` updated, and the overlay revalidated.
+4. Writes additions, modifications and removals into the working tree's `docs/product/model`, naming files by lowercase ID.
+5. MUST compute the product diff between the baseline and the applied result, recording every impacted artifact and its resulting content digest. The diff is computed from the result, never read off `operations`: `operations` states what the change meant to do, the diff records what it effectively did.
 6. MUST run full structural validation of the resulting model, and MUST leave the working tree untouched if it fails.
-7. Sets the change status to `applied` and moves the change directory to `docs/product/changes/completed/<chg-id>/`, preserving its history. An implementation MAY omit `proposed/` from the archived change, since the applied artifacts are now canonical and Git retains their proposed form; `change.md` MUST be retained.
+7. Sets the change status to `applied` and moves the change directory to `docs/product/changes/completed/<chg-id>/`, preserving its history. `applied` means materialized and archived, not accepted. An implementation MAY omit `proposed/` from the archived change, since the applied artifacts are now in the model and Git retains their proposed form; `change.md` MUST be retained.
 8. MUST support `--dry-run`, reporting every action without performing any. Before mutating anything, apply MUST preflight every planned action (readable sources, existing delete targets, absent archive destination); a preflight failure leaves the working tree untouched, and execution orders the change-directory move last so the archived change appears only when every other action succeeded.
-9. MUST NOT be executed implicitly - not by an AI hook, not by SDD archival, not by any automatic trigger. Apply MUST NOT create Git commits or merge anything; committing is the user's decision.
+9. MUST NOT be executed implicitly - not by an AI hook, not by SDD archival, not by any automatic trigger. Apply MUST NOT create Git commits, push, open, approve or merge anything; committing is the user's decision.
 
-Apply is a working-tree operation and carries no delivery contract: it does not require, discover or attest that anything has been implemented, verified or deployed.
+Apply carries no delivery contract either: it does not require, discover or attest that anything has been implemented, verified or deployed.
 
 ## Acceptance
 
@@ -98,10 +102,26 @@ A product MUST NOT have more than one `CHG-INITIAL`. Every semantic evolution af
 
 `docs/product/changes/**` is the semantic history of product evolution: what changed, why, what it affected, and what was still open when it was accepted. Git history records who changed which files and when; the change history records what the product change meant.
 
-An archived change MUST NOT be edited to reflect later decisions. A decision that is superseded is superseded by a new Product Change.
+Mutability follows acceptance:
+
+- A `draft` or `proposed` change MAY be edited, rewritten or discarded freely. It is a workspace, not a record.
+- If the baseline moves under an active change, the change is rebased rather than patched: its proposed artifacts are regenerated against the new baseline, `base-revision` is updated, and the overlay is revalidated (`PRODUCT027`).
+- An applied and accepted change is immutable. It MUST NOT be edited, rebased or reworded afterwards, in whole or in part.
+- Any later correction is expressed through a new Product Change. A decision that is superseded is superseded by a change, never by an edit.
+
+The reason is evidentiary: an accepted change is the record of what was actually reviewed and approved. A change that can be edited after acceptance stops being that record, and the change history stops being evidence.
 
 ## Change impact
 
-Applying a change produces a product diff (apply rule 5). A conforming tool uses that diff to recompute citation statuses for consumer documents that cite the impacted artifacts, per the [Citation Contract](citation-contract.md): citations to unchanged artifacts stay `current`, and citations to artifacts the change touched become `stale`.
+A Product Change and a product diff answer two different questions, and neither substitutes for the other:
+
+- The change records the **intent**: why the product should differ, and the semantic operations proposed to make it so. It is authoritative for what the change meant.
+- The product diff between the baseline and the accepted result records the **effective change**: what actually differs in the Product Definition. It is authoritative for what changed.
+
+They can legitimately disagree in scope. A declared `modify` may leave the artifact's meaning untouched, and a change may alter text no operation called out. A conforming tool MUST NOT present declared operations as the effective change, nor a diff as the change's intent. A report MAY present both, and SHOULD when both are available.
+
+**Impact** is computed from the product diff and the citation index: for each artifact the diff reports as changed, the citations targeting it are recomputed against the [Citation Contract](citation-contract.md). Citations to untouched artifacts stay `current`; citations to artifacts the diff reports as changed become `stale`. Impact is therefore derived from the effective change, never from the declared operations alone.
 
 The stale set is the machine-derivable answer to "what does this change oblige us to revisit": which specifications, tasks and prompts cited intent that no longer says what it said. PDaC surfaces that set. Whether it is answered by updating the citing document, planning rework, or contesting the change is a decision for the consuming process, not a conformance criterion.
+
+Citations resolve within one repository in v0.1. Cross-repository resolution is out of scope and is owned by [RFC #2](https://github.com/product-definition-as-code/spec/issues/2).

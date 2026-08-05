@@ -38,9 +38,13 @@ A Product Change is not a pull request, a delivery container or an implementatio
 - **Not a delivery container.** A Product Change does not decompose work, schedule it, or track its implementation.
 - **Not an implementation state.** A Product Change is done when the definition it proposes has been applied and accepted, regardless of whether anything has been built.
 
-An approved Product Change is **applied** to the Product Definition by an explicit, human-triggered operation that executes its operations against the model, records the impacted artifacts and their resulting digests, validates the resulting graph, and archives the change as history. Apply is a working-tree operation: it never merges, never commits, and never runs implicitly.
+An approved Product Change is **applied** by an explicit, human-triggered operation that executes its operations against the model, computes the resulting product diff, validates the resulting graph, and archives the change as history.
+
+Apply materializes and validates a proposal; it does not accept it. `docs/product/model` on a working branch is a proposal; the same path on the canonical branch is the accepted Product Definition. Apply changes the former and never the latter: it never merges, never commits, and never runs implicitly. Treating a successful apply as acceptance is the one misreading of this RFC that would reinstate the failure it exists to remove, because it would let a tool decide that product intent is accepted.
 
 When the pull request carrying the applied result is merged, its resulting product definition becomes the new accepted Product Definition. Acceptance of product intent is independent from implementation, deployment and production verification.
+
+A change is mutable while it is a workspace and immutable once it is a record. `draft` and `proposed` changes may be edited, rewritten or discarded freely, and a change whose baseline moved is rebased rather than patched. An applied and accepted change is immutable: it is the record of what was reviewed and approved, and any later correction is expressed through a new Product Change.
 
 The normative structure of a Product Change - the change record, its frontmatter, its operations, overlay validation, its lifecycle and the apply rules - is specified in [Product Changes](../spec/product-changes.md).
 
@@ -80,9 +84,16 @@ affected citations
 affected specifications and documents
 ```
 
+The semantic relationship between the three is fixed here, because leaving it ambiguous is what lets a tool quietly substitute one for another:
+
+- A `Product Change` records the **intent** and the proposed semantic operations. It is authoritative for what the change meant.
+- The diff computed between the baseline and the accepted result is authoritative for the **effective change**. It is computed from the result, never read off the declared operations.
+- **Impact** is computed from that diff and the citation index.
+- A report MAY present intent and effective change together, and SHOULD when both are available. Neither may be presented as the other: declared operations are not the effective change, and a diff is not a statement of intent.
+
 This allows dependent delivery work to detect that the product intent it cited has changed, and to decide whether to update the citing document, plan rework, or contest the change. Detecting the drift is PDaC's obligation; deciding what to do about it is not.
 
-The detailed representation and verification rules for citations, digests, diffs and impact analysis are defined by the relevant PDaC specifications. This RFC establishes their architectural role, not their complete serialization.
+Citations resolve within one repository in v0.1; cross-repository resolution is out of scope for this RFC and is owned by RFC #2. The detailed representation and verification rules for citations, digests, diffs and impact analysis are defined by the relevant PDaC specifications. This RFC establishes their architectural role and the relationships above, not their serialization.
 
 ## Removed from the normative model
 
@@ -155,5 +166,4 @@ The core principle is:
 
 1. Concrete citation forms per host format (inline structured reference, Markdown marker block, YAML sidecar ledger). The pilot exercises all three; a follow-up normalizes.
 2. Section-slug anchors and non-ASCII headings: do we need canonicalization rules, or do we restrict anchors to verification-scenario ids and skip the problem? **v0.1 decision:** restrict to scenario ids; section-slug anchors deferred to a follow-up.
-3. The serialization of the product diff and of impact reports, and whether the diff is computed from the applied change's recorded operations, from the graph difference, or from both. Deferred to a follow-up specification.
-4. Whether an archived change may be amended or rebased after apply, or only superseded by a new change.
+3. The serialization of the product diff and of impact reports. The semantic relationship between intent, effective change and impact is settled under Change impact above; only the representation is deferred to a follow-up specification.
