@@ -1,0 +1,10 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT108",
+      "file": "docs/product/changes/active/chg-tighten-validation/change.md",
+      "artifact": "CHG-TIGHTEN-VALIDATION"
+    }
+  ]
+}

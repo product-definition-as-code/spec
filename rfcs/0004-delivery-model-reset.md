@@ -131,9 +131,11 @@ Retired, not deprecated: `PRODUCT030`-`PRODUCT032` (delivery slices), `PRODUCT04
 
 Added by the citation contract: `PRODUCT060`-`PRODUCT063`. `PRODUCT042` is generalized to citation digests.
 
+Added by the second refinement: `PRODUCT028` (apply attempted on a change whose status is not `approved`). It sits inside the `PRODUCT020`-`PRODUCT028` Product Change band and is an apply-time finding, never a baseline finding.
+
 ## Impact
 
-- **On existing conformant repositories:** `docs/product/model/**` is untouched. `docs/product/changes/**` remains the change surface, without `slices/`. Changes in flight under the previous lifecycle finish as `approved` and are applied, or are archived as `superseded`.
+- **On existing conformant repositories:** `docs/product/model/**` is untouched. `docs/product/changes/**` remains the change surface, without `slices/`. Changes in flight under the previous lifecycle finish as `approved` and are applied, or are archived as `superseded`. Each terminal status has its own archive directory: `completed/`, `rejected/` and `superseded/`.
 - **On existing implementations (ProductShape):** keep the parser, graph, validation, digests and change commands; retire `slice`, `promote` and handoff generation; replace promotion with `apply`; add citation emission and citation verification.
 - **On the conformance corpus:** the initialisation and citation cases carry a `CHG-INITIAL` record; change-operation, overlay and apply cases are added; no slice or handoff fixtures existed to drop.
 
@@ -160,10 +162,11 @@ The core principle is:
 ## Revision history
 
 - **2026-08-03, accepted (PR #5).** First accepted revision. Removed the pipeline, and additionally dissolved `Product Change` into the repository's branch-review-merge mechanism ("change as PR"), retiring the `CHG-` prefix and the change record.
-- **2026-08-05, refined.** Corrects the overcorrection. The pipeline stays removed; `Product Change` is restored as the semantic mechanism of product evolution, with `CHG-INITIAL` as the single initialisation change for greenfield and brownfield. A pull request reviews and accepts a Product Change; it is not the Product Change.
+- **2026-08-05, refined (PR #9).** Corrects the overcorrection. The pipeline stays removed; `Product Change` is restored as the semantic mechanism of product evolution, with `CHG-INITIAL` as the single initialisation change for greenfield and brownfield. A pull request reviews and accepts a Product Change; it is not the Product Change.
+- **2026-08-05, refined (PR #14).** Determines the five points of [issue #12](https://github.com/product-definition-as-code/spec/issues/12) that did not fix implementation behaviour. Apply reports the product diff and never persists it into the archived change. Each terminal status has its own archive directory, including `superseded/`. Applying a change that is not `approved` is `PRODUCT028`, exit `1`, with the working tree untouched. Baseline drift covers `modify` and `remove`, judged by content digest. `PRODUCT108` counts Markdown list items in `## Open Questions`. No decision of this RFC is reversed; five deferrals are closed.
 
 ## Open questions
 
 1. Concrete citation forms per host format (inline structured reference, Markdown marker block, YAML sidecar ledger). The pilot exercises all three; a follow-up normalizes.
 2. Section-slug anchors and non-ASCII headings: do we need canonicalization rules, or do we restrict anchors to verification-scenario ids and skip the problem? **v0.1 decision:** restrict to scenario ids; section-slug anchors deferred to a follow-up.
-3. The serialization of the product diff and of impact reports. The semantic relationship between intent, effective change and impact is settled under Change impact above; only the representation is deferred to a follow-up specification.
+3. The serialization of the product diff and of impact reports. The semantic relationship between intent, effective change and impact is settled under Change impact above; only the representation is deferred to a follow-up specification. **v0.1 decision:** apply reports the diff in its output in a human-readable and a machine-readable form and does not write it into the archived change, which is immutable once archived; the diff record - impacted artifact, kind of impact, resulting digest for additions and modifications - is fixed in [Product Changes](../spec/product-changes.md), an on-disk serialization is not.
