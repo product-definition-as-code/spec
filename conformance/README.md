@@ -17,7 +17,7 @@ Rules of the corpus: fixtures are plain files with no tooling assumptions; expec
 
 ## Seed corpus
 
-The seed corpus targets the citation contract and six end-to-end acceptance scenarios:
+The seed corpus targets Product Change semantics, the citation contract, and the end-to-end scenarios that join them:
 
 | Case | Verifies | Status |
 | --- | --- | --- |
@@ -26,9 +26,15 @@ The seed corpus targets the citation contract and six end-to-end acceptance scen
 | `citation-tampered` | embedded projection differs from canonical at recorded digest; `PRODUCT062` | planned |
 | `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
-| `greenfield-first-increment` | acceptance scenario 1: empty model → PR → merge → cite | scaffolded |
-| `intent-changes-mid-flight` | acceptance scenario 2: cited rule amended → `stale` in CI | planned |
-| `partial-scope-without-loss` | acceptance scenario 3: cite `S1`,`S2` of a five-scenario FR | planned |
-| `work-over-existing-baseline` | acceptance scenario 4: cite baseline requirements directly | planned |
-| `bug-or-refactor` | acceptance scenario 5: no model PR; cite governing rule; `current` | planned |
-| `brownfield-recovery` | acceptance scenario 6: recovered artifacts enter via PRs; `PRODUCT111` | planned |
+| `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | scaffolded |
+| `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
+| `change-operations` | add of an existing ID, modify or remove of an absent one; `PRODUCT020`-`PRODUCT022` | planned |
+| `change-proposed-mismatch` | proposed artifact not listed in operations, and the reverse; `PRODUCT026` | planned |
+| `overlay-validation` | overlay duplicate IDs and removal leaving a dangling reference; `PRODUCT023`-`PRODUCT024` | planned |
+| `concurrent-changes` | two active changes with overlapping modify/remove sets; `PRODUCT025` | planned |
+| `apply-baseline-drift` | baseline artifact changed since `base-revision`; `PRODUCT027` at apply | planned |
+| `change-open-questions` | change approved with unresolved open questions; `PRODUCT108` warning | planned |
+| `intent-changes-mid-flight` | a change amends a cited rule; the citing spec reports `stale` | planned |
+| `partial-scope-without-loss` | cite `S1`,`S2` of a five-scenario FR | planned |
+| `work-over-existing-baseline` | cite baseline requirements directly, with no product change at all | planned |
+| `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |

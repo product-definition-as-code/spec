@@ -1,7 +1,7 @@
 ---
 id: JRN-VALIDATE
 type: journey
-title: Validate a proposed revision
+title: Validate a Product Change
 status: active
 primary-actor: ACT-VALIDATOR
 steps:
@@ -10,15 +10,15 @@ steps:
 
 ## Intended Outcome
 
-A proposed revision is structurally validated before merge.
+A Product Change is structurally validated before it is applied to the Product Definition.
 
 ## Entry Conditions
 
-A proposed revision exists on a branch.
+A Product Change exists under `docs/product/changes/active/`.
 
 ## Journey Narrative
 
-The validator runs structural validation on the proposed tree and reports any defects.
+The validator compiles the change's overlay against the baseline and reports any defects.
 
 ## Variants and Branches
 

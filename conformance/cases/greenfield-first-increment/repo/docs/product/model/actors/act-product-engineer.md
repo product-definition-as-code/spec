@@ -16,7 +16,7 @@ Keep the product definition valid, current and traceable.
 
 ## Responsibilities
 
-Author and review product artifacts; merge proposed revisions.
+Author and review product artifacts; approve and accept Product Changes.
 
 ## Boundaries
 
