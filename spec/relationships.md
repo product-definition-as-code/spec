@@ -1,6 +1,6 @@
 # Relationships
 
-The relationships are the methodology: they connect intent (actors), behaviour (journeys, use cases), knowledge (rules, terms, contexts) and obligations (requirements).
+The relationships are the methodology: they connect intent (actors), behaviour (journeys, use cases), knowledge (rules, terms, contexts) and obligations (requirements), and they carry traceability through Product Changes.
 
 ## Canonical vocabulary
 
@@ -20,6 +20,9 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 | Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
 | Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
 | Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
+| Product Change         | `operations.add`           | any product artifact (new ID)                               |
+| Product Change         | `operations.modify`        | any existing product artifact                               |
+| Product Change         | `operations.remove`        | any existing product artifact                               |
 
 A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a validation error.
 
@@ -41,4 +44,4 @@ All other reverse views (`Actor ← journeys`, `Business Rule ← governed use c
 
 ## Reachability
 
-Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are connected if a path exists between them in the undirected view of the product graph restricted to the canonical product relationships above. A requirement is _reachable from an actor_ when it is connected to at least one Actor node under this definition.
+Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are connected if a path exists between them in the undirected view of the product graph restricted to the canonical product relationships above, excluding Product Change edges. A requirement is _reachable from an actor_ when it is connected to at least one Actor node under this definition.

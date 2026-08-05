@@ -4,13 +4,17 @@ Definitions used normatively throughout this specification.
 
 **Product Artifact.** An independently addressable unit of product knowledge with a stable immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement or Constraint.
 
-**Current Product Model (Baseline).** The set of product artifacts under `docs/product/model`. It describes the product as currently defined, including behaviour that is accepted. The baseline is the accepted product intent on the repository's canonical branch; acceptance and implementation are distinct facts. Also called the _baseline_.
+**Product Definition (Baseline).** The accepted, versioned and validated graph of product artifacts under `docs/product/model`. It describes the product as currently defined, including behaviour that is accepted. The Product Definition is the accepted product intent on the repository's canonical branch; acceptance and implementation are distinct facts. Also called the _baseline_ when a Product Change is validated against it.
 
-**Accepted.** A product artifact is accepted when it has been merged into the canonical branch by a human through a reviewed merge. Acceptance is a fact about the model, not about implementation: an accepted artifact may be unimplemented, and an implemented artifact that was never merged is not part of the baseline.
+**Accepted.** A product artifact is accepted when it has been merged into the canonical branch by a human through a reviewed merge. Acceptance is a fact about the model, not about implementation: an accepted artifact may be unimplemented, and an implemented artifact that was never merged is not part of the Product Definition.
 
-**Product Change.** The repository's native branch-review-merge mechanism: a branch bearing a proposed revision, a review, and a merge (a pull request or the host's equivalent). Validation of a proposal is full structural validation of the proposed tree.
+**Product Change.** An explicit, versioned semantic delta against the baseline: additions, modifications and removals, each represented by complete proposed future-state artifacts, plus rationale and open questions. Stored under `docs/product/changes/`. A Product Change is reviewed and accepted through a pull request, but it is not a pull request, a delivery container or an implementation state. See [Product Changes](product-changes.md).
 
-**Proposal.** A branch bearing a proposed revision of the baseline, validated as a full tree before merge. The proposed tree is validated directly, not as a delta applied to the baseline.
+**Overlay.** The virtual product model obtained by applying a Product Change's operations to the baseline without modifying baseline files. Validation of a Product Change compiles and validates the overlay.
+
+**Apply.** The explicit, human-triggered operation that writes an approved Product Change's operations into the baseline, records the impacted artifacts and their resulting digests, validates the resulting model, and archives the change. Apply never merges and never commits.
+
+**Proposal.** The branch bearing an applied Product Change, offered for review as a pull request. The proposed tree is validated in full before merge.
 
 **Citation.** A machine-verifiable reference from a consumer document to canonical product text: the target artifact's `id`, the content `digest` of the cited canonical text, and an optional `anchor` addressing a verification scenario by its stable `id`. See the [Citation Contract](citation-contract.md).
 
