@@ -33,6 +33,14 @@ Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yam
 | `PRODUCT007` | Relationship targets a disallowed artifact type                                        |
 | `PRODUCT008` | Active artifact references a retired artifact                                          |
 | `PRODUCT009` | Required body section missing or out of order                                          |
+| `PRODUCT020` | Product Change addition whose ID already exists in the baseline                        |
+| `PRODUCT021` | Product Change modification of an ID that does not exist in the baseline               |
+| `PRODUCT022` | Product Change removal of an ID that does not exist in the baseline                    |
+| `PRODUCT023` | Overlay produces duplicate IDs                                                         |
+| `PRODUCT024` | Removal leaves a dangling reference from an active artifact in the overlay             |
+| `PRODUCT025` | Concurrent active Product Changes with overlapping modify/remove operations            |
+| `PRODUCT026` | Proposed artifact not listed in operations, or operation without its proposed artifact |
+| `PRODUCT027` | Baseline revision incompatible at apply without explicit resolution                    |
 | `PRODUCT042` | Invalid or unverifiable citation digest                                                 |
 | `PRODUCT050` | Invalid configuration or unknown top-level configuration key                           |
 | `PRODUCT051` | Managed integration file modified by hand                                              |
@@ -41,11 +49,13 @@ Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yam
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
+`PRODUCT020`-`PRODUCT027` apply to Product Changes and their overlays; see [Product Changes](product-changes.md). They are reported when a change is validated or applied, never when validating the baseline alone, and never against archived changes.
+
 `PRODUCT050`-`PRODUCT052` are reported by `doctor` and integration commands; product-model validation does not inspect managed files.
 
 `PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
-Diagnostic codes are stable and are never renumbered or reused.
+Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
 ## Warning codes
 
@@ -59,6 +69,7 @@ Diagnostic codes are stable and are never renumbered or reused.
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
 | `PRODUCT106` | Domain term with no usage                                                                                                                                          |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
+| `PRODUCT108` | Product Change approved while its `## Open Questions` section still contains unresolved questions                                                                  |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. It renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes it usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.

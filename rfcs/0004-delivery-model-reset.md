@@ -1,82 +1,141 @@
-# RFC 0004: Delivery-model reset: accepted intent, change as PR, and the citation contract
+# RFC 0004: Delivery-model reset: the accepted Product Definition, semantic Product Changes, and direct citations
 
 - **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-03
+- **Refined:** 2026-08-05
 - **Supersedes:** #1 (baseline lock file), #3 (implementation claims, applicability contracts and reconciliation states)
 - **Related:** #2 (deployment topologies — remains open; scopes where cited models live and how cross-repository citations resolve)
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/4>
 
 ## Problem
 
-The gap PDaC exists to close is re-statement: every time product knowledge is re-expressed in natural language (in a spec, a task, a prompt, a document), it can mutate without anyone noticing. The current specification answers this with a push pipeline (Product Change, Delivery Slice, Product Handoff) that itself re-states knowledge into new containers, and self-hosted use has shown the pipeline does not hold:
+The gap PDaC exists to close is re-statement: every time product knowledge is re-expressed in natural language (in a spec, a task, a prompt, a document), it can mutate without anyone noticing. The specification answered this with a push pipeline (Product Change → Delivery Slice → Product Handoff → Promotion) that itself re-states knowledge into new containers, and self-hosted use showed the pipeline does not hold:
 
-1. **No conforming greenfield path.** The initial baseline is authored without a Product Change ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md), bootstrap exception), but every Delivery Slice must live inside a Product Change ([`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md)) and every handoff must start from an approved slice ([`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md), generation rule 1). There is no conforming way to deliver the initial baseline.
-2. **Vacuous promotion gates.** Promotion rules 2 and 3 ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md)) are satisfied vacuously by a change with zero slices: no slices to complete, no requirements to evidence. An implemented change can be promoted with no delivery evidence at all.
-3. **Scope loss.** A slice declares per-requirement `coverage` and `scope`, but the handoff `implements[]` carries bare IDs ([`frontmatter-reference.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/frontmatter-reference.md)). Partial scope is flattened before it reaches any consumer, and promotion unions requirement IDs.
-4. **Unbounded context.** The closure rule has no budget. Real generated contexts have exceeded 16,000 words for a single slice, which contradicts "exactly the product subgraph that increment needs".
-5. **Reimplemented Git.** `base-revision`, `operations.add/modify/remove`, overlay validation, rebase-on-conflict and promotion are a branch, a diff, conflict detection and a merge, rebuilt as bespoke artifacts with their own lifecycle vocabulary that no adopter natively speaks.
+1. **No conforming greenfield path.** The initial baseline was authored without a Product Change ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md), bootstrap exception), but every Delivery Slice had to live inside a Product Change ([`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md)) and every handoff had to start from an approved slice ([`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md), generation rule 1). There was no conforming way to deliver the initial baseline.
+2. **Vacuous promotion gates.** Promotion rules 2 and 3 ([`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md)) were satisfied vacuously by a change with zero slices: no slices to complete, no requirements to evidence. An implemented change could be promoted with no delivery evidence at all.
+3. **Scope loss.** A slice declared per-requirement `coverage` and `scope`, but the handoff `implements[]` carried bare IDs ([`frontmatter-reference.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/frontmatter-reference.md)). Partial scope was flattened before it reached any consumer, and promotion unioned requirement IDs.
+4. **Unbounded context.** The closure rule had no budget. Real generated contexts exceeded 16,000 words for a single slice, which contradicts "exactly the product subgraph that increment needs".
+5. **Delivery state modelled as product state.** `in-progress`, `implemented`, slice completion, coverage evidence and deployment attestation are facts about delivery, and PDaC made them gates on the evolution of product intent. Product intent could not be accepted until delivery said so.
 
-Marking these chapters `experimental` would not close the re-statement gap. This RFC replaces the push pipeline with two smaller contracts built on the parts of the specification that have survived scrutiny: stable identity, typed relationships, deterministic validation and content digests.
+The failure is not that product change was made explicit. It is that PDaC modelled the delivery of a change instead of the meaning of a change, and then made the two inseparable. This RFC keeps the semantic mechanism and removes the pipeline.
 
-## Proposal
+## Decision
 
-### 1. Change-as-PR
+### 1. The Product Definition
 
-- The baseline is the canonical product model on the repository's canonical branch. Normatively: the baseline is the accepted product intent; acceptance and implementation are distinct facts.
-- `Product Change` ceases to be a normative PDaC artifact. The term now names the repository's native mechanism: a branch, a review, a merge (a pull request or the host's equivalent). There is no `change.md`, no `operations` frontmatter, no change lifecycle and no `CHG-` artifact. The `CHG-`, `SLI-` and `HOF-` prefixes are retired and, per [`identifiers.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/identifiers.md), never reused.
-- Validation of a proposal is full structural validation of the proposed tree. This replaces overlay validation; the overlay is the branch.
-- Tooling MUST NOT merge a proposal that fails structural validation (CI gate).
-- Merging is a human decision. Tools MUST NOT merge, auto-approve or self-merge model changes.
-- The bootstrap exception is deleted. The initial baseline enters through the same mechanism as every later change: a reviewed merge into an empty model.
-- Consumers of the model MUST NOT write to it. A consumer MAY propose a revision (a PR) when implementation reveals a contradiction; a human decides. This is the mechanism of manifesto principle 9.
+The **Product Definition** is the accepted, versioned and validated graph of product artifacts on the repository's canonical branch. It is the accepted product intent. Acceptance is a fact about the definition, not about implementation: an accepted artifact may be unimplemented, and implemented behaviour that was never accepted is not part of the definition.
 
-### 2. Citation contract
+### 2. Product Change
 
-A citation is a machine-verifiable reference from any consumer document (an SDD spec, a task, an agent prompt file, a design doc) to canonical product text.
+Product evolution is expressed through `Product Change`.
 
-- A citation is a record, not a block of text: target artifact `id`, content `digest` (per `validation.md`, LF-normalized SHA-256), and an optional `anchor`. It MAY exist as a structured reference inline, or in a machine-readable ledger or sidecar accompanying the consumer document.
-- An anchor addresses a required body section by its heading slug, or a verification scenario by its stable id (see 3).
-- Embedding is a projection of a citation, not its definition. A consumer MAY additionally embed the cited canonical text; when it does, the embedded block MUST be delimited by machine-readable markers carrying the citation record, MUST be byte-identical to the canonical text at the recorded digest, and MUST be treated as read-only and regenerable.
-- A conforming tool MUST compute, deterministically, one status per citation:
+A Product Change is a semantic delta that proposes additions, modifications or removals to the accepted Product Definition. It records the meaning, rationale, scope and affected product artifacts of that change. It is elaborated iteratively: a change may be opened, discussed, widened, narrowed and revised over time, and several Product Changes may be live at once.
 
-  | Status | Meaning |
-  | --- | --- |
-  | `current` | Target resolves and its recomputed digest matches. |
-  | `stale` | Target resolves; canonical content changed since citation. |
-  | `tampered` | Only for embedded projections: the block differs from canonical content at the recorded digest. |
-  | `unresolved` | Target id or anchor does not resolve. |
+A Product Change is not a pull request, a delivery container or an implementation state.
 
-- Diagnostics: `PRODUCT060` unresolved citation (error), `PRODUCT061` stale citation (warning; a repository MAY escalate via its existing `warnings-as-errors` configuration, and tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel), `PRODUCT062` tampered embedded projection (error), `PRODUCT063` anchor not found (error).
-- Semantic contradiction between a citation and its surrounding text is explicitly non-normative: tools MAY flag suspected contradictions for human review; such findings are never a conformance criterion. Deterministic tools enforce structure, AI does semantic work, humans decide (manifesto principle 7).
+- **Not a pull request.** A pull request provides the human review and acceptance boundary for a Product Change. The pull request and the Product Change are related, but they are not the same concept. A Product Change carries product meaning (rationale, intended outcome, open questions, affected areas) that a branch and a diff cannot carry.
+- **Not a delivery container.** A Product Change does not decompose work, schedule it, or track its implementation.
+- **Not an implementation state.** A Product Change is done when the definition it proposes has been applied and accepted, regardless of whether anything has been built.
 
-### 3. Addressable verification scenarios
+An approved Product Change is **applied** by an explicit, human-triggered operation that executes its operations against the model, computes the resulting product diff, validates the resulting graph, and archives the change as history.
 
-`verification[]` entries on Functional and Quality Requirements gain an optional stable `id` (`[A-Z0-9-]+`, unique within the artifact). When present, the scenario is citable via anchor. This makes partial scope expressible as a set of cited scenario ids instead of prose, and it is the only schema change this RFC requires.
+Apply materializes and validates a proposal; it does not accept it. `docs/product/model` on a working branch is a proposal; the same path on the canonical branch is the accepted Product Definition. Apply changes the former and never the latter: it never merges, never commits, and never runs implicitly. Treating a successful apply as acceptance is the one misreading of this RFC that would reinstate the failure it exists to remove, because it would let a tool decide that product intent is accepted.
 
-### 4. Retired and subsumed text
+When the pull request carrying the applied result is merged, its resulting product definition becomes the new accepted Product Definition. Acceptance of product intent is independent from implementation, deployment and production verification.
 
-- Chapters removed from the normative spec: [`product-changes.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/product-changes.md), [`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md). This retires the Delivery Slice artifact, not slicing: PDaC does not own delivery decomposition. Consumers may slice work however their process demands; PDaC only provides accepted intent and verifiable citations to the product model.
-- [`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md) is replaced by the citation contract. A "handoff" remains available as a non-normative convenience: a generated document composed entirely of citations, with a stated size budget.
-- Diagnostics retired, not deprecated: `PRODUCT020`–`PRODUCT027`, `PRODUCT030`–`PRODUCT032`, `PRODUCT040`–`PRODUCT041`, `PRODUCT043`–`PRODUCT044`, `PRODUCT108`–`PRODUCT110`. Retired codes are never reused, mirroring the ID immutability rule. `PRODUCT042` is generalized to citation digests.
-- Terminology and manifesto wording updated accordingly: `terminology.md` "implemented and accepted" becomes "accepted"; principle 5 becomes "The baseline changes through exactly one operation: a human merging a validated proposed revision. Everything else is a proposal."
+A change is mutable while it is a workspace and immutable once it is a record. `draft` and `proposed` changes may be edited, rewritten or discarded freely, and a change whose baseline moved is rebased rather than patched. An applied and accepted change is immutable: it is the record of what was reviewed and approved, and any later correction is expressed through a new Product Change.
 
-### Acceptance scenarios
+The normative structure of a Product Change - the change record, its frontmatter, its operations, overlay validation, its lifecycle and the apply rules - is specified in [Product Changes](../spec/product-changes.md).
 
-Every clause above must be demonstrable through these six scenarios, which become conformance fixtures:
+### 3. Initialisation
 
-1. **Greenfield first increment.** Empty model; a PR adds Product actors, two rules, one FR with scenario ids; merge; an SDD spec cites `FR-X#S1` and `BR-Y`; all citations `current`; implementation proceeds. No change container was ever created.
-2. **Intent changes mid-flight.** A rule cited by an open SDD spec is amended on the canonical branch; the spec's citation reports `stale` in CI; a human updates or contests the spec. Nothing silent.
-3. **Partial scope without loss.** A spec cites scenarios `S1` and `S2` of a five-scenario FR; coverage claims are checked against exactly those anchors; `S3`–`S5` remain visibly uncited.
-4. **Work over existing baseline.** A spec cites baseline requirements directly, with no product-model change at all.
-5. **Bug or refactor.** No model PR; the fix's spec cites the governing rule; citation verifies `current`; the model is untouched.
-6. **Brownfield recovery.** Recovered draft artifacts with `provenance` enter through PRs; contradictory candidates collide in review, not in the baseline; `PRODUCT111` still derives the human-validation queue.
+Greenfield and brownfield products use the same initialisation model. `CHG-INITIAL` establishes the first Product Definition from the product knowledge available at that time.
+
+That knowledge may come from new product objectives and discussions, existing documentation, source code and tests, interviews and question-and-answer sessions, or conversations and existing team knowledge.
+
+Brownfield discovery is an input activity to `CHG-INITIAL`, not a separate lifecycle. Provenance, confidence, contradictions, gaps and unresolved questions belong to the affected product artifacts or their supporting evidence. They do not define a different kind of Product Change. There is no `CHG-RECOVERY` and no normative `recover` operation.
+
+This replaces the initial-baseline bootstrap exception: the first Product Definition enters through the same mechanism as every later change.
+
+### 4. The Product Definition as reference
+
+SDD specifications and other delivery artifacts cite canonical Product Definition artifacts directly, per the [Citation Contract](../spec/citation-contract.md).
+
+PDaC does not create a mandatory handoff containing a copied or restated version of the product intent. The consuming SDD or delivery process remains responsible for deciding how work is decomposed, creating and maintaining its specifications, defining technical design, creating implementation tasks, implementing and verifying the change, and deciding when and how to deploy it.
+
+PDaC provides the stable product reference consumed by those processes. A generated view, scope report or projection may be provided for convenience, but it is not an additional canonical product artifact and does not require an independent lifecycle.
+
+### 5. Change impact
+
+When the accepted Product Definition changes, PDaC calculates the product difference and identifies the downstream citations and consumer documents that may be affected.
+
+The resulting relationship is:
+
+```text
+Product Change
+      ↓
+new Product Definition state
+      ↓
+product diff
+      ↓
+affected citations
+      ↓
+affected specifications and documents
+```
+
+The semantic relationship between the three is fixed here, because leaving it ambiguous is what lets a tool quietly substitute one for another:
+
+- A `Product Change` records the **intent** and the proposed semantic operations. It is authoritative for what the change meant.
+- The diff computed between the baseline and the accepted result is authoritative for the **effective change**. It is computed from the result, never read off the declared operations.
+- **Impact** is computed from that diff and the citation index.
+- A report MAY present intent and effective change together, and SHOULD when both are available. Neither may be presented as the other: declared operations are not the effective change, and a diff is not a statement of intent.
+
+This allows dependent delivery work to detect that the product intent it cited has changed, and to decide whether to update the citing document, plan rework, or contest the change. Detecting the drift is PDaC's obligation; deciding what to do about it is not.
+
+Citations resolve within one repository in v0.1; cross-repository resolution is out of scope for this RFC and is owned by RFC #2. The detailed representation and verification rules for citations, digests, diffs and impact analysis are defined by the relevant PDaC specifications. This RFC establishes their architectural role and the relationships above, not their serialization.
+
+## Removed from the normative model
+
+This RFC removes the following concepts from the normative PDaC model:
+
+- Product Handoff as an intermediate delivery container;
+- mandatory Delivery Slices;
+- Promotion, the delivery-gated operation that required slice completion and coverage evidence before product intent could enter the baseline;
+- Reconciliation;
+- Implementation Claims;
+- Deployment Evidence;
+- a PDaC-owned implementation pipeline;
+- a separate brownfield recovery lifecycle;
+- the assumption that PDaC prepares and delivers an implementation unit to SDD.
+
+A delivery process may use its own handoffs, slices, claims or deployment evidence. Those concepts are outside the PDaC model and are not required to maintain the Product Definition.
+
+The `SLI-` and `HOF-` prefixes are retired and, per [`identifiers.md`](../spec/identifiers.md), never reused. The `CHG-` prefix is retained.
+
+Apply is not Promotion renamed. Promotion gated the acceptance of product intent on delivery facts; apply gates nothing but the change's own validity, and carries no evidence contract.
+
+Chapters removed from the normative spec: [`delivery-slices.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/delivery-slices.md) and [`handoff-contract.md`](https://github.com/product-definition-as-code/spec/blob/8595c9f/spec/handoff-contract.md). Retiring the Delivery Slice artifact does not retire slicing: PDaC does not own delivery decomposition. Consumers may slice work however their process demands.
+
+## Resulting ownership boundary
+
+PDaC owns the accepted Product Definition, semantic Product Changes, the history of product evolution, validation of the product graph, product-aware diffs, direct citations to product artifacts, and citation verification and impact analysis.
+
+PDaC does not own delivery decomposition, technical specifications, implementation, deployment, release orchestration, implementation verification, or the lifecycle of external SDD artifacts.
+
+## Diagnostics
+
+Retained with their original meanings: `PRODUCT020`-`PRODUCT027` (change operations, overlay integrity, concurrent-change overlap, baseline-revision compatibility at apply) and `PRODUCT108` (unresolved open questions on an approved change). `PRODUCT027` now governs apply rather than promotion.
+
+Retired, not deprecated: `PRODUCT030`-`PRODUCT032` (delivery slices), `PRODUCT040`-`PRODUCT041` (handoffs), `PRODUCT043`-`PRODUCT044` (coverage and delivery evidence), `PRODUCT109`-`PRODUCT110` (slice and handoff closure). Retired codes are never reused, mirroring the ID immutability rule.
+
+Added by the citation contract: `PRODUCT060`-`PRODUCT063`. `PRODUCT042` is generalized to citation digests.
 
 ## Impact
 
-- **On existing conformant repositories:** `docs/product/model/**` is untouched. `docs/product/changes/**` leaves the conformance surface; in-flight changes are finished as PRs or archived. Repositories not using Git-hosted review must provide an equivalent human-gated merge; PDaC already assumes Git (digests, history-as-authorship).
-- **On existing implementations (ProductShape):** retire `change`, `slice`, `promote` and handoff generation; keep parser, graph, validation and digests unchanged; add `cite` (emit citation blocks) and `citations verify` (compute statuses). The retired code was the prototype that located the real problem.
-- **On the conformance corpus:** drop change/slice/handoff fixtures (none existed); add one fixture per citation status, scenario-id addressing, and the six acceptance scenarios.
+- **On existing conformant repositories:** `docs/product/model/**` is untouched. `docs/product/changes/**` remains the change surface, without `slices/`. Changes in flight under the previous lifecycle finish as `approved` and are applied, or are archived as `superseded`.
+- **On existing implementations (ProductShape):** keep the parser, graph, validation, digests and change commands; retire `slice`, `promote` and handoff generation; replace promotion with `apply`; add citation emission and citation verification.
+- **On the conformance corpus:** the initialisation and citation cases carry a `CHG-INITIAL` record; change-operation, overlay and apply cases are added; no slice or handoff fixtures existed to drop.
 
 ## Alternatives considered
 
@@ -84,8 +143,27 @@ Every clause above must be demonstrable through these six scenarios, which becom
 - **Repair the handoff in place (scope fields, closure budget).** Keeps the push model; every handoff is still a re-statement surface and a second thing to keep in sync.
 - **`implementation-status` on requirements.** Rejected: conflates intent validity, work state, satisfaction and deployment, which have four different owners.
 - **Adopt RFC #3 as filed.** Turns PDaC into a delivery control plane; the manifesto forswears it. Only the obligation-realization-evidence relation is worth keeping, and it composes naturally with citations.
+- **Change-as-PR, as accepted in the first revision of this RFC.** Dissolving `Product Change` into the repository's branch-review-merge mechanism removed the pipeline, but it also removed the product-level record of *why* the definition changed, the workspace in which a change is elaborated before it is worth proposing, and the unit a product diff and its impact analysis attach to. Git records that files changed; it does not record that the product changed, or what that meant. Corrected by this revision.
 
-## Open questions (for the comment window)
+## Consequences
 
-1. Concrete citation forms per host format (inline structured reference, Markdown marker block, YAML sidecar ledger). The pilot will exercise all three; the follow-up normalizes.
+This decision separates two related but independent concerns: the Product Definition evolves through semantic Product Changes, and delivery processes decide how accepted intent is implemented.
+
+Product Definition and implementation may therefore evolve at different speeds. A Product Change may be accepted before implementation begins, while an SDD specification is being prepared, or without immediate implementation. Conversely, a citation going stale is a signal to a delivery process, not a defect in the Product Definition.
+
+The repository remains the source of history and review. PDaC adds product-aware meaning to that history without recreating Git or becoming a second delivery system.
+
+The core principle is:
+
+> Product Changes evolve accepted product intent. Pull requests review and accept those changes. SDD specifications cite the Product Definition directly. PDaC exposes the impact of definition changes without owning delivery.
+
+## Revision history
+
+- **2026-08-03, accepted (PR #5).** First accepted revision. Removed the pipeline, and additionally dissolved `Product Change` into the repository's branch-review-merge mechanism ("change as PR"), retiring the `CHG-` prefix and the change record.
+- **2026-08-05, refined.** Corrects the overcorrection. The pipeline stays removed; `Product Change` is restored as the semantic mechanism of product evolution, with `CHG-INITIAL` as the single initialisation change for greenfield and brownfield. A pull request reviews and accepts a Product Change; it is not the Product Change.
+
+## Open questions
+
+1. Concrete citation forms per host format (inline structured reference, Markdown marker block, YAML sidecar ledger). The pilot exercises all three; a follow-up normalizes.
 2. Section-slug anchors and non-ASCII headings: do we need canonicalization rules, or do we restrict anchors to verification-scenario ids and skip the problem? **v0.1 decision:** restrict to scenario ids; section-slug anchors deferred to a follow-up.
+3. The serialization of the product diff and of impact reports. The semantic relationship between intent, effective change and impact is settled under Change impact above; only the representation is deferred to a follow-up specification.

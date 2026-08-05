@@ -9,7 +9,7 @@
 
 ## Fixture
 
-`repo/` contains a minimal product model: an Actor (`ACT-VALIDATOR`), a Journey (`JRN-VALIDATE`), a Use Case (`UC-VALIDATE-001`) and a Functional Requirement (`FR-VALIDATE-001`) with one verification scenario carrying a stable `id` (`S1`). A consumer document (`repo/specs/feature-x.md`) carries a citation sidecar (`repo/specs/feature-x.citations.yml`) recording the FR's current content digest and the `S1` anchor.
+`repo/` contains a minimal product model: an Actor (`ACT-VALIDATOR`), a Journey (`JRN-VALIDATE`), a Use Case (`UC-VALIDATE-001`) and a Functional Requirement (`FR-VALIDATE-001`) with one verification scenario carrying a stable `id` (`S1`), established by an archived `CHG-INITIAL`. A consumer document (`repo/specs/feature-x.md`) carries a citation sidecar (`repo/specs/feature-x.citations.yml`) recording the FR's current content digest and the `S1` anchor.
 
 ## Expected
 

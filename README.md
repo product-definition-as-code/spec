@@ -25,7 +25,7 @@ The specification text is being extracted from the [reference implementation](ht
 
 ## Contents
 
-The specification lives in [`spec/`](spec/index.md), in eight chapters: terminology, artifacts, frontmatter reference, identifiers, relationships, the citation contract, validation, and conformance. The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+The specification lives in [`spec/`](spec/index.md), in nine chapters: terminology, artifacts, frontmatter reference, identifiers, relationships, product changes, the citation contract, validation, and conformance. The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
 The founding position is [the manifesto](MANIFESTO.md). You can [sign it](SIGNATORIES.md).
 

@@ -1,6 +1,6 @@
 # Artifacts
 
-This chapter defines the artifact types of the current product model, their frontmatter contracts, required body sections and lifecycle states.
+This chapter defines the artifact types of the current product model, their frontmatter contracts, required body sections and lifecycle states. Product Changes are specified in their own [chapter](product-changes.md).
 
 ## Common contract
 
@@ -38,7 +38,7 @@ Rules:
 - An `active` artifact MUST NOT reference a `retired` artifact.
 - A reference from an `active` artifact to a `deprecated` artifact SHOULD produce a warning.
 - `draft` artifacts MAY reference other `draft` artifacts.
-- This lifecycle applies to product artifacts only.
+- This lifecycle applies to product artifacts only. The artifact lifecycle and the [Product Change lifecycle](product-changes.md#lifecycle) are separate state machines and MUST NOT be mixed.
 
 ## Actor (`actor`, `ACT-`)
 

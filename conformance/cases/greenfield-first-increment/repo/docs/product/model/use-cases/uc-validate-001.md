@@ -11,19 +11,19 @@ governed-by:
 
 ## Goal
 
-Detect unresolved artifact references before a proposal is merged.
+Detect unresolved artifact references before a Product Change is applied.
 
 ## Trigger
 
-A validation run is requested on a proposed revision.
+A validation run is requested on a Product Change.
 
 ## Preconditions
 
-The proposed tree is available for validation.
+The change's overlay can be compiled from the baseline and its proposed artifacts.
 
 ## Main Flow
 
-1. The validator compiles the product graph from the proposed tree.
+1. The validator compiles the product graph from the overlay.
 2. The validator checks every reference for a resolvable target.
 3. Unresolved references are reported as errors.
 

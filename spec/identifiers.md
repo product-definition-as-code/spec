@@ -22,16 +22,19 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `FR-`   | Functional Requirement |
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
+| `CHG-`  | Product Change         |
 
 An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique within one product repository across all artifact kinds.
 
+`CHG-INITIAL` is reserved for the single initialisation change (see [Product Changes → Initialisation](product-changes.md#initialisation)). The `SLI-` and `HOF-` prefixes are retired and MUST NOT be reused ([RFC 0004](../rfcs/0004-delivery-model-reset.md)).
+
 ## Authored identifiers
 
-All artifact IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
+All IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`, `CHG-CITATIONS-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
 
 ## Immutability
 
-- An ID becomes immutable when the artifact is first accepted into the current product model by a reviewed merge into the canonical branch.
+- An ID becomes immutable when the artifact is first accepted into the Product Definition: applied by a Product Change and merged into the canonical branch.
 - An ID MUST never be reused, including after its artifact is retired or removed.
 - The artifact's title, file path, body and relationships MAY change; the ID MUST NOT.
 - A revision that modifies an existing artifact MUST keep the same ID.

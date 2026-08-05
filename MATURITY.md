@@ -9,7 +9,7 @@ This page is the single source of truth for what each public surface of Product 
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
-| Conformance | Citation-contract corpus scaffolded; independent runner planned |
+| Conformance | Initialisation and citation-contract corpus scaffolded; change-semantics cases and an independent runner planned |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 

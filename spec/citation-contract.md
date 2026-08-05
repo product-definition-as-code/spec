@@ -51,6 +51,8 @@ A conforming tool MUST compute, deterministically, exactly one status per citati
 
 Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a citation stale.
 
+Applying a Product Change computes the product diff between the baseline and the applied result ([Product Changes → Apply](product-changes.md#apply)). The affected citation set is derived from that diff and the citation index, not from the change's declared `operations`: a citation goes stale because the text it cited effectively changed, never because a change said it would.
+
 ## Diagnostics
 
 | Code         | Severity | Condition                                                                                                |
@@ -69,7 +71,7 @@ Semantic contradiction between a citation and its surrounding consumer text is e
 
 ## Delivery boundary
 
-Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY propose a revision - a pull request - when implementation reveals a contradiction; a human decides whether to merge it ([manifesto](../MANIFESTO.md) principle 9). Merging is a human decision: tools MUST NOT merge, auto-approve or self-merge model changes.
+Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY propose a [Product Change](product-changes.md) when implementation reveals a contradiction; a human decides whether to approve and accept it ([manifesto](../MANIFESTO.md) principle 9). Acceptance is a human decision: tools MUST NOT merge, auto-approve or self-merge model changes.
 
 Cross-repository citation resolution - where a cited model lives in a different repository than the consumer document - is out of scope for this chapter and tracked under [RFC #2 (deployment topologies)](https://github.com/product-definition-as-code/spec/issues/2).
 

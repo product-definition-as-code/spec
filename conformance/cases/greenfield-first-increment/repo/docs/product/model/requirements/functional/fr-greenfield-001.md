@@ -1,26 +1,26 @@
 ---
 id: FR-GREENFIELD-001
 type: functional-requirement
-title: Greenfield baseline is accepted via reviewed merge
+title: The first Product Definition is established by CHG-INITIAL
 status: active
 derived-from:
   - BR-NO-SILENT-EDITS
 verification:
   - id: S1
-    scenario: An empty model receives a PR adding artifacts; after merge the baseline is valid.
+    scenario: An empty model receives CHG-INITIAL; after apply and merge the Product Definition is valid.
   - id: S2
-    scenario: A consumer spec cites the merged FR and a governing rule; all citations are current.
+    scenario: A consumer spec cites the accepted FR and a governing rule; all citations are current.
 ---
 
 ## Requirement
 
-The initial product baseline MUST enter through the same reviewed-merge mechanism as every later change: a branch, full-tree structural validation, and a human merge into an empty model.
+The first Product Definition MUST be established by `CHG-INITIAL`, applied into an empty model and accepted through review, using the same mechanism as every later Product Change.
 
 ## Rationale
 
-There is no special-cased first increment; the initial baseline uses the same mechanism as every later change.
+There is no special-cased first increment and no separate greenfield or brownfield path; only the knowledge available at initialisation differs.
 
 ## Acceptance Scenarios
 
-- **S1.** An empty model receives a PR adding artifacts; after merge the baseline is valid.
-- **S2.** A consumer spec cites the merged FR and a governing rule; all citations are `current`.
+- **S1.** An empty model receives `CHG-INITIAL`; after apply and merge the Product Definition is valid.
+- **S2.** A consumer spec cites the accepted FR and a governing rule; all citations are `current`.
