@@ -33,7 +33,7 @@ operations:
 
 Required body sections: `## Problem`, `## Intended Product Outcome`, `## Rationale`, `## Affected Product Areas`, `## Open Questions`, `## Product Acceptance`, `## Out of Scope`.
 
-Applied and rejected changes are archived under `docs/product/changes/completed/<chg-id>/` and `docs/product/changes/rejected/<chg-id>/`. Archived changes are inert history: they are not compiled into the product graph, and their IDs and proposed artifacts take no part in duplicate detection, reference resolution or operation checks.
+Each terminal status has exactly one archive directory: applied changes are archived under `docs/product/changes/completed/<chg-id>/`, rejected changes under `docs/product/changes/rejected/<chg-id>/`, and superseded changes under `docs/product/changes/superseded/<chg-id>/`. An archived change's directory MUST agree with its status: a change that was approved and then overtaken is not a change that was refused, and the change history is the evidence of which happened. Archived changes are inert history: they are not compiled into the product graph, and their IDs and proposed artifacts take no part in duplicate detection, reference resolution or operation checks.
 
 ## Elaboration
 
@@ -58,11 +58,15 @@ While a Product Change is active, the baseline artifacts it touches remain autho
 
 `productChangeStatus`: `draft` → `proposed` → `approved` → `applied`, with `rejected` (from `draft` or `proposed`) and `superseded` (from any non-terminal state) as terminal alternatives.
 
+Entering a terminal status archives the change: its directory moves out of `active/` into the archive directory for that status (see [Structure](#structure)), and the archived `change.md` records the terminal status. Archiving is a move, not a copy.
+
 `approved` is a human product decision: the change is judged correct and wanted. It is what authorizes apply. It says nothing about implementation, and there is no status for implementation: whether the accepted intent has been built is a fact about delivery, not about the change ([RFC 0004](../rfcs/0004-delivery-model-reset.md)).
 
 Acceptance is not a status on the change. An applied change enters the accepted Product Definition when a human merges the pull request carrying it (see [Terminology → Accepted](terminology.md)).
 
-A change moved to `approved` while its `## Open Questions` section still contains unresolved questions SHOULD produce a warning (`PRODUCT108`).
+A Product Change in status `approved` whose `## Open Questions` section still contains unresolved questions SHOULD produce a warning (`PRODUCT108`). The warning is reported whenever the change is validated, not only at the moment the status changes, so that it is reproducible from repository content alone.
+
+For `PRODUCT108`, an unresolved question is a Markdown list item within the change's `## Open Questions` section, at any nesting depth. A list item counts as unresolved regardless of its content: nothing in the syntax distinguishes an answered item from an open one, and task-list checkboxes are not interpreted. Resolving a question therefore means removing its list item - deleting it, or folding it into the prose that answers it. A section with no list items has no unresolved questions: prose is not a question, so `None.` and an empty section are resolved by construction. The rule is syntactic on purpose: two implementations reading the same bytes have to agree, and no deterministic tool can judge whether prose contains an open question.
 
 ## Apply
 
@@ -72,11 +76,11 @@ The distinction is a distinction of location, not of file content. `docs/product
 
 Apply:
 
-1. MUST require change status `approved`.
+1. MUST require change status `approved`. Applying a change in any other status MUST fail with `PRODUCT028`, leaving the working tree untouched.
 2. MUST revalidate the overlay.
-3. MUST check baseline-revision compatibility: if any artifact named in the change's operations changed in the baseline since `base-revision`, apply MUST fail (`PRODUCT027`) until the change is explicitly rebased - its proposed artifacts regenerated and reviewed against the new baseline, `base-revision` updated, and the overlay revalidated.
+3. MUST check baseline-revision compatibility: if any artifact named in the change's `operations.modify` or `operations.remove` changed in the baseline since `base-revision`, apply MUST fail (`PRODUCT027`) until the change is explicitly rebased - its proposed artifacts regenerated and reviewed against the new baseline, `base-revision` updated, and the overlay revalidated. Changed means the artifact's content digest differs from its digest at `base-revision` (see [Validation → Digests](validation.md#digests)): a commit that touched the file without changing its normalized content is not drift. `operations.add` is not drift-checked: an addition has no baseline artifact to compare against, and an ID that has appeared in the baseline since is already reported as `PRODUCT020` by the revalidated overlay.
 4. Writes additions, modifications and removals into the working tree's `docs/product/model`, naming files by lowercase ID.
-5. MUST compute the product diff between the baseline and the applied result, recording every impacted artifact and its resulting content digest. The diff is computed from the result, never read off `operations`: `operations` states what the change meant to do, the diff records what it effectively did.
+5. MUST compute the product diff between the baseline and the applied result, and MUST report it in the operation's output in both a human-readable and a machine-readable form. Each entry names the impacted artifact, the kind of impact (`added`, `modified` or `removed`) and, for an addition or a modification, the resulting content digest; a removal has no resulting content and carries no digest. The diff is computed from the result, never read off `operations`: `operations` states what the change meant to do, the diff records what it effectively did. The diff is derived, not canonical - it is recomputable from `base-revision` and the applied result - so apply MUST NOT write it into the archived change directory, which is immutable once archived. An implementation MAY persist it elsewhere as a generated, non-canonical file. This specification fixes what the diff records and where apply reports it, not an on-disk serialization ([RFC 0004](../rfcs/0004-delivery-model-reset.md) open question 3).
 6. MUST run full structural validation of the resulting model, and MUST leave the working tree untouched if it fails.
 7. Sets the change status to `applied` and moves the change directory to `docs/product/changes/completed/<chg-id>/`, preserving its history. `applied` means materialized and archived, not accepted. An implementation MAY omit `proposed/` from the archived change, since the applied artifacts are now in the model and Git retains their proposed form; `change.md` MUST be retained.
 8. MUST support `--dry-run`, reporting every action without performing any. Before mutating anything, apply MUST preflight every planned action (readable sources, existing delete targets, absent archive destination); a preflight failure leaves the working tree untouched, and execution orders the change-directory move last so the archived change appears only when every other action succeeded.

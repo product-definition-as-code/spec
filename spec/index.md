@@ -29,7 +29,7 @@ Within a repository that adopts Product Definition as Code:
 | `docs/product/model/**/*.md`                                                                                        | Canonical current product semantics (the accepted Product Definition) |
 | `docs/product/changes/active/**/change.md`                                                                          | Canonical definition of a live Product Change                     |
 | `docs/product/changes/active/**/proposed/**/*.md`                                                                   | Canonical proposed future-state product semantics for that change |
-| `docs/product/changes/completed/**`, `docs/product/changes/rejected/**`                                             | Change history; inert, never compiled into the graph              |
+| `docs/product/changes/completed/**`, `docs/product/changes/rejected/**`, `docs/product/changes/superseded/**`       | Change history; inert, never compiled into the graph              |
 | Consumer documents outside `docs/product/model` (SDD specs, tasks, agent prompts, design docs)                      | Non-canonical; carry citations to canonical product text           |
 | Graph files, generated indexes, Mermaid diagrams, traceability reports                                              | Generated and non-canonical                                       |
 
