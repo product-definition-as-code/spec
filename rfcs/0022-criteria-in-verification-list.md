@@ -1,8 +1,11 @@
 # RFC 0022: Acceptance criteria live in `verification[]`; the body does not restate them
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-06
+- **Accepted:** 2026-08-06
+- **Related:** #4 (delivery-model reset), which established `verification[]` scenario ids as the only citation anchor
+- **Issue:** <https://github.com/product-definition-as-code/spec/pull/20> (the defect was recorded there while stating the role of `verification[]`)
 
 ## Problem
 
