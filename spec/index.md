@@ -22,7 +22,7 @@ _Figure PDaC-1 — what is inside Product Definition as Code and what is outside
 6. [Product Changes](product-changes.md) - change structure, operations, overlay validation, lifecycle, apply, initialisation through `CHG-INITIAL`, change history.
 7. [Citation Contract](citation-contract.md) - machine-verifiable references from consumer documents to canonical product text, citation statuses, the delivery boundary.
 8. [Validation](validation.md) - deterministic diagnostics, stable codes, exit codes.
-9. [Conformance](conformance.md) - what it means for a repository and an implementation to conform.
+9. [Conformance](conformance.md) - what it means for a repository and an implementation to conform, the co-located and dedicated topologies a model repository may take, and the pointer to a dedicated one.
 
 ## Canonical authority
 

@@ -132,4 +132,4 @@ They can legitimately disagree in scope. A declared `modify` may leave the artif
 
 The stale set is the machine-derivable answer to "what does this change oblige us to revisit": which specifications, tasks and prompts cited intent that no longer says what it said. PDaC surfaces that set. Whether it is answered by updating the citing document, planning rework, or contesting the change is a decision for the consuming process, not a conformance criterion.
 
-Citations resolve within one repository in v0.1. Cross-repository resolution is out of scope and is owned by [RFC #2](https://github.com/product-definition-as-code/spec/issues/2).
+Citations resolve within one repository in v0.1. Where the model repository may live is settled by [Conformance → Topologies](conformance.md#topologies); resolving a citation across a repository boundary remains out of scope ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
