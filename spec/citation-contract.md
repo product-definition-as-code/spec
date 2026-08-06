@@ -6,7 +6,7 @@ The citation contract is the delivery boundary of Product Definition as Code. Co
 
 ![The citation chain and what happens when it drifts. A product artifact, UC-CHECKOUT-001, carrying accepted intent, is cited by an SDD specification, spec checkout-flow, which is implemented by code or another delivery artifact, which produces verification or delivery evidence. A panel lists citation statuses: current, where the citation matches the accepted artifact; stale, where the cited artifact changed and the specification needs review; and unresolved, where the citation cannot be resolved. A drift scenario shows UC-CHECKOUT-001 changing, the citation becoming stale, and a consumer reviewing the specification, marked human-controlled, with two rules stated: no automatic rewrite, and PDaC does not prescribe implementation.](../assets/diagrams/pdac-5-citation-and-drift.png)
 
-_Figure PDaC-5 — how does PDaC connect to a consumer without replacing it? Non-normative; the status table below is authoritative, in particular for `tampered`, which applies only to embedded projections._
+_Figure PDaC-5 — how does PDaC connect to a consumer without replacing it? Non-normative; this chapter is authoritative._
 
 ## Citation record
 
