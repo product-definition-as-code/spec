@@ -112,7 +112,7 @@ Required body sections: `## Requirement`, `## Rationale`.
 
 The `## Requirement` section MUST use explicit normative language. A requirement MUST NOT be a disguised implementation task and MUST retain traceability to the product knowledge it derives from.
 
-`verification` is the canonical carrier of the requirement's acceptance criteria, and the body MUST NOT restate them. A body section that reproduces them is a projection, not a second source: an artifact MAY carry one, and when it does it MUST follow the [embedding rules](citation-contract.md#embedding), so that a copy edited by hand is detectable rather than silently divergent.
+`verification` is the canonical carrier of the requirement's acceptance criteria, and the body SHOULD NOT restate them. A body section that reproduces them is a projection, not a second source: an artifact MAY carry one, and when it does it MUST follow the [embedding rules](citation-contract.md#embedding), so that a copy edited by hand is detectable rather than silently divergent.
 
 ## Quality Requirement (`quality-requirement`, `QR-`)
 
@@ -122,7 +122,7 @@ Additional frontmatter: `quality-attribute` (required, string such as `portabili
 
 Required body sections: `## Requirement`, `## Measurement`.
 
-Vague quality statements ("the system should be fast") do not satisfy this contract: the `## Measurement` section MUST state how conformance is measured. `verification` carries the acceptance criteria under the same rule as for a [Functional Requirement](#functional-requirement-functional-requirement-fr-): the body MUST NOT restate them.
+Vague quality statements ("the system should be fast") do not satisfy this contract: the `## Measurement` section MUST state how conformance is measured. `verification` carries the acceptance criteria under the same rule as for a [Functional Requirement](#functional-requirement-functional-requirement-fr-): the body SHOULD NOT restate them.
 
 ## Constraint (`constraint`, `CON-`)
 
