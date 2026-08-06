@@ -1,8 +1,9 @@
 # RFC 0021: Deployment topologies: the model repository, co-located or dedicated
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-06
+- **Accepted:** 2026-08-06
 - **Related:** #4 (delivery-model reset), which narrowed this RFC's scope to where cited models live
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/2>
 
@@ -144,6 +145,14 @@ The model repository becomes a named thing, so later work can say where somethin
 Relaxing the repository relaxes nothing else. Layout, validation, Product Changes, apply, acceptance by reviewed merge and the citation contract are identical in both topologies. The only observable difference is whether the software sits in the same working tree, and clause 2 forbids an implementation from caring.
 
 The coupling removed here was never in the normative text. It was in the sentence adopters read first.
+
+## Decision record
+
+Accepted 2026-08-06 by the founding maintainer, for v0.1.
+
+The 14-day public comment window required by [CONTRIBUTING](../CONTRIBUTING.md) and [GOVERNANCE](../GOVERNANCE.md) was waived for this RFC. The reason, recorded rather than passed over: the specification is pre-v0.1 with a single maintainer, so consensus is immediate and no public comment was pending. The waiver is specific to this RFC. From v0.1 onward the window applies as written, which is the point of publishing it.
+
+Consensus among maintainers was satisfied trivially, one maintainer and no objection, and that is a bootstrap state rather than the destination ([GOVERNANCE → Roles](../GOVERNANCE.md)).
 
 ## Open questions
 
