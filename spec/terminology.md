@@ -20,6 +20,8 @@ Definitions used normatively throughout this specification.
 
 **Citation.** A machine-verifiable reference from a consumer document to canonical product text: the target artifact's `id`, the content `digest` of the cited canonical text, and an optional `anchor` addressing a verification scenario by its stable `id`. See the [Citation Contract](citation-contract.md).
 
+**Verification scenario.** An entry of a Functional or Quality Requirement's `verification` list: a product-level acceptance criterion for that requirement, expressed as something observably true of the product rather than of any implementation of it. A scenario is the unit a delivery process verifies against, and the unit a consumer cites when its scope covers part of a requirement rather than all of it ([Citation Contract → Anchors](citation-contract.md#anchors)). PDaC does not own the verification workflow: turning a scenario into an executable test, running it, and judging the evidence it produces belong to the delivery process ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
+
 **Product Graph.** The derived directed graph whose nodes are product artifacts and whose typed edges are the canonical relationships declared in artifact frontmatter, together with derived reverse indexes. The graph is always compiled from the canonical files and is never authored.
 
 **Canonical / Derived / Generated.** _Canonical_ files are authored by humans (possibly assisted by AI) and are the source of truth. _Derived_ or _generated_ files are produced by tooling from canonical files, are reproducible, and MUST NOT be edited by hand.
