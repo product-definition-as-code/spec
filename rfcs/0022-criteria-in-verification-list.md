@@ -1,4 +1,4 @@
-# RFC 0000: Acceptance criteria live in `verification[]`; the body does not restate them
+# RFC 0022: Acceptance criteria live in `verification[]`; the body does not restate them
 
 - **Status:** draft
 - **Author(s):** juangcarmona
