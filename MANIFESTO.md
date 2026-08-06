@@ -18,7 +18,7 @@ _Figure PDaC-7 — why should the product definition not trail the code? Non-nor
 
 ## Principles
 
-1. Product knowledge lives in the repository, close to the software it defines.
+1. Product knowledge lives in a git repository, as files. Co-located with the code when one repository serves; dedicated when many do.
 2. Markdown is the source of truth. The product graph is compiled from it, never authored by hand, and nothing generated is authoritative.
 3. Every artifact has a stable, immutable identity.
 4. Relationships are explicit, typed and machine-readable. The relationships are the methodology: artifacts without them are just better-organized documents.

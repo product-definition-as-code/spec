@@ -6,6 +6,8 @@ Definitions used normatively throughout this specification.
 
 **Product Definition (Baseline).** The accepted, versioned and validated graph of product artifacts under `docs/product/model`. It describes the product as currently defined, including behaviour that is accepted. The Product Definition is the accepted product intent on the repository's canonical branch; acceptance and implementation are distinct facts. Also called the _baseline_ when a Product Change is validated against it.
 
+**Model repository.** The git repository holding the Product Definition, as files under the configured product root. It MAY also hold the software the definition describes (co-located topology) or hold the definition alone (dedicated topology); both conform, and co-location is the default when one repository serves the product. A model repository holds one Product Definition. See [Conformance → Topologies](conformance.md#topologies).
+
 **Accepted.** A product artifact is accepted when it has been merged into the canonical branch by a human through a reviewed merge. Acceptance is a fact about the model, not about implementation: an accepted artifact may be unimplemented, and an implemented artifact that was never merged is not part of the Product Definition.
 
 **Product Change.** An explicit, versioned semantic delta against the baseline: additions, modifications and removals, each represented by complete proposed future-state artifacts, plus rationale and open questions. Stored under `docs/product/changes/`. A Product Change is reviewed and accepted through a pull request, but it is not a pull request, a delivery container or an implementation state. See [Product Changes](product-changes.md).

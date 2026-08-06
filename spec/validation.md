@@ -60,6 +60,8 @@ Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yam
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
+`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.1: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
+
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
 ## Warning codes
