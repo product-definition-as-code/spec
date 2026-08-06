@@ -10,7 +10,7 @@ Human-facing explanations live in the [manifesto](../MANIFESTO.md), in particula
 
 ![The PDaC boundary. Inside, six numbered concerns: the accepted product definition, product artifacts, relationships, Product Changes, validation and impact analysis, and citations to the definition; below them, drawn dashed, the derived graph and its views. Outside: SDD specifications, backlogs, technical design, source code, deployment, runtime operation and release management. The definition is cited by SDD specifications, which guide implementation, which produces evidence; a dashed amber arrow labelled "may reveal" runs from evidence back to Product Changes. The closing line reads: PDaC defines the product, delivery builds it.](../assets/diagrams/pdac-1-product-definition-context.png)
 
-_Figure PDaC-1 — what is inside Product Definition as Code and what is outside? Non-normative; the chapters below are authoritative._
+_Figure PDaC-1 - what is inside Product Definition as Code and what is outside? Non-normative; the chapters below are authoritative._
 
 ## Contents
 
