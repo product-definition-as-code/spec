@@ -4,7 +4,7 @@ The relationships are the methodology: they connect intent (actors), behaviour (
 
 ![Impact analysis over a small graph neighbourhood, before and after a change. Before: BR-REFUND-001 connects to UC-REFUND-002, which is cited by an SDD spec and appears in JRN-CUSTOMER-001, which involves ACT-CUSTOMER-001. After: modifying BR-REFUND-001 walks the relationships to reach the affected product artifacts and the affected citations, each drawn with a dashed amber border labelled affected or stale. The closing line reads: PDaC detects impact, consumers decide what to do.](../assets/diagrams/pdac-6-impact-analysis.png)
 
-_Figure PDaC-6 — what happens when one part of the product changes? Non-normative: the arrows are readable prose and some point in the derived direction. The canonical vocabulary below is authoritative._
+_Figure PDaC-6 - what happens when one part of the product changes? Non-normative: the arrows are readable prose and some point in the derived direction. The canonical vocabulary below is authoritative._
 
 ## Canonical vocabulary
 
