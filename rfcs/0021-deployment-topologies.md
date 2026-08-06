@@ -1,4 +1,4 @@
-# RFC 0000: Deployment topologies: the model repository, co-located or dedicated
+# RFC 0021: Deployment topologies: the model repository, co-located or dedicated
 
 - **Status:** draft
 - **Author(s):** juangcarmona
