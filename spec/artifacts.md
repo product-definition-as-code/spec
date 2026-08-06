@@ -2,6 +2,10 @@
 
 This chapter defines the artifact types of the current product model, their frontmatter contracts, required body sections and lifecycle states. Product Changes are specified in their own [chapter](product-changes.md).
 
+![The six model artifact families and their prefixes: Actors (ACT-), Journeys (JRN-), Use Cases (UC-), Business Rules (BR-), Domain (Terms, TERM-, and Bounded Contexts, BC-) and Requirements (Functional, FR-, Quality, QR-, and Constraints, CON-). Illustrative arrows run from actors through journeys to use cases, and from use cases out to business rules, domain and requirements. The diagram is labelled as the base model, not the only possible model, with relationships marked illustrative and not exhaustive.](../assets/diagrams/pdac-2-product-definition-model.png)
+
+_Figure PDaC-2 — what does it mean to define the product? Non-normative; this chapter is authoritative for the types, and [Relationships](relationships.md) for the arrows._
+
 ## Common contract
 
 Every product artifact is a Markdown file whose YAML frontmatter MUST include:
