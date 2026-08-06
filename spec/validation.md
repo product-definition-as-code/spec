@@ -58,6 +58,8 @@ Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yam
 
 `PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
+When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
+
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
 ## Warning codes

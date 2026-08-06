@@ -28,6 +28,7 @@ The seed corpus targets Product Change semantics, the citation contract, and the
 | `citation-current` | a consumer doc cites a baseline FR; status `current`; no `PRODUCT06x` | scaffolded |
 | `citation-stale` | canonical FR amended after citation; `PRODUCT061` warning | planned |
 | `citation-tampered` | embedded projection differs from canonical at recorded digest; `PRODUCT062` | planned |
+| `citation-tampered-and-stale` | embedded block edited by hand and the cited target also moved; `PRODUCT062` alone, never `PRODUCT061` | scaffolded |
 | `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | scaffolded |
