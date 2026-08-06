@@ -19,8 +19,3 @@ The first Product Definition MUST be established by `CHG-INITIAL`, applied into 
 ## Rationale
 
 There is no special-cased first increment and no separate greenfield or brownfield path; only the knowledge available at initialisation differs.
-
-## Acceptance Scenarios
-
-- **S1.** An empty model receives `CHG-INITIAL`; after apply and merge the Product Definition is valid.
-- **S2.** A consumer spec cites the accepted FR and a governing rule; all citations are `current`.

@@ -12,7 +12,7 @@
 
 `repo/` carries the same minimal model as `citation-current`: an Actor (`ACT-VALIDATOR`), a Journey (`JRN-VALIDATE`), a Use Case (`UC-VALIDATE-001`) and a Functional Requirement (`FR-VALIDATE-001`) with one verification scenario carrying the stable `id` `S1`, established by an archived `CHG-INITIAL`.
 
-The consumer document `repo/specs/feature-x.md` carries a marker-block citation of `FR-VALIDATE-001` recording the digest `sha256:0c1ac562387d45687f560ec88975080cb9b12041b560a19b64c329df75d2cbcd`, which is the digest of this earlier revision of the artifact, ending with a final newline:
+The consumer document `repo/specs/feature-x.md` carries a marker-block citation of `FR-VALIDATE-001` recording the digest `sha256:cd567f9e119089438556095f639b896e63f638a7cf5efd50d951f2ae24ead8c4`, which is the digest of this earlier revision of the artifact, ending with a final newline:
 
 ```markdown
 ---
@@ -34,18 +34,14 @@ The product SHOULD detect references to unknown artifact IDs and report them as 
 ## Rationale
 
 Unresolved references break the product graph; catching them deterministically prevents silent drift between artifacts.
-
-## Acceptance Scenarios
-
-- **S1.** A validation run reports an unresolved reference with code `PRODUCT006`.
 ```
 
 Both conditions therefore hold at once:
 
 - **tampered**: the embedded projection reads `The product MAY detect`, so it is not the canonical text at the recorded digest. It cannot reach that digest under either reading of the block's trailing newline, so the case is decidable without settling that question.
-- **stale**: the artifact in the baseline reads `The product MUST detect` and hashes to `sha256:6ba6c004045166c3bd42072b0c3c65bd7681db00ddae1341a42cb3310d9151f5`, so the target's recomputed digest differs from the recorded one.
+- **stale**: the artifact in the baseline reads `The product MUST detect` and hashes to `sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970`, so the target's recomputed digest differs from the recorded one.
 
-The recorded digest is deliberately the digest of text that is not in the fixture. Nothing here has to be repinned when the fixture is edited, and the case is unaffected by the pinned-digest question of [issue #10](https://github.com/product-definition-as-code/spec/issues/10).
+The recorded digest is deliberately the digest of text that is not in the fixture: the canonical artifact reads `MUST` and the projection reads `MAY`, so no file under `repo/` hashes to it. It is the canonical artifact with `MUST` replaced by `SHOULD`, so a runner verifying pinned digests ([issue #10](https://github.com/product-definition-as-code/spec/issues/10)) can reproduce it from the fixture rather than trusting it.
 
 ## Expected
 

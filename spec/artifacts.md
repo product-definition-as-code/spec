@@ -108,9 +108,11 @@ A Functional Requirement is a derived product obligation stating what the produc
 
 Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each optionally carrying a stable `id` for citation anchoring; see [Frontmatter reference](frontmatter-reference.md)).
 
-Required body sections: `## Requirement`, `## Rationale`, `## Acceptance Scenarios`.
+Required body sections: `## Requirement`, `## Rationale`.
 
 The `## Requirement` section MUST use explicit normative language. A requirement MUST NOT be a disguised implementation task and MUST retain traceability to the product knowledge it derives from.
+
+`verification` is the canonical carrier of the requirement's acceptance criteria, and the body MUST NOT restate them. A body section that reproduces them is a projection, not a second source: an artifact MAY carry one, and when it does it MUST follow the [embedding rules](citation-contract.md#embedding), so that a copy edited by hand is detectable rather than silently divergent.
 
 ## Quality Requirement (`quality-requirement`, `QR-`)
 
@@ -118,9 +120,9 @@ A Quality Requirement states a measurable quality obligation.
 
 Additional frontmatter: `quality-attribute` (required, string such as `portability`, `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context IDs); `verification` (required, non-empty list of `- scenario: <text>` entries, each optionally carrying a stable `id` for citation anchoring; see [Frontmatter reference](frontmatter-reference.md)).
 
-Required body sections: `## Requirement`, `## Measurement`, `## Verification`.
+Required body sections: `## Requirement`, `## Measurement`.
 
-Vague quality statements ("the system should be fast") do not satisfy this contract: the `## Measurement` section MUST state how conformance is measured.
+Vague quality statements ("the system should be fast") do not satisfy this contract: the `## Measurement` section MUST state how conformance is measured. `verification` carries the acceptance criteria under the same rule as for a [Functional Requirement](#functional-requirement-functional-requirement-fr-): the body MUST NOT restate them.
 
 ## Constraint (`constraint`, `CON-`)
 
