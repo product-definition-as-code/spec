@@ -44,6 +44,17 @@ An implementation MUST NOT require a co-located software tree in order to valida
 
 A model repository holds one Product Definition. Splitting a single Product Definition across repositories remains out of scope, and this RFC deliberately adds nothing that would make it easier by accident.
 
+The four layouts adopters ask about resolve as follows:
+
+| Layout                                                        | Topology    | v0.1                                                                       |
+| ------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------- |
+| Monorepo: one repository holding the product and its software | co-located  | conforming, and the default                                                |
+| One repository per product, beside the software it defines     | co-located  | conforming, and the default                                                |
+| One product spanning several software repositories            | dedicated   | conforming; each consuming repository carries the clause 3 pointer         |
+| One Product Definition split across several repositories      | neither     | out of scope; a model repository holds one Product Definition              |
+
+The table restates clauses 1 to 3 and adds nothing to them. In all four rows the invariant is the same: git, plain files, one product root, and no network service owning any of it (clause 4).
+
 ### 3. The pointer from a consuming repository
 
 In the dedicated topology, a consuming repository SHOULD carry a machine-readable pointer to the model repository, so that a tool or an agent can resolve product context instead of being told out of band where it is.
