@@ -4,7 +4,7 @@ A **citation** is a machine-verifiable reference from any consumer document - a 
 
 The citation contract is the delivery boundary of Product Definition as Code. Consumers do not re-state product knowledge; they cite it. A citation records what was cited and at what content digest, so that drift between a consumer document and the canonical model is machine-detectable rather than silent.
 
-![The citation chain and what happens when it drifts. A product artifact, UC-CHECKOUT-001, carrying accepted intent, is cited by an SDD specification, spec checkout-flow, which is implemented by code or another delivery artifact, which produces verification or delivery evidence. A panel lists citation statuses: current, where the citation matches the accepted artifact; stale, where the cited artifact changed and the specification needs review; and unresolved, where the citation cannot be resolved. A drift scenario shows UC-CHECKOUT-001 changing, the citation becoming stale, and a consumer reviewing the specification, marked human-controlled, with two rules stated: no automatic rewrite, and PDaC does not prescribe implementation.](../assets/diagrams/pdac-5-citation-and-drift.png)
+![The citation chain and what happens when it drifts. A product artifact, UC-CHECKOUT-001, carrying accepted intent, is cited by an SDD specification, spec checkout-flow, which is implemented by code or another delivery artifact, which produces verification or delivery evidence. A panel lists four citation statuses: current, where the citation matches the accepted artifact; stale, where the cited artifact changed and the specification needs review; unresolved, where the citation cannot be resolved; and tampered, where an embedded block differs from canonical text at the recorded digest. A drift scenario shows UC-CHECKOUT-001 changing, the citation becoming stale, and a consumer reviewing the specification, marked human-controlled, with two rules stated: no automatic rewrite, and PDaC does not prescribe implementation.](../assets/diagrams/pdac-5-citation-and-drift.png)
 
 _Figure PDaC-5 — how does PDaC connect to a consumer without replacing it? Non-normative; this chapter is authoritative._
 
@@ -46,6 +46,8 @@ Embedding is a projection of a citation, not its definition. A consumer MAY addi
 
 A consumer that embeds canonical text without a citation record, or whose embedded text differs from canonical content at the recorded digest, is non-conforming (see `PRODUCT062` below).
 
+Whether an embedded block is faithful is decided by recomputing the digest of the embedded text and comparing it to the recorded `digest`, under the same normalization ([Validation → Digests](validation.md#digests)). The comparison is against the recorded digest, never against the target's current content, so a projection that was edited by hand stays detectable after the cited text has moved.
+
 ## Statuses
 
 A conforming tool MUST compute, deterministically, exactly one status per citation:
@@ -60,6 +62,23 @@ A conforming tool MUST compute, deterministically, exactly one status per citati
 Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a citation stale.
 
 Applying a Product Change computes the product diff between the baseline and the applied result ([Product Changes → Apply](product-changes.md#apply)). The affected citation set is derived from that diff and the citation index, not from the change's declared `operations`: a citation goes stale because the text it cited effectively changed, never because a change said it would.
+
+### Precedence
+
+More than one condition can hold for the same citation: an embedded block edited by hand whose cited text has since moved satisfies the `tampered` and the `stale` condition at once. Because exactly one status is computed, the conditions are evaluated in this order and the first that holds decides:
+
+| Order | Condition                                                                                    | Status       | Diagnostic   |
+| ----- | -------------------------------------------------------------------------------------------- | ------------ | ------------ |
+| 1     | The recorded `digest` is not a well-formed digest.                                           | `unresolved` | `PRODUCT042` |
+| 2     | The target `id` does not resolve.                                                            | `unresolved` | `PRODUCT060` |
+| 3     | The `anchor` does not resolve within the target.                                             | `unresolved` | `PRODUCT063` |
+| 4     | An embedded projection is not byte-identical to the canonical text at the recorded `digest`. | `tampered`   | `PRODUCT062` |
+| 5     | The target's recomputed digest differs from the recorded `digest`.                           | `stale`      | `PRODUCT061` |
+| 6     | None of the above.                                                                           | `current`    | none         |
+
+A citation reports the diagnostic of its status and no other: a tampered projection whose target has also moved is `PRODUCT062`, and `PRODUCT061` MUST NOT be emitted alongside it.
+
+Tampering outranks staleness because it is a property of the consumer document that no edit to the canonical text can resolve, while staleness is resolved by the same act that repairs the projection: re-embedding the canonical text and recording its digest. The order also stops an unrelated canonical edit from turning an error into a warning, which would let a consumer document lower the severity of its own defect. Resolution failures are evaluated first because a statement about content presupposes the content: with no well-formed digest, no target, or no anchor within the target, there is nothing to compare.
 
 ## Diagnostics
 

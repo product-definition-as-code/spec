@@ -1,0 +1,10 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT062",
+      "file": "specs/feature-x.md",
+      "artifact": "FR-VALIDATE-001"
+    }
+  ]
+}
