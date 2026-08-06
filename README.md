@@ -10,6 +10,10 @@ The boundary of the methodology is delivery itself, not one delivery discipline:
 
 This repository holds the specification, the manifesto and the conformance corpus. It is implementation-independent by design: the spec defines contracts, not commands.
 
+<p align="center"> <img src="assets/diagrams/pdac-0-one-minute-map.png" alt="Two zones. On the left, product thinking: what the product means, holding the accepted product definition, versioned, related and reviewable. On the right, software delivery: how the product is built, holding SDD specs, AI agents, developers, backlog and code. An arrow labelled 'cited by' runs from the definition to delivery, and a dashed amber arrow returns, labelled 'delivery evidence reveals new product questions or changes'." width="720" /> </p>
+
+<p align="center"><em>PDaC-0 — what is PDaC, in one minute? <a href="https://pdac.dev/diagrams/">All nine diagrams</a>.</em></p>
+
 ## Status
 
 **v0.1 (request for comments), extraction in progress.** Two weeks old and labeled accordingly: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).

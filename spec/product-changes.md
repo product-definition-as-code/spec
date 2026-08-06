@@ -4,6 +4,10 @@ A requested product modification does not directly become a backlog item and MUS
 
 A Product Change is not a pull request, a delivery container or an implementation state. A pull request is the human review and acceptance boundary for a Product Change; it is not the change itself. Decomposing, scheduling and implementing the work are the concerns of whatever consumes the definition (see the [Citation Contract](citation-contract.md)).
 
+![How the accepted definition changes, in three labelled bands. Intention of change: the current product definition. Proposed change: a proposed Product Change carrying add, modify and remove operations, marked semantic intent. Accepted state: after a review and acceptance step, a new accepted product state, annotated "this is the resulting accepted definition, not implementation". A separate panel shows the graph diff as a derived effect, where modifying BR-014 marks UC-003, JRN-002 and the SDD citations stale or affected. Three boxes separate the roles: Product Change is semantic intent, pull request is the review mechanism, graph diff is the derived effect. The closing line reads: PDaC detects impact, the consuming process decides what to do.](../assets/diagrams/pdac-4-product-change.png)
+
+_Figure PDaC-4 — how does the accepted definition change? Non-normative; this chapter is authoritative._
+
 ## Structure
 
 A Product Change lives in its own directory, named by its lowercase ID:

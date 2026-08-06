@@ -12,6 +12,10 @@ AI-assisted engineering has made implementation fast. As implementation cost fal
 
 That is, while there is value in the items on the right, we value the items on the left more.
 
+![Two timelines running at different speeds. The product thinking timeline runs the full width, passing accepted intent and later definition evolves. Below it, a shorter software delivery timeline starts later, passing cited by delivery work and then implementation; an arrow labelled "cited by" drops from accepted intent down onto it. During delivery, new evidence, a false assumption, an uncovered case or a required product decision feed a dashed amber path back up to the product timeline and into a proposed Product Change carrying semantic intent. A summary panel states that definition can lead implementation, with product thinking running ahead of software delivery and a dashed feedback arrow returning.](assets/diagrams/pdac-7-definition-ahead-of-implementation.png)
+
+_Figure PDaC-7 — why should the product definition not trail the code? Non-normative, like the rest of this manifesto._
+
 ## Principles
 
 1. Product knowledge lives in the repository, close to the software it defines.

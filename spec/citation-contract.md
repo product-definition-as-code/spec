@@ -4,6 +4,10 @@ A **citation** is a machine-verifiable reference from any consumer document - a 
 
 The citation contract is the delivery boundary of Product Definition as Code. Consumers do not re-state product knowledge; they cite it. A citation records what was cited and at what content digest, so that drift between a consumer document and the canonical model is machine-detectable rather than silent.
 
+![The citation chain and what happens when it drifts. A product artifact, UC-CHECKOUT-001, carrying accepted intent, is cited by an SDD specification, spec checkout-flow, which is implemented by code or another delivery artifact, which produces verification or delivery evidence. A panel lists citation statuses: current, where the citation matches the accepted artifact; stale, where the cited artifact changed and the specification needs review; and unresolved, where the citation cannot be resolved. A drift scenario shows UC-CHECKOUT-001 changing, the citation becoming stale, and a consumer reviewing the specification, marked human-controlled, with two rules stated: no automatic rewrite, and PDaC does not prescribe implementation.](../assets/diagrams/pdac-5-citation-and-drift.png)
+
+_Figure PDaC-5 — how does PDaC connect to a consumer without replacing it? Non-normative; the status table below is authoritative, in particular for `tampered`, which applies only to embedded projections._
+
 ## Citation record
 
 A citation is a record, not a block of text. It MUST carry:
@@ -27,6 +31,10 @@ The spec defines the citation record shape, not a mandatory serialization.
 An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. This makes partial scope expressible as a set of cited scenario ids instead of prose.
 
 Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.1 anchors to scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
+
+![Deriving verification from the definition, and keeping it aligned. In the first band, a requirements artifact, FR-REFUND-001, carrying a verification obligation and derived from BR-REFUND-001, leads through Gherkin scenarios, executable tests and evidence to human assessment. In the second band, the definition moves from D1 to D2: a specification citing D1 has its citation go stale, the digest is updated so the specification now cites D2, affected scenarios are reviewed, new or revised Gherkin scenarios are written, and tests are implemented and executed. A note reads: explanatory projection, arrows clarify derivation and continuity, authored relationships remain defined by relationships.md. The closing line reads: PDaC derives traceable verification scenarios from accepted product intent; it proposes and keeps them aligned, while completeness and execution remain outside PDaC.](../assets/diagrams/pdac-8-verification-derivation-and-continuity.png)
+
+_Figure PDaC-8 — how does a scenario-anchored citation stay aligned when the definition changes? Non-normative; [Artifacts](artifacts.md) and the [Frontmatter reference](frontmatter-reference.md) are authoritative for verification scenarios._
 
 ## Embedding
 
