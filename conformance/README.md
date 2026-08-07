@@ -19,6 +19,16 @@ Rules of the corpus: fixtures are plain files with no tooling assumptions; expec
 
 A runner compares `severity`, `code`, `file`, `artifact`, `field` and `target`; `message` is implementation-defined ([Validation](../spec/validation.md)) and MUST NOT be compared. A field absent from an expected diagnostic is not asserted. `file` uses POSIX separators relative to `repo/`, and expected diagnostics are listed in the deterministic order the spec mandates: by file, then code, then target.
 
+## Pinned digests
+
+Several cases pin a content digest: a citation ledger (`*.citations.yml`) or a Markdown marker block records the digest of the artifact it cites. Editing a fixture artifact changes that digest, so a pin left behind describes a citation the case no longer contains. Every pin is recomputed on each pull request by the `Corpus` workflow, and locally with:
+
+```bash
+npx pdac-lint digests --spec .
+```
+
+A pin is expected to match the artifact it cites, except in a case that exists because it does not: a case expecting `PRODUCT061` or `PRODUCT062` for an artifact pins a digest that MUST differ, and the check asserts the difference, so an edit that accidentally makes a tampered fixture faithful is reported rather than quietly voiding the case. After changing a fixture artifact, recompute its digest and update every pin against it.
+
 ## Seed corpus
 
 The seed corpus targets Product Change semantics, the citation contract, and the end-to-end scenarios that join them:

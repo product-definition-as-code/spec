@@ -1,0 +1,29 @@
+name: Corpus
+
+# Drift is introduced by editing a fixture in this repository, so the check runs here, on the
+# pull request that introduces it, rather than downstream of the merge that already accepted it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+jobs:
+  digests:
+    name: pinned digests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      # Pinned exactly, not by range. This job decides whether the corpus is sound, so the tool
+      # deciding it must not change under the repository: a green corpus that goes red without a
+      # spec change would be indistinguishable from real drift. Bump this deliberately.
+      #
+      # A failure here is a defect in this repository, unlike pdac-lint's own corpus job, where a
+      # failing case is a verdict about an implementation. So this one fails the build.
+      - name: verify the digests the corpus pins
+        run: npx --yes pdac-lint@0.1.0 digests --spec .
