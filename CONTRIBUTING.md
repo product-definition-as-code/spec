@@ -14,7 +14,10 @@ Thanks for caring about the left side of the SDLC.
 
 1. Copy `rfcs/0000-template.md` to `rfcs/0000-my-title.md` and fill it in. Keep it short; a good RFC states the problem, the proposed normative text, the alternatives considered and the impact on existing conformant repositories and implementations.
 2. Open a pull request. The PR number becomes the RFC number; rename the file accordingly.
-3. Public comment window: at least 14 days.
+3. Public comment window, by what the RFC does:
+   - **Determination**, filling a gap the specification left open, where no conforming repository or implementation changes behaviour: at least 72 hours.
+   - **Change**, altering existing normative text or adding or removing an obligation: at least 7 days before v1.0, at least 14 days from v1.0.
+   The longer window returns automatically at v1.0, or earlier once a second independent implementation exists, because that is the point at which a week of review costs someone else something.
 4. Maintainers decide per [GOVERNANCE.md](GOVERNANCE.md). Accepted RFCs merge into `rfcs/` and the spec change lands in a follow-up PR referencing the RFC.
 
 ## Ground rules

@@ -2,7 +2,7 @@
 
 All notable changes to the Product Definition as Code specification are documented here. The specification is versioned with semantic versioning, independently of any implementation.
 
-## [Unreleased] - v0.1.0-rfc
+## [0.1.0] - 2026-08-07
 
 - The specification defines the Product Definition as the accepted, versioned and validated product graph on the repository's canonical branch. It evolves through exactly one mechanism: a `Product Change`, a semantic delta of `add`, `modify` and `remove` operations, validated as an overlay, applied by an explicit human-triggered operation, and accepted through a reviewed merge. A pull request reviews and accepts a Product Change; it is not the Product Change (RFC #4).
 - `CHG-INITIAL` establishes the first Product Definition for both greenfield and brownfield products. Brownfield discovery is an input activity to it, not a separate lifecycle: there is no recovery change type and no `recover` operation (RFC #4).
@@ -23,6 +23,9 @@ All notable changes to the Product Definition as Code specification are document
 - A network service MUST NOT be the source of truth for a Product Definition, and an implementation MUST NOT read canonical product artifacts from one. Services that serve the compiled graph or projections of it are permitted and encouraged as generated outputs (RFC #21).
 - Manifesto principle 1 is reworded: product knowledge lives in a git repository, as files, co-located with the code when one repository serves and dedicated when many do (RFC #21).
 - A requirement's acceptance criteria are carried by `verification[]` alone, and the body SHOULD NOT restate them. `## Acceptance Scenarios` on a Functional Requirement and `## Verification` on a Quality Requirement leave the required body sections; a body section reproducing the criteria is permitted only as an embedded projection, so a copy edited by hand surfaces as `PRODUCT062` instead of drifting silently. Backward compatible: additional sections were already permitted, no diagnostic is added or retired, and no schema changes (RFC #22).
+- The conformance corpus exercises all nine artifact kinds. Quality Requirement, Constraint, Domain Term and Bounded Context previously appeared in no fixture, so an implementation could reject all four and still pass the corpus.
+- The corpus verifies its own pinned digests on every pull request, through the published [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) runner. A pin left behind by an edited fixture describes a citation the case no longer contains, and that had twice been caught by hand.
+- The RFC comment window is set by what an RFC does: at least 72 hours for a determination that changes no behaviour, at least 7 days for a change to normative text, returning to 14 days at v1.0 or once a second independent implementation exists. RFC 0021 and RFC 0022 were accepted without a window in order to close this release; [GOVERNANCE.md](GOVERNANCE.md) records that plainly.
 - Initial extraction of the specification chapters from the reference implementation (ProductShape), with implementation-specific references neutralized.
 - Manifesto restructured into a signable core (four value pairs, ten principles) plus the position in full.
 - Governance, RFC process, signatories, implementations and adopters registries established.

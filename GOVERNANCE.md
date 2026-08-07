@@ -21,8 +21,14 @@ The target composition, stated openly: at least three maintainers from at least 
 ## Decision process
 
 - **Editorial changes** (typos, clarity, formatting, non-normative text): a maintainer merges directly.
-- **Normative changes** (anything that alters what MUST, MUST NOT, SHOULD or MAY mean for a conforming repository or implementation): require an RFC (see [CONTRIBUTING.md](CONTRIBUTING.md)), a public comment window of at least 14 days, and consensus among maintainers. Consensus means no maintainer objects; with three or more maintainers, a single objection triggers a discussion and, if unresolved after 14 days, a simple majority decides.
+- **Normative changes** (anything that alters what MUST, MUST NOT, SHOULD or MAY mean for a conforming repository or implementation): require an RFC (see [CONTRIBUTING.md](CONTRIBUTING.md)), a public comment window of the length stated there, and consensus among maintainers. Consensus means no maintainer objects; with three or more maintainers, a single objection triggers a discussion and, if unresolved after 14 days, a simple majority decides.
 - **Breaking changes** to the spec after v1.0 require a new major version and an explicit migration note.
+
+## How v0.1.0 was released
+
+RFC 0021 and RFC 0022 were accepted without the public comment window this document requires. RFC 0022 was opened, accepted and implemented on the same day. That was a deliberate decision by the founding maintainer in order to close v0.1, not an oversight, and it is recorded here because a governance rule quietly skipped is worse than one openly suspended.
+
+The window applies as written from v0.1.0 onward. Its length was revised in the same release, from a flat 14 days to a period matched to what an RFC does, on the reasoning that a window exists to buy external review and there was no external constituency to spend it: a rule nobody can use is a rule that teaches its author to break rules, which is what happened here.
 
 ## Versioning and stability
 
