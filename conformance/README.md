@@ -42,6 +42,7 @@ The seed corpus targets Product Change semantics, the citation contract, and the
 | `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | scaffolded |
+| `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | scaffolded |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
 | `change-operations` | add of an existing ID, modify or remove of an absent one; `PRODUCT020`-`PRODUCT022` | planned |
 | `change-proposed-mismatch` | proposed artifact not listed in operations, and the reverse; `PRODUCT026` | planned |
