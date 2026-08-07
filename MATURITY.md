@@ -9,7 +9,7 @@ This page is the single source of truth for what each public surface of Product 
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
-| Conformance | Initialisation and citation-contract corpus scaffolded; change-semantics cases and an independent runner planned |
+| Conformance | Initialisation, citation-contract, topology and artifact-kind cases scaffolded, with an independent runner published; most change-semantics cases still planned |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 
@@ -21,7 +21,7 @@ These are different dimensions, not one number. Every validation result should b
 | --- | --- | --- |
 | Method / spec version | 0.1.0-rfc | Semantic rules |
 | Serialization version | v1alpha1 | File representation and schemas |
-| Conformance suite | none published | Executable rule fixtures |
+| Conformance suite | corpus in this repository, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |
 | Integration profile | openspec adapter | Citation contract |
 
