@@ -2,6 +2,10 @@
 
 All notable changes to the Product Definition as Code specification are documented here. The specification is versioned with semantic versioning, independently of any implementation.
 
+## [Unreleased]
+
+- Figure PDaC-2 redrawn. It now places the Product Definition at the centre of the model and shows what surrounds it: the Product Change that affects it, the derived views it projects to, and the delivery consumers that cite it. Its alt text and caption are rewritten to match, and the caption names Product Changes and the Citation Contract alongside Artifacts and Relationships. Non-normative; no chapter text changed.
+
 ## [0.1.0] - 2026-08-07
 
 - The specification defines the Product Definition as the accepted, versioned and validated product graph on the repository's canonical branch. It evolves through exactly one mechanism: a `Product Change`, a semantic delta of `add`, `modify` and `remove` operations, validated as an overlay, applied by an explicit human-triggered operation, and accepted through a reviewed merge. A pull request reviews and accepts a Product Change; it is not the Product Change (RFC #4).
