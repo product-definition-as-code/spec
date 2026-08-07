@@ -2,7 +2,7 @@
 
 This feature implements validation of artifact references. The governing requirement is projected below from the canonical model; the block is read-only and regenerable.
 
-<!-- pdac:cite id="FR-VALIDATE-001" digest="sha256:0c1ac562387d45687f560ec88975080cb9b12041b560a19b64c329df75d2cbcd" -->
+<!-- pdac:cite id="FR-VALIDATE-001" digest="sha256:cd567f9e119089438556095f639b896e63f638a7cf5efd50d951f2ae24ead8c4" -->
 ---
 id: FR-VALIDATE-001
 type: functional-requirement
@@ -22,10 +22,6 @@ The product MAY detect references to unknown artifact IDs and report them as val
 ## Rationale
 
 Unresolved references break the product graph; catching them deterministically prevents silent drift between artifacts.
-
-## Acceptance Scenarios
-
-- **S1.** A validation run reports an unresolved reference with code `PRODUCT006`.
 <!-- /pdac:cite -->
 
 The implementation follows the projected requirement.
