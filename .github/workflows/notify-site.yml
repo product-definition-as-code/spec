@@ -12,7 +12,7 @@ on:
   push:
     branches: [main]
     # Only what the site actually reads: the chapters, the manifesto and the diagrams. A change to
-    # the corpus, the RFCs or this workflow does not reach a page, so it does not spend a rebuild.
+    # the conformance tests, the RFCs or this workflow does not reach a page, so it does not spend a rebuild.
     paths:
       - 'spec/**'
       - 'MANIFESTO.md'

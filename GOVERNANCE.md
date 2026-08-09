@@ -36,8 +36,8 @@ The specification is versioned with semantic versioning, independently of any im
 
 ## Scope of this organization
 
-The `product-definition-as-code` organization hosts the specification, the manifesto, the conformance corpus and neutral tooling (`pdac-lint`). Implementations live in their own homes. The organization will not ship a competing implementation; if the reference implementation is ever donated here, it will be governed separately from the spec.
+The `product-definition-as-code` organization hosts the specification, the manifesto, the conformance tests and neutral tooling (`pdac-lint`). Implementations live in their own homes. The organization will not ship a competing implementation; if the reference implementation is ever donated here, it will be governed separately from the spec.
 
 ## Trademark and name
 
-"Product Definition as Code" and "PDaC" name the methodology and this specification. Anyone may claim conformance if their implementation passes the published conformance corpus for the spec version they target. Do not use the names to imply endorsement of a specific product.
+"Product Definition as Code" and "PDaC" name the methodology and this specification. Anyone may claim conformance if their implementation passes the published conformance tests for the spec version they target. Do not use the names to imply endorsement of a specific product.

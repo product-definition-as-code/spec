@@ -28,7 +28,7 @@ body:
     id: impact
     attributes:
       label: Impact
-      description: Effect on existing conformant repositories, on implementations, and on the conformance corpus (which fixtures change or get added).
+      description: Effect on existing conformant repositories, on implementations, and on the conformance tests (which fixtures change or get added).
     validations:
       required: true
   - type: textarea
