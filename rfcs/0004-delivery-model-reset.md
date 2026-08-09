@@ -137,7 +137,7 @@ Added by the second refinement: `PRODUCT028` (apply attempted on a change whose 
 
 - **On existing conformant repositories:** `docs/product/model/**` is untouched. `docs/product/changes/**` remains the change surface, without `slices/`. Changes in flight under the previous lifecycle finish as `approved` and are applied, or are archived as `superseded`. Each terminal status has its own archive directory: `completed/`, `rejected/` and `superseded/`.
 - **On existing implementations (ProductShape):** keep the parser, graph, validation, digests and change commands; retire `slice`, `promote` and handoff generation; replace promotion with `apply`; add citation emission and citation verification.
-- **On the conformance corpus:** the initialisation and citation cases carry a `CHG-INITIAL` record; change-operation, overlay and apply cases are added; no slice or handoff fixtures existed to drop.
+- **On the conformance tests:** the initialisation and citation cases carry a `CHG-INITIAL` record; change-operation, overlay and apply cases are added; no slice or handoff fixtures existed to drop.
 
 ## Alternatives considered
 
