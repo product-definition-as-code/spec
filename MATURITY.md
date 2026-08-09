@@ -21,7 +21,7 @@ These are different dimensions, not one number. Every validation result should b
 | --- | --- | --- |
 | Method / spec version | 0.1.0-rfc | Semantic rules |
 | Serialization version | v1alpha1 | File representation and schemas |
-| Conformance suite | corpus in this repository, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | Executable rule fixtures |
+| Conformance suite | the conformance tests in this repository, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |
 | Integration profile | openspec adapter | Citation contract |
 
@@ -29,7 +29,7 @@ These are different dimensions, not one number. Every validation result should b
 
 These are release gates, not aspirations to be waived:
 
-1. A normative, versioned conformance corpus.
+1. A normative, versioned set of conformance tests.
 2. At least one independent implementation or clean-room validator.
 3. Two external adopters with materially different repository shapes.
 4. Published disagreements discovered by those implementations.
