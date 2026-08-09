@@ -8,7 +8,7 @@ PDaC is an open methodology for the upstream layer of the AI-SDLC. It models pro
 
 The boundary of the methodology is delivery itself, not one delivery discipline: the citation contract binds consumers to canonical product knowledge, and the same citations brief a Spec-Driven Development framework, an AI coding agent, or a human team working from the backlog.
 
-This repository holds the specification, the manifesto and the conformance corpus. It is implementation-independent by design: the spec defines contracts, not commands.
+This repository holds the specification, the manifesto and the conformance tests. It is implementation-independent by design: the spec defines contracts, not commands.
 
 <p align="center"> <img src="assets/diagrams/pdac-0-one-minute-map.png" alt="Two zones. On the left, product thinking: what the product means, holding the accepted product definition, versioned, related and reviewable. On the right, software delivery: how the product is built, holding SDD specs, AI agents, developers, backlog and code. An arrow labelled 'cited by' runs from the definition to delivery, and a dashed amber arrow returns, labelled 'delivery evidence reveals new product questions or changes'." width="720" /> </p>
 
@@ -23,7 +23,7 @@ The specification text is being extracted from the [reference implementation](ht
 | Milestone | State |
 | --- | --- |
 | Chapters extracted | In progress |
-| Conformance corpus published | Planned |
+| Conformance tests (complete, normative set) | In progress |
 | Public comment period (v0.1) | Planned |
 | v1.0 freeze | Planned |
 
@@ -39,7 +39,7 @@ The founding position is [the manifesto](MANIFESTO.md). You can [sign it](SIGNAT
 | --- | --- | --- |
 | [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | Reference implementation, v0.x, self-hosted |
 
-The specification wants more than one implementation. If you are building one, open an issue; the [conformance chapter](spec/conformance.md) and the conformance corpus (in progress) define what "conformant" means. See [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md) for listing criteria.
+The specification wants more than one implementation. If you are building one, open an issue; the [conformance chapter](spec/conformance.md) and the conformance tests (in progress) define what "conformant" means. See [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md) for listing criteria.
 
 ## Contributing
 

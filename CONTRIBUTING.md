@@ -23,7 +23,7 @@ Thanks for caring about the left side of the SDLC.
 ## Ground rules
 
 - The specification is implementation-independent. Text that requires a specific tool, command or repository layout beyond what the spec itself defines will be rejected, including anything that privileges the reference implementation.
-- Every normative statement must be testable. If the conformance corpus cannot check it, either propose the fixture alongside it or explain why it is normative anyway.
+- Every normative statement must be testable. If the conformance tests cannot check it, either propose the fixture alongside it or explain why it is normative anyway.
 - Discussions happen in issues and RFC pull requests, in English, under the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Signing the manifesto

@@ -16,7 +16,7 @@ The normative text you propose, as it would appear in the spec. Mark MUST/SHOULD
 
 - On existing conformant repositories:
 - On existing implementations:
-- On the conformance corpus (which fixtures change or get added):
+- On the conformance tests (which fixtures change or get added):
 
 ## Alternatives considered
 

@@ -10,7 +10,7 @@
 
 ## Why this case exists
 
-Every other case selects the kinds it needs to make its point, and between them they only ever used Actor, Journey, Use Case, Business Rule and Functional Requirement. Quality Requirement, Constraint, Domain Term and Bounded Context appeared nowhere. An implementation could reject all four and still pass the entire corpus while claiming conformance.
+Every other case selects the kinds it needs to make its point, and between them they only ever used Actor, Journey, Use Case, Business Rule and Functional Requirement. Quality Requirement, Constraint, Domain Term and Bounded Context appeared nowhere. An implementation could reject all four and still pass all the conformance tests while claiming conformance.
 
 ## Fixture
 
@@ -38,4 +38,4 @@ No citations and no consumer documents: there is nothing here to pin, so this ca
 
 ## Note on the reference implementation
 
-This case currently fails ProductShape, with `PRODUCT009` against the Functional Requirement and the Quality Requirement, because ProductShape still requires the `## Acceptance Scenarios` and `## Verification` body sections that [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) removed from the required sets. The fixture is correct against the specification as it stands; the implementation has not caught up. Every other case in the corpus reports the same finding for the same reason.
+This case currently fails ProductShape, with `PRODUCT009` against the Functional Requirement and the Quality Requirement, because ProductShape still requires the `## Acceptance Scenarios` and `## Verification` body sections that [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) removed from the required sets. The fixture is correct against the specification as it stands; the implementation has not caught up. Every other conformance test reports the same finding for the same reason.

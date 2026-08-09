@@ -17,6 +17,6 @@
 
 ## What this case does not verify
 
-A case is one directory tree, so a model repository standing alone is indistinguishable from a co-located repository whose software was left out of the fixture: the co-located cases in this corpus pass the same expectation. This case therefore proves that co-located software is not required, which is the obligation the specification places on implementations, and not that the fixture is a dedicated model repository.
+A case is one directory tree, so a model repository standing alone is indistinguishable from a co-located repository whose software was left out of the fixture: the other co-located test cases pass the same expectation. This case therefore proves that co-located software is not required, which is the obligation the specification places on implementations, and not that the fixture is a dedicated model repository.
 
 Repository conformance clause 1 requires a git repository, and a runner executes fixtures in a plain working copy, so that part is verified by review rather than here. The model-repository pointer of the dedicated topology has no fixture: it needs two repository roots per case and a serialization the specification deliberately leaves open.

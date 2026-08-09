@@ -13,7 +13,7 @@ A repository conforms to Product Definition as Code v0.1 when:
 7. Consumer documents outside `docs/product/model` MAY carry citations to canonical product text; a conforming tool verifies those citations per the [citation contract](citation-contract.md).
 8. The canonical product artifacts are files in the model repository. A network service MUST NOT be the source of truth for the Product Definition. See [Services over the model](#services-over-the-model).
 
-Clauses 1, 5 and 8 rest on facts a fixture cannot observe: a git repository, a canonical branch, a reviewed merge, and the absence of an external source of truth. They are verified by review of the repository, not by the conformance corpus.
+Clauses 1, 5 and 8 rest on facts a fixture cannot observe: a git repository, a canonical branch, a reviewed merge, and the absence of an external source of truth. They are verified by review of the repository, not by the conformance tests.
 
 ## Topologies
 
