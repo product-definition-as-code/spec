@@ -26,8 +26,12 @@ conformance tests "planned" (they are scaffolded and already running in CI).
 
 ## 2. The word "corpus" is retired
 
-Nobody outside this project says it, and it was used for two different things. Replace
-by meaning, not with a blanket swap:
+Nobody outside this project says it, and it was used for two different things. It is
+banned EVERYWHERE, with no deferral and no "historical" exception: prose, headings,
+directory names, filenames, code identifiers, CLI output strings, config, changelog and
+RFCs. The bar is `git grep -i corpus` returning nothing (this file is the only allowed
+exception, because its job is to define the ban). Replace by meaning, not with a blanket
+swap:
 
 | Meaning in context | Replace with |
 |---|---|
@@ -35,11 +39,15 @@ by meaning, not with a blanket swap:
 | A single one | "a conformance test" / "a test case" |
 | The initial set (was "seed corpus") | "the seed test cases" / "the initial conformance tests" |
 | ProductShape Snapshot sense (all artifacts) | "the whole product model" / "all the artifacts at once" |
-| Code identifiers (`corpusDir`, `discoverCorpus`, `CorpusCase`) | `testCases` / `discoverTests` etc. (pdac-lint, lower priority) |
+| Directories/filenames (`fixtures/corpus/`, `src/corpus.ts`) | `fixtures/cases/`, `src/cases.ts` (rename with `git mv`) |
+| Code identifiers (`corpusDir`, `discoverCorpus`, `CorpusCase`) | `casesDir` / `discoverCases` / `TestCase` etc. |
+| CLI output/config (`Corpus:` label, a `corpus:` CI job) | `Conformance:` / a `conformance` job |
 | The `Corpus` GitHub Actions workflow | rename to `Conformance` |
 
-Accepted RFCs (0004, 0021, 0022) are historical records and keep their original text.
 The RFC template (`rfcs/0000-template.md`) is fixed so future RFCs do not seed the word.
+The one place a rename must go through process, not a direct edit, is ProductShape's
+canonical model under `docs/product/**`: that changes only through a promoted Product
+Change.
 
 ## 3. Artifact count
 
