@@ -5,10 +5,12 @@ pass agreed once, so every repo copies from here instead of inventing its own ph
 Tracked by spec#34 (status) and spec#35 (plain language). Remove it once the pass has
 landed in every repo, or keep it as a style record.
 
-## 1. Conformance-tests status (use this wording verbatim)
+## 1. Conformance-tests status
 
-The runner is published; the tests are only partly written. Say exactly this wherever
-the status is stated (README, MATURITY, IMPLEMENTATIONS, the org profile):
+The runner is published; the tests are only partly written. Use this wording wherever
+the status is stated in prose (README, MATURITY, IMPLEMENTATIONS, the org profile). In
+tables and column cells where the full clause does not fit, use a short form, and at a
+minimum never contradict it:
 
 > The conformance runner (pdac-lint) is published and usable. The conformance tests
 > are scaffolded and versioned with the spec: the initialisation, citation-contract,
@@ -19,7 +21,8 @@ Short forms, when a full paragraph does not fit:
 - table cell: "Scaffolded; runner published, most change-semantics cases to come"
 - one clause: "the conformance tests are scaffolded, not yet a complete normative set"
 
-Do not write that the runner is "planned" or "not usable". It is on npm.
+Never call the runner "planned" or "not usable" (it is on npm), and never call the
+conformance tests "planned" (they are scaffolded and already running in CI).
 
 ## 2. The word "corpus" is retired
 
