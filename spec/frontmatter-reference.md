@@ -2,7 +2,7 @@
 
 The exhaustive field contract of every document kind: which properties are allowed, which are required, and what values they accept.
 
-[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win: the tables below are generated from the schemas, and a conformance test fails the build if they drift.
+[Artifacts](artifacts.md) defines what each artifact type _means_ and why it exists; this chapter defines the _fields_. Where the two appear to disagree, the JSON Schemas under `schemas/` win: the tables below are maintained by hand against the schemas.
 
 Every kind is a **closed** object: an unknown property is a `PRODUCT002` error, not a warning and not silently ignored. There is no extension point. If you need to record something the schema does not allow, put it in the Markdown body.
 
@@ -55,8 +55,6 @@ The nine artifact types of the current product model.
 
 `ACT-`. Who or what interacts with the product to achieve a meaningful outcome. See [Artifacts → Actor](artifacts.md#actor-actor-act-).
 
-<!-- BEGIN GENERATED: actor -->
-
 | Field                       | Required | Type   | Allowed values                                             | Notes                                                                                                                                                              |
 | --------------------------- | -------- | ------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `id`                        | yes      | string | `^ACT-[A-Z0-9]+(-[A-Z0-9]+)*$`                             |                                                                                                                                                                    |
@@ -69,13 +67,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum   | `high`, `medium`, `low`                                    | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum   | `observation`, `inference`, `interview`, `documentation`   | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: actor -->
-
 ### Journey
 
 `JRN-`. An end-to-end outcome pursued by an actor. `steps` defines the main ordered path only; branches and exceptional paths belong in the body. See [Artifacts → Journey](artifacts.md#journey-journey-jrn-).
-
-<!-- BEGIN GENERATED: journey -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -91,13 +85,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: journey -->
-
 ### Use Case
 
 `UC-`. A concrete interaction through which an actor obtains a product outcome. See [Artifacts → Use Case](artifacts.md#use-case-use-case-uc-).
-
-<!-- BEGIN GENERATED: use-case -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -118,13 +108,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: use-case -->
-
 ### Business Rule
 
 `BR-`. Durable product knowledge that governs behaviour. See [Artifacts → Business Rule](artifacts.md#business-rule-business-rule-br-).
-
-<!-- BEGIN GENERATED: business-rule -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -139,13 +125,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: business-rule -->
-
 ### Domain Term
 
 `TERM-`. Shared meaning within a bounded context. Ownership is authored here, on the term, and never on the context. See [Artifacts → Domain Term](artifacts.md#domain-term-domain-term-term-).
-
-<!-- BEGIN GENERATED: domain-term -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -161,13 +143,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: domain-term -->
-
 ### Bounded Context
 
 `BC-`. A product-language boundary. Note the absence of `owns-terms`: term ownership is derived from `Domain Term.defined-in` and MUST NOT be authored here (see [Relationships](relationships.md)). See [Artifacts → Bounded Context](artifacts.md#bounded-context-bounded-context-bc-).
-
-<!-- BEGIN GENERATED: bounded-context -->
 
 | Field                       | Required | Type   | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | ------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -180,13 +158,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum   | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum   | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: bounded-context -->
-
 ### Functional Requirement
 
 `FR-`. A derived product obligation stating what the product must do. `derived-from` is what keeps it traceable to the knowledge it came from. See [Artifacts → Functional Requirement](artifacts.md#functional-requirement-functional-requirement-fr-).
-
-<!-- BEGIN GENERATED: functional-requirement -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -204,13 +178,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: functional-requirement -->
-
 ### Quality Requirement
 
 `QR-`. A measurable quality obligation. See [Artifacts → Quality Requirement](artifacts.md#quality-requirement-quality-requirement-qr-).
-
-<!-- BEGIN GENERATED: quality-requirement -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -229,13 +199,9 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: quality-requirement -->
-
 ### Constraint
 
 `CON-`. An externally imposed or deliberately fixed boundary. When `applies-to` is absent the constraint applies to the entire product. See [Artifacts → Constraint](artifacts.md#constraint-constraint-con-).
-
-<!-- BEGIN GENERATED: constraint -->
 
 | Field                       | Required | Type            | Allowed values                                           | Notes                                                                                                                                                              |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -250,8 +216,6 @@ The nine artifact types of the current product model.
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
 
-<!-- END GENERATED: constraint -->
-
 ---
 
 ## Product Change frontmatter
@@ -261,8 +225,6 @@ The nine artifact types of the current product model.
 `CHG-`. The Markdown-authored definition of a proposed change to the baseline. Authored by hand and validated through the same schema path as the artifacts. Semantics, lifecycle and overlay rules are in [Product Changes](product-changes.md).
 
 Note that `provenance` is **not** accepted here. Recovered knowledge carries provenance on the proposed artifacts, which are ordinary artifact documents, not on the change itself; this holds for `CHG-INITIAL` on a brownfield product like any other change.
-
-<!-- BEGIN GENERATED: product-change -->
 
 | Field                 | Required | Type            | Allowed values                                                       | Notes                                                      |
 | --------------------- | -------- | --------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -279,4 +241,3 @@ Note that `provenance` is **not** accepted here. Recovered knowledge carries pro
 | `operations.remove`   | yes      | array of string |                                                                      |                                                            |
 | `operations.remove[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
 
-<!-- END GENERATED: product-change -->
