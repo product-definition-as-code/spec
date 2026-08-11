@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: in progress (scaffolded).** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification.
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. The cases marked runnable below execute today via [`pdac-lint`](https://www.npmjs.com/package/pdac-lint); the rest are planned.
 
 ## Design
 
@@ -35,14 +35,14 @@ The seed test cases target Product Change semantics, the citation contract, and 
 
 | Case | Verifies | Status |
 | --- | --- | --- |
-| `citation-current` | a consumer doc cites a baseline FR; status `current`; no `PRODUCT06x` | scaffolded |
+| `citation-current` | a consumer doc cites a baseline FR; status `current`; no `PRODUCT06x` | runnable |
 | `citation-stale` | canonical FR amended after citation; `PRODUCT061` warning | planned |
 | `citation-tampered` | embedded projection differs from canonical at recorded digest; `PRODUCT062` | planned |
-| `citation-tampered-and-stale` | embedded block edited by hand and the cited target also moved; `PRODUCT062` alone, never `PRODUCT061` | scaffolded |
+| `citation-tampered-and-stale` | embedded block edited by hand and the cited target also moved; `PRODUCT062` alone, never `PRODUCT061` | runnable |
 | `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
-| `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | scaffolded |
-| `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | scaffolded |
+| `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
+| `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
 | `change-operations` | add of an existing ID, modify or remove of an absent one; `PRODUCT020`-`PRODUCT022` | planned |
 | `change-proposed-mismatch` | proposed artifact not listed in operations, and the reverse; `PRODUCT026` | planned |
@@ -50,14 +50,14 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `concurrent-changes` | two active changes with overlapping modify/remove sets; `PRODUCT025` | planned |
 | `apply-not-approved` | apply invoked on a change in status `proposed`; `PRODUCT028`, exit `1`, working tree untouched | planned |
 | `apply-baseline-drift` | a `modify` target changed in the baseline since `base-revision`; `PRODUCT027` at apply; `add` not drift-checked | planned |
-| `change-open-questions` | change in status `approved` with list items under `## Open Questions`; `PRODUCT108` warning | scaffolded |
+| `change-open-questions` | change in status `approved` with list items under `## Open Questions`; `PRODUCT108` warning | runnable |
 | `change-superseded-archive` | a `superseded` change archived under `superseded/`; inert history, no diagnostics | planned |
 | `intent-changes-mid-flight` | a change amends a cited rule; the product diff covers it and the citing spec reports `stale`; untouched citations stay `current` | planned |
 | `partial-scope-without-loss` | cite `S1`,`S2` of a five-scenario FR | planned |
 | `work-over-existing-baseline` | cite baseline requirements directly, with no product change at all | planned |
 | `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |
-| `dedicated-topology` | a model repository holding the definition and no software; no diagnostics | scaffolded |
+| `dedicated-topology` | a model repository holding the definition and no software; no diagnostics | runnable |
 
 What the tests cannot check they do not pretend to. Repository conformance clauses 1, 5 and 8 ([Conformance](../spec/conformance.md)) are about the repository rather than its files, a git repository, a canonical branch, a reviewed merge and the absence of an external source of truth, and a runner executes each fixture in a plain working copy. Those clauses are verified by review. The model-repository pointer has no fixture either: a pointer case needs two repository roots, the consumer and the model repository it points at, where a case is one `repo/`, and the specification deliberately fixes the pointer's record shape without fixing a serialization to check. Pointer cases arrive with that serialization.
 
-Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is deferred until the tests have their first runner. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
+Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is future work for the runner, which today executes flat `repo/` plus `expected.json` cases only. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.

@@ -16,7 +16,7 @@ _Figure PDaC-1 - what is inside Product Definition as Code and what is outside? 
 
 1. [Terminology](terminology.md) - definitions of the terms used normatively.
 2. [Artifacts](artifacts.md) - artifact types, frontmatter contracts, required body sections, lifecycle states.
-3. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables (generated from the schemas): required and optional fields, allowed values, provenance.
+3. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables: required and optional fields, allowed values, provenance.
 4. [Identifiers](identifiers.md) - stable immutable IDs, prefixes, grammar, file naming.
 5. [Relationships](relationships.md) - canonical relationship vocabulary and derivation rules.
 6. [Product Changes](product-changes.md) - change structure, operations, overlay validation, lifecycle, apply, initialisation through `CHG-INITIAL`, change history.

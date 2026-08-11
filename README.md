@@ -23,7 +23,7 @@ The specification text is being extracted from the [reference implementation](ht
 | Milestone | State |
 | --- | --- |
 | Chapters extracted | In progress |
-| Conformance tests (complete, normative set) | In progress |
+| Conformance tests (complete, normative set) | In progress; the published cases run today via [pdac-lint](https://www.npmjs.com/package/pdac-lint) |
 | Public comment period (v0.1) | Planned |
 | v1.0 freeze | Planned |
 
@@ -39,7 +39,7 @@ The founding position is [the manifesto](MANIFESTO.md). You can [sign it](SIGNAT
 | --- | --- | --- |
 | [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | Reference implementation, v0.x, self-hosted |
 
-The specification wants more than one implementation. If you are building one, open an issue; the [conformance chapter](spec/conformance.md) and the conformance tests (in progress) define what "conformant" means. See [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md) for listing criteria.
+The specification wants more than one implementation. If you are building one, open an issue; the [conformance chapter](spec/conformance.md) and the published conformance tests define what "conformant" means (they are not yet a complete normative set). See [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md) for listing criteria.
 
 ## Contributing
 
