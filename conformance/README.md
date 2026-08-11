@@ -40,6 +40,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `citation-tampered` | embedded projection differs from canonical at recorded digest; `PRODUCT062` | planned |
 | `citation-tampered-and-stale` | embedded block edited by hand and the cited target also moved; `PRODUCT062` alone, never `PRODUCT061` | runnable |
 | `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
+| `digest-bytes-not-text` | the cited artifact contains bytes that are not well-formed UTF-8; the digest covers the raw bytes; `current`, no diagnostics | runnable |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
 | `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |

@@ -1,8 +1,9 @@
 # RFC 0038: A content digest hashes bytes, never decoded text
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-11
+- **Accepted:** 2026-08-11
 - **Related:** #28 (digest granularity under an anchor), a different question about the same field
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/32>
 
