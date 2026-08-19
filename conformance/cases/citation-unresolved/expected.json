@@ -1,0 +1,10 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT060",
+      "file": "specs/feature-x.citations.yml",
+      "artifact": "FR-VALIDATE-002"
+    }
+  ]
+}

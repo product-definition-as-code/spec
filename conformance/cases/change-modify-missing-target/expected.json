@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT021",
+      "file": "docs/product/changes/active/chg-amend-reporting/change.md",
+      "artifact": "CHG-AMEND-REPORTING",
+      "target": "FR-VALIDATE-002"
+    }
+  ]
+}
