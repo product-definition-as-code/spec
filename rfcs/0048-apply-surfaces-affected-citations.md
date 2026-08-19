@@ -5,7 +5,7 @@
 - **Created:** 2026-08-19
 - **Class:** change
 - **Target:** PDaC v0.2.0
-- **PR:** to be opened from `claude/pdac-productshape-e2e-review-f9qqt1`
+- **PR:** <https://github.com/product-definition-as-code/spec/pull/50>
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/48>
 - **Public comment:** seven days; earliest acceptance 2026-08-26
 - **Reference implementation:** ProductShape (implementation issue linked from the RFC issue)
