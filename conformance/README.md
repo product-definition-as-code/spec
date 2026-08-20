@@ -27,7 +27,7 @@ Several cases pin a content digest: a citation ledger (`*.citations.yml`) or a M
 npx pdac-lint digests --spec .
 ```
 
-A pin is expected to match the artifact it cites, except in a case that exists because it does not: a case expecting `PRODUCT061` or `PRODUCT062` for an artifact pins a digest that MUST differ, and the check asserts the difference, so an edit that accidentally makes a tampered fixture faithful is reported rather than quietly voiding the case. After changing a fixture artifact, recompute its digest and update every pin against it.
+A pin is expected to match the artifact it cites, except in a case that exists because it does not: a case expecting `PRODUCT061` or `PRODUCT062` for an artifact pins a digest that MUST differ, and the check asserts the difference, so an edit that accidentally makes a tampered fixture faithful is reported rather than quietly voiding the case. A case expecting `PRODUCT060` for a target pins an ID that MUST NOT resolve, asserted the same way. After changing a fixture artifact, recompute its digest and update every pin against it.
 
 ## Seed test cases
 
@@ -36,19 +36,24 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | Case | Verifies | Status |
 | --- | --- | --- |
 | `citation-current` | a consumer doc cites a baseline FR; status `current`; no `PRODUCT06x` | runnable |
-| `citation-stale` | canonical FR amended after citation; `PRODUCT061` warning | planned |
+| `citation-stale` | canonical FR amended after citation; `PRODUCT061` warning | runnable |
 | `citation-tampered` | embedded projection differs from canonical at recorded digest; `PRODUCT062` | planned |
 | `citation-tampered-and-stale` | embedded block edited by hand and the cited target also moved; `PRODUCT062` alone, never `PRODUCT061` | runnable |
-| `citation-unresolved` | target id or anchor does not resolve; `PRODUCT060` | planned |
+| `citation-unresolved` | target `id` does not resolve; `PRODUCT060` | runnable |
+| `citation-anchor-not-found` | target resolves at the current digest but the named anchor does not exist within it; `PRODUCT063`, not `PRODUCT060` | runnable |
 | `digest-bytes-not-text` | the cited artifact contains bytes that are not well-formed UTF-8; the digest covers the raw bytes; `current`, no diagnostics | runnable |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
 | `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
-| `change-operations` | add of an existing ID, modify or remove of an absent one; `PRODUCT020`-`PRODUCT022` | planned |
-| `change-proposed-mismatch` | proposed artifact not listed in operations, and the reverse; `PRODUCT026` | planned |
-| `overlay-validation` | overlay duplicate IDs and removal leaving a dangling reference; `PRODUCT023`-`PRODUCT024` | planned |
-| `concurrent-changes` | two active changes with overlapping modify/remove sets; `PRODUCT025` | planned |
+| `change-add-existing` | add of an ID that already exists in the baseline; `PRODUCT020` | blocked (see below) |
+| `change-modify-missing-target` | modify of an ID absent from the baseline; `PRODUCT021` | runnable |
+| `change-remove-missing-target` | remove of an ID absent from the baseline; `PRODUCT022` | runnable |
+| `change-proposed-undeclared` | proposed artifact not listed in operations; `PRODUCT026` | runnable |
+| `change-operation-unproposed` | declared operation without its proposed artifact; `PRODUCT026` | runnable |
+| `overlay-duplicate-id` | overlay produces duplicate IDs; `PRODUCT023` | blocked (see below) |
+| `change-removal-dangling-reference` | removal leaving a dangling reference in the overlay; `PRODUCT024` | runnable |
+| `concurrent-changes` | two active changes with overlapping modify sets; `PRODUCT025` against each | runnable |
 | `apply-not-approved` | apply invoked on a change in status `proposed`; `PRODUCT028`, exit `1`, working tree untouched | planned |
 | `apply-baseline-drift` | a `modify` target changed in the baseline since `base-revision`; `PRODUCT027` at apply; `add` not drift-checked | planned |
 | `change-open-questions` | change in status `approved` with list items under `## Open Questions`; `PRODUCT108` warning | runnable |
@@ -59,6 +64,50 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |
 | `dedicated-topology` | a model repository holding the definition and no software; no diagnostics | runnable |
 
+Two Product Change negatives are blocked on a question the specification has not answered: how many diagnostics a duplicate ID produces. A duplicate is one defect visible in two files, and `file` is always present on a diagnostic, so an implementation can defensibly report it once or once per occurrence - and the comparison rules above make that count normative, because an expectation nothing satisfies is missing and an emission nothing expects is unexpected. Until the specification fixes the granularity, any `overlay-duplicate-id` fixture over-constrains one of the two readings, and `change-add-existing` is blocked with it: adding an ID that already exists in the baseline necessarily duplicates it in the compiled overlay, so that case cannot expect `PRODUCT020` without also fixing the `PRODUCT023` count it drags in.
+
 What the tests cannot check they do not pretend to. Repository conformance clauses 1, 5 and 8 ([Conformance](../spec/conformance.md)) are about the repository rather than its files, a git repository, a canonical branch, a reviewed merge and the absence of an external source of truth, and a runner executes each fixture in a plain working copy. Those clauses are verified by review. The model-repository pointer has no fixture either: a pointer case needs two repository roots, the consumer and the model repository it points at, where a case is one `repo/`, and the specification deliberately fixes the pointer's record shape without fixing a serialization to check. Pointer cases arrive with that serialization.
 
 Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is future work for the runner, which today executes flat `repo/` plus `expected.json` cases only. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
+
+## Diagnostic coverage
+
+Which fixture exercises which diagnostic code, code by code. "Exercises" means the case expects the diagnostic and fails an implementation that does not emit it; the zero-diagnostic cases (`artifact-kinds-valid`, `citation-current`, `digest-bytes-not-text`, `greenfield-first-increment`, `dedicated-topology`) additionally fail an implementation that emits any of these codes where none is warranted, and `citation-tampered-and-stale` asserts the *absence* of `PRODUCT061` next to the `PRODUCT062` it expects. Codes marked not yet covered are honest gaps: a badge computed from these tests says nothing about them. The retired codes (`PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109`, `PRODUCT110`) and the reserved `PRODUCT070`-`PRODUCT079` band are never issued, so they have nothing to cover.
+
+| Code | Condition | Exercised by |
+| --- | --- | --- |
+| `PRODUCT001` | invalid frontmatter or unparseable document | not yet covered |
+| `PRODUCT002` | JSON Schema violation | not yet covered |
+| `PRODUCT003` | unknown artifact `type` | not yet covered |
+| `PRODUCT004` | ID prefix does not match the artifact type | not yet covered |
+| `PRODUCT005` | duplicate ID | not yet covered - duplicate-ID granularity (see above) |
+| `PRODUCT006` | reference to an unknown ID | not yet covered |
+| `PRODUCT007` | relationship targets a disallowed artifact type | not yet covered |
+| `PRODUCT008` | active artifact references a retired artifact | not yet covered |
+| `PRODUCT009` | required body section missing or out of order | not yet covered |
+| `PRODUCT020` | addition whose ID already exists in the baseline | not yet covered - blocked with `PRODUCT023` (see above) |
+| `PRODUCT021` | modification of an ID absent from the baseline | `change-modify-missing-target` |
+| `PRODUCT022` | removal of an ID absent from the baseline | `change-remove-missing-target` |
+| `PRODUCT023` | overlay produces duplicate IDs | not yet covered - duplicate-ID granularity (see above) |
+| `PRODUCT024` | removal leaves a dangling reference in the overlay | `change-removal-dangling-reference` |
+| `PRODUCT025` | concurrent changes with overlapping modify/remove sets | `concurrent-changes` |
+| `PRODUCT026` | proposed artifact and operations disagree | `change-proposed-undeclared`, `change-operation-unproposed` |
+| `PRODUCT027` | baseline drift at apply | not yet covered - needs the apply case format |
+| `PRODUCT028` | apply on a change not `approved` | not yet covered - needs the apply case format |
+| `PRODUCT042` | invalid or unverifiable citation digest | not yet covered |
+| `PRODUCT050` | invalid configuration | not yet covered - `doctor` surface |
+| `PRODUCT051` | managed file modified by hand | not yet covered - `doctor` surface |
+| `PRODUCT052` | expected managed file missing | not yet covered - `doctor` surface |
+| `PRODUCT060` | citation target `id` does not resolve | `citation-unresolved` |
+| `PRODUCT061` | stale citation | `citation-stale`; absence asserted by `citation-tampered-and-stale` |
+| `PRODUCT062` | tampered embedded projection | `citation-tampered-and-stale` |
+| `PRODUCT063` | citation anchor not found in the target | `citation-anchor-not-found` |
+| `PRODUCT101` | file name not aligned with ID | not yet covered |
+| `PRODUCT102` | active use case in no journey | not yet covered |
+| `PRODUCT103` | requirement unreachable from any actor | not yet covered |
+| `PRODUCT104` | deprecated artifact still referenced | not yet covered |
+| `PRODUCT105` | business rule with no consumers | not yet covered |
+| `PRODUCT106` | domain term with no usage | not yet covered |
+| `PRODUCT107` | bounded context with no owned language | not yet covered |
+| `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
+| `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |

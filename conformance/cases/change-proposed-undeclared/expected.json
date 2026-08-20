@@ -1,0 +1,10 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT026",
+      "file": "docs/product/changes/active/chg-draft-reporting/proposed/requirements/functional/fr-validate-002.md",
+      "artifact": "FR-VALIDATE-002"
+    }
+  ]
+}

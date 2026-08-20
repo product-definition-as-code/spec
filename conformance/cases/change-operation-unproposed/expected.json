@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT026",
+      "file": "docs/product/changes/active/chg-tighten-validation/change.md",
+      "artifact": "CHG-TIGHTEN-VALIDATION",
+      "target": "FR-VALIDATE-001"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT022",
+      "file": "docs/product/changes/active/chg-retire-reporting/change.md",
+      "artifact": "CHG-RETIRE-REPORTING",
+      "target": "FR-VALIDATE-002"
+    }
+  ]
+}

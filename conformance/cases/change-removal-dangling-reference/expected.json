@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT024",
+      "file": "docs/product/model/journeys/jrn-validate.md",
+      "artifact": "JRN-VALIDATE",
+      "target": "UC-VALIDATE-002"
+    }
+  ]
+}
