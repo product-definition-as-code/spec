@@ -26,4 +26,4 @@ jobs:
       # A failure here is a defect in this repository, unlike pdac-lint's own conformance job, where
       # a failing case is a verdict about an implementation. So this one fails the build.
       - name: verify the digests the conformance tests pin
-        run: npx --yes pdac-lint@0.1.1 digests --spec .
+        run: npx --yes pdac-lint@0.1.2 digests --spec .

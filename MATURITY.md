@@ -9,7 +9,7 @@ This page is the single source of truth for what each public surface of Product 
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
-| Conformance | Initialisation, citation-contract, topology and artifact-kind cases published and run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint); most change-semantics cases still planned |
+| Conformance | 16 of 28 seed cases runnable, covering initialisation, the citation contract, topology, artifact kinds and most of the Product Change band, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint); the rest are planned or blocked on an open spec question (see [conformance/README.md](conformance/README.md)) |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 

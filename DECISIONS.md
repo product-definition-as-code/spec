@@ -7,22 +7,25 @@ landed in every repo, or keep it as a style record.
 
 ## 1. Conformance-tests status
 
-The runner is published; the tests are only partly written. Use this wording wherever
-the status is stated in prose (README, MATURITY, IMPLEMENTATIONS, the org profile). In
-tables and column cells where the full clause does not fit, use a short form, and at a
-minimum never contradict it:
+The runner is published; 16 of the 28 seed cases are runnable, the rest are planned or
+blocked. Use this wording wherever the status is stated in prose (README, MATURITY,
+IMPLEMENTATIONS, the org profile). In tables and column cells where the full clause
+does not fit, use a short form, and at a minimum never contradict it:
 
 > The conformance runner (pdac-lint) is published and usable. The conformance tests
-> are scaffolded and versioned with the spec: the initialisation, citation-contract,
-> topology and artifact-kind cases exist, and most change-semantics cases are still to
-> come. They are not yet published as a complete, normative set.
+> are versioned with the spec: initialisation, the citation contract, topology,
+> artifact-kind and most Product Change cases are runnable; the rest are planned or
+> blocked on an open spec question. They are not yet published as a complete,
+> normative set.
 
 Short forms, when a full paragraph does not fit:
-- table cell: "Scaffolded; runner published, most change-semantics cases to come"
-- one clause: "the conformance tests are scaffolded, not yet a complete normative set"
+- table cell: "16 of 28 seed cases runnable, rest planned"
+- one clause: "the conformance tests are runnable but not yet a complete normative set"
 
 Never call the runner "planned" or "not usable" (it is on npm), and never call the
-conformance tests "planned" (they are scaffolded and already running in CI).
+conformance tests "scaffolded" once fixtures execute (16 of 28 do). Check
+`conformance/README.md` for the live count before restating it; it drifts as the suite
+grows.
 
 ## 2. The word "corpus" is retired
 
