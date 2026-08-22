@@ -54,7 +54,7 @@ The pointer locates the model repository and MUST NOT contain, summarize or rest
 
 A consuming repository carries at most one model-repository pointer in v0.1.
 
-This specification fixes the pointer's record shape and neither its serialization nor its location in the consuming repository, exactly as the [Citation Contract](citation-contract.md) fixes the citation record and not one of its three forms. Resolution is implementation-defined in v0.1: how an implementation fetches the model repository, caches it, authenticates, and what it reports when the repository is unreachable. `PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution and no code in that band is issued in v0.1.
+This specification fixes the pointer's record shape. It does not fix the pointer's serialization or its location in the consuming repository, exactly as the [Citation Contract](citation-contract.md) fixes the citation record and not one of its three forms. Resolution is implementation-defined in v0.1: how an implementation fetches the model repository, caches it, authenticates, and what it reports when the repository is unreachable. `PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution and no code in that band is issued in v0.1.
 
 ### Services over the model
 
