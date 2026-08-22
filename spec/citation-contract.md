@@ -28,7 +28,7 @@ The spec defines the citation record shape, not a mandatory serialization.
 
 ## Anchors
 
-An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. This makes partial scope expressible as a set of cited scenario ids instead of prose.
+An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial scope expressible as a set of cited scenario ids instead of prose.
 
 Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.1 anchors to scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
 
@@ -46,7 +46,7 @@ Embedding is a projection of a citation, not its definition. A consumer MAY addi
 
 A consumer that embeds canonical text without a citation record, or whose embedded text differs from canonical content at the recorded digest, is non-conforming (see `PRODUCT062` below).
 
-Whether an embedded block is faithful is decided by recomputing the digest of the embedded text and comparing it to the recorded `digest`, under the same normalization ([Validation → Digests](validation.md#digests)). The comparison is against the recorded digest, never against the target's current content, so a projection that was edited by hand stays detectable after the cited text has moved.
+A tool decides whether an embedded block is faithful by recomputing the digest of the embedded text and comparing it to the recorded `digest`, under the same normalization ([Validation → Digests](validation.md#digests)). The comparison is against the recorded digest, never against the target's current content, so a projection that was edited by hand stays detectable after the cited text has moved.
 
 ## Statuses
 
@@ -100,7 +100,7 @@ Semantic contradiction between a citation and its surrounding consumer text is e
 
 Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY propose a [Product Change](product-changes.md) when implementation reveals a contradiction; a human decides whether to approve and accept it ([manifesto](../MANIFESTO.md) principle 9). Acceptance is a human decision: tools MUST NOT merge, auto-approve or self-merge model changes.
 
-A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.1: how a citation verifies a digest against a model repository the consumer does not contain, and what it reports when that repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.1.
+A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.1: how a tool verifies a citation digest against a model repository the consumer does not contain, and what that tool reports when the repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.1.
 
 ## Generated context documents
 
