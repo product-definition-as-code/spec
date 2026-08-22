@@ -1,6 +1,6 @@
 # Validation
 
-Structural validation is deterministic. Given the same repository content, validation MUST produce the same diagnostics in the same order on every platform. AI is never used to enforce structural invariants.
+Structural validation is deterministic. Given the same repository content, validation MUST produce the same diagnostics in the same order on every platform. An implementation never uses AI to enforce structural invariants.
 
 ## Diagnostics
 
@@ -81,7 +81,7 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 | `PRODUCT108` | Product Change in status `approved` with an unresolved question (a list item) under `## Open Questions`                                                            |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
-`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. It renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes it usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.
+`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.
 
 `PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 
