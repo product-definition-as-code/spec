@@ -56,6 +56,8 @@ Implementations SHOULD use the product graph to support elaboration: surfacing t
 
 Validating a Product Change MUST compile an **overlay**: the baseline graph with additions added, modifications replaced and removals deleted - without modifying any baseline file - and then apply full structural validation to the overlay. Overlay-specific errors are enumerated in [Validation](validation.md).
 
+When a dangling reference in the overlay is caused by an ID named in the change's `remove` set, an implementation MUST report `PRODUCT024` and MUST NOT additionally report `PRODUCT006` for the same reference. `PRODUCT006` remains the diagnostic for a reference that dangles for any other reason.
+
 While a Product Change is active, the baseline artifacts it touches remain authoritative and unchanged. Concurrent active Product Changes MUST be checked for overlapping `modify`/`remove` sets; an overlap is an error until one change is rebased or withdrawn.
 
 ## Lifecycle

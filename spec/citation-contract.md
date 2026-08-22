@@ -57,7 +57,7 @@ A conforming tool MUST compute, deterministically, exactly one status per citati
 | `current`    | The target resolves and its recomputed digest matches the recorded `digest`.                    |
 | `stale`      | The target resolves, but canonical content changed since the citation was recorded.              |
 | `tampered`   | Only for embedded projections: the block differs from canonical content at the recorded digest. |
-| `unresolved` | The target `id` or `anchor` does not resolve.                                                    |
+| `unresolved` | The target `id` does not resolve, or the `anchor` does not resolve within the target.            |
 
 Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a citation stale.
 
@@ -85,7 +85,7 @@ Tampering outranks staleness because it is a property of the consumer document t
 | Code         | Severity | Condition                                                                                                |
 | ------------ | -------- | -------------------------------------------------------------------------------------------------------- |
 | `PRODUCT042` | error    | Invalid or unverifiable citation digest.                                                                 |
-| `PRODUCT060` | error    | Unresolved citation: target `id` or `anchor` does not resolve.                                          |
+| `PRODUCT060` | error    | Unresolved citation: target `id` does not resolve.                                                      |
 | `PRODUCT061` | warning  | Stale citation: target resolves but canonical content changed since the citation was recorded.           |
 | `PRODUCT062` | error    | Tampered embedded projection: the embedded block differs from canonical content at the recorded digest. |
 | `PRODUCT063` | error    | Anchor not found: the target resolves but the named anchor does not exist within it.                    |
