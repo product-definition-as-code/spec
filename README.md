@@ -21,7 +21,7 @@ warning PRODUCT061 openspec/checkout-flow.citations.yaml [BR-REFUND-001]: Citati
 1 citation(s): 0 current, 1 stale, 0 tampered, 0 unresolved
 ```
 
-That is the citation contract: the delivery boundary of PDaC, an open methodology for the upstream layer of the AI-SDLC, whose citations brief a Spec-Driven Development framework, an AI coding agent, or a human team. [See it in 30 seconds on pdac.dev](https://pdac.dev/).
+That is the citation contract, the delivery boundary of PDaC — an open methodology for the upstream layer of the AI-SDLC. The same citations brief a Spec-Driven Development framework, an AI coding agent, or a human team. [See it in 30 seconds on pdac.dev](https://pdac.dev/).
 
 This repository holds the Product Definition as Code specification, the manifesto and the conformance tests — implementation-independent by design: contracts, not commands.
 
