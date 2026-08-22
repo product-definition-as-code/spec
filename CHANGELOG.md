@@ -4,6 +4,7 @@ All notable changes to the Product Definition as Code specification are document
 
 ## [Unreleased]
 
+- The entry path leads with the mechanism: `README.md` opens with the canonical one-line and one-paragraph PDaC definitions (marked as the copy source for every other surface) and a concrete citation-drift example; the chapter enumeration and RFC 2119 note live only in `spec/index.md`; intra-file repetition trimmed in `MANIFESTO.md`. `DECISIONS.md` is retired, its still-active decisions moved to an "Agreed wording" section in `CONTRIBUTING.md`. Non-normative.
 - Figure PDaC-2 redrawn. It now places the Product Definition at the centre of the model and shows what surrounds it: the Product Change that affects it, the derived views it projects to, and the delivery consumers that cite it. Its alt text and caption are rewritten to match, and the caption names Product Changes and the Citation Contract alongside Artifacts and Relationships. Non-normative; no chapter text changed.
 - Consistency and plain-language pass across the public docs: one voice for how the conformance-tests status is described, and the word "corpus" retired everywhere in favor of "conformance tests" and "test case". Non-normative.
 - The published conformance tests are described as published and passing on every public surface, replacing earlier "planned" and "scaffolded" wording that had fallen behind. Non-normative.

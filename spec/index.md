@@ -2,7 +2,7 @@
 
 > **Status: v0.1 draft (request for comments).** Extracted from the reference implementation and under public review; see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
 
-This is the normative specification for Product Definition as Code. It defines the terminology; the kernel's identity rules, relationship vocabulary, citation contract and deterministic validation; the artifact contracts and their exhaustive frontmatter; the accepted Product Definition and its Product Change semantics; and conformance criteria.
+This is the normative specification for Product Definition as Code; the chapters below define its terms, contracts and conformance criteria.
 
 The key words **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT** and **MAY** in these documents are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
