@@ -5,6 +5,11 @@ All notable changes to the Product Definition as Code specification are document
 ## [Unreleased]
 
 - Figure PDaC-2 redrawn. It now places the Product Definition at the centre of the model and shows what surrounds it: the Product Change that affects it, the derived views it projects to, and the delivery consumers that cite it. Its alt text and caption are rewritten to match, and the caption names Product Changes and the Citation Contract alongside Artifacts and Relationships. Non-normative; no chapter text changed.
+- Consistency and plain-language pass across the public docs: one voice for how the conformance-tests status is described, and the word "corpus" retired everywhere in favor of "conformance tests" and "test case". Non-normative.
+- The published conformance tests are described as published and passing on every public surface, replacing earlier "planned" and "scaffolded" wording that had fallen behind. Non-normative.
+- RFC 0038 accepted and applied: a content digest hashes the artifact's raw bytes, never decoded text. `spec/validation.md` is amended, and the `digest-bytes-not-text` conformance case covers a cited artifact whose bytes are not well-formed UTF-8.
+- The specification index (`spec/index.md`) groups its chapters by kernel, reference profile and reference workflow, replacing a flat chapter list. Non-normative.
+- Nine new conformance cases exercise Product Change diagnostics (`PRODUCT021`, `PRODUCT022`, `PRODUCT024`, `PRODUCT025`, `PRODUCT026`) and citation diagnostics (`PRODUCT060`, `PRODUCT061`, `PRODUCT063`), each pinned to one normative clause, bringing the seed suite to 16 runnable cases and 8 pinned digests. A new coverage table in `conformance/README.md` maps every diagnostic code to the fixture that exercises it or names the gap honestly. `PRODUCT020`/`PRODUCT023` stay blocked pending a decision on duplicate-ID diagnostic granularity; `PRODUCT027`/`PRODUCT028` wait on the apply-invocation case format.
 
 ## [0.1.0] - 2026-08-07
 
