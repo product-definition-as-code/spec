@@ -26,6 +26,16 @@ Thanks for caring about the left side of the SDLC.
 - Every normative statement must be testable. If the conformance tests cannot check it, either propose the fixture alongside it or explain why it is normative anyway.
 - Discussions happen in issues and RFC pull requests, in English, under the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Agreed wording
+
+Cross-repo wording the consistency pass agreed once (spec#34, spec#35, spec#68). Public surfaces copy these instead of inventing their own phrasing; this section supersedes the former `DECISIONS.md`.
+
+- **The canonical PDaC definitions.** The one-line and one-paragraph definitions live between the `canonical-pdac-definition` markers in [README.md](README.md). Other first-contact surfaces copy them verbatim or link to them; paraphrase is drift.
+- **Conformance-tests status.** "The conformance runner (pdac-lint) is published and usable. The conformance tests are versioned with the spec: initialisation, the citation contract, topology, artifact-kind and most Product Change cases are runnable; the rest are planned or blocked on an open spec question. They are not yet published as a complete, normative set." Check [conformance/README.md](conformance/README.md) for the live case count before restating it; never call the runner "planned", and never call the tests "a complete normative set".
+- **ProductShape's first line**, wherever it is introduced: "ProductShape, the reference implementation of Product Definition as Code."
+- **Artifact counts.** Never hardcode a count that will drift; derive it from a command, or say "80+ artifacts".
+- **A retired word.** "corpus" is retired everywhere in the project; do not reintroduce it. The bar is `git grep -i corpus` finding only this rule and the changelog entry recording the retirement.
+
 ## Signing the manifesto
 
 Not a code contribution, still a contribution: [SIGNATORIES.md](SIGNATORIES.md).

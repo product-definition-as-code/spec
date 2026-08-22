@@ -32,7 +32,7 @@ A relationship referencing an unknown ID, or targeting a type outside the allowe
 
 ## Derived relationships
 
-Reverse relationships are always derived by the graph compiler and MUST NOT be authored or manually maintained. Users never maintain reciprocal references.
+Reverse relationships are always derived by the graph compiler and MUST NOT be authored or manually maintained.
 
 The canonical/derived split is decided once per pair. The load-bearing case:
 
