@@ -46,11 +46,13 @@ Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yam
 | `PRODUCT050` | Invalid configuration or unknown top-level configuration key                           |
 | `PRODUCT051` | Managed integration file modified by hand                                              |
 | `PRODUCT052` | Expected managed or generated file missing                                             |
-| `PRODUCT060` | Unresolved citation: target `id` or `anchor` does not resolve                          |
+| `PRODUCT060` | Unresolved citation: target `id` does not resolve                                     |
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
 
 `PRODUCT020`-`PRODUCT028` apply to Product Changes and their overlays; see [Product Changes](product-changes.md). They are reported when a change is validated or applied, never when validating the baseline alone, and never against archived changes.
+
+When a dangling reference in the overlay is caused by an ID named in the change's `remove` set, only `PRODUCT024` is reported for it; `PRODUCT006` MUST NOT additionally be reported for the same reference. `PRODUCT006` remains the diagnostic for a reference that dangles for any other reason (see [Product Changes → Overlay validation](product-changes.md#overlay-validation)).
 
 `PRODUCT027` and `PRODUCT028` are apply preconditions: they are evaluated before anything is written and reported with the working tree untouched. The invocation itself is well-formed, so apply exits `1`, not `2` (see [Exit codes](#exit-codes)).
 
