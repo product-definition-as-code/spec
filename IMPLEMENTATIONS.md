@@ -4,7 +4,7 @@ Known implementations of the Product Definition as Code specification.
 
 | Implementation | Language | Spec version targeted | Conformance | Notes |
 | --- | --- | --- | --- | --- |
-| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.1 (draft) | **Last verified pass:** 16 of 16 runnable cases and 8 of 8 pinned digests.<br>**Record:** 2026-08-20, spec [`6464948`](https://github.com/product-definition-as-code/spec/commit/6464948), packed `@prodshape/cli` 0.12.0, `pdac-lint` 0.1.2 conformance runner.<br>This is a dated record of one run, not a live status. It says nothing about releases of the spec or the implementation made after that date. | Reference implementation; the spec was extracted from it; implements the citation contract |
+| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.1 (draft) | **Last verified pass:** 16 of 16 runnable cases and 8 of 8 pinned digests.<br>**Record:** 2026-08-23, spec [`2c95e77`](https://github.com/product-definition-as-code/spec/commit/2c95e77), published `@prodshape/cli` 0.13.0 installed from npm, `pdac-lint` 0.1.2 conformance runner.<br>This is a dated record of one run, not a live status. It says nothing about releases of the spec or the implementation made after that date. | Reference implementation; the spec was extracted from it; implements the citation contract |
 
 ## Conformance tooling
 
