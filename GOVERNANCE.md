@@ -28,7 +28,9 @@ The target composition, stated openly: at least three maintainers from at least 
 
 RFC 0021 and RFC 0022 were accepted without the public comment window this document requires. RFC 0022 was opened, accepted and implemented on the same day. That was a deliberate decision by the founding maintainer in order to close v0.1, not an oversight, and it is recorded here because a governance rule quietly skipped is worse than one openly suspended.
 
-The window applies as written from v0.1.0 onward. Its length was revised in the same release, from a flat 14 days to a period matched to what an RFC does, on the reasoning that a window exists to buy external review and there was no external constituency to spend it: a rule nobody can use is a rule that teaches its author to break rules, which is what happened here.
+The window applied from v0.1.0 until the founder-led stabilization exception recorded in [CONTRIBUTING.md](CONTRIBUTING.md). Its length was revised in the same release, from a flat 14 days to a period matched to what an RFC does, on the reasoning that a window exists to buy external review and there was no external constituency to spend it: a rule nobody can use is a rule that teaches its author to break rules, which is what happened here.
+
+The founding maintainer now explicitly exercises the BDFL pro tempore bootstrap authority described under [Roles](#roles) to suspend only the minimum elapsed-time requirement while the pre-stable specification is stabilized through adoption. RFC publication, a recorded decision with rationale, maintainer consensus and resolution of substantive feedback still apply. Fixed minimum windows resume with the first stable specification version. This governance change records the exception before any RFC relies on it; no RFC may change the rules used to accept itself.
 
 ## Versioning and stability
 
