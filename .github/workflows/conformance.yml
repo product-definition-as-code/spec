@@ -27,3 +27,10 @@ jobs:
       # a failing case is a verdict about an implementation. So this one fails the build.
       - name: verify the digests the conformance tests pin
         run: npx --yes pdac-lint@0.1.2 digests --spec .
+      - name: keep the digest schema description aligned with the raw-byte contract
+        run: >-
+          node -e "const fs = require('node:fs');
+          const schema = JSON.parse(fs.readFileSync('schemas/v1alpha1/common.schema.json', 'utf8'));
+          const validation = fs.readFileSync('spec/validation.md', 'utf8');
+          const expected = 'SHA-256 over raw file bytes after CRLF and CR byte-sequence normalization to LF; bytes are never decoded or BOM-stripped.';
+          if (schema['$defs'].digest.description !== expected || !validation.includes('raw bytes') || !validation.includes('MUST NOT decode content before hashing') || !validation.includes('MUST NOT strip a byte order mark')) process.exit(1);"
