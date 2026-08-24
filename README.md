@@ -31,7 +31,7 @@ This repository holds the Product Definition as Code specification, the manifest
 
 ## Try it in five minutes
 
-Every conformance test in this repository carries a complete miniature product repository. Copy one and make a citation go stale. Nothing to clone but this repository, and nothing to install: Node runs the tool once.
+Every conformance case in this repository carries a miniature repository state. Copy this positive case and make a citation go stale. The only prerequisite is Node.js; `npx` downloads the pinned CLI package for the run.
 
 ```bash
 git clone https://github.com/product-definition-as-code/spec.git
@@ -66,11 +66,11 @@ warning PRODUCT061 specs/feature-x.citations.yml [FR-VALIDATE-001]: Citation of 
 
 `specs/feature-x.md`, the document that relies on the requirement, was never touched. Its citation ledger recorded the requirement's content digest, so amending the requirement flagged the document for review instead of leaving it quietly wrong. That is the citation contract, and it is the whole mechanism.
 
-Verified with `@prodshape/cli` 0.13.0 on Node 22. To run the conformance tests themselves against an implementation, use [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) (see [conformance/README.md](conformance/README.md)).
+The transcript above was verified with the pinned `@prodshape/cli` 0.13.0 package on Node 22. It is a reproducible demonstration, not a claim about the latest ProductShape release. To run the conformance tests themselves against an implementation, use [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) (see [conformance/README.md](conformance/README.md)).
 
 ## Examples
 
-The fixtures under [`conformance/cases/`](conformance/cases/) are the canonical examples of conforming repositories. Each `repo/` is a small, complete product model you can read end to end in a few minutes; each `case.md` says which normative clause the case verifies. Reasonable places to start:
+The fixtures under [`conformance/cases/`](conformance/cases/) are executable examples, not all examples of conforming repositories: negative cases deliberately contain a specific defect. Each `case.md` states the condition it verifies and its `repo/` supplies the repository state. These zero-diagnostic positive cases are reasonable places to start:
 
 - [`greenfield-first-increment/repo/`](conformance/cases/greenfield-first-increment/repo/) - a model brought into existence by `CHG-INITIAL`, the applied change kept as archived history, and a delivery spec citing both a requirement scenario and a business rule.
 - [`artifact-kinds-valid/repo/`](conformance/cases/artifact-kinds-valid/repo/) - one artifact of each of the nine kinds, wired into a complete graph.

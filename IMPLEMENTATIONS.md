@@ -14,7 +14,7 @@ Known implementations of the Product Definition as Code specification.
 | --- | --- | --- |
 | [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | TypeScript | Runs the published conformance cases against an implementation command and verifies pinned digests |
 
-What it is not: it is not independent validation of the specification, and it is not a second independent implementation of the reference profile. It executes the cases this repository publishes, so it can only find what those cases already assert. The gates in [MATURITY.md](MATURITY.md) are unaffected by its existence.
+What it is not: it is not independent validation of the specification, and it is not a second independent implementation of the reference profile. A conformance result is bounded by the cases this repository publishes; uncovered rules remain uncovered. The gates in [MATURITY.md](MATURITY.md) are unaffected by its existence.
 
 It does read the specification for itself where the tests depend on it, and that has mattered once: its digest implementation disagreed with the reference implementation's, which produced [RFC 0038](rfcs/0038-digest-bytes.md) and the `digest-bytes-not-text` case.
 
