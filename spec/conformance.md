@@ -66,7 +66,7 @@ Services that serve the compiled graph or projections of it, including read APIs
 
 An implementation (tooling) conforms when:
 
-1. It validates all of the above deterministically, emitting the diagnostic codes, fields, ordering and exit codes defined in [Validation](validation.md).
+1. It validates every mechanically checkable structural rule over repository content deterministically, emitting the diagnostic codes, fields, ordering and exit codes defined in [Validation](validation.md).
 2. It compiles the product graph exclusively from canonical files and can always rebuild every derived output.
 3. It derives reverse relationships and never requires reciprocal authoring.
 4. It computes digests with the mandated LF normalization.
@@ -81,4 +81,8 @@ An implementation (tooling) conforms when:
 
 ## Violation mapping
 
-Each normative statement in this specification maps to a diagnostic in [Validation](validation.md), except where the statement is about the repository rather than its files: clauses 1, 5 and 8 of repository conformance are verified by review, as stated above. The conformance fixtures under `conformance/cases/` exercise representative violations and assert their codes. Diagnostic codes are stable and are never renumbered or reused. A change to normative behaviour MUST update the specification, the diagnostic table and the fixtures together.
+Diagnostic mapping applies to mechanically checkable structural rules over repository content. Each such violation maps to a diagnostic in [Validation](validation.md). The conformance fixtures under `conformance/cases/` exercise representative mapped violations and assert their codes; uncovered codes remain explicit coverage gaps.
+
+Other normative statements remain conformance criteria without pretending to be deterministic diagnostics. Repository and history-dependent facts, including clauses 1, 5 and 8 of repository conformance and the prohibition on ID reuse, are verified by review. Semantic authoring constraints, such as whether an artifact body contains implementation design or a term definition merely repeats its title, require human judgement. Obligations on implementation behaviour that a flat repository fixture cannot observe, including never self-merging and reporting an apply product diff, are also verified by review of the implementation and its operation. Naming these review categories does not claim that a review occurred on any particular merge.
+
+Diagnostic codes are stable and are never renumbered or reused. A change to mechanically checkable normative behaviour MUST update the specification, diagnostic table and applicable fixtures together. A change to a review-conformance criterion updates its normative text and review evidence; it does not receive a diagnostic merely to satisfy a universal mapping claim.
