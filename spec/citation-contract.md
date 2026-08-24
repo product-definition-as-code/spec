@@ -15,20 +15,39 @@ A citation is a record, not a block of text. It MUST carry:
 | Field    | Presence | Meaning                                                                                             |
 | -------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `id`     | required | the target artifact's stable ID (see [Identifiers](identifiers.md))                                 |
-| `digest` | required | the content digest of the cited canonical text (see [Validation → Digests](validation.md#digests))  |
+| `digest` | required | the whole target artifact's content digest (see [Validation → Digests](validation.md#digests))     |
 | `anchor` | optional | a stable address within the target artifact (see Anchors below)                                     |
 
-A citation MAY exist in any of three forms; v0.1 does not mandate one:
+## Citation carriers and canonical writing
 
-- an **inline structured reference** embedded in the consumer document;
-- a **Markdown marker block** delimiting an embedded projection (see Embedding below);
-- a **YAML sidecar ledger** accompanying the consumer document.
+A consumer document MUST use exactly one carrier: one or more comment payloads in the document, or one adjacent YAML sidecar. It MUST NOT combine them.
 
-The spec defines the citation record shape, not a mandatory serialization.
+A comment payload occupies one physical line and uses this exact attribute order, separated by one or more ASCII spaces or tabs:
+
+```text
+pdac:cite id="<artifact-id>" digest="<digest>" [anchor="<anchor>"]
+```
+
+Values are double-quoted and have no escape syntax. Unknown, repeated or out-of-order attributes are invalid. Discovery scans text lines for the exact `pdac:cite` token followed by payload-like `id=` text; a malformed candidate produces `PRODUCT067` rather than disappearing as prose. The payload rides inside the host format's native comment, whose opener and closer carry no citation semantics.
+
+For a consumer named `<stem>.<extension>`, the adjacent sidecar is `<stem>.citations.yml`, replacing only the final extension; a consumer with no extension appends `.citations.yml`. The sidecar MUST satisfy the normative [`citation-sidecar` schema](../schemas/v1alpha1/citation-sidecar.schema.json): one YAML 1.2 document, exactly one top-level `citations` key, and a non-empty sequence of closed citation records. Duplicate YAML keys, aliases, anchors, tags and merge keys are forbidden. The corresponding consumer file MUST exist. A ledger entry's location is its one-based sequence position.
+
+```yaml
+citations:
+  - id: FR-CHECKOUT-001
+    digest: sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    anchor: S1
+```
+
+A conforming writer emits only these forms. Payload attributes are written in `id`, `digest`, `anchor` order with one ASCII space between elements. Sidecars are written in mapping form with `citations`, preserving requested entry order and field order `id`, `digest`, `anchor`. A writer MUST migrate a legacy bare-sequence sidecar when updating it and MUST NOT emit the legacy brace form, a bare-sequence sidecar, mixed carriers or a scenario-only digest. Readers MAY accept legacy forms as explicitly non-conforming extensions.
+
+Payload verification and impact output report the consumer file and one-based `line`; sidecars report the ledger file and one-based `entry`.
 
 ## Anchors
 
-An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial scope expressible as a set of cited scenario ids instead of prose.
+An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial dependency scope expressible as a set of cited scenario ids instead of prose.
+
+An anchor does not narrow digest scope. Every citation digest covers the whole target artifact. A verifier resolves the target and anchor, then compares the recorded digest with the whole artifact's recomputed digest. Any normalized-byte edit to that artifact makes the citation stale, including an edit to another scenario or to artifact prose; an edit to another artifact does not. The anchor tells a reviewer what was relied on, while whole-artifact staleness conservatively requires review of any change to its containing requirement ([RFC 0077](../rfcs/0077-whole-artifact-digests-for-anchored-citations.md)).
 
 Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.1 anchors to scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
 
@@ -40,13 +59,15 @@ _Figure PDaC-8 - how does a scenario-anchored citation stay aligned when the def
 
 Embedding is a projection of a citation, not its definition. A consumer MAY additionally embed the cited canonical text in its document; when it does:
 
-- the embedded block MUST be delimited by machine-readable markers carrying the citation record;
+- the opening marker MUST carry a valid citation payload and the closing marker MUST carry the exact `/pdac:cite` token in the same host comment style;
 - the embedded text MUST be byte-identical to the canonical text at the recorded `digest`;
 - the embedded block MUST be treated as read-only and regenerable.
 
-A consumer that embeds canonical text without a citation record, or whose embedded text differs from canonical content at the recorded digest, is non-conforming (see `PRODUCT062` below).
+A consumer that embeds canonical text without a citation record, or whose embedded text differs from canonical content at the recorded digest, is non-conforming (see `PRODUCT062` below). Because the digest covers the whole artifact, an anchored embedded projection MUST embed the whole artifact. A scenario-only projection cannot be verified by that digest and is `PRODUCT062`.
 
 A tool decides whether an embedded block is faithful by recomputing the digest of the embedded text and comparing it to the recorded `digest`, under the same normalization ([Validation → Digests](validation.md#digests)). The comparison is against the recorded digest, never against the target's current content, so a projection that was edited by hand stays detectable after the cited text has moved.
+
+The embedded byte range begins immediately after the line ending that terminates the opening-marker line and ends immediately before the first byte of the closing-marker line. The marker lines and the opening marker's terminating line ending are not part of the projection. A line ending immediately before the closing marker is part of the projection, so the projection preserves the artifact's final line ending when the artifact has one.
 
 ## Statuses
 
@@ -59,7 +80,7 @@ A conforming tool MUST compute, deterministically, exactly one status per citati
 | `tampered`   | Only for embedded projections: the block differs from canonical content at the recorded digest. |
 | `unresolved` | The target `id` does not resolve, or the `anchor` does not resolve within the target.            |
 
-Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the digest of the cited target: unrelated commits, unrelated artifact edits and generated-file churn MUST NOT make a citation stale.
+Digest recomputation uses the normalization defined in [Validation → Digests](validation.md#digests). Staleness is judged exclusively by the whole-artifact digest of the cited target: unrelated commits, edits to other artifacts and generated-file churn MUST NOT make a citation stale. Any normalized-byte edit to the target artifact does.
 
 Applying a Product Change computes the product diff between the baseline and the applied result ([Product Changes → Apply](product-changes.md#apply)). The affected citation set is derived from that diff and the citation index, not from the change's declared `operations`: a citation goes stale because the text it cited effectively changed, never because a change said it would.
 
@@ -89,8 +110,33 @@ Tampering outranks staleness because it is a property of the consumer document t
 | `PRODUCT061` | warning  | Stale citation: target resolves but canonical content changed since the citation was recorded.           |
 | `PRODUCT062` | error    | Tampered embedded projection: the embedded block differs from canonical content at the recorded digest. |
 | `PRODUCT063` | error    | Anchor not found: the target resolves but the named anchor does not exist within it.                    |
+| `PRODUCT064` | error    | Current consumer document has no scope declaration during population-aware verification.               |
+| `PRODUCT065` | error    | Consumer document declares `bound` but contains no citations.                                           |
+| `PRODUCT066` | error    | Invalid exemption: empty reason or an exempt document containing a citation.                            |
+| `PRODUCT067` | error    | Malformed citation carrier, missing sidecar consumer, or payload/sidecar conflict.                       |
 
 `PRODUCT061` is a warning; a repository MAY make warnings fail the command through [`validation.warnings-as-errors`](configuration.md). Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
+
+## Population-aware consumer verification
+
+A conforming implementation MAY provide no consumer-framework integration. When it claims **population-aware PDaC verification** for an integration, the integration MUST satisfy this section ([RFC 0042](../rfcs/0042-consumer-binding-for-sdd-alignment.md)).
+
+A consumer integration is an adapter that deterministically enumerates an external framework's current native consumer documents without taking ownership of them. It MUST document its enumeration rule, return the same population for identical repository content and integration configuration, exclude archived or historical documents by default, and report provider identity and integration version. Framework paths and lifecycle concepts remain adapter concerns and MUST NOT enter the Product Definition.
+
+Every current document in the enumerated population has exactly one explicit scope declaration:
+
+| Value | Contract |
+| --- | --- |
+| `bound` | The document contains product-semantic dependencies and carries at least one citation. |
+| `exempt` | The document has no dependency requiring binding and carries a non-empty human-authored reason and no citations. |
+
+The serialization and location of that declaration are adapter-defined but MUST be inspectable as repository data without executing code. Absence is **unclassified** and produces `PRODUCT064`; a tool MUST NOT infer exemption from no citations, file name, generated content or AI assessment. A bound document with no citations produces `PRODUCT065`. An empty exemption reason or an exempt document containing a citation produces `PRODUCT066`. A tool MUST NOT create or renew an exemption without an explicit human request.
+
+Population-aware verification accounts for every enumerated current document before success. It reports provider and integration version; totals for current, bound, exempt and unclassified documents; citation totals by status; and the source location and diagnostic for every non-passing document. A valid exempt document remains visible. Zero discovered citations cannot succeed when any current document is bound or unclassified. Citation statuses and precedence remain exactly those above.
+
+Success establishes only that the declared population was accounted for, every document was classified, every bound document carried at least one citation and every recorded citation was verified. It does not establish citation completeness, semantic agreement, implementation correctness or delivery status. Tools may suggest omissions for human review but MUST NOT report such suggestions as deterministic conformance results.
+
+A stale citation requires review. A tool MUST NOT renew its digest, rewrite consumer text or change the canonical Product Definition automatically. The consumer owner either revises and deliberately re-cites accepted intent or proposes a Product Change; acceptance remains human-controlled.
 
 ## Semantic contradiction
 

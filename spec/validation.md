@@ -45,7 +45,7 @@ Warnings are not errors. `validation.warnings-as-errors` in the versioned [Confi
 | `PRODUCT024` | Removal leaves a dangling reference from an active artifact in the overlay             |
 | `PRODUCT025` | Concurrent active Product Changes with overlapping modify/remove operations            |
 | `PRODUCT026` | Proposed artifact not listed in operations, or operation without its proposed artifact |
-| `PRODUCT027` | Baseline revision incompatible at apply without explicit resolution                    |
+| `PRODUCT027` | Ordinary base revision does not resolve, or a modify/remove target changed since it    |
 | `PRODUCT028` | Apply attempted on a Product Change whose status is not `approved`                     |
 | `PRODUCT042` | Invalid or unverifiable citation digest                                                 |
 | `PRODUCT050` | Invalid configuration or unknown top-level configuration key                           |
@@ -54,6 +54,10 @@ Warnings are not errors. `validation.warnings-as-errors` in the versioned [Confi
 | `PRODUCT060` | Unresolved citation: target `id` does not resolve                                     |
 | `PRODUCT062` | Tampered embedded projection: embedded block differs from canonical at recorded digest |
 | `PRODUCT063` | Anchor not found: target resolves but the named anchor does not exist within it        |
+| `PRODUCT064` | Current consumer document has no population-aware scope declaration                    |
+| `PRODUCT065` | Consumer document declares `bound` but contains no citations                           |
+| `PRODUCT066` | Invalid exemption: empty reason or citation present                                    |
+| `PRODUCT067` | Malformed citation carrier, missing sidecar consumer or mixed carriers                  |
 
 `PRODUCT020`-`PRODUCT028` apply to Product Changes and their overlays; see [Product Changes](product-changes.md). They are reported when a change is validated or applied, never when validating the baseline alone, and never against archived changes.
 
@@ -63,7 +67,7 @@ When a dangling reference in the overlay is caused by an ID named in the change'
 
 `PRODUCT050` is reported by any command that discovers an invalid configuration and stops that invocation before command-specific work. `PRODUCT051` and `PRODUCT052` concern implementation-managed files and are reported only by commands that inspect those files; product-model validation does not inspect managed files.
 
-`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY make warnings fail the command through `validation.warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
+`PRODUCT060`-`PRODUCT067` are citation and consumer-population diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY make warnings fail the command through `validation.warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
@@ -108,9 +112,13 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT024` | relationship entry made dangling by the removal | source `artifact`, `field`, `target` |
 | `PRODUCT025` | overlapping target for each Product Change that names it | `change`, operation `field`, `target` |
 | `PRODUCT026` | undeclared proposed artifact, or operation entry without its proposed artifact | proposed-file direction: `artifact`; operation direction: `change`, operation `field`, `target` |
-| `PRODUCT027` | unresolved ordinary base revision, or changed `modify`/`remove` target | `change`, `field: base-revision`; changed-target form also carries `target` |
+| `PRODUCT027` | unresolved ordinary base revision, or changed `modify`/`remove` target | unresolved-revision form: `change`, `field: base-revision`; changed-target form: `change`, operation `field`, `target` |
 | `PRODUCT028` | apply invocation against a non-approved change | `change`, `field: status` |
-| `PRODUCT042`, `PRODUCT060`-`PRODUCT063` | citation record | cited `target`, plus payload `line` or sidecar `entry` when carried by that form |
+| `PRODUCT042`, `PRODUCT060`-`PRODUCT063` | citation record | cited `target`, plus payload `line` or sidecar `entry` |
+| `PRODUCT064` | enumerated current consumer document with no scope declaration | `field: scope` |
+| `PRODUCT065` | enumerated current consumer document declared `bound` with no citations | `field: scope` |
+| `PRODUCT066` | enumerated current consumer document with one or both invalid-exemption conditions | `field: scope` |
+| `PRODUCT067` | malformed payload candidate, malformed sidecar file, sidecar whose consumer is missing, or consumer using both carriers | payload `line` or sidecar `entry` when identifiable; parsed cited `target` when available |
 | `PRODUCT050` | invalid configuration file | configuration `field` when it can be parsed |
 | `PRODUCT051` | managed file whose bytes differ from its recorded ownership contract | none |
 | `PRODUCT052` | expected managed or generated file that is missing | none; `file` is the expected path |
@@ -121,6 +129,8 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 For duplicate detection, “first” is the first occurrence after sorting files by repository-relative POSIX path and, when a file can contain several documents, by one-based document order. The first occurrence is not itself diagnosed; each later occurrence is. Overlay order uses baseline files before proposed files, with each group sorted the same way.
 
 For `PRODUCT025`, each change's overlap set is `operations.modify ∪ operations.remove`. Every target in the intersection of two active changes produces one diagnostic against each involved change. A target shared by three changes therefore produces three diagnostics, not three pairwise duplicates.
+
+`PRODUCT066` is one diagnostic per invalid exempt document even when its reason is empty and it also contains citations. `PRODUCT067` treats a sidecar file as one carrier: multiple structural defects in that file produce one diagnostic, not one per failed schema keyword. A carrier conflict produces one diagnostic against the consumer file and suppresses citation-status diagnostics from both conflicting carriers until the conflict is resolved.
 
 ## Exit codes
 

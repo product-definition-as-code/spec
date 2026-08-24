@@ -27,7 +27,7 @@ id: CHG-CITATIONS-001
 type: product-change
 title: Cite canonical product text instead of restating it
 status: proposed
-base-revision: <git-commit-sha> # the baseline this change was created against
+base-revision: <git-commit-sha> # or '0000000' only for CHG-INITIAL with no baseline commit
 operations:
   add: [BR-CITE-CANONICAL, FR-CITATIONS-001]
   modify: [UC-VALIDATE-001]
@@ -84,7 +84,7 @@ Apply:
 
 1. MUST require change status `approved`. Applying a change in any other status MUST fail with `PRODUCT028`, leaving the working tree untouched.
 2. MUST revalidate the overlay.
-3. MUST check baseline-revision compatibility: if any artifact named in the change's `operations.modify` or `operations.remove` changed in the baseline since `base-revision`, apply MUST fail (`PRODUCT027`) until the change is explicitly rebased - its proposed artifacts regenerated and reviewed against the new baseline, `base-revision` updated, and the overlay revalidated. Changed means the artifact's content digest differs from its digest at `base-revision` (see [Validation → Digests](validation.md#digests)): a commit that touched the file without changing its normalized content is not drift. `operations.add` is not drift-checked: an addition has no baseline artifact to compare against, and an ID that has appeared in the baseline since is already reported as `PRODUCT020` by the revalidated overlay.
+3. MUST check baseline-revision compatibility before writing. For `CHG-INITIAL` carrying exactly `0000000`, apply MUST skip Git resolution and baseline drift comparison and MUST NOT emit `PRODUCT027` because the sentinel does not resolve. Every ordinary `base-revision`, including other all-zero strings and `0000000` on another change, MUST resolve to exactly one commit; failure emits one `PRODUCT027` against `base-revision` and leaves the working tree untouched. After resolution, each artifact named in `operations.modify` or `operations.remove` is compared by content digest with its content at that commit. Each differing target emits `PRODUCT027` and apply fails until the change is explicitly rebased - proposed artifacts regenerated and reviewed, `base-revision` updated, and the overlay revalidated. A commit that touched a file without changing normalized content is not drift. `operations.add` is not drift-checked: an addition has no baseline artifact to compare, and an ID added since is already `PRODUCT020` in the revalidated overlay ([RFC 0066](../rfcs/0066-initial-base-revision-sentinel.md)).
 4. Writes additions, modifications and removals into the working tree's `docs/product/model`, naming files by lowercase ID.
 5. MUST compute the product diff between the baseline and the applied result, and MUST report it in the operation's output in both a human-readable and a machine-readable form. Each entry names the impacted artifact, the kind of impact (`added`, `modified` or `removed`) and, for an addition or a modification, the resulting content digest; a removal has no resulting content and carries no digest. The diff is computed from the result, never read off `operations`: `operations` states what the change meant to do, the diff records what it effectively did. Apply MUST NOT write the diff into the archived change directory, which is immutable once archived: the diff is derived, not canonical, and is recomputable from `base-revision` and the applied result. An implementation MAY persist it elsewhere as a generated, non-canonical file. This specification fixes what the diff records and where apply reports it, not an on-disk serialization ([RFC 0004](../rfcs/0004-delivery-model-reset.md) open question 3).
 6. MUST run full structural validation of the resulting model, and MUST leave the working tree untouched if it fails.
@@ -100,7 +100,7 @@ The branch carrying the applied model and the archived change is reviewed as a p
 
 ## Initialisation
 
-`CHG-INITIAL` is a reserved identifier for the single initialisation change that establishes the first Product Definition. Greenfield and brownfield products use the same mechanism: `CHG-INITIAL` is elaborated from the product knowledge available at the time, applied into an empty model, and accepted through review like every later change.
+`CHG-INITIAL` is a reserved identifier for the single initialisation change that establishes the first Product Definition. Greenfield and brownfield products use the same mechanism: `CHG-INITIAL` is elaborated from the product knowledge available at the time, applied into an empty model, and accepted through review like every later change. It uses the `0000000` no-baseline sentinel when no Git commit names that empty model, or MAY name a real commit whose Product Definition is empty.
 
 That knowledge may come from new product objectives and discussions, existing documentation, source code and tests, interviews and question-and-answer sessions, or conversations and existing team knowledge.
 

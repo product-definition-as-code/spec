@@ -78,6 +78,7 @@ An implementation (tooling) conforms when:
 10. It discovers and validates the versioned [Configuration](configuration.md), uses its product root, and treats warnings as non-fatal unless `validation.warnings-as-errors` is `true`.
 11. It MUST NOT require a co-located software tree in order to validate a Product Definition ([Topologies](#topologies)).
 12. It MUST NOT read canonical product artifacts from a network service. It MAY serve them ([Services over the model](#services-over-the-model)).
+13. When it claims population-aware consumer verification for an integration, it enumerates and classifies that provider's current document population and reports `PRODUCT064`-`PRODUCT066` under the [Citation Contract](citation-contract.md#population-aware-consumer-verification). Implementations that provide no such integration remain conforming.
 
 ## Violation mapping
 
