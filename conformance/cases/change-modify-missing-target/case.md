@@ -15,4 +15,4 @@ The change carries a complete proposed artifact for `FR-VALIDATE-002` under `pro
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT021` as an error against the change file, with `artifact` `CHG-AMEND-REPORTING` and `target` `FR-VALIDATE-002`. The archived `CHG-INITIAL` takes no part: archived changes are inert history, and their operations are never re-checked.
+`expected.json` asserts exactly one diagnostic: `PRODUCT021` as an error against the change file, with `change` `CHG-AMEND-REPORTING`, `field` `operations.modify` and `target` `FR-VALIDATE-002`. A Product Change is not a Product Artifact, so its ID never occupies `artifact`. The archived `CHG-INITIAL` takes no part: archived changes are inert history, and their operations are never re-checked.

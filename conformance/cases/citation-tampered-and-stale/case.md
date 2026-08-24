@@ -45,4 +45,4 @@ The recorded digest is deliberately the digest of text that is not in the fixtur
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT062` as an error against `FR-VALIDATE-001` in `specs/feature-x.md`. The absence of `PRODUCT061` is the other half of the assertion: an implementation that gates its tamper check on the target still matching the recorded digest reports this citation as `stale` and fails this case, which is the failure mode reported in [issue #17](https://github.com/product-definition-as-code/spec/issues/17).
+`expected.json` asserts exactly one diagnostic: `PRODUCT062` as an error at line 5 of `specs/feature-x.md`, with `target` `FR-VALIDATE-001`. The absence of `PRODUCT061` is the other half of the assertion: an implementation that gates its tamper check on the target still matching the recorded digest reports this citation as `stale` and fails this case, which is the failure mode reported in [issue #17](https://github.com/product-definition-as-code/spec/issues/17).

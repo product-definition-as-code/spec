@@ -15,4 +15,4 @@ A modify operation without its artifact is a change that names what it will touc
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT026` as an error against the change file, with `artifact` `CHG-TIGHTEN-VALIDATION` and `target` `FR-VALIDATE-001` - the finding is about the declared operation, so it carries the change's file, the mirror of `change-proposed-undeclared`, where it carries the undeclared artifact's.
+`expected.json` asserts exactly one diagnostic: `PRODUCT026` as an error against the change file, with `change` `CHG-TIGHTEN-VALIDATION`, `field` `operations.modify` and `target` `FR-VALIDATE-001` - the finding is about the declared operation, so it carries the change's file, the mirror of `change-proposed-undeclared`, where it carries the undeclared artifact's.

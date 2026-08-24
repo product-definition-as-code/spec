@@ -17,7 +17,7 @@ Rules for these tests: fixtures are plain files with no tooling assumptions; exp
 
 ## Comparing diagnostics
 
-A runner compares `severity`, `code`, `file`, `artifact`, `field` and `target`; `message` is implementation-defined ([Validation](../spec/validation.md)) and MUST NOT be compared. A field absent from an expected diagnostic is not asserted. `file` uses POSIX separators relative to `repo/`, and expected diagnostics are listed in the deterministic order the spec mandates: by file, then code, then target.
+A runner compares `severity`, `code`, `file`, `artifact`, `change`, `field`, `target`, `line` and `entry`; `message` is implementation-defined ([Validation](../spec/validation.md)) and MUST NOT be compared. A field absent from an expected diagnostic is not asserted. `file` uses POSIX separators relative to `repo/`, and expected diagnostics follow the full deterministic order defined by the specification.
 
 ## Pinned digests
 
@@ -46,12 +46,12 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
 | `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
-| `change-add-existing` | add of an ID that already exists in the baseline; `PRODUCT020` | blocked (see below) |
+| `change-add-existing` | add of an ID that already exists in the baseline; `PRODUCT020` | planned |
 | `change-modify-missing-target` | modify of an ID absent from the baseline; `PRODUCT021` | runnable |
 | `change-remove-missing-target` | remove of an ID absent from the baseline; `PRODUCT022` | runnable |
 | `change-proposed-undeclared` | proposed artifact not listed in operations; `PRODUCT026` | runnable |
 | `change-operation-unproposed` | declared operation without its proposed artifact; `PRODUCT026` | runnable |
-| `overlay-duplicate-id` | overlay produces duplicate IDs; `PRODUCT023` | blocked (see below) |
+| `overlay-duplicate-id` | overlay produces duplicate IDs; one `PRODUCT023` per occurrence after the first | planned |
 | `change-removal-dangling-reference` | removal leaving a dangling reference in the overlay; `PRODUCT024` | runnable |
 | `concurrent-changes` | two active changes with overlapping modify sets; `PRODUCT025` against each | runnable |
 | `apply-not-approved` | apply invoked on a change in status `proposed`; `PRODUCT028`, exit `1`, working tree untouched | planned |
@@ -64,7 +64,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |
 | `dedicated-topology` | a model repository holding the definition and no software; no diagnostics | runnable |
 
-Two Product Change negatives are blocked on a question the specification has not answered: how many diagnostics a duplicate ID produces. A duplicate is one defect visible in two files, and `file` is always present on a diagnostic, so an implementation can defensibly report it once or once per occurrence - and the comparison rules above make that count normative, because an expectation nothing satisfies is missing and an emission nothing expects is unexpected. Until the specification fixes the granularity, any `overlay-duplicate-id` fixture over-constrains one of the two readings, and `change-add-existing` is blocked with it: adding an ID that already exists in the baseline necessarily duplicates it in the compiled overlay, so that case cannot expect `PRODUCT020` without also fixing the `PRODUCT023` count it drags in.
+Duplicate-ID granularity is fixed in [Validation → Emission granularity and attribution](../spec/validation.md#emission-granularity-and-attribution): deterministic file/document order establishes the first occurrence, and each later occurrence receives one diagnostic. `change-add-existing` and `overlay-duplicate-id` are therefore implementable rather than blocked; their fixtures remain planned.
 
 What the tests cannot check they do not pretend to. Repository conformance clauses 1, 5 and 8 ([Conformance](../spec/conformance.md)) are about the repository rather than its files, a git repository, a canonical branch, a reviewed merge and the absence of an external source of truth, and a runner executes each fixture in a plain working copy. Those clauses are verified by review. The model-repository pointer has no fixture either: a pointer case needs two repository roots, the consumer and the model repository it points at, where a case is one `repo/`, and the specification deliberately fixes the pointer's record shape without fixing a serialization to check. Pointer cases arrive with that serialization.
 
@@ -85,10 +85,10 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT007` | relationship targets a disallowed artifact type | not yet covered |
 | `PRODUCT008` | active artifact references a retired artifact | not yet covered |
 | `PRODUCT009` | required body section missing or out of order | not yet covered |
-| `PRODUCT020` | addition whose ID already exists in the baseline | not yet covered - blocked with `PRODUCT023` (see above) |
+| `PRODUCT020` | addition whose ID already exists in the baseline | not yet covered |
 | `PRODUCT021` | modification of an ID absent from the baseline | `change-modify-missing-target` |
 | `PRODUCT022` | removal of an ID absent from the baseline | `change-remove-missing-target` |
-| `PRODUCT023` | overlay produces duplicate IDs | not yet covered - duplicate-ID granularity (see above) |
+| `PRODUCT023` | overlay produces duplicate IDs | not yet covered |
 | `PRODUCT024` | removal leaves a dangling reference in the overlay | `change-removal-dangling-reference` |
 | `PRODUCT025` | concurrent changes with overlapping modify/remove sets | `concurrent-changes` |
 | `PRODUCT026` | proposed artifact and operations disagree | `change-proposed-undeclared`, `change-operation-unproposed` |

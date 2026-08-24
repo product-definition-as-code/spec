@@ -58,7 +58,7 @@ To validate a Product Change, an implementation MUST compile an **overlay** - th
 
 When a dangling reference in the overlay is caused by an ID named in the change's `remove` set, an implementation MUST report `PRODUCT024` and MUST NOT additionally report `PRODUCT006` for the same reference. `PRODUCT006` remains the diagnostic for a reference that dangles for any other reason.
 
-While a Product Change is active, the baseline artifacts it touches remain authoritative and unchanged. An implementation MUST check concurrent active Product Changes for overlapping `modify`/`remove` sets; an overlap is an error until one change is rebased or withdrawn.
+While a Product Change is active, the baseline artifacts it touches remain authoritative and unchanged. An implementation MUST check concurrent active Product Changes for overlapping `modify`/`remove` sets. For each change, the overlap set is the union of `operations.modify` and `operations.remove`; every target present in two or more active changes is an error against each change that names it, including modify/remove and remove/remove intersections. The overlap remains an error until all but one of those changes is rebased or withdrawn.
 
 ## Lifecycle
 
@@ -70,7 +70,7 @@ Entering a terminal status archives the change: its directory moves out of `acti
 
 Acceptance is not a status on the change. An applied change enters the accepted Product Definition when a human merges the pull request carrying it (see [Terminology → Accepted](terminology.md)).
 
-A Product Change in status `approved` whose `## Open Questions` section still contains unresolved questions SHOULD produce a warning (`PRODUCT108`). The warning is reported whenever the change is validated, not only at the moment the status changes, so that it is reproducible from repository content alone.
+A Product Change in status `approved` whose `## Open Questions` section still contains one or more unresolved questions SHOULD produce exactly one warning (`PRODUCT108`) against the Product Change. The warning is state-based, not one warning per list item. It is reported whenever the change is validated, not only at the moment the status changes, so that it is reproducible from repository content alone.
 
 For `PRODUCT108`, an unresolved question is a Markdown list item within the change's `## Open Questions` section, at any nesting depth. A list item counts as unresolved regardless of its content: nothing in the syntax distinguishes an answered item from an open one, and task-list checkboxes are not interpreted. Resolving a question therefore means removing its list item - deleting it, or folding it into the prose that answers it. A section with no list items has no unresolved questions: prose is not a question, so `None.` and an empty section are resolved by construction. The rule is syntactic on purpose: two implementations reading the same bytes have to agree, and no deterministic tool can judge whether prose contains an open question.
 

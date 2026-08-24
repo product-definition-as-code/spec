@@ -15,4 +15,4 @@ A removal needs no proposed artifact, so the change carries no `proposed/` tree 
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT022` as an error against the change file, with `artifact` `CHG-RETIRE-REPORTING` and `target` `FR-VALIDATE-002`.
+`expected.json` asserts exactly one diagnostic: `PRODUCT022` as an error against the change file, with `change` `CHG-RETIRE-REPORTING`, `field` `operations.remove` and `target` `FR-VALIDATE-002`.

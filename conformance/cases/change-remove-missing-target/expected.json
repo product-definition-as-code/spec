@@ -4,7 +4,8 @@
       "severity": "error",
       "code": "PRODUCT022",
       "file": "docs/product/changes/active/chg-retire-reporting/change.md",
-      "artifact": "CHG-RETIRE-REPORTING",
+      "change": "CHG-RETIRE-REPORTING",
+      "field": "operations.remove",
       "target": "FR-VALIDATE-002"
     }
   ]

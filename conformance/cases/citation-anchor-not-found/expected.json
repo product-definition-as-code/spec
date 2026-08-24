@@ -4,7 +4,8 @@
       "severity": "error",
       "code": "PRODUCT063",
       "file": "specs/feature-x.citations.yml",
-      "artifact": "FR-VALIDATE-001"
+      "target": "FR-VALIDATE-001",
+      "entry": 1
     }
   ]
 }
