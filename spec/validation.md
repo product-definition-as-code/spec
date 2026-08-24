@@ -6,17 +6,22 @@ Structural validation is deterministic. Given the same repository content, valid
 
 Every diagnostic carries:
 
-| Field      | Presence        | Meaning                                            |
-| ---------- | --------------- | -------------------------------------------------- |
-| `severity` | always          | `error` or `warning`                               |
-| `code`     | always          | stable code from the tables below                  |
-| `message`  | always          | human-readable explanation                         |
-| `file`     | always          | repository-relative source file (POSIX separators) |
-| `artifact` | when available  | artifact ID                                        |
-| `field`    | when available  | frontmatter field or relationship                  |
-| `target`   | when applicable | referenced target ID                               |
+| Field      | Presence        | Meaning                                                                                     |
+| ---------- | --------------- | ------------------------------------------------------------------------------------------- |
+| `severity` | always          | `error` or `warning`                                                                        |
+| `code`     | always          | stable code from the tables below                                                           |
+| `message`  | always          | human-readable explanation                                                                  |
+| `file`     | always          | repository-relative source or expected file (POSIX separators)                              |
+| `artifact` | when applicable | ID of the Product Artifact the diagnostic is about; never a Product Change or unresolved ID |
+| `change`   | when applicable | ID of the Product Change the diagnostic is about                                            |
+| `field`    | when applicable | frontmatter field, relationship or body section                                             |
+| `target`   | when applicable | referenced, operated-on or cited ID exactly as authored, whether or not it resolves          |
+| `line`     | payload only    | one-based consumer-file line carrying a citation payload                                     |
+| `entry`    | sidecar only    | one-based citation entry within the sidecar's `citations` sequence                           |
 
-Diagnostics MUST be available in machine-readable JSON (`--format json`) and MUST be ordered deterministically (by file, then code, then target).
+`artifact`, `change` and `target` are distinct subjects. In particular, a citation diagnostic uses `target` for the cited ID. An unresolved ID MUST NOT appear in `artifact`, because resolution is what would establish that it identifies an artifact. A Product Change ID MUST appear in `change`, never `artifact`.
+
+Diagnostics MUST be available in machine-readable JSON (`--format json`) and MUST be ordered deterministically by `file`, then `line` (absent before present), then `entry` (absent before present), then `code`, `field`, `target`, `artifact` and `change`, comparing absent strings as empty strings. Numeric fields sort numerically; strings sort by Unicode code point.
 
 Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yaml` MAY escalate them for a repository; tools MUST NOT escalate unilaterally.
 
@@ -84,6 +89,38 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.
 
 `PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
+
+## Emission granularity and attribution
+
+The table below is normative. “Per” fixes diagnostic count: an implementation MUST emit exactly one diagnostic for each described unit and MUST NOT collapse several units into one or expand one unit into several diagnostics. `file` is always present; the remaining columns name fields that MUST be present when that code is emitted. Fields not named MAY be omitted and MUST obey their definitions above if present.
+
+| Code | One diagnostic per | Required attribution beyond `file` |
+| --- | --- | --- |
+| `PRODUCT001` | unparseable file | none |
+| `PRODUCT002` | distinct invalid instance path in a parsed file; multiple failed schema keywords at the same path count once | `field` = instance path |
+| `PRODUCT003` | parsed artifact file with an unknown `type` | `field: type` |
+| `PRODUCT004` | artifact whose ID prefix and type disagree | `artifact`, `field: id` |
+| `PRODUCT005` | occurrence of a duplicated ID after its first occurrence in deterministic file/document order | `artifact` |
+| `PRODUCT006`-`PRODUCT008` | authored relationship entry that violates the condition | source `artifact`, `field`, `target` |
+| `PRODUCT009` | required body section that is missing or out of order | `artifact`, `field` = section heading |
+| `PRODUCT020`-`PRODUCT022` | invalid Product Change operation entry | `change`, operation `field`, `target` |
+| `PRODUCT023` | overlay occurrence of a duplicated ID after its first occurrence in deterministic file/document order | `artifact` |
+| `PRODUCT024` | relationship entry made dangling by the removal | source `artifact`, `field`, `target` |
+| `PRODUCT025` | overlapping target for each Product Change that names it | `change`, operation `field`, `target` |
+| `PRODUCT026` | undeclared proposed artifact, or operation entry without its proposed artifact | proposed-file direction: `artifact`; operation direction: `change`, operation `field`, `target` |
+| `PRODUCT027` | unresolved ordinary base revision, or changed `modify`/`remove` target | `change`, `field: base-revision`; changed-target form also carries `target` |
+| `PRODUCT028` | apply invocation against a non-approved change | `change`, `field: status` |
+| `PRODUCT042`, `PRODUCT060`-`PRODUCT063` | citation record | cited `target`, plus payload `line` or sidecar `entry` when carried by that form |
+| `PRODUCT050` | invalid configuration file | configuration `field` when it can be parsed |
+| `PRODUCT051` | managed file whose bytes differ from its recorded ownership contract | none |
+| `PRODUCT052` | expected managed or generated file that is missing | none; `file` is the expected path |
+| `PRODUCT101`-`PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
+| `PRODUCT104` | active relationship entry targeting a deprecated artifact | source `artifact`, `field`, `target` |
+| `PRODUCT108` | approved Product Change containing one or more unresolved-question list items | `change`, `field: Open Questions` |
+
+For duplicate detection, “first” is the first occurrence after sorting files by repository-relative POSIX path and, when a file can contain several documents, by one-based document order. The first occurrence is not itself diagnosed; each later occurrence is. Overlay order uses baseline files before proposed files, with each group sorted the same way.
+
+For `PRODUCT025`, each change's overlap set is `operations.modify ∪ operations.remove`. Every target in the intersection of two active changes produces one diagnostic against each involved change. A target shared by three changes therefore produces three diagnostics, not three pairwise duplicates.
 
 ## Exit codes
 

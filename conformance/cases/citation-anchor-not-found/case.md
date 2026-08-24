@@ -16,4 +16,4 @@ The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`rep
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT063` as an error against `FR-VALIDATE-001` in `specs/feature-x.citations.yml`. `PRODUCT060` is the wrong answer here - the target `id` resolves, and the anchor clause has its own code precisely so that a citation naming a real artifact and a missing scenario is distinguishable from one naming nothing at all.
+`expected.json` asserts exactly one diagnostic: `PRODUCT063` as an error at entry 1 of `specs/feature-x.citations.yml`, with `target` `FR-VALIDATE-001`. `PRODUCT060` is the wrong answer here - the target `id` resolves, and the anchor clause has its own code precisely so that a citation naming a real artifact and a missing scenario is distinguishable from one naming nothing at all.

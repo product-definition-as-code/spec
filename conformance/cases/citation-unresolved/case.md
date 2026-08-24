@@ -16,4 +16,4 @@ The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`rep
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT060` as an error against `FR-VALIDATE-002` in `specs/feature-x.citations.yml`. A citation names what it meant to cite, so the diagnostic carries the unresolved ID even though no artifact answers to it - there is no digest comparison and no staleness to report against a target that does not exist.
+`expected.json` asserts exactly one diagnostic: `PRODUCT060` as an error at entry 1 of `specs/feature-x.citations.yml`, with `target` `FR-VALIDATE-002`. A citation names what it meant to cite, so the diagnostic carries the unresolved ID in `target` even though no artifact answers to it. It MUST NOT place that ID in `artifact`: resolution is what would establish that it identifies an artifact.

@@ -13,4 +13,4 @@
 
 ## Expected
 
-One warning: `PRODUCT108` against the change file, with `artifact` `CHG-TIGHTEN-VALIDATION`. No `field` and no `target` are asserted: the finding is about a body section, not a frontmatter field or a referenced ID.
+Exactly one warning regardless of the two list items: `PRODUCT108` against the change file, with `change` `CHG-TIGHTEN-VALIDATION` and `field` `Open Questions`. No `artifact` or `target` is asserted: a Product Change is not a Product Artifact, and the warning is state-based rather than attributed to an individual question.

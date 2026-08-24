@@ -4,14 +4,16 @@
       "severity": "error",
       "code": "PRODUCT025",
       "file": "docs/product/changes/active/chg-reword-validation/change.md",
-      "artifact": "CHG-REWORD-VALIDATION",
+      "change": "CHG-REWORD-VALIDATION",
+      "field": "operations.modify",
       "target": "FR-VALIDATE-001"
     },
     {
       "severity": "error",
       "code": "PRODUCT025",
       "file": "docs/product/changes/active/chg-tighten-validation/change.md",
-      "artifact": "CHG-TIGHTEN-VALIDATION",
+      "change": "CHG-TIGHTEN-VALIDATION",
+      "field": "operations.modify",
       "target": "FR-VALIDATE-001"
     }
   ]

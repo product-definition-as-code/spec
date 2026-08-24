@@ -18,4 +18,4 @@ The anchor `S1` still resolves in the amended artifact. Staleness is judged excl
 
 ## Expected
 
-`expected.json` asserts exactly one diagnostic: `PRODUCT061` as a warning against `FR-VALIDATE-001` in `specs/feature-x.citations.yml`, the file carrying the citation record. The severity is the other half of the assertion: an implementation that escalates staleness to an error on its own authority fails this case, because risk policy belongs to the repository, not the kernel.
+`expected.json` asserts exactly one diagnostic: `PRODUCT061` as a warning at entry 1 of `specs/feature-x.citations.yml`, the file carrying the citation record, with `target` `FR-VALIDATE-001`. The severity is the other half of the assertion: an implementation that escalates staleness to an error on its own authority fails this case, because risk policy belongs to the repository, not the kernel.
