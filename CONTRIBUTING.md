@@ -18,6 +18,8 @@ Thanks for caring about the left side of the SDLC.
    - **Determination**, filling a gap the specification left open, where no conforming repository or implementation changes behaviour: at least 72 hours.
    - **Change**, altering existing normative text or adding or removing an obligation: at least 7 days before v1.0, at least 14 days from v1.0.
    The longer window returns automatically at v1.0, or earlier once a second independent implementation exists, because that is the point at which a week of review costs someone else something.
+
+   > **Founder-led stabilization exception.** During the founder-led bootstrap phase, the minimum elapsed-time windows above are temporarily suspended while the pre-stable specification is exercised by early adopters. RFCs still remain public and require the decision process in [GOVERNANCE.md](GOVERNANCE.md); the founding maintainer MUST record the decision and its rationale, SHOULD leave an RFC open while it is producing useful review, and MUST resolve substantive feedback before accepting it. The fixed minimum windows take effect again when the first stable specification version is released. This explicit bootstrap exception lets implementations evolve against proposed clarifications and report specification gaps without making elapsed time, by itself, a merge condition.
 4. Maintainers decide per [GOVERNANCE.md](GOVERNANCE.md). Accepted RFCs merge into `rfcs/` and the spec change lands in a follow-up PR referencing the RFC.
 
 ## Ground rules
