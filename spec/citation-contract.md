@@ -90,7 +90,7 @@ Tampering outranks staleness because it is a property of the consumer document t
 | `PRODUCT062` | error    | Tampered embedded projection: the embedded block differs from canonical content at the recorded digest. |
 | `PRODUCT063` | error    | Anchor not found: the target resolves but the named anchor does not exist within it.                    |
 
-`PRODUCT061` is a warning; a repository MAY escalate it via its existing `warnings-as-errors` configuration. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
+`PRODUCT061` is a warning; a repository MAY make warnings fail the command through [`validation.warnings-as-errors`](configuration.md). Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
 ## Semantic contradiction
 

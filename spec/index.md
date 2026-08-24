@@ -24,17 +24,18 @@ The grouping below mirrors the manifesto's ["a kernel, a profile, a workflow"](.
 3. [Relationships](relationships.md) - canonical relationship vocabulary and derivation rules.
 4. [Citation Contract](citation-contract.md) - machine-verifiable references from consumer documents to canonical product text, citation statuses, the delivery boundary.
 5. [Validation](validation.md) - deterministic diagnostics, stable codes, exit codes.
+6. [Configuration](configuration.md) - versioned repository discovery, product root and warning policy.
 
 **The reference profile** - the artifact vocabulary: opinionated, a good default, distinguished from the kernel on purpose.
 
-6. [Artifacts](artifacts.md) - artifact types, frontmatter contracts, required body sections, lifecycle states.
-7. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables: required and optional fields, allowed values, provenance.
+7. [Artifacts](artifacts.md) - artifact types, frontmatter contracts, required body sections, lifecycle states.
+8. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables: required and optional fields, allowed values, provenance.
 
 **The reference workflow** - how the accepted definition evolves.
 
-8. [Product Changes](product-changes.md) - change structure, operations, overlay validation, lifecycle, apply, initialisation through `CHG-INITIAL`, change history.
+9. [Product Changes](product-changes.md) - change structure, operations, overlay validation, lifecycle, apply, initialisation through `CHG-INITIAL`, change history.
 
-9. [Conformance](conformance.md) - what it means for a repository and an implementation to conform, the co-located and dedicated topologies a model repository may take, and the pointer to a dedicated one.
+10. [Conformance](conformance.md) - what it means for a repository and an implementation to conform, the co-located and dedicated topologies a model repository may take, and the pointer to a dedicated one.
 
 ## Canonical authority
 

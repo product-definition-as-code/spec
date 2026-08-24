@@ -4,7 +4,7 @@
 
 A repository conforms to Product Definition as Code v0.1 when:
 
-1. Its canonical product definition lives in a git repository, the **model repository**, under a configured product root (default `docs/product`), with the `model/` root and `changes/` lifecycle directories defined in this specification. Subdirectories below `model/` are non-normative; artifact kinds are discovered from frontmatter `type`, not paths. See [Specification index → Canonical authority](index.md#canonical-authority) and [Topologies](#topologies).
+1. Its canonical product definition lives in a git repository, the **model repository**, under the product root selected by [Configuration](configuration.md), with the `model/` root and `changes/` lifecycle directories defined in this specification. Subdirectories below `model/` are non-normative; artifact kinds are discovered from frontmatter `type`, not paths. See [Specification index → Canonical authority](index.md#canonical-authority) and [Topologies](#topologies).
 2. Every product artifact satisfies the [artifact contracts](artifacts.md): valid frontmatter per schema, required body sections, valid lifecycle state.
 3. Every ID satisfies the [identifier rules](identifiers.md) and every reference satisfies the [relationship vocabulary](relationships.md).
 4. Structural validation of the baseline reports no errors. Warnings are permitted.
@@ -75,7 +75,7 @@ An implementation (tooling) conforms when:
 7. It MUST NOT merge a proposal that fails structural validation (the CI gate); validation of a proposed tree is full structural validation.
 8. It MUST NOT merge, auto-approve or self-merge model changes: merging is a human decision.
 9. It MUST compute citation statuses deterministically per the [citation contract](citation-contract.md).
-10. It treats warnings as non-fatal unless the repository opts into `warnings-as-errors`.
+10. It discovers and validates the versioned [Configuration](configuration.md), uses its product root, and treats warnings as non-fatal unless `validation.warnings-as-errors` is `true`.
 11. It MUST NOT require a co-located software tree in order to validate a Product Definition ([Topologies](#topologies)).
 12. It MUST NOT read canonical product artifacts from a network service. It MAY serve them ([Services over the model](#services-over-the-model)).
 

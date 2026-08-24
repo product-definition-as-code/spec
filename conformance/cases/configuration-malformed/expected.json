@@ -1,0 +1,10 @@
+{
+  "exitCode": 2,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT050",
+      "file": ".product/config.yaml"
+    }
+  ]
+}
