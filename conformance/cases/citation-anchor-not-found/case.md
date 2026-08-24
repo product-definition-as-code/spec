@@ -12,7 +12,7 @@
 
 `repo/` contains the citation-current model unchanged: an Actor (`ACT-VALIDATOR`), a Journey (`JRN-VALIDATE`), a Use Case (`UC-VALIDATE-001`) and a Functional Requirement (`FR-VALIDATE-001`) whose only verification scenario carries the stable `id` `S1`, established by an archived `CHG-INITIAL`.
 
-The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`repo/specs/feature-x.citations.yml`), a flat list of citation records, citing `FR-VALIDATE-001` at `sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970` - the digest of the artifact's current content - with anchor `S2`, a scenario the artifact does not declare. The pin matching the canonical text is half the construction: with the digest current, the anchor is the only condition that fails, and the digest check verifies the pin stays faithful, so an edit to the requirement cannot quietly turn this case into a two-defect fixture.
+The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`repo/specs/feature-x.citations.yml`) using the canonical top-level `citations` mapping and cites `FR-VALIDATE-001` at `sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970` - the digest of the artifact's current content - with anchor `S2`, a scenario the artifact does not declare. The pin matching the canonical text is half the construction: with the digest current, the anchor is the only condition that fails, and the digest check verifies the pin stays faithful, so an edit to the requirement cannot quietly turn this case into a two-defect fixture.
 
 ## Expected
 

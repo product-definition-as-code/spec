@@ -12,7 +12,7 @@
 
 `repo/` contains the citation-current model unchanged: an Actor (`ACT-VALIDATOR`), a Journey (`JRN-VALIDATE`), a Use Case (`UC-VALIDATE-001`) and a Functional Requirement (`FR-VALIDATE-001`), established by an archived `CHG-INITIAL`.
 
-The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`repo/specs/feature-x.citations.yml`), a flat list of citation records, citing `FR-VALIDATE-002` - an ID no artifact in the model declares. The recorded digest is deliberately well-formed - it is `sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970`, the digest of `FR-VALIDATE-001`'s canonical text, reproducible from the fixture - so resolution, and not digest validity, is the one condition that fails: an implementation that reports `PRODUCT042` here is checking the precedence rows in the wrong order. The record carries no anchor for the same reason: with no anchor there is nothing for row 3 to trip on, and the failing clause is exactly one.
+The consumer document (`repo/specs/feature-x.md`) carries a sidecar ledger (`repo/specs/feature-x.citations.yml`) using the canonical top-level `citations` mapping and cites `FR-VALIDATE-002` - an ID no artifact in the model declares. The recorded digest is deliberately well-formed - it is `sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970`, the digest of `FR-VALIDATE-001`'s canonical text, reproducible from the fixture - so resolution, and not digest validity, is the one condition that fails: an implementation that reports `PRODUCT042` here is checking the precedence rows in the wrong order. The record carries no anchor for the same reason: with no anchor there is nothing for row 3 to trip on, and the failing clause is exactly one.
 
 ## Expected
 

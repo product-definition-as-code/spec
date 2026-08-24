@@ -232,7 +232,7 @@ Note that `provenance` is **not** accepted here. Recovered knowledge carries pro
 | `type`                | yes      | const           | `product-change`                                                     |                                                            |
 | `title`               | yes      | string          |                                                                      | Must not be empty.                                         |
 | `status`              | yes      | enum            | `draft`, `proposed`, `approved`, `applied`, `rejected`, `superseded` | Lifecycle of a product change.                             |
-| `base-revision`       | yes      | string          | `^[0-9a-f]{7,40}$`                                                   | The baseline Git revision this change was created against. |
+| `base-revision`       | yes      | string          | `^[0-9a-f]{7,40}$`                                                   | Baseline Git revision, or exactly `0000000` only for `CHG-INITIAL`. |
 | `operations`          | yes      | object          |                                                                      |                                                            |
 | `operations.add`      | yes      | array of string |                                                                      |                                                            |
 | `operations.add[]`    | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
@@ -240,4 +240,6 @@ Note that `provenance` is **not** accepted here. Recovered knowledge carries pro
 | `operations.modify[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
 | `operations.remove`   | yes      | array of string |                                                                      |                                                            |
 | `operations.remove[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
+
+`base-revision` normally names the Git commit containing the baseline against which the change was created. The exact seven-character string `0000000` is the reserved **no-baseline sentinel** only when `id` is `CHG-INITIAL`; it records that no commit names the empty Product Definition baseline. An implementation MUST NOT resolve that pair against Git. Other all-zero strings and `0000000` on any other Product Change are ordinary revisions. `CHG-INITIAL` MAY instead name a real commit at which the Product Definition is empty ([RFC 0066](../rfcs/0066-initial-base-revision-sentinel.md)).
 

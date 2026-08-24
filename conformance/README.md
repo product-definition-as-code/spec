@@ -13,7 +13,7 @@ conformance/cases/<case-name>/
   case.md                    # what this case verifies, citing the spec chapter and clause
 ```
 
-Rules for these tests: fixtures are plain files with no tooling assumptions; expected diagnostics reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/validation.md); a case covers exactly one normative clause wherever possible; and the tests are versioned with the spec, so "conformant with v1.0" is a precise, checkable claim.
+Rules for these tests: fixtures use only the normative repository, configuration and citation-carrier contracts; expected diagnostics reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/validation.md); a case covers exactly one normative clause wherever possible; and the tests are versioned with the spec, so "conformant with v1.0" is a precise, checkable claim.
 
 ## Comparing diagnostics
 
@@ -45,7 +45,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `configuration-custom-root` | versioned config selects a non-default product root; artifact is discovered; exit `0` | planned - fixture present; runner needs `exitCode` support |
 | `configuration-malformed` | malformed config; one `PRODUCT050`; exit `2`; no artifact discovery | planned - fixture present; runner needs `exitCode` support |
 | `configuration-unknown-key` | unknown top-level config key; one attributed `PRODUCT050`; exit `2` | planned - fixture present; runner needs `exitCode` support |
-| `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
+| `scenario-id-addressing` | a citation anchors to `verification[].id`; the anchor scopes reliance while the digest covers the whole artifact | runnable via `citation-current` |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
 | `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
@@ -59,10 +59,16 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `concurrent-changes` | two active changes with overlapping modify sets; `PRODUCT025` against each | runnable |
 | `apply-not-approved` | apply invoked on a change in status `proposed`; `PRODUCT028`, exit `1`, working tree untouched | planned |
 | `apply-baseline-drift` | a `modify` target changed in the baseline since `base-revision`; `PRODUCT027` at apply; `add` not drift-checked | planned |
+| `apply-initial-sentinel` | `CHG-INITIAL` with exact `0000000` skips revision resolution and drift checks; any other change or all-zero value follows ordinary Git rules | planned - needs the apply case format |
+| `apply-base-revision-unresolved` | an ordinary unresolved `base-revision` emits one `PRODUCT027`, exits `1`, and leaves the working tree untouched | planned - needs the apply case format |
 | `change-open-questions` | change in status `approved` with list items under `## Open Questions`; `PRODUCT108` warning | runnable |
 | `change-superseded-archive` | a `superseded` change archived under `superseded/`; inert history, no diagnostics | planned |
 | `intent-changes-mid-flight` | a change amends a cited rule; the product diff covers it and the citing spec reports `stale`; untouched citations stay `current` | planned |
-| `partial-scope-without-loss` | cite `S1`,`S2` of a five-scenario FR | planned |
+| `anchored-whole-artifact-review` | an edit outside cited anchor `S1` still makes its whole-artifact digest stale | runnable via `citation-stale` |
+| `citation-carrier-malformed` | malformed or conflicting carrier emits attributed `PRODUCT067` | planned |
+| `consumer-population-unclassified` | an enumerated current document without a scope declaration emits `PRODUCT064` | planned - needs an adapter fixture format |
+| `consumer-population-bound-empty` | an enumerated `bound` document without citations emits `PRODUCT065` | planned - needs an adapter fixture format |
+| `consumer-population-invalid-exemption` | empty exemption reason or citations on an exempt document emit `PRODUCT066` | planned - needs an adapter fixture format |
 | `work-over-existing-baseline` | cite baseline requirements directly, with no product change at all | planned |
 | `bug-or-refactor` | no product change; the fix's spec cites the governing rule; `current` | planned |
 | `dedicated-topology` | a model repository holding the definition and no software; no diagnostics | runnable |
@@ -71,7 +77,7 @@ Duplicate-ID granularity is fixed in [Validation → Emission granularity and at
 
 What the tests cannot check they do not pretend to. Repository conformance clauses 1, 5 and 8 ([Conformance](../spec/conformance.md)) are about the repository rather than its files, a git repository, a canonical branch, a reviewed merge and the absence of an external source of truth, and a runner executes each fixture in a plain working copy. Those clauses are verified by review. The model-repository pointer has no fixture either: a pointer case needs two repository roots, the consumer and the model repository it points at, where a case is one `repo/`, and the specification deliberately fixes the pointer's record shape without fixing a serialization to check. Pointer cases arrive with that serialization.
 
-Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is future work for the runner, which today executes flat `repo/` plus `expected.json` cases only. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
+The planned apply cases (`apply-not-approved`, `apply-baseline-drift`, `apply-initial-sentinel` and `apply-base-revision-unresolved`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift and revision resolution, a Git history. That format extension is future work for the runner, which today executes flat `repo/` plus `expected.json` cases only. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
 
 The three configuration fixtures specify `exitCode` because invalid configuration MUST exit `2` before validation. Their repository states and expectations are published, but the current runner skips that key; they become runnable when the same case-format extension can assert exit status. A skipped case is not conformance evidence.
 
@@ -97,7 +103,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT024` | removal leaves a dangling reference in the overlay | `change-removal-dangling-reference` |
 | `PRODUCT025` | concurrent changes with overlapping modify/remove sets | `concurrent-changes` |
 | `PRODUCT026` | proposed artifact and operations disagree | `change-proposed-undeclared`, `change-operation-unproposed` |
-| `PRODUCT027` | baseline drift at apply | not yet covered - needs the apply case format |
+| `PRODUCT027` | unresolved ordinary `base-revision` or baseline drift at apply | not yet covered - needs the apply case format |
 | `PRODUCT028` | apply on a change not `approved` | not yet covered - needs the apply case format |
 | `PRODUCT042` | invalid or unverifiable citation digest | not yet covered |
 | `PRODUCT050` | invalid configuration | fixtures specified in `configuration-malformed` and `configuration-unknown-key`; not yet runnable |
@@ -107,6 +113,10 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT061` | stale citation | `citation-stale`; absence asserted by `citation-tampered-and-stale` |
 | `PRODUCT062` | tampered embedded projection | `citation-tampered-and-stale` |
 | `PRODUCT063` | citation anchor not found in the target | `citation-anchor-not-found` |
+| `PRODUCT064` | enumerated current consumer has no scope declaration | not yet covered - needs an adapter fixture format |
+| `PRODUCT065` | bound consumer contains no citations | not yet covered - needs an adapter fixture format |
+| `PRODUCT066` | invalid exemption | not yet covered - needs an adapter fixture format |
+| `PRODUCT067` | malformed, orphaned or conflicting citation carrier | not yet covered |
 | `PRODUCT101` | file name not aligned with ID | not yet covered |
 | `PRODUCT102` | active use case in no journey | not yet covered |
 | `PRODUCT103` | requirement unreachable from any actor | not yet covered |
