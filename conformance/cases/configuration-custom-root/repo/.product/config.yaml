@@ -1,0 +1,4 @@
+version: v1alpha1
+product-root: product
+validation:
+  warnings-as-errors: false

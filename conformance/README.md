@@ -9,7 +9,7 @@ Each case is a directory:
 ```text
 conformance/cases/<case-name>/
   repo/                      # a minimal product-model repository (the fixture)
-  expected.json              # diagnostics an implementation MUST produce, with stable codes
+  expected.json              # exitCode when asserted, plus diagnostics an implementation MUST produce
   case.md                    # what this case verifies, citing the spec chapter and clause
 ```
 
@@ -42,6 +42,9 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `citation-unresolved` | target `id` does not resolve; `PRODUCT060` | runnable |
 | `citation-anchor-not-found` | target resolves at the current digest but the named anchor does not exist within it; `PRODUCT063`, not `PRODUCT060` | runnable |
 | `digest-bytes-not-text` | the cited artifact contains bytes that are not well-formed UTF-8; the digest covers the raw bytes; `current`, no diagnostics | runnable |
+| `configuration-custom-root` | versioned config selects a non-default product root; artifact is discovered; exit `0` | planned - fixture present; runner needs `exitCode` support |
+| `configuration-malformed` | malformed config; one `PRODUCT050`; exit `2`; no artifact discovery | planned - fixture present; runner needs `exitCode` support |
+| `configuration-unknown-key` | unknown top-level config key; one attributed `PRODUCT050`; exit `2` | planned - fixture present; runner needs `exitCode` support |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; partial scope without loss | planned |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
 | `artifact-kinds-valid` | one artifact of each of the nine kinds, wired into a complete graph; zero diagnostics | runnable |
@@ -70,6 +73,8 @@ What the tests cannot check they do not pretend to. Repository conformance claus
 
 Two planned apply cases (`apply-not-approved`, `apply-baseline-drift`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation with an expected exit code and working-tree outcome, and, for drift, the baseline content at `base-revision`. That format extension is future work for the runner, which today executes flat `repo/` plus `expected.json` cases only. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
 
+The three configuration fixtures specify `exitCode` because invalid configuration MUST exit `2` before validation. Their repository states and expectations are published, but the current runner skips that key; they become runnable when the same case-format extension can assert exit status. A skipped case is not conformance evidence.
+
 ## Diagnostic coverage
 
 Which fixture exercises which diagnostic code, code by code. "Exercises" means the case expects the diagnostic and fails an implementation that does not emit it; the zero-diagnostic cases (`artifact-kinds-valid`, `citation-current`, `digest-bytes-not-text`, `greenfield-first-increment`, `dedicated-topology`) additionally fail an implementation that emits any of these codes where none is warranted, and `citation-tampered-and-stale` asserts the *absence* of `PRODUCT061` next to the `PRODUCT062` it expects. Codes marked not yet covered are honest gaps: a badge computed from these tests says nothing about them. The retired codes (`PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109`, `PRODUCT110`) and the reserved `PRODUCT070`-`PRODUCT079` band are never issued, so they have nothing to cover.
@@ -95,7 +100,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT027` | baseline drift at apply | not yet covered - needs the apply case format |
 | `PRODUCT028` | apply on a change not `approved` | not yet covered - needs the apply case format |
 | `PRODUCT042` | invalid or unverifiable citation digest | not yet covered |
-| `PRODUCT050` | invalid configuration | not yet covered - `doctor` surface |
+| `PRODUCT050` | invalid configuration | fixtures specified in `configuration-malformed` and `configuration-unknown-key`; not yet runnable |
 | `PRODUCT051` | managed file modified by hand | not yet covered - `doctor` surface |
 | `PRODUCT052` | expected managed file missing | not yet covered - `doctor` surface |
 | `PRODUCT060` | citation target `id` does not resolve | `citation-unresolved` |

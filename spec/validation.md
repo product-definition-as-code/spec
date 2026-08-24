@@ -23,7 +23,7 @@ Every diagnostic carries:
 
 Diagnostics MUST be available in machine-readable JSON (`--format json`) and MUST be ordered deterministically by `file`, then `line` (absent before present), then `entry` (absent before present), then `code`, `field`, `target`, `artifact` and `change`, comparing absent strings as empty strings. Numeric fields sort numerically; strings sort by Unicode code point.
 
-Warnings are not errors. `validation.warnings-as-errors` in `.product/config.yaml` MAY escalate them for a repository; tools MUST NOT escalate unilaterally.
+Warnings are not errors. `validation.warnings-as-errors` in the versioned [Configuration](configuration.md) MAY make a command fail when warnings are present; tools MUST NOT escalate unilaterally, and the emitted diagnostic severity remains `warning`.
 
 ## Error codes
 
@@ -61,9 +61,9 @@ When a dangling reference in the overlay is caused by an ID named in the change'
 
 `PRODUCT027` and `PRODUCT028` are apply preconditions: they are evaluated before anything is written and reported with the working tree untouched. The invocation itself is well-formed, so apply exits `1`, not `2` (see [Exit codes](#exit-codes)).
 
-`PRODUCT050`-`PRODUCT052` are reported by `doctor` and integration commands; product-model validation does not inspect managed files.
+`PRODUCT050` is reported by any command that discovers an invalid configuration and stops that invocation before command-specific work. `PRODUCT051` and `PRODUCT052` concern implementation-managed files and are reported only by commands that inspect those files; product-model validation does not inspect managed files.
 
-`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY escalate it via `warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
+`PRODUCT060`-`PRODUCT063` are citation diagnostics; see the [Citation Contract](citation-contract.md). `PRODUCT061` is a warning; a repository MAY make warnings fail the command through `validation.warnings-as-errors`. Tools MUST NOT apply per-artifact-type severity defaults: risk policy belongs to the repository, not the kernel.
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
@@ -86,7 +86,7 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 | `PRODUCT108` | Product Change in status `approved` with an unresolved question (a list item) under `## Open Questions`                                                            |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
 
-`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `warnings-as-errors` is set.
+`PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `validation.warnings-as-errors` is set.
 
 `PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
 
@@ -126,7 +126,7 @@ For `PRODUCT025`, each change's overlap set is `operations.modify ∪ operations
 
 | Code | Meaning                                                 |
 | ---- | ------------------------------------------------------- |
-| `0`  | Success; warnings allowed (unless `warnings-as-errors`) |
+| `0`  | Success; warnings allowed (unless `validation.warnings-as-errors` is `true`) |
 | `1`  | Validation or conformance errors                        |
 | `2`  | Invalid invocation or configuration                     |
 | `3`  | Unexpected internal failure                             |

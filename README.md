@@ -99,7 +99,7 @@ The specification text is being extracted from the [reference implementation](ht
 
 ## Contents
 
-The specification lives in [`spec/`](spec/index.md): nine normative chapters, terminology to conformance.
+The specification lives in [`spec/`](spec/index.md): ten normative chapters, terminology to conformance.
 
 The founding position is [the manifesto](MANIFESTO.md), which you can [sign](SIGNATORIES.md).
 
