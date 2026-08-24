@@ -4,7 +4,19 @@ Known implementations of the Product Definition as Code specification.
 
 | Implementation | Language | Spec version targeted | Conformance | Notes |
 | --- | --- | --- | --- | --- |
-| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.1 (draft) | Passes the full published conformance suite (16 of 16 runnable cases and 8 of 8 pinned digests; verified 2026-08-20 against spec [`6464948`](https://github.com/product-definition-as-code/spec/commit/6464948), using packed `@prodshape/cli` 0.12.0 and the `pdac-lint` 0.1.2 conformance runner) | Reference implementation; the spec was extracted from it; implements the citation contract |
+| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | v0.1 (draft) | **Last verified pass:** 16 of 16 runnable cases and 8 of 8 pinned digests.<br>**Record:** 2026-08-23, spec [`2c95e77`](https://github.com/product-definition-as-code/spec/commit/2c95e77), published `@prodshape/cli` 0.13.0 installed from npm, `pdac-lint` 0.1.2 conformance runner.<br>This is a dated record of one run, not a live status. It says nothing about releases of the spec or the implementation made after that date. | Reference implementation; the spec was extracted from it; implements the citation contract |
+
+## Conformance tooling
+
+[`pdac-lint`](https://github.com/product-definition-as-code/pdac-lint) is listed here because implementers need it, not because it is an implementation. It is a separately versioned conformance runner: it runs the published conformance tests in this repository against an implementation command, and it verifies the digests those tests pin. It is neutral tooling hosted in this organization ([GOVERNANCE.md](GOVERNANCE.md)).
+
+| Tool | Language | Scope |
+| --- | --- | --- |
+| [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | TypeScript | Runs the published conformance cases against an implementation command and verifies pinned digests |
+
+What it is not: it is not independent validation of the specification, and it is not a second independent implementation of the reference profile. A conformance result is bounded by the cases this repository publishes; uncovered rules remain uncovered. The gates in [MATURITY.md](MATURITY.md) are unaffected by its existence.
+
+It does read the specification for itself where the tests depend on it, and that has mattered once: its digest implementation disagreed with the reference implementation's, which produced [RFC 0038](rfcs/0038-digest-bytes.md) and the `digest-bytes-not-text` case.
 
 ## Listing criteria
 
