@@ -8,10 +8,13 @@
 - [Citation Contract](../../../spec/citation-contract.md) - citation `current` status.
 - [Identifiers](../../../spec/identifiers.md) - artifact IDs and prefixes.
 - [Validation](../../../spec/validation.md) - structural validation of the applied model.
+- [Specification index → Canonical authority](../../../spec/index.md#canonical-authority) - model subdirectories are non-normative and kinds come from frontmatter.
 
 ## Fixture
 
 `repo/` represents the state *after* apply and the reviewed merge: the canonical branch contains the added actors, use case, journey, rules and FR, and the archived change under `docs/product/changes/completed/chg-initial/`. A consumer spec (`repo/specs/feature-greenfield.md`) cites the FR's scenario `S1` and one of the business rules. Both citations are `current`.
+
+This fixture uses `model/rules/`, while `artifact-kinds-valid` uses `model/business-rules/`. The difference is intentional conformance evidence: both layouts must validate because `type: business-rule`, not the directory name, determines the artifact kind.
 
 ## Expected
 

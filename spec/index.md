@@ -49,6 +49,8 @@ Within a repository that adopts Product Definition as Code:
 | Consumer documents outside `docs/product/model` (SDD specs, tasks, agent prompts, design docs)                      | Non-canonical; carry citations to canonical product text           |
 | Graph files, generated indexes, Mermaid diagrams, traceability reports                                              | Generated and non-canonical                                       |
 
+The `model/` root is normative; its subdirectory names and nesting are not. An implementation MUST inspect Markdown files recursively below `model/`, determine each product artifact's kind from its parsed frontmatter `type`, and MUST NOT infer or restrict an artifact kind from its path. Repositories MAY group artifacts by kind, domain or another local convention. The lifecycle directories directly below `changes/` remain normative because they determine whether a Product Change is live or inert history.
+
 `docs/product/model/index.md` is a human navigation and orientation document only. It MUST NOT duplicate relationships and MUST NOT act as a generated product index.
 
 Generated files MUST be reproducible from canonical sources at any time. Tools MUST NOT require a generated file to exist in order to rebuild it.

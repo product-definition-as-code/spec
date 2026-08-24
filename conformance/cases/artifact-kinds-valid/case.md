@@ -7,6 +7,7 @@
 - [Artifacts](../../../spec/artifacts.md) - the frontmatter contract, required body sections and lifecycle of each kind.
 - [Frontmatter reference](../../../spec/frontmatter-reference.md) - the exhaustive per-kind field tables.
 - [Relationships](../../../spec/relationships.md) - the edges this fixture authors, and reachability.
+- [Specification index → Canonical authority](../../../spec/index.md#canonical-authority) - model subdirectories are non-normative and kinds come from frontmatter.
 
 ## Why this case exists
 
@@ -31,6 +32,8 @@ Every other case selects the kinds it needs to make its point, and between them 
 The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context`, `governed-by` and `uses-terms`, so the bounded context owns language (`PRODUCT107`), the rule has a consumer (`PRODUCT105`) and the term has usage (`PRODUCT106`). Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`). Those four warnings are what a fixture holding the four missing kinds and nothing else produces, and a case that expected them would be asserting its own incompleteness.
 
 No citations and no consumer documents: there is nothing here to pin, so this case never needs a digest repinned when its artifacts are edited.
+
+The fixture deliberately uses descriptive nested directories such as `model/domain/terms/` and `model/requirements/quality/`. Those paths carry no artifact-kind semantics: the validator discovers each kind from frontmatter `type`.
 
 ## Expected
 
