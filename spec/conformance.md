@@ -4,7 +4,7 @@
 
 A repository conforms to Product Definition as Code v0.1 when:
 
-1. Its canonical product definition lives in a git repository, the **model repository**, under a configured product root (default `docs/product`) with the model/changes layout defined in this specification. See [Topologies](#topologies).
+1. Its canonical product definition lives in a git repository, the **model repository**, under a configured product root (default `docs/product`), with the `model/` root and `changes/` lifecycle directories defined in this specification. Subdirectories below `model/` are non-normative; artifact kinds are discovered from frontmatter `type`, not paths. See [Specification index → Canonical authority](index.md#canonical-authority) and [Topologies](#topologies).
 2. Every product artifact satisfies the [artifact contracts](artifacts.md): valid frontmatter per schema, required body sections, valid lifecycle state.
 3. Every ID satisfies the [identifier rules](identifiers.md) and every reference satisfies the [relationship vocabulary](relationships.md).
 4. Structural validation of the baseline reports no errors. Warnings are permitted.
@@ -21,7 +21,7 @@ The model repository MAY be the same repository as the software it defines (**co
 
 When one repository serves the product, co-location SHOULD be the default: the definition, its review history and the software stay on one review surface.
 
-Both topologies use the same product root layout, the same artifact contracts, the same validation and the same Product Change lifecycle. A dedicated model repository is not a different kind of repository, only one whose software lives elsewhere.
+Both topologies use the same product roots, the same artifact contracts, the same validation and the same Product Change lifecycle. A dedicated model repository is not a different kind of repository, only one whose software lives elsewhere.
 
 A model repository holds one Product Definition. Splitting a single Product Definition across repositories is out of scope for v0.1.
 
