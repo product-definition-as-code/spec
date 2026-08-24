@@ -1,110 +1,130 @@
-# RFC 0047: One citation payload, any comment: normalize the citation carriers
+# RFC 0047: One citation payload, any comment
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-19
+- **Accepted:** 2026-08-24
 - **Class:** change
 - **Target:** PDaC v0.2.0
 - **PR:** <https://github.com/product-definition-as-code/spec/pull/49>
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/47>
-- **Public comment:** seven days; earliest acceptance 2026-08-26
+- **Depends on:** [RFC 0077](0077-whole-artifact-digests-for-anchored-citations.md)
 - **Supersedes:** [RFC 0004](0004-delivery-model-reset.md) open question 1, in part
 
 ## Problem
 
-The [Citation Contract](../spec/citation-contract.md) names three citation forms - an inline structured reference, a Markdown marker block, and a YAML sidecar ledger - and mandates none: "The spec defines the citation record shape, not a mandatory serialization."
+The [Citation Contract](../spec/citation-contract.md) names an inline reference, a Markdown marker block and a YAML sidecar while mandating none of their serializations. The conformance fixtures nevertheless require a marker and a sidecar. A second implementation cannot discover those citations, write an interoperable citation, or attribute its location from normative text alone.
 
-That sentence is contradicted by the conformance tests and hollow for a second implementer, in four specific ways:
+The reference implementation exposes the missing decisions rather than resolving them: an inline brace syntax exists only in its source, its parser accepts two sidecar shapes, and its writer must choose shapes the specification does not name. The initial RFC draft proposed a token and a mapping sidecar but still left writer-critical behavior open: attribute order and escaping, duplicate and unknown attributes, malformed payload handling, YAML document count, entry ordinals, missing consumer files and what happens when payloads and a sidecar coexist.
 
-1. The conformance fixtures hard-code two serializations. `citation-current` requires reading a `feature-x.citations.yml` sidecar; `citation-tampered-and-stale` requires reading a `<!-- pdac:cite ... -->` marker block. An implementation that chooses only the third permitted form cannot pass the tests that define conformance, so the permission the text grants is one the tests revoke.
-2. The inline structured reference has no syntax anywhere in the specification. It is named once. Its only concrete definition is the reference implementation's source code, which is exactly the dependency an implementation-independent specification exists to remove.
-3. The sidecar has two accepted shapes. The reference implementation reads both a bare array and a mapping under a `citations:` key, with a source comment stating it is waiting for the specification to normalize one. The specification never does.
-4. `conformance/README.md` states that "fixtures are plain files with no tooling assumptions", which is false for the citation cases: they assume the two serializations above.
-
-[RFC 0004](0004-delivery-model-reset.md) deferred this deliberately ("the pilot exercises all three; a follow-up normalizes"). The deferral has done its work: the reference implementation has exercised all three forms, the fixtures pin two of them, and what remains is transcription, not invention. Deferring further protects no adopter and taxes every future implementer.
+[RFC 0077](0077-whole-artifact-digests-for-anchored-citations.md) separately fixes digest scope: every citation digest covers the whole target artifact, including when `anchor` is present. This RFC fixes only how the citation record is carried and written.
 
 ## Proposal
 
-### One payload grammar, carrier-independent
+### Two carriers, one record
 
-A **citation payload** is the token `pdac:cite` followed by whitespace-separated `key="value"` attributes on a single line:
+A conforming consumer document uses exactly one citation carrier:
 
+1. one or more carrier-independent comment payloads in the consumer document; or
+2. one adjacent YAML sidecar ledger.
+
+The carriers serialize the same citation record (`id`, `digest`, optional `anchor`) and use the same whole-artifact digest semantics. A consumer MUST NOT combine payload citations with a sidecar ledger. Keeping the carrier choice exclusive prevents the same dependency from being counted twice by one implementation and once by another.
+
+### Payload grammar
+
+A citation payload occupies one physical line and has this grammar, where `SP` is one or more ASCII space or tab characters:
+
+```text
+pdac:cite SP id="<artifact-id>" SP digest="<digest>" [SP anchor="<anchor>"]
 ```
-pdac:cite id="FR-VALIDATE-001" digest="sha256:..." anchor="S1"
+
+The attributes MUST appear in that order. Values use no escape syntax and MUST NOT contain a quote, backslash, carriage return or line feed. `id`, `digest` and `anchor` retain their normative patterns and semantics. Attributes are neither optional beyond `anchor` nor extensible in this version: an unknown, repeated or out-of-order attribute is malformed rather than silently ignored.
+
+The payload is carried inside the host format's native comment. The comment opener, closer and any whitespace outside the payload are not part of the citation. Examples:
+
+```text
+<!-- pdac:cite id="FR-VALIDATE-001" digest="sha256:..." anchor="S1" -->
+# pdac:cite id="FR-VALIDATE-001" digest="sha256:..." anchor="S1"
+// pdac:cite id="FR-VALIDATE-001" digest="sha256:..." anchor="S1"
 ```
 
-- `id` and `digest` are required; `anchor` is optional. Their semantics are unchanged from the [Citation record](../spec/citation-contract.md#citation-record).
-- Attribute values are double-quoted. Unknown attributes MUST be preserved and ignored, reserving room for evolution without breaking older readers.
-- A payload MUST be discoverable by scanning for the `pdac:cite` token; the characters surrounding it belong to the host format and carry no citation semantics.
+Discovery scans text lines for the exact `pdac:cite` token and parses the grammar from that token through the closing quote of the final attribute. A token that is followed by payload-like text but does not parse is a malformed citation; it MUST NOT be silently treated as ordinary prose. A bare mention of the token with no `id=` payload, such as documentation describing `` `pdac:cite` ``, is not a citation candidate.
 
-The payload rides inside the host format's native comment. Canonical carriers, non-exhaustively:
+This rule is carrier-independent: implementations do not need a registry of programming-language comment syntaxes. Authors remain responsible for placing the payload in a comment so it does not change the consumer format's behavior.
 
-| Host format | Carrier |
-| --- | --- |
-| Markdown, HTML, MDX | `<!-- pdac:cite ... -->` |
-| YAML, TOML, Python, shell | `# pdac:cite ...` |
-| TypeScript, Go, Rust, C-family | `// pdac:cite ...` or `/* pdac:cite ... */` |
+### Embedded projections
 
-This is the pattern proven by `SPDX-License-Identifier`: one grammar, hosted by whatever comment syntax the file already has, so every commentable text format works without per-format specification text. The table above is illustrative; conformance is defined by the token scan, not by the table.
+An embedded projection begins with a valid payload line and ends with a line containing the exact token `/pdac:cite` inside the same host comment style. The bytes between the line ending after the opening marker and the line beginning the closing marker are the embedded projection.
 
-### The inline form is retired
+[RFC 0077](0077-whole-artifact-digests-for-anchored-citations.md) applies: the digest covers the whole target artifact. Therefore an anchored embedded projection MUST contain the whole artifact, even though the anchor identifies the scenario relied on. A projection containing only that scenario cannot be verified against the citation digest and is `PRODUCT062`.
 
-A citation that embeds nothing is a self-contained payload line. The separately named "inline structured reference" was always this concept under a second syntax, so the two collapse into one: the specification defines the payload, and a bodyless payload line is the inline case. The brace-delimited `{pdac:cite ...}` syntax of the reference implementation remains discoverable under the token scan and is deprecated as a distinct form.
+### YAML sidecar ledger
 
-### Embedding is unchanged in semantics, normalized in syntax
+For a consumer named `<stem>.<extension>`, the sidecar is the adjacent file `<stem>.citations.yml`; only the final extension is replaced. For example, `api.v2.md` uses `api.v2.citations.yml`. For a consumer with no extension, `.citations.yml` is appended.
 
-A consumer MAY embed the cited canonical text. When it does: an opening payload line precedes the embedded bytes, and a closing line carrying the `/pdac:cite` token follows them (in Markdown: `<!-- /pdac:cite -->`). Every existing obligation of [Embedding](../spec/citation-contract.md#embedding) - byte-identical at the recorded digest, read-only, regenerable, `PRODUCT062` on divergence - applies as written.
-
-### One sidecar shape
-
-The sidecar ledger is normalized to exactly one form: a file named `<basename>.citations.yml` adjacent to the consumer document, containing a mapping with a top-level `citations:` array of citation records:
+The sidecar MUST be a single YAML 1.2 document with exactly one top-level key, `citations`. Its value MUST be a non-empty sequence. Each entry MUST be a mapping with exactly `id`, `digest` and optional `anchor`, and MUST satisfy the citation-record patterns. Duplicate YAML keys, aliases, anchors, tags and merge keys are not permitted.
 
 ```yaml
 citations:
   - id: FR-VALIDATE-001
-    digest: sha256:...
+    digest: sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
     anchor: S1
 ```
 
-The bare-array shape is retired. The mapping shape is chosen because it leaves room for sibling keys without a breaking change. The sidecar is intended for host formats that cannot carry comments; it remains a first-class form everywhere and the conformance tests continue to exercise it.
+The sidecar's corresponding consumer file MUST exist. A **ledger entry** is its one-based position in the `citations` sequence across the single document. Verification and impact output identify a sidecar citation by the ledger path and entry number.
 
-### Point of use is part of the contract
+The former bare-sequence sidecar is retired. A reader MAY accept it as an explicitly non-conforming compatibility extension, but conformance results and the canonical writer MUST use the mapping form above.
 
-A payload-carried citation has a location: the consumer file and line where the token appears. Verification and impact reporting MUST include that location when the carrier provides one; a sidecar citation reports its ledger file and entry instead. Location is what turns "a citation went stale" into "review `specs/checkout.md:42`", and downstream obligations (see RFC 0048) depend on it.
+### Canonical writer
+
+A conforming citation writer MUST emit only the two forms above.
+
+For a payload it MUST emit the exact attribute order `id`, `digest`, `anchor`, omitting `anchor` when absent, with one ASCII space between grammar elements. The caller supplies the host comment wrapper and point of use; the writer MUST NOT guess a comment syntax from a file extension.
+
+For a sidecar it MUST emit one YAML document, the `citations` key, and entries in requested order with field order `id`, `digest`, `anchor`. It MUST write the mapping shape even when maintaining a legacy bare-sequence ledger. Updating an existing sidecar is therefore a deterministic migration to the canonical form.
+
+The writer MUST record the whole-artifact digest defined by RFC 0077. It MUST NOT emit the legacy brace-delimited inline form, a bare-sequence sidecar, duplicate carriers or a scenario-only digest. Readers MAY support legacy inputs as implementation extensions, but MUST NOT describe those inputs as conforming v0.2 citations.
+
+### Invalid serialization and location
+
+Add the stable error diagnostic:
+
+| Code | Condition |
+| --- | --- |
+| `PRODUCT067` | Malformed citation payload or sidecar, missing sidecar consumer, or payload/sidecar carrier conflict. |
+
+A payload citation's source location is its consumer file and one-based line number. A sidecar citation's source location is its ledger file and one-based entry number. Verification and impact output MUST report those locations. The diagnostic field-attribution contract is defined with the other diagnostics rather than invented by this RFC.
 
 ## Impact
 
-- **On the Citation Contract:** the "three forms" list and the "not a mandatory serialization" sentence are replaced by the payload grammar, the carrier rule, the embedding syntax and the sidecar shape above. The citation record's fields and the four statuses do not change.
-- **On existing conformant repositories:** none. Every citation in the existing fixtures is already valid under this RFC.
-- **On the reference implementation:** `cite --form inline` is retired (emitting a payload line instead); the sidecar writer emits the mapping shape only; the reader MAY keep accepting the bare array with a deprecation notice for one minor version; discovery moves to the token scan.
-- **On conformance tests:** the two existing citation cases stay as they are. Two cases are added: a payload carried in a non-Markdown comment (for example `# pdac:cite` inside a YAML consumer), and a normalized-shape sidecar. The `conformance/README.md` sentence "fixtures are plain files with no tooling assumptions" is corrected to name the citation carriers.
-- **On RFC 0004:** open question 1 is closed for the serializations; the "per host format" concern dissolves because the grammar is carrier-independent.
-- **On versioning:** this adds normative serializations, so it targets v0.2.0.
+- **On the Citation Contract:** replaces three unnamed forms with two fully specified carriers and a canonical writer contract. Citation fields, statuses, precedence and whole-artifact digest semantics do not change.
+- **On existing repositories:** current mapping-form sidecars and `<!-- pdac:cite ... -->` fixtures already conform. Bare-sequence ledgers and brace-delimited inline references require canonical rewrite; readers may keep a compatibility path.
+- **On implementations:** parsers gain closed validation and `PRODUCT067`; writers emit deterministic payloads or mapping-form sidecars only. Point-of-use reporting becomes portable.
+- **On conformance tests:** add canonical payload, normalized sidecar, malformed payload, malformed sidecar, missing consumer and mixed-carrier cases. At least one negative case must require discovery so zero-citation discovery cannot pass vacuously.
+- **On RFC 0004:** closes its citation-serialization deferral. Scope declarations and cross-repository resolution remain separate.
 
 ## Alternatives considered
 
-### Mandate the sidecar as the only form
+**Mandate sidecars only.** Rejected. Sidecars are universal but lose a point of use inside a document, which is required for actionable review.
 
-Rejected. The sidecar records no point of use inside the consumer document, so review degrades from "look at line 42" to "somewhere in this document", and a reader of the document - human or agent - loses the in-context signal that a passage is grounded in canonical text. Location is load-bearing for the review workflow and for change-time impact (RFC 0048).
+**Allow payload and sidecar citations together.** Rejected. Without citation identity beyond the record, implementations cannot distinguish a duplicated carrier from two intended dependencies and will disagree on counts.
 
-### Keep three forms
+**Preserve unknown attributes.** Rejected for v0.2. Ignoring an attribute whose future semantics may be security- or scope-relevant makes old readers report false success. A later serialization version can add fields explicitly.
 
-Rejected. The inline form is a bodyless marker under a second syntax; naming it separately doubles the surface a second implementer must build and a fixture author must cover, and adds no capability.
+**Accept arbitrary attribute order and escapes.** Rejected. The record has three fields; a closed order and no escapes make independent writers byte-for-byte predictable without reducing useful expressiveness.
 
-### A per-format syntax registry
-
-Rejected. Enumerating carriers per host format grows the specification with every language and still misses the next one. The token-scan rule makes carriers open-ended with zero specification churn.
-
-### Defer until an external pilot, per the RFC 0021 policy
-
-Rejected here, on the policy's own terms. That policy exists so a format everyone must agree on is normalized after use rather than invented before it. These syntaxes have been in use by the reference implementation and pinned by fixtures for weeks; the invention already happened. What this RFC does is move the definition from one implementation's source into the specification, which is the smaller risk, not the larger one.
+**Keep the legacy inline form as normative.** Rejected. It adds a second payload grammar whose only definition is ProductShape source. Compatibility reading does not require canonical writing.
 
 ## Out of scope
 
-- Digest granularity under an anchor ([issue #28](https://github.com/product-definition-as-code/spec/issues/28)).
-- Scope-declaration serialization, which [RFC 0042](0042-consumer-binding-for-sdd-alignment.md) leaves open by design.
-- Cross-repository citation resolution ([RFC 0021](0021-deployment-topologies.md)).
+- Scope-declaration serialization from [RFC 0042](0042-consumer-binding-for-sdd-alignment.md).
+- Cross-repository citation resolution from [RFC 0021](0021-deployment-topologies.md).
+- Sub-artifact digest canonicalization, rejected by [RFC 0077](0077-whole-artifact-digests-for-anchored-citations.md).
 
-## RFC classification and review window
+## Decision record
 
-This RFC is a **change** under [CONTRIBUTING.md](../CONTRIBUTING.md): it adds normative serializations and retires a named form. Before v1.0 it requires a public comment window of at least seven days.
+Accepted 2026-08-24 by the founding maintainer under the founder-led stabilization exception. The initial draft had been public since 2026-08-19; no substantive objection remained unresolved. Acceptance follows RFC 0077 so the writer has one digest rule for anchored and unanchored citations.
+
+The decisive revision is that the RFC now specifies a writer, not only examples a parser might accept. Closed grammar, one sidecar document shape, exclusive carrier choice, stable entry numbering and `PRODUCT067` let a second implementation produce and diagnose the same repository without consulting ProductShape source.
+
+Normative chapters, schema material and conformance cases land in a follow-up change.
