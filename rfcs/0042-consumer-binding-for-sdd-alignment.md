@@ -1,13 +1,14 @@
 # RFC 0042: Consumer binding for SDD alignment and drift review
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-16
+- **Accepted:** 2026-08-24
 - **Class:** change
 - **Target:** PDaC v0.2.0
 - **PR:** <https://github.com/product-definition-as-code/spec/pull/42>
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/41>
-- **Public comment:** seven days; earliest acceptance 2026-08-23 15:59 UTC
+- **Public comment:** seven days; completed 2026-08-23 15:59 UTC
 - **Reference implementation:** <https://github.com/juangcarmona/productshape/issues/82>
 
 ## Problem
@@ -133,7 +134,7 @@ The consumer framework retains native ownership of its specifications, design, t
 
 ## Conformance cases
 
-The conformance corpus will add a framework-neutral fixture adapter or equivalent harness that supplies an explicit consumer-document population. It will cover:
+The conformance suite will add a framework-neutral fixture adapter or equivalent harness that supplies an explicit consumer-document population. It will cover:
 
 1. one bound current document with a current citation;
 2. the same document becoming stale after cited canonical content changes;
@@ -192,6 +193,10 @@ Rejected. The core failure is false success caused by an unaccounted document po
 - Implementation, deployment or runtime verification claims.
 - Cross-repository citation resolution.
 
-## RFC classification and review window
+## RFC classification and decision record
 
-This RFC is a **change** under [CONTRIBUTING.md](../CONTRIBUTING.md): it adds obligations and diagnostics for implementations claiming population-aware consumer verification. Before v1.0, it therefore requires a public comment window of at least seven days.
+This RFC is a **change** under [CONTRIBUTING.md](../CONTRIBUTING.md): it adds obligations and diagnostics only for implementations claiming population-aware consumer verification. Its seven-day public comment window completed on 2026-08-23.
+
+Accepted 2026-08-24 by the founding maintainer. No maintainer objected and no substantive public feedback remained unresolved. The accepted decision uses `bound` and accountable `exempt` declarations because they are the smallest deterministic scope model that distinguishes an intentionally out-of-scope document from a document an integration silently missed. The contract remains conditional, framework-neutral and serialization-neutral; it does not make an integration mandatory, change citation status semantics or claim semantic completeness.
+
+The follow-up normative specification and conformance changes remain separate from this RFC acceptance and target PDaC v0.2.0.
