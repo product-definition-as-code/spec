@@ -33,4 +33,4 @@ jobs:
           const schema = JSON.parse(fs.readFileSync('schemas/v1alpha1/common.schema.json', 'utf8'));
           const validation = fs.readFileSync('spec/validation.md', 'utf8');
           const expected = 'SHA-256 over raw file bytes after CRLF and CR byte-sequence normalization to LF; bytes are never decoded or BOM-stripped.';
-          if (schema['$defs'].digest.description !== expected || !validation.includes('raw bytes') || !validation.includes('MUST NOT decode content before hashing') || !validation.includes('MUST NOT strip a byte order mark')) process.exit(1);"
+          if (schema['\$defs'].digest.description !== expected || !validation.includes('raw bytes') || !validation.includes('MUST NOT decode content before hashing') || !validation.includes('MUST NOT strip a byte order mark')) process.exit(1);"
