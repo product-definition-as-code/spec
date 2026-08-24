@@ -1,8 +1,9 @@
 # RFC 0066: Define the CHG-INITIAL base-revision sentinel
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-22
+- **Accepted:** 2026-08-24
 - **Related:** [juangcarmona/productshape#64](https://github.com/juangcarmona/productshape/issues/64)
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/46>
 
@@ -30,10 +31,16 @@ Amend [Product Changes, Apply](../spec/product-changes.md#apply) so the baseline
 
 The exception is selected by the pair `id: CHG-INITIAL` and `base-revision: '0000000'`. A non-initial Product Change carrying the same string receives no exception. At apply it follows the ordinary resolution rule and fails with `PRODUCT027` if the value cannot resolve.
 
+Amend `base-revision` in the normative Product Change JSON Schema so its description states the same exception:
+
+> The baseline Git revision this change was created against. The exact string `0000000` is the no-baseline sentinel only for `CHG-INITIAL`.
+
+The schema's string shape and `gitRevision` reference do not change. The conditional semantics depend on the pair of fields and remain in the normative prose; the schema description must not continue to imply that the sentinel names a Git revision.
+
 ## Impact
 
 - **On existing conformant repositories:** no repository needs an edit. Existing `CHG-INITIAL` fixtures already use the exact sentinel. A `CHG-INITIAL` that names a real commit containing an empty model remains valid. Validation-only fixtures for later changes may remain plain file fixtures, but the sentinel gives them no special apply behaviour.
-- **On existing implementations:** no conforming behaviour changes. Implementations gain one explicit branch before repository resolution. An unavailable ordinary revision continues to fail closed with `PRODUCT027`; the diagnostic no longer needs to imply that a digest comparison occurred.
+- **On existing implementations:** no conforming behaviour changes. Implementations gain one explicit branch before repository resolution. An unavailable ordinary revision continues to fail closed with `PRODUCT027`; the diagnostic no longer needs to imply that a digest comparison occurred. Implementations that publish or copy the normative Product Change schema update its `base-revision` description.
 - **On the conformance tests:** add `apply-initial-sentinel`, which applies an approved, add-only `CHG-INITIAL` carrying `0000000` and asserts no `PRODUCT027`. Add `apply-base-revision-unresolved`, which uses a non-initial change and asserts `PRODUCT027`, exit `1`, and an untouched working tree. These cases land with the planned apply-invocation case format because the current flat fixture format cannot observe apply, exit status, or repository history.
 
 ## Alternatives considered
@@ -46,4 +53,8 @@ The exception is selected by the pair `id: CHG-INITIAL` and `base-revision: '000
 
 **Use Git's empty-tree object ID.** Rejected. It is an object identifier, not a repository commit, its hash depends on the repository object format, and resolving it says nothing about the configured Product Definition root.
 
-This RFC is a determination under [CONTRIBUTING.md](../CONTRIBUTING.md). It fixes undefined behaviour already represented by the fixtures and does not require an accepted repository or a conforming implementation to change behaviour. The minimum comment window is 72 hours.
+## Decision record
+
+Accepted 2026-08-24 by the founding maintainer as a determination under [CONTRIBUTING.md](../CONTRIBUTING.md). It fixes undefined behaviour already represented by every published `CHG-INITIAL` fixture and requires no accepted repository or conforming implementation to change behaviour. The exact seven-character sentinel, its restriction to `CHG-INITIAL`, the fail-closed treatment of every ordinary unresolved revision and the deferred apply fixtures bound the decision without adding another field shape.
+
+No substantive objection was raised. The fixed 72-hour minimum is suspended by the founder-led stabilization exception recorded in [Governance](../GOVERNANCE.md); publication, an explicit decision and rationale, and resolution of substantive feedback still apply.
