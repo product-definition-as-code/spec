@@ -14,6 +14,8 @@ Functional and Quality Requirements currently carry a non-empty `verification` l
 
 Anchoring does not make that scenario an independent citation target. A v0.1 citation always records the whole target artifact's digest ([Citation Contract](../spec/citation-contract.md)), so a change anywhere in a Requirement makes every citation anchored within that Requirement stale. That is correct under v0.1, but too coarse when a delivery specification relies on one of several stable behaviours carried by the same Requirement.
 
+[RFC 0022](0022-criteria-in-verification-list.md) rejected a separate artifact kind for ordinary acceptance criteria because their local IDs already provided sufficient identity and they could not have an independent lifecycle. This RFC does not reverse that decision. Structured Behaviour is for behaviour that needs independent reuse, lifecycle or whole-artifact citation, while ordinary criteria remain inline.
+
 The missing structure is visible at the delivery boundary. [OpenSpec's writing guide][openspec-writing] defines a spec as behaviour rather than code, composed of Requirements and concrete Given/When/Then Scenarios that could become automated tests. [Spec Kit's feature-spec template][speckit-template] expresses acceptance scenarios as Given/When/Then, while [Kiro's Requirements-First workflow][kiro-requirements] generates system behaviours in EARS form. PDaC can currently ground the parent Requirement but cannot give those consumers one independently versioned product behaviour to cite. The delivery framework therefore either cites too broadly or restates behaviour whose canonical home is absent.
 
 This RFC adds **Structured Behaviour**, one concrete observable example with explicit context, stimulus and expected outcomes, and permits Functional and Quality Requirements to refer to it from `verification[]`.
@@ -157,6 +159,8 @@ The canonical relationship vocabulary gains these rows:
 | Structured Behaviour | `illustrates` | Use Case, Business Rule, Constraint |
 | Structured Behaviour | `uses-terms` | Domain Term |
 
+Array-member relationship fields use the existing `[]` attribution convention. A diagnostic for `scenario-ref` MUST report `field` as `verification[].scenario-ref`, just as a Journey step relationship reports `steps[].use-case`.
+
 Every reverse view is derived. In particular, implementations MAY display the Requirements verified by a Structured Behaviour and the Structured Behaviours illustrating a Use Case, Business Rule or Constraint. Those reverse relationships MUST NOT be authored.
 
 ### Reachability and impact
@@ -173,13 +177,18 @@ Existing schema, identity, relationship, lifecycle and body-section diagnostics 
 
 - `PRODUCT005` and `PRODUCT023` cover duplicate global Structured Behaviour IDs in the baseline and Product Change overlay;
 - `PRODUCT006` covers an unresolved `illustrates`, `uses-terms` or `scenario-ref` target;
-- `PRODUCT007` covers a relationship target of a known but disallowed artifact type;
+- `PRODUCT007` remains the diagnostic for a relationship target of a known but disallowed artifact type, subject to the prefix-typing interaction described under Conformance;
 - `PRODUCT008` covers an active artifact referencing a retired target;
 - `PRODUCT009` covers a missing or out-of-order required Structured Behaviour body section;
 - `PRODUCT024` covers removal that leaves one of the new relationships dangling; and
 - `PRODUCT063` covers an anchor that does not resolve within a Structured Behaviour.
 
-For `PRODUCT106`, a valid Structured Behaviour `uses-terms` entry counts as usage of the referenced Domain Term under the same rule as an existing Use Case `uses-terms` entry. For `PRODUCT105`, a Structured Behaviour illustrating a Business Rule does not by itself make that rule consumed; the existing consumer relationships continue to determine whether the warning applies.
+The relationship sets for the knowledge warnings are exact:
+
+- For `PRODUCT105`, a non-retired Business Rule MUST be treated as consumed if and only if it has at least one valid outgoing `Business Rule.applies-to` relationship, incoming `Use Case.governed-by` relationship or incoming `Functional Requirement.derived-from` relationship. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
+- For `PRODUCT106`, a non-retired Domain Term MUST be treated as used if and only if it has at least one valid incoming `uses-terms` relationship authored by a Use Case or Structured Behaviour. A valid `Structured Behaviour.uses-terms` relationship therefore MUST suppress `PRODUCT106` for its target.
+
+Retired Business Rules and Domain Terms MUST be excluded from the `PRODUCT105` and `PRODUCT106` warning populations. An active Structured Behaviour that references one still produces `PRODUCT008`, but the retired target does not receive either warning.
 
 Whether clauses leak implementation detail, two entries express the same behaviour, explanatory prose restates canonical clauses, or a consumer omitted a semantic dependency remains review-enforced rather than a deterministic diagnostic.
 
@@ -225,13 +234,13 @@ Provider-specific syntax and validity remain the provider's responsibility. PDaC
 - an ID definition for the allowed `illustrates` targets; and
 - the expanded verification-item union.
 
-`schemas/v1alpha1/structured-behaviour.schema.json` defines the artifact contract above.
+`schemas/v1alpha1/structured-behaviour.schema.json` defines the artifact contract above and MUST reject a `given[]`, `when` or `then[]` value that begins with the case-sensitive ASCII word `GIVEN`, `WHEN`, `THEN` or `AND`. Such a value is a schema violation under `PRODUCT002`.
 
 The Functional and Quality Requirement schemas keep `verification` required and non-empty but use the new inline-or-reference item union. Their relationship target validation recognizes `scenario-ref`. Existing Requirement fields and target vocabularies are otherwise unchanged.
 
 The Product Change operation schema accepts `SB-` as a Product Artifact ID. The exhaustive frontmatter reference MUST be updated by hand against the changed schemas, which remain authoritative.
 
-The specification chapters for artifacts, identifiers, relationships, validation, citations, conformance and maturity will be updated when this RFC is accepted. The Citation Contract will carry the normative distinction between reliance on a Requirement obligation and reliance on a referenced Structured Behaviour. `schemas/README.md` and `MATURITY.md` will carry the compatibility clarifications under Release and serialization.
+The specification chapters for artifacts, identifiers, relationships, validation, citations, conformance and maturity will be updated when this RFC is accepted, together with the exhaustive Frontmatter reference. Relationships will define the exact `PRODUCT105` and `PRODUCT106` relationship sets and the array-member attribution convention; Validation will define the retired-target warning exclusion. The Citation Contract will carry the normative distinction between reliance on a Requirement obligation and reliance on a referenced Structured Behaviour. `schemas/README.md` and `MATURITY.md` will carry the compatibility clarifications under Release and serialization.
 
 ### Conformance
 
@@ -250,9 +259,11 @@ The v0.2 conformance suite adds at least these positive cases:
 
 Existing inline-only verification remains covered and conforming. The mixed-form case is additional coverage, not a migration requirement.
 
-Relationship-negative coverage exercises each new authored relationship field, `verification[].scenario-ref`, `illustrates` and `uses-terms`, against every applicable existing condition: an unknown target (`PRODUCT006`), a known target of a disallowed artifact type (`PRODUCT007`), an active source referencing a retired target (`PRODUCT008`), and removal of the target leaving the relationship dangling in a Product Change overlay (`PRODUCT024`). Each diagnostic is asserted with the source artifact, exact field and target required by the existing attribution contract.
+Relationship-negative coverage exercises each new authored relationship field, `verification[].scenario-ref`, `illustrates` and `uses-terms`, against an unknown target (`PRODUCT006`), an active source referencing a retired target (`PRODUCT008`), and removal of the target leaving the relationship dangling in a Product Change overlay (`PRODUCT024`). Each diagnostic is asserted with the source artifact, exact field and target required by the existing attribution contract, including the exact `verification[].scenario-ref` field spelling.
 
-Additional negative coverage includes both a missing and an out-of-order required Structured Behaviour body section (`PRODUCT009`), an anchored Structured Behaviour citation (`PRODUCT063`), and a Structured Behaviour whose only incoming Business Rule association is `illustrates`, demonstrating that the association does not suppress `PRODUCT105`.
+The suite adds no `PRODUCT007` case for these new fields. Their schemas admit only target prefixes allowed by the relationship, so a resolving artifact with an admitted prefix but a disallowed type necessarily also violates that artifact's ID/type alignment and produces `PRODUCT004`. Such a fixture cannot isolate one normative clause as required by the conformance-case convention.
+
+Additional negative coverage includes a forbidden literal semantic-keyword prefix (`PRODUCT002`), both a missing and an out-of-order required Structured Behaviour body section (`PRODUCT009`), an anchored Structured Behaviour citation (`PRODUCT063`), and an active Business Rule whose only incoming association is an `illustrates` edge from a Structured Behaviour, demonstrating that the rule still receives `PRODUCT105`. The `illustrates` and `uses-terms` retired-target cases use a retired Business Rule and retired Domain Term respectively and assert `PRODUCT008` alone, confirming that retired targets are outside the `PRODUCT105` and `PRODUCT106` warning populations.
 
 The existing `artifact-kinds-valid` case gains one kind, not two. Existing zero-diagnostic fixtures remain valid; their expected results change only when a new authored edge intentionally affects the fixture's graph or warning population.
 
