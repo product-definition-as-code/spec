@@ -18,7 +18,7 @@ The missing structure is visible at the delivery boundary. [OpenSpec's writing g
 
 This RFC adds **Structured Behaviour**, one concrete observable example with explicit context, stimulus and expected outcomes, and permits Functional and Quality Requirements to refer to it from `verification[]`.
 
-The proposal models accepted product semantics only. It does not make Gherkin, EARS or a test framework canonical, generate executable test code, or move implementation, test execution or delivery evidence inside PDaC. Domain Lifecycle and state-transition modelling are deferred to a separate RFC so their distinct semantics, evidence and validation surface can be decided independently.
+The proposal models accepted product semantics only. It does not make Gherkin, EARS or a test framework canonical, generate executable test code, or move implementation, test execution or delivery evidence inside PDaC. Domain Lifecycle and state-transition modelling are deferred to a separate RFC targeting specification 0.3 so their distinct semantics, evidence and validation surface can be decided independently.
 
 ## Proposal
 
@@ -31,6 +31,8 @@ For a schema change within one serialization version to be backward compatible, 
 Every document valid before this RFC remains valid afterwards with the same meaning: Structured Behaviour is optional to author, the existing nine kinds keep their fields and semantics, and the existing inline verification form remains accepted unchanged. The additions therefore satisfy the repository's backward-compatibility rule ([Schemas](../schemas/README.md)).
 
 A conformance claim MUST identify both the method/spec version and the serialization version. `v1alpha1` alone does not identify which backward-compatible expansion an implementation supports. A conforming v0.2 implementation MUST recognize the expanded `v1alpha1` schemas and semantics; an implementation conforming only to the tagged v0.1 specification is not thereby conforming to v0.2. The version-dimensions table in `MATURITY.md` will state that the pair selects the accepted document set and semantic contract.
+
+Those two values are claimed version metadata. An implementation MAY additionally record the Git revision of the repository content it observed, but that revision identifies the observed input state and MUST NOT substitute for either claimed version. This RFC does not prescribe runner field names, command output or a machine-readable report serialization for the version metadata.
 
 Repositories require no configuration edit or migration merely to remain valid under v0.2. This RFC does not advance the serialization to beta: independent implementation and adoption evidence, rather than this feature's size, should drive that maturity decision.
 
@@ -177,6 +179,8 @@ Existing schema, identity, relationship, lifecycle and body-section diagnostics 
 - `PRODUCT024` covers removal that leaves one of the new relationships dangling; and
 - `PRODUCT063` covers an anchor that does not resolve within a Structured Behaviour.
 
+For `PRODUCT106`, a valid Structured Behaviour `uses-terms` entry counts as usage of the referenced Domain Term under the same rule as an existing Use Case `uses-terms` entry. For `PRODUCT105`, a Structured Behaviour illustrating a Business Rule does not by itself make that rule consumed; the existing consumer relationships continue to determine whether the warning applies.
+
 Whether clauses leak implementation detail, two entries express the same behaviour, explanatory prose restates canonical clauses, or a consumer omitted a semantic dependency remains review-enforced rather than a deterministic diagnostic.
 
 ### Citations and consumer projections
@@ -231,22 +235,24 @@ The specification chapters for artifacts, identifiers, relationships, validation
 
 ### Conformance
 
-The v0.2 conformance suite adds at least these zero-diagnostic cases:
+The v0.2 conformance suite adds at least these positive cases:
 
 - one Structured Behaviour referenced from a Functional Requirement;
 - one Structured Behaviour referenced from a Quality Requirement;
 - one Requirement mixing an existing inline scenario with a `scenario-ref`;
 - one Structured Behaviour illustrating each allowed target type across the fixture set;
-- a direct current citation of a Structured Behaviour; and
+- one Structured Behaviour using a Domain Term, demonstrating that the relationship counts as usage for `PRODUCT106`;
+- a valid Product Change adding a Structured Behaviour;
+- a valid Product Change modifying an existing Structured Behaviour;
+- a direct current citation of a Structured Behaviour;
+- a direct citation becoming stale when the cited Structured Behaviour changes; and
 - an unchanged Structured Behaviour citation remaining current when a different Requirement or Structured Behaviour changes.
 
-Negative cases add:
+Existing inline-only verification remains covered and conforming. The mixed-form case is additional coverage, not a migration requirement.
 
-- a `scenario-ref` to an unknown ID (`PRODUCT006`);
-- a `scenario-ref` to a known wrong artifact type (`PRODUCT007`);
-- an active Requirement referencing a retired Structured Behaviour (`PRODUCT008`);
-- removal of a Structured Behaviour leaving a dangling `scenario-ref` in the Product Change overlay (`PRODUCT024`); and
-- an anchored Structured Behaviour citation (`PRODUCT063`).
+Relationship-negative coverage exercises each new authored relationship field, `verification[].scenario-ref`, `illustrates` and `uses-terms`, against every applicable existing condition: an unknown target (`PRODUCT006`), a known target of a disallowed artifact type (`PRODUCT007`), an active source referencing a retired target (`PRODUCT008`), and removal of the target leaving the relationship dangling in a Product Change overlay (`PRODUCT024`). Each diagnostic is asserted with the source artifact, exact field and target required by the existing attribution contract.
+
+Additional negative coverage includes both a missing and an out-of-order required Structured Behaviour body section (`PRODUCT009`), an anchored Structured Behaviour citation (`PRODUCT063`), and a Structured Behaviour whose only incoming Business Rule association is `illustrates`, demonstrating that the association does not suppress `PRODUCT105`.
 
 The existing `artifact-kinds-valid` case gains one kind, not two. Existing zero-diagnostic fixtures remain valid; their expected results change only when a new authored edge intentionally affects the fixture's graph or warning population.
 
@@ -292,7 +298,7 @@ Rejected. Independent identity should not create context-free examples. The requ
 
 ### Add Domain Lifecycle in this RFC
 
-Deferred to a separate RFC after the challenge review showed that state-transition modelling introduces a distinct evidence requirement, local identity model, validation surface and set of design choices. The follow-up will be exercised against at least one real lifecycle in a real Product Definition before acceptance. It may add `covers-transition` to Structured Behaviour without changing the semantics accepted here. This RFC neither defines Lifecycle semantics nor reserves diagnostic codes for that future decision.
+Deferred to a separate RFC targeting specification 0.3 after the challenge review showed that state-transition modelling introduces a distinct evidence requirement, local identity model, validation surface and set of design choices. The follow-up will be exercised against at least one real lifecycle in a real Product Definition before acceptance. It may add `covers-transition` to Structured Behaviour without changing the semantics accepted here. This RFC neither defines Lifecycle semantics nor reserves diagnostic codes for that future decision.
 
 ### Wait for a general custom-profile mechanism
 
