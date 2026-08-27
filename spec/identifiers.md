@@ -22,6 +22,7 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `FR-`   | Functional Requirement |
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
+| `SB-`   | Structured Behaviour   |
 | `CHG-`  | Product Change         |
 
 An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique within one product repository across all artifact kinds.
@@ -30,7 +31,7 @@ An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs
 
 ## Authored identifiers
 
-All IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.1. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`, `CHG-CITATIONS-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
+All IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.2. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`, `SB-CANCEL-PAID-ORDER`, `CHG-CITATIONS-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
 
 ## Immutability
 

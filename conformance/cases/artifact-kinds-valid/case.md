@@ -1,6 +1,6 @@
 # Case: artifact-kinds-valid
 
-**Verifies:** every artifact kind of the product model is accepted when it satisfies its contract, and a model containing all nine, wired into a complete graph, validates with no diagnostics at all.
+**Verifies:** every artifact kind of the product model is accepted when it satisfies its contract, and a model containing all ten, wired into a complete graph, validates with no diagnostics at all.
 
 **Spec references:**
 
@@ -11,11 +11,11 @@
 
 ## Why this case exists
 
-Every other case selects the kinds it needs to make its point, and between them they only ever used Actor, Journey, Use Case, Business Rule and Functional Requirement. Quality Requirement, Constraint, Domain Term and Bounded Context appeared nowhere. An implementation could reject all four and still pass all the conformance tests while claiming conformance.
+Every other published case selects the kinds it needs to make its point. This case keeps one minimal positive example of every kind together so an implementation cannot reject a less common kind while still passing the published suite.
 
 ## Fixture
 
-`repo/` carries one artifact of each of the nine kinds, established by an archived `CHG-INITIAL`:
+`repo/` carries one artifact of each of the ten kinds, established by an archived `CHG-INITIAL`:
 
 | Kind | Artifact |
 | --- | --- |
@@ -28,8 +28,9 @@ Every other case selects the kinds it needs to make its point, and between them 
 | Functional Requirement | `FR-EVALUATE-001` |
 | Quality Requirement | `QR-DETERMINISM-001` |
 | Constraint | `CON-PLAIN-FILES-001` |
+| Structured Behaviour | `SB-REPORT-SPEC-REVISION` |
 
-The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context`, `governed-by` and `uses-terms`, so the bounded context owns language (`PRODUCT107`), the rule has a consumer (`PRODUCT105`) and the term has usage (`PRODUCT106`). Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`). Those four warnings are what a fixture holding the four missing kinds and nothing else produces, and a case that expected them would be asserting its own incompleteness.
+The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context` and `governed-by`, so the bounded context owns language (`PRODUCT107`) and the rule has a consumer (`PRODUCT105`). The Structured Behaviour illustrates the Use Case, Business Rule and Constraint, is the only artifact that uses the Domain Term (`PRODUCT106`), and is referenced alongside an inline scenario by the Functional Requirement. Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`).
 
 No citations and no consumer documents: there is nothing here to pin, so this case never needs a digest repinned when its artifacts are edited.
 
@@ -41,4 +42,4 @@ The fixture deliberately uses descriptive nested directories such as `model/doma
 
 ## Note on the reference implementation
 
-This case currently fails ProductShape, with `PRODUCT009` against the Functional Requirement and the Quality Requirement, because ProductShape still requires the `## Acceptance Scenarios` and `## Verification` body sections that [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) removed from the required sets. The fixture is correct against the specification as it stands; the implementation has not caught up. Every other conformance test reports the same finding for the same reason.
+This fixture follows the current specification. A reference implementation that has not yet implemented [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) and [RFC 0084](../../../rfcs/0084-explicit-behaviour-semantics.md) may fail it for obsolete Requirement body-section rules, the new artifact kind or the expanded verification union. Those are implementation gaps, not fixture exemptions.

@@ -1,0 +1,11 @@
+{
+  "exitCode": 0,
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT106",
+      "file": "docs/product/model/domain/terms/term-unused.md",
+      "artifact": "TERM-UNUSED"
+    }
+  ]
+}

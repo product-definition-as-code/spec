@@ -4,7 +4,7 @@
 
 **Spec references:**
 
-- [Citation Contract → Anchors](../../../spec/citation-contract.md#anchors) - in v0.1 an anchor is a verification scenario's stable `id`.
+- [Citation Contract → Anchors](../../../spec/citation-contract.md#anchors) - in v0.2 an anchor is an inline verification scenario's stable `id`.
 - [Citation Contract → Precedence](../../../spec/citation-contract.md#precedence) - rows 1 and 2 do not hold (well-formed digest, resolving target), so row 3 decides: the `anchor` does not resolve within the target.
 - [Validation](../../../spec/validation.md) - error `PRODUCT063`: the target resolves but the named anchor does not exist within it.
 

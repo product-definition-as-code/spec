@@ -1,0 +1,13 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT006",
+      "file": "docs/product/model/requirements/functional/fr-scenario.md",
+      "artifact": "FR-SCENARIO",
+      "field": "verification[].scenario-ref",
+      "target": "SB-UNKNOWN"
+    }
+  ]
+}

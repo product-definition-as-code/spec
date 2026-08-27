@@ -1,0 +1,11 @@
+{
+  "exitCode": 0,
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT105",
+      "file": "docs/product/model/business-rules/br-unconsumed.md",
+      "artifact": "BR-UNCONSUMED"
+    }
+  ]
+}

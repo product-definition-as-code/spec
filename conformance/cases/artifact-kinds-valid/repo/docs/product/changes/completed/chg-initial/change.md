@@ -15,6 +15,7 @@ operations:
     - FR-EVALUATE-001
     - QR-DETERMINISM-001
     - CON-PLAIN-FILES-001
+    - SB-REPORT-SPEC-REVISION
   modify: []
   remove: []
 ---

@@ -1,0 +1,12 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT063",
+      "file": "specs/feature-sb.citations.yml",
+      "target": "SB-CITATION",
+      "entry": 1
+    }
+  ]
+}

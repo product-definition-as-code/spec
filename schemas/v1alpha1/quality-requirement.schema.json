@@ -26,7 +26,7 @@
       }
     },
     "verification": {
-      "$ref": "urn:product-definition-as-code:schema:common:v1alpha1#/$defs/verificationScenarios"
+      "$ref": "urn:product-definition-as-code:schema:common:v1alpha1#/$defs/verificationItems"
     },
     "provenance": {
       "$ref": "urn:product-definition-as-code:schema:common:v1alpha1#/$defs/provenance"

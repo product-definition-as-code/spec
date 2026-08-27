@@ -7,8 +7,6 @@ primary-actor: ACT-IMPLEMENTER
 bounded-context: BC-CONFORMANCE
 governed-by:
   - BR-EXPECTATIONS-ARE-FIXED
-uses-terms:
-  - TERM-FIXTURE
 ---
 
 ## Goal
