@@ -9,8 +9,7 @@ derived-from:
 verification:
   - id: S1
     scenario: Every case in the fixtures receives exactly one verdict, and a case that could not be run is reported as unrun rather than passed.
-  - id: S2
-    scenario: The report names the revision of the fixtures it was measured at.
+  - scenario-ref: SB-REPORT-SPEC-REVISION
 ---
 
 ## Requirement

@@ -1,6 +1,6 @@
 # RFC 0084: Structured Behaviour and scenario references
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-26
 - **Issue:** <https://github.com/product-definition-as-code/spec/pull/84>

@@ -1,0 +1,12 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT009",
+      "file": "docs/product/model/behaviours/sb-sections.md",
+      "artifact": "SB-SECTIONS",
+      "field": "Boundaries"
+    }
+  ]
+}

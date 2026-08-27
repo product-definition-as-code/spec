@@ -12,9 +12,11 @@ operations:
     - BR-EXPECTATIONS-ARE-FIXED
     - BC-CONFORMANCE
     - TERM-FIXTURE
+    - TERM-VERDICT
     - FR-EVALUATE-001
     - QR-DETERMINISM-001
     - CON-PLAIN-FILES-001
+    - SB-REPORT-SPEC-REVISION
   modify: []
   remove: []
 ---

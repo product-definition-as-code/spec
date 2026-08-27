@@ -47,6 +47,8 @@ Implementations SHOULD use the product graph to support elaboration: surfacing t
 
 ## Operations
 
+Operation IDs MAY name any Product Artifact, including a Structured Behaviour.
+
 - Every ID in `operations.add` MUST NOT exist in the baseline, and MUST have a complete proposed future-state artifact under `proposed/`.
 - Every ID in `operations.modify` MUST exist in the baseline, and MUST have a complete proposed future-state artifact under `proposed/` using the same ID.
 - Every ID in `operations.remove` MUST exist in the baseline. Removed artifacts need no tombstone files.
@@ -134,4 +136,4 @@ They can legitimately disagree in scope. A declared `modify` may leave the artif
 
 The stale set is the machine-derivable answer to "what does this change oblige us to revisit": which specifications, tasks and prompts cited intent that no longer says what it said. PDaC surfaces that set. Whether it is answered by updating the citing document, planning rework, or contesting the change is a decision for the consuming process, not a conformance criterion.
 
-Citations resolve within one repository in v0.1. Where the model repository may live is settled by [Conformance → Topologies](conformance.md#topologies); resolving a citation across a repository boundary remains out of scope ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
+Citations resolve within one repository in v0.2. Where the model repository may live is settled by [Conformance → Topologies](conformance.md#topologies); resolving a citation across a repository boundary remains out of scope ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).

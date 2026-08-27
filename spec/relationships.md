@@ -22,13 +22,19 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 | Business Rule          | `applies-to`               | Journey, Use Case, Bounded Context                          |
 | Domain Term            | `defined-in`               | Bounded Context                                             |
 | Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
+| Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     |
 | Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
+| Quality Requirement    | `verification[].scenario-ref` | Structured Behaviour                                     |
 | Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
+| Structured Behaviour   | `illustrates`              | Use Case, Business Rule, Constraint                         |
+| Structured Behaviour   | `uses-terms`               | Domain Term                                                 |
 | Product Change         | `operations.add`           | any product artifact (new ID)                               |
 | Product Change         | `operations.modify`        | any existing product artifact                               |
 | Product Change         | `operations.remove`        | any existing product artifact                               |
 
 A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a validation error.
+
+Array-member relationship fields use the `[]` attribution convention. Diagnostics for a `scenario-ref` relationship MUST report `field` as `verification[].scenario-ref`, just as a Journey step relationship reports `steps[].use-case`. Schema diagnostics such as `PRODUCT002` continue to report their own instance paths.
 
 ## Derived relationships
 
@@ -38,7 +44,7 @@ The canonical/derived split is decided once per pair. The load-bearing case:
 
 - **`Domain Term.defined-in` is canonical. `Bounded Context.owns-terms` is derived.** A bounded context's owned terms are exactly the domain terms whose `defined-in` references it. `owns-terms` MUST NOT appear in authored bounded-context frontmatter; schemas reject it. Tools MAY display `owns-terms` in inspection output and generated indexes as a derived field.
 
-All other reverse views (`Actor ← journeys`, `Business Rule ← governed use cases`, `Use Case ← derived requirements`, and so on) follow the same rule: derived, displayed, never authored.
+All other reverse views (`Actor ← journeys`, `Business Rule ← governed use cases`, `Use Case ← derived requirements`, Requirements verified by a Structured Behaviour, and so on) follow the same rule: derived, displayed, never authored.
 
 ## Status interactions
 
@@ -49,3 +55,11 @@ All other reverse views (`Actor ← journeys`, `Business Rule ← governed use c
 ## Reachability
 
 Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are connected if a path exists between them in the undirected view of the product graph restricted to the canonical product relationships above, excluding Product Change edges. A requirement is _reachable from an actor_ when it is connected to at least one Actor node under this definition.
+
+Structured Behaviour edges participate under the same rule. A Requirement verified by a Structured Behaviour is connected to the behaviour's source Use Cases, Business Rules and Constraints. Structural impact analysis therefore includes changes to a Structured Behaviour through those authored edges, without making a semantic impact claim.
+
+## Knowledge warning relationship sets
+
+For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has at least one valid outgoing `Business Rule.applies-to` relationship, incoming `Use Case.governed-by` relationship or incoming `Functional Requirement.derived-from` relationship, and the artifact authoring that relationship is non-retired. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
+
+For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Use Case or Structured Behaviour. A valid `Structured Behaviour.uses-terms` relationship from a non-retired source therefore suppresses `PRODUCT106` for its target.

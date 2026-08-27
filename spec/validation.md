@@ -71,7 +71,7 @@ When a dangling reference in the overlay is caused by an ID named in the change'
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
-`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.1: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
+`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.2: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
 
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
@@ -93,6 +93,12 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `validation.warnings-as-errors` is set.
 
 `PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
+
+Existing diagnostics apply to Structured Behaviour and its relationships without allocating new codes. In particular, `PRODUCT005` and `PRODUCT023` cover duplicate `SB-` IDs; `PRODUCT006` covers unresolved `illustrates`, `uses-terms` and `scenario-ref` targets; `PRODUCT008` covers an active artifact referencing a retired target; `PRODUCT009` covers a missing or out-of-order required Structured Behaviour body section; `PRODUCT024` covers a removal that leaves one of the new relationships dangling; and `PRODUCT063` covers an anchor that does not resolve within a Structured Behaviour.
+
+`PRODUCT007` covers a source relationship entry whose resolved target has a known but disallowed artifact type. When prefix typing also makes that target artifact violate ID/type alignment, an implementation MUST emit both `PRODUCT004` against the target artifact and `PRODUCT007` against the source relationship entry.
+
+Retired Business Rules and Domain Terms MUST be excluded from the `PRODUCT105` and `PRODUCT106` warning populations. An active Structured Behaviour that references one still produces `PRODUCT008`, but the retired target does not receive either warning. The exact relationships that count as consumption and usage are defined in [Relationships](relationships.md#knowledge-warning-relationship-sets).
 
 ## Emission granularity and attribution
 
@@ -125,6 +131,8 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT101`-`PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
 | `PRODUCT104` | active relationship entry targeting a deprecated artifact | source `artifact`, `field`, `target` |
 | `PRODUCT108` | approved Product Change containing one or more unresolved-question list items | `change`, `field: Open Questions` |
+
+For a `PRODUCT009` transposition, `field` MUST name the section that appears in the file before a required section that must precede it.
 
 For duplicate detection, “first” is the first occurrence after sorting files by repository-relative POSIX path and, when a file can contain several documents, by one-based document order. The first occurrence is not itself diagnosed; each later occurrence is. Overlay order uses baseline files before proposed files, with each group sorted the same way.
 

@@ -1,0 +1,11 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT002",
+      "file": "docs/product/model/behaviours/sb-keyword-case.md",
+      "artifact": "SB-KEYWORD-CASE"
+    }
+  ]
+}
