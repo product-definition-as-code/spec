@@ -175,7 +175,7 @@ Establish the accepted result of cancelling an order whose payment has already b
 This example does not specify how or when the refund is settled.
 ```
 
-Each `given` entry states product context, `when` states one product-level stimulus and each `then` entry states an externally or business-observable outcome. Authors MUST NOT include literal `GIVEN`, `WHEN`, `THEN` or `AND` prefixes in those values. Renderers MAY supply those words for a target format.
+Each `given` entry states product context, `when` states one product-level stimulus and each `then` entry states an externally or business-observable outcome. Authors MUST NOT begin those values with a `GIVEN`, `WHEN`, `THEN` or `AND` keyword. The prohibition is case-insensitive: `Given` and `given` are rejected exactly as `GIVEN` is. It applies only to a complete leading word, so a value opening with a longer word that merely starts with those letters, such as `Givens are recorded`, is accepted. Renderers MAY supply those words for a target format.
 
 All `given` entries are conjunctive, and all `then` entries are conjunctive. Alternative contexts or outcomes MUST be expressed as separate Structured Behaviour artifacts rather than an ambiguous `or` clause.
 
