@@ -48,7 +48,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 | `configuration-unknown-key` | unknown top-level config key; one attributed `PRODUCT050`; exit `2` | runnable |
 | `scenario-id-addressing` | a citation anchors to `verification[].id`; the anchor scopes reliance while the digest covers the whole artifact | runnable via `citation-current` |
 | `greenfield-first-increment` | initialisation: empty model → `CHG-INITIAL` → apply → accept → cite | runnable |
-| `artifact-kinds-valid` | one artifact of each of the ten kinds, including a Structured Behaviour referenced alongside an inline scenario; zero diagnostics | runnable |
+| `artifact-kinds-valid` | one artifact of each of the ten kinds plus a second Domain Term, including a Structured Behaviour referenced alongside an inline scenario; zero diagnostics | runnable |
 | `brownfield-initial` | `CHG-INITIAL` from recovered artifacts carrying provenance; `PRODUCT111` | planned |
 | `change-add-existing` | add of an ID that already exists in the baseline; `PRODUCT020` | planned |
 | `change-modify-missing-target` | modify of an ID absent from the baseline; `PRODUCT021` | runnable |
@@ -76,7 +76,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 
 ### RFC 0084 fixture matrix
 
-`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, Structured Behaviour term usage, and Product Change addition through `CHG-INITIAL`.
+`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, Use Case and Structured Behaviour term usage on one term each, and Product Change addition through `CHG-INITIAL`.
 
 The following cases complete the executable RFC 0084 matrix:
 
@@ -158,7 +158,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT103` | requirement unreachable from any actor | not yet covered |
 | `PRODUCT104` | deprecated artifact still referenced | not yet covered |
 | `PRODUCT105` | business rule with no consumers | `structured-behaviour-illustrates-no-consumer`, `structured-behaviour-retired-governed-by-no-consumer` |
-| `PRODUCT106` | domain term with no usage | `artifact-kinds-valid` demonstrates Structured Behaviour usage; `structured-behaviour-retired-uses-terms-no-usage` |
+| `PRODUCT106` | domain term with no usage | `artifact-kinds-valid` demonstrates both Use Case and Structured Behaviour usage, one term each; `structured-behaviour-retired-uses-terms-no-usage` |
 | `PRODUCT107` | bounded context with no owned language | not yet covered |
 | `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
 | `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |

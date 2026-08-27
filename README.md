@@ -73,7 +73,7 @@ The transcript above was verified with the pinned `@prodshape/cli` 0.13.0 packag
 The fixtures under [`conformance/cases/`](conformance/cases/) are executable examples, not all examples of conforming repositories: negative cases deliberately contain a specific defect. Each `case.md` states the condition it verifies and its `repo/` supplies the repository state. These zero-diagnostic positive cases are reasonable places to start:
 
 - [`greenfield-first-increment/repo/`](conformance/cases/greenfield-first-increment/repo/) - a model brought into existence by `CHG-INITIAL`, the applied change kept as archived history, and a delivery spec citing both a requirement scenario and a business rule.
-- [`artifact-kinds-valid/repo/`](conformance/cases/artifact-kinds-valid/repo/) - one artifact of each of the ten kinds, wired into a complete graph.
+- [`artifact-kinds-valid/repo/`](conformance/cases/artifact-kinds-valid/repo/) - one artifact of each of the ten kinds, plus a second Domain Term, wired into a complete graph.
 - [`dedicated-topology/repo/`](conformance/cases/dedicated-topology/repo/) - a model repository holding the product definition and no software.
 
 ## How implementation disagreement has already corrected this spec

@@ -13,7 +13,7 @@ when: The implementer requests a conformance verdict
 then:
   - The report identifies that exact specification revision
 uses-terms:
-  - TERM-FIXTURE
+  - TERM-VERDICT
 ---
 
 ## Intent
