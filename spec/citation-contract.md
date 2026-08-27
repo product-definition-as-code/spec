@@ -45,11 +45,25 @@ Payload verification and impact output report the consumer file and one-based `l
 
 ## Anchors
 
-An anchor addresses a location within the target artifact. In v0.1, an anchor is a verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial dependency scope expressible as a set of cited scenario ids instead of prose.
+An anchor addresses a location within the target artifact. In v0.2, an anchor is an inline verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the inline scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial dependency scope expressible as a set of cited scenario ids instead of prose.
 
 An anchor does not narrow digest scope. Every citation digest covers the whole target artifact. A verifier resolves the target and anchor, then compares the recorded digest with the whole artifact's recomputed digest. Any normalized-byte edit to that artifact makes the citation stale, including an edit to another scenario or to artifact prose; an edit to another artifact does not. The anchor tells a reviewer what was relied on, while whole-artifact staleness conservatively requires review of any change to its containing requirement ([RFC 0077](../rfcs/0077-whole-artifact-digests-for-anchored-citations.md)).
 
-Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.1 anchors to scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
+Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.2 anchors to inline scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
+
+A `scenario-ref` does not create an anchor within its parent Requirement. The referenced Structured Behaviour is a Product Artifact with its own ID and whole-artifact digest, so it is cited directly. An anchor on a Structured Behaviour does not resolve and produces `PRODUCT063` unless a later specification version defines anchors within that artifact kind.
+
+## Structured Behaviour reliance and projections
+
+A consumer that relies on behaviour carried by a `scenario-ref` MUST cite each referenced Structured Behaviour on which it relies directly. Citing the parent Requirement alone records reliance on the obligation, not on the referenced behaviour. Citation completeness is a semantic review question: implementations MAY suggest a suspected omission for human review, but MUST NOT emit a deterministic conformance diagnostic for it.
+
+A direct Structured Behaviour citation uses its own ID, the existing whole-artifact digest and no anchor:
+
+```text
+pdac:cite id="SB-CANCEL-PAID-ORDER" digest="sha256:<64 lowercase hex digits>"
+```
+
+An implementation MAY render a consumer-specific projection from an accepted Structured Behaviour. A projection is generated, non-canonical consumer material and MUST carry a citation to the Structured Behaviour from which its product semantics came. Generating a projection MUST NOT create, approve, apply or accept a Product Change and MUST NOT claim that any test was implemented or executed. Provider-specific syntax and validity remain the provider's responsibility.
 
 ![Deriving verification from the definition, and keeping it aligned. In the first band, a requirements artifact, FR-REFUND-001, carrying a verification obligation and derived from BR-REFUND-001, leads through Gherkin scenarios, executable tests and evidence to human assessment. In the second band, the definition moves from D1 to D2: a specification citing D1 has its citation go stale, the digest is updated so the specification now cites D2, affected scenarios are reviewed, new or revised Gherkin scenarios are written, and tests are implemented and executed. A note reads: explanatory projection, arrows clarify derivation and continuity, authored relationships remain defined by relationships.md. The closing line reads: PDaC derives traceable verification scenarios from accepted product intent; it proposes and keeps them aligned, while completeness and execution remain outside PDaC.](../assets/diagrams/pdac-8-verification-derivation-and-continuity.png)
 
@@ -146,7 +160,7 @@ Semantic contradiction between a citation and its surrounding consumer text is e
 
 Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY propose a [Product Change](product-changes.md) when implementation reveals a contradiction; a human decides whether to approve and accept it ([manifesto](../MANIFESTO.md) principle 9). Acceptance is a human decision: tools MUST NOT merge, auto-approve or self-merge model changes.
 
-A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.1: how a tool verifies a citation digest against a model repository the consumer does not contain, and what that tool reports when the repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.1.
+A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.2: how a tool verifies a citation digest against a model repository the consumer does not contain, and what that tool reports when the repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.2.
 
 ## Generated context documents
 

@@ -1,6 +1,6 @@
 # Product Definition as Code: Specification
 
-> **Status: v0.1 draft (request for comments).** Extracted from the reference implementation and under public review; see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
+> **Status: v0.2 draft (request for comments).** Extracted from the reference implementation and under public review; see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
 
 This is the normative specification for Product Definition as Code; the chapters below define its terms, contracts and conformance criteria.
 
@@ -28,7 +28,7 @@ The grouping below mirrors the manifesto's ["a kernel, a profile, a workflow"](.
 
 **The reference profile** - the artifact vocabulary: opinionated, a good default, distinguished from the kernel on purpose.
 
-7. [Artifacts](artifacts.md) - artifact types, frontmatter contracts, required body sections, lifecycle states.
+7. [Artifacts](artifacts.md) - the ten artifact types, frontmatter contracts, required body sections, lifecycle states.
 8. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables: required and optional fields, allowed values, provenance.
 
 **The reference workflow** - how the accepted definition evolves.
