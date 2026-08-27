@@ -156,11 +156,11 @@
       "items": { "$ref": "#/$defs/verificationItem" }
     },
     "structuredBehaviourClause": {
-      "description": "A format-neutral product-level clause without a literal GIVEN, WHEN, THEN or AND prefix.",
+      "description": "A format-neutral product-level clause without a leading GIVEN, WHEN, THEN or AND keyword in any letter case.",
       "type": "string",
       "minLength": 1,
       "not": {
-        "pattern": "^(GIVEN|WHEN|THEN|AND)\\b"
+        "pattern": "^([Gg][Ii][Vv][Ee][Nn]|[Ww][Hh][Ee][Nn]|[Tt][Hh][Ee][Nn]|[Aa][Nn][Dd])\\b"
       }
     },
     "provenance": {

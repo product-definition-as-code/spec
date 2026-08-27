@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 41 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 42 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -97,7 +97,8 @@ The following cases complete the executable RFC 0084 matrix:
 | `structured-behaviour-uses-terms-unknown` | unknown `uses-terms` target; `PRODUCT006` | runnable |
 | `structured-behaviour-uses-terms-retired` | retired `uses-terms` target; `PRODUCT008` alone | runnable |
 | `structured-behaviour-uses-terms-removed` | removed `uses-terms` target in an overlay; `PRODUCT024` | runnable |
-| `structured-behaviour-semantic-keyword` | forbidden literal semantic-keyword prefix; `PRODUCT002` | runnable |
+| `structured-behaviour-semantic-keyword` | forbidden upper-case semantic-keyword prefix; `PRODUCT002` | runnable |
+| `structured-behaviour-semantic-keyword-case` | mixed-case semantic keyword rejected, longer word accepted; one `PRODUCT002` | runnable |
 | `structured-behaviour-body-section-missing` | missing `## Boundaries`; `PRODUCT009` | runnable |
 | `structured-behaviour-body-section-order` | out-of-order `## Boundaries`; `PRODUCT009` | runnable |
 | `structured-behaviour-citation-anchor` | anchor on a Structured Behaviour; `PRODUCT063` | runnable |
@@ -124,7 +125,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | Code | Condition | Exercised by |
 | --- | --- | --- |
 | `PRODUCT001` | invalid frontmatter or unparseable document | not yet covered |
-| `PRODUCT002` | JSON Schema violation | `structured-behaviour-semantic-keyword` |
+| `PRODUCT002` | JSON Schema violation | `structured-behaviour-semantic-keyword`, `structured-behaviour-semantic-keyword-case` |
 | `PRODUCT003` | unknown artifact `type` | not yet covered |
 | `PRODUCT004` | ID prefix does not match the artifact type | not yet covered |
 | `PRODUCT005` | duplicate ID | not yet covered - duplicate-ID granularity (see above) |
