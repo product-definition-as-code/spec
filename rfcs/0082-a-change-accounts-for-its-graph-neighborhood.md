@@ -3,7 +3,9 @@
 - **Status:** draft
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-25
-- **Revised:** 2026-08-26 (v5; v2 added impact polarity, per-cause acknowledgments, digest pinning and the apply gate; v3 closed the no-op modify bypass, fixed diagnostic attribution, split PRODUCT002 from PRODUCT033, accounted for product-wide constraints and pinned removals; v4 fixed PRODUCT033 precedence and attribution strings, modeled product scope as an implicit edge and staged the apply preconditions; v5 moves semantic acknowledgment validation after baseline drift)
+- **Revised:** 2026-08-28 (v6; v2 added impact polarity, per-cause acknowledgments, digest pinning and the apply gate; v3 closed the no-op modify bypass, fixed diagnostic attribution, split PRODUCT002 from PRODUCT033, accounted for product-wide constraints and pinned removals; v4 fixed PRODUCT033 precedence and attribution strings, modeled product scope as an implicit edge and staged the apply preconditions; v5 moves semantic acknowledgment validation after baseline drift; v6 extracts the impact polarity column into RFC 0093 targeting 0.2.0 and depends on it)
+- **Depends on:** [RFC 0093](https://github.com/product-definition-as-code/spec/pull/93), the impact polarity column in [Relationships → Canonical vocabulary](../spec/relationships.md#canonical-vocabulary), targeting 0.2.0
+- **Proposed target:** PDaC specification 0.3.0
 
 ## Problem
 
@@ -15,7 +17,7 @@ Issue [#48](https://github.com/product-definition-as-code/spec/issues/48) closes
 
 ## Proposal
 
-Normative additions to [Product Changes](../spec/product-changes.md), with the impact polarity in [Relationships](../spec/relationships.md), the diagnostics in [Validation](../spec/validation.md) and the frontmatter field in the `product-change` schema and [Frontmatter reference](../spec/frontmatter-reference.md).
+Normative additions to [Product Changes](../spec/product-changes.md), the diagnostics in [Validation](../spec/validation.md) and the frontmatter field in the `product-change` schema and [Frontmatter reference](../spec/frontmatter-reference.md). The impact polarity this RFC reads from [Relationships](../spec/relationships.md) is proposed by [RFC 0093](https://github.com/product-definition-as-code/spec/pull/93) and is not part of this RFC.
 
 ### Effectively changed artifacts
 
@@ -23,30 +25,15 @@ Within a Product Change, an artifact is effectively changed when it is named in 
 
 ### Impact polarity
 
-Canonical authoring direction is not impact direction. On a dependency field the author cites what the artifact builds on, so a change to the target puts the source in question. On a governance field the edge couples both ends: the governed artifact must be reconsidered when its rule changes, and the rule's continued applicability must be reconsidered when the governed artifact changes. The [canonical vocabulary](../spec/relationships.md#canonical-vocabulary) gains a normative impact-polarity column:
+Impact polarity is not defined here. Canonical authoring direction is not impact direction, and the per-field `Polarity` column that states which end of a relationship is put in question when the other end changes is proposed by [RFC 0093](https://github.com/product-definition-as-code/spec/pull/93), targeting 0.2.0, so that the column lands before the machinery that consumes it and so that the elaboration guidance it corrects is fixed in the current release. This RFC depends on that column and does not restate it.
 
-| Source, field                       | Polarity   | Candidates when the other end effectively changes                     |
-| ----------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| Journey `primary-actor`             | dependency | the journey, when the actor changes                                     |
-| Journey `steps[].use-case`          | dependency | the journey, when the use case changes                                  |
-| Use Case `primary-actor`            | dependency | the use case, when the actor changes                                    |
-| Use Case `supporting-actors`        | dependency | the use case, when the actor changes                                    |
-| Use Case `bounded-context`          | dependency | the use case, when the bounded context changes                          |
-| Use Case `governed-by`              | dependency | the use case, when the business rule changes                            |
-| Use Case `uses-terms`               | dependency | the use case, when the domain term changes                              |
-| Domain Term `defined-in`            | dependency | the domain term, when the bounded context changes                       |
-| Functional Requirement `derived-from` | dependency | the requirement, when the use case, rule or constraint changes        |
-| Business Rule `applies-to`          | governance | both ends, when the other changes                                       |
-| Quality Requirement `applies-to`    | governance | both ends, when the other changes                                       |
-| Constraint `applies-to`             | governance | both ends, when the other changes                                       |
-
-Product Change operation edges never produce candidates.
+An implementation of this RFC reads `dependency`, `governance` and `none` from the [canonical vocabulary](../spec/relationships.md#canonical-vocabulary). A `dependency` field makes the source a candidate when the target effectively changes. A `governance` field makes each end a candidate when the other effectively changes. A `none` field never produces a candidate, which is why Product Change operation edges do not.
 
 A pair connected through two inverse edges, such as a use case carrying `governed-by` toward a rule that also carries `applies-to` toward the use case, produces one cause per edge, deliberately. The two edges are distinct authored assertions: one is the use case declaring what it builds on, the other is the rule declaring its scope. Coalescing them would require an equivalence relation over relationship fields that the vocabulary does not define, and a repository that finds the pair redundant fixes its model, not the validator. Tooling generates the entries either way; only the reasons are human.
 
 ### Impact causes
 
-An implementation MUST compute the canonical relationship edges of both the baseline graph and the overlay graph. An **impact cause** is a tuple `(candidate, cause artifact, relationship field, disposition)` where the cause artifact is effectively changed, the candidate is a baseline artifact reachable from it across one edge under the polarity above, the candidate is **not itself effectively changed**, and the disposition is `existing` (the edge is in both graphs), `added` (overlay only) or `removed` (baseline only). Comparing both graphs is required: a proposed artifact that adds `applies-to: UC-Y` impacts `UC-Y` even though the baseline has no such edge, and a removal severs every edge its artifact held. One candidate can carry several causes through several changed artifacts and fields; each cause stands alone. Archived changes are inert and contribute nothing, as everywhere else.
+An implementation MUST compute the canonical relationship edges of both the baseline graph and the overlay graph. An **impact cause** is a tuple `(candidate, cause artifact, relationship field, disposition)` where the cause artifact is effectively changed, the candidate is a baseline artifact reachable from it across one edge under the polarity of that edge's field, the candidate is **not itself effectively changed**, and the disposition is `existing` (the edge is in both graphs), `added` (overlay only) or `removed` (baseline only). Comparing both graphs is required: a proposed artifact that adds `applies-to: UC-Y` impacts `UC-Y` even though the baseline has no such edge, and a removal severs every edge its artifact held. One candidate can carry several causes through several changed artifacts and fields; each cause stands alone. Archived changes are inert and contribute nothing, as everywhere else.
 
 The exclusion is by effective change, never by mention: an artifact named in `operations.modify` whose proposed content is byte-identical to baseline is not effectively changed and remains a candidate. Excluding by mention would let a change list a dependent in `operations.modify`, propose identical bytes and thereby remove it from the worklist while neither changing nor acknowledging it, which would defeat the ledger.
 
@@ -107,7 +94,7 @@ Acknowledging a candidate is a claim about that candidate only. If reviewing it 
 ## Impact
 
 - **On existing conformant repositories:** repositories with no active changes see nothing. An active change modifying a referenced artifact starts producing `PRODUCT029` warnings, and stops applying, until it accounts for its causes; archived changes are untouched.
-- **On existing implementations:** ProductShape already compiles both graphs and surfaces referencing artifacts during elaboration; this adds the polarity table, the cause computation, the `unaffected` schema field and the apply precondition.
+- **On existing implementations:** ProductShape already compiles both graphs and surfaces referencing artifacts during elaboration, and walks the polarity column once that lands; this adds the cause computation, the `unaffected` schema field and the apply precondition.
 - **On the conformance tests:** at least these cases. (1) Modify `BR-X` with `UC-Y` carrying `governed-by: BR-X`, unacknowledged: one `PRODUCT029` with `artifact: UC-Y`, `target: BR-X`. (2) Modify `QR-X` carrying `applies-to: UC-Y`: one `PRODUCT029` with `artifact: UC-Y`, the polarity case a reverse-only walk misses. (3) The same changes with matching `unaffected` entries: clean. (4) A proposed artifact adding an `applies-to` edge to an untouched `UC-Y`: one cause with disposition `added`. (5) A removal producing causes at both polarities, acknowledged with the removed artifact's baseline `cause-digest`. (6) A byte-identical `operations.modify` listing of a dependent: the dependent remains a candidate and one `PRODUCT029` is reported, the bypass case. (7) A modified product-wide constraint: one product-scope cause with disposition `existing`, silent only when a `scope: product` entry acknowledges it; an added global constraint yields `added` and a removed one `removed`. (8) An entry whose triple matches no cause: `PRODUCT033` with `target` = the `cause` as authored, `field: unaffected[<n>]`, exit `1`. (9) An entry failing several checks at once, unknown `id` and mismatched `cause-digest`: exactly one `PRODUCT033` with `target` = the `id`, the precedence case. (10) An entry with a blank `reason`: `PRODUCT002`, never `PRODUCT033`. (11) A declared modify whose proposed content is byte-identical to baseline and has no dependents: no causes. (12) Apply with one unacknowledged cause: `PRODUCT034`, exit `1`, working tree untouched, no `PRODUCT029` for that cause. (13) Apply with both an invalid ledger entry and an unacknowledged cause: `PRODUCT033` only, stage 4 stops evaluation and `PRODUCT034` is not reported, the staging case. (14) Apply with baseline drift and an unacknowledged cause: `PRODUCT027` only. (15) Apply with baseline drift and an acknowledgment whose digests no longer match: `PRODUCT027` only, never `PRODUCT033`, since the mismatch may be nothing but the drift.
 
 `PRODUCT030`-`PRODUCT032` are retired and never reused, so the codes here are `029`, `033` and `034`; the change band is fragmented by history, not by choice.
@@ -118,7 +105,9 @@ Acknowledging a candidate is a claim about that candidate only. If reviewing it 
 
 **The required `## Affected Product Areas` body section.** It already exists and stays: it is narrative intent. It is prose, not machine-checkable, carries no per-cause accounting and cannot gate anything. This RFC adds the checkable ledger beside it.
 
-**Reverse edges only, as v1 proposed.** Rejected as incorrect: `applies-to` is authored on the rule pointing at what it constrains, so a changed quality requirement's constrained use cases are outbound targets and a reverse-only walk never sees them. Polarity per field is the fix, at the cost of one normative column.
+**Reverse edges only, as v1 proposed.** Rejected as incorrect: `applies-to` is authored on the rule pointing at what it constrains, so a changed quality requirement's constrained use cases are outbound targets and a reverse-only walk never sees them. Polarity per field is the fix, at the cost of one normative column, and it is now proposed on its own as [RFC 0093](https://github.com/product-definition-as-code/spec/pull/93) for 0.2.0 because the same defect already affects the elaboration guidance in the current release.
+
+**Keeping the polarity column inside this RFC.** Rejected, extracted as [RFC 0093](https://github.com/product-definition-as-code/spec/pull/93). The column states a property of relationships the specification already defines, adds no diagnostic, schema or fixture, and fixes a live defect in [Elaboration](../spec/product-changes.md#elaboration), which describes a reverse-only walk today. Holding it inside this RFC would delay that fix behind three diagnostics, a frontmatter ledger, a staged apply order and fifteen fixtures, and would leave an implementation with no published table to build the walk against.
 
 **Excluding candidates named in `operations`, as v2 proposed.** Rejected as a bypass: a byte-identical `modify` listing would silently remove a dependent from the worklist. Exclusion is by effective change only.
 
