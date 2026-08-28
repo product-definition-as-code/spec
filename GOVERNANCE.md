@@ -38,7 +38,11 @@ The suspension was recorded on 2026-08-24. Five RFCs were accepted under it: RFC
 
 The exception ends with v0.2.0. Its own text sunset it at the first stable specification version, and v0.2.0 is not stable, so this ends it earlier than promised. Ending an exception ahead of its sunset needs no new authority: it only gives back a latitude the founding maintainer had granted himself. The reason to give it back now is that the condition it rested on is gone. The extraction is finished, the specification is published as a request for comments, and the conformance tests are executable by anyone, so an elapsed-time window now has someone to buy review from.
 
-The windows in [CONTRIBUTING.md](CONTRIBUTING.md) therefore apply to every RFC opened from v0.2.0 onward, at 72 hours for a determination and 7 days for a change, with the obligations that ran through the suspension folded into the decision process above so they survive it.
+The obligations that ran through the suspension are folded into the decision process above so they survive it.
+
+Ending the exception left the minimum elapsed times keyed to a release number, which is the wrong trigger. At v0.2.0 there is no independent implementation and one adopter, so a 7-day wait on an RFC written and reviewed by one person buys no review at all. That is the condition this document already diagnosed for v0.1.0: a rule nobody can use is a rule that teaches its author to break rules. Restoring an unusable rule would have set up the same failure a second time and called it governance.
+
+So the windows in [CONTRIBUTING.md](CONTRIBUTING.md) are keyed to the constituency instead: the minimum elapsed times begin once gate 2 or gate 3 in [MATURITY.md](MATURITY.md) is met, an independent implementation or a listed adopter other than the reference implementation. This is not the suspension under another name. The suspension was a latitude the founding maintainer granted himself, sunset at a version, and it took a governance act to end. This is a published condition inside the rule: it is checkable by anyone, it begins on its own, and no maintainer can extend it. The BDFL bootstrap authority is not exercised here and is not needed.
 
 ## Versioning and stability
 
