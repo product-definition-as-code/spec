@@ -76,7 +76,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 
 ### RFC 0084 fixture matrix
 
-`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, resolving `uses-terms` edges from every Product Artifact source kind, and Product Change addition through `CHG-INITIAL`.
+`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, resolving `uses-terms` edges from every permitted semantic source kind, and Product Change addition through `CHG-INITIAL`.
 
 The following cases complete the executable RFC 0084 matrix:
 
@@ -118,7 +118,7 @@ The two Structured Behaviour semantic-keyword cases also assert `field: /given/0
 
 ### RFC 0072 semantic term usage
 
-`artifact-kinds-valid` authors a resolving `uses-terms` edge from every Product Artifact source kind. `semantic-uses-terms-unknown` asserts `PRODUCT006` for the new Constraint field.
+`artifact-kinds-valid` authors a resolving `uses-terms` edge from every permitted semantic source kind. `semantic-uses-terms-unknown` asserts `PRODUCT006` for the new Constraint field.
 
 No new-field fixture isolates `PRODUCT007`. The new schemas admit only allowed target prefixes, so a resolving artifact with an admitted prefix but a disallowed type also violates that artifact's ID/type alignment. A conforming implementation emits both `PRODUCT004` against the target artifact and `PRODUCT007` against the source relationship entry, but the two subjects prevent one fixture from isolating one normative clause under the case convention.
 
@@ -171,7 +171,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT103` | requirement unreachable from any actor | not yet covered |
 | `PRODUCT104` | deprecated artifact still referenced | not yet covered |
 | `PRODUCT105` | business rule with no consumers | `structured-behaviour-illustrates-no-consumer`, `structured-behaviour-retired-governed-by-no-consumer` |
-| `PRODUCT106` | domain term with no incoming `uses-terms` relationship | `artifact-kinds-valid` demonstrates every Product Artifact source kind; `structured-behaviour-retired-uses-terms-no-usage` |
+| `PRODUCT106` | domain term with no incoming `uses-terms` relationship | `artifact-kinds-valid` demonstrates every permitted semantic source kind; `structured-behaviour-retired-uses-terms-no-usage` |
 | `PRODUCT107` | bounded context with no owned language | not yet covered |
 | `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
 | `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |

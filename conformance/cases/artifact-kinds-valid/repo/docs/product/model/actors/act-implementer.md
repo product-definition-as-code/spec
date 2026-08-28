@@ -4,8 +4,6 @@ type: actor
 title: Implementer
 status: active
 actor-kind: human
-uses-terms:
-  - TERM-ACTOR
 ---
 
 ## Purpose
