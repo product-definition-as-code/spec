@@ -18,6 +18,8 @@ Thanks for caring about the left side of the SDLC.
    - **Determination**, filling a gap the specification left open, where no conforming repository or implementation changes behaviour: at least 72 hours.
    - **Change**, altering existing normative text or adding or removing an obligation: at least 7 days before v1.0, at least 14 days from v1.0.
    The longer window returns automatically at v1.0, or earlier once a second independent implementation exists, because that is the point at which a week of review costs someone else something.
+
+   The minimum elapsed times apply once there is someone to spend them on: an independent implementation or clean-room validator exists, or a listed adopter other than the reference implementation exists (gates 2 and 3 in [MATURITY.md](MATURITY.md)). Until then an RFC MUST still be public and MUST still satisfy the decision process in [GOVERNANCE.md](GOVERNANCE.md), including the recorded decision with its rationale and the resolution of substantive feedback, but elapsed time by itself is not a merge condition. A window with no external reviewer behind it does not buy review, it only teaches its author to skip it. The condition is published and checkable, so the windows begin without a governance change and no maintainer can extend the wait.
 4. Maintainers decide per [GOVERNANCE.md](GOVERNANCE.md). Accepted RFCs merge into `rfcs/` and the spec change lands in a follow-up PR referencing the RFC.
 
 ## Ground rules
