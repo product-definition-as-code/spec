@@ -10,4 +10,4 @@ The document is otherwise valid but places implementation-specific `tooling` at 
 
 ## Expected
 
-One error against `.product/config.yaml`, `field: tooling`, and exit `2`.
+One error against `.product/config.yaml`, `field: /tooling`, and exit `2`. The document parsed, so `field` is the JSON Pointer defined in [Validation → Schema-instance path notation](../../../spec/validation.md#schema-instance-path-notation): an additional property is identified as though it were present.

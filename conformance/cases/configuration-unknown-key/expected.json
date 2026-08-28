@@ -5,7 +5,7 @@
       "severity": "error",
       "code": "PRODUCT050",
       "file": ".product/config.yaml",
-      "field": "tooling"
+      "field": "/tooling"
     }
   ]
 }
