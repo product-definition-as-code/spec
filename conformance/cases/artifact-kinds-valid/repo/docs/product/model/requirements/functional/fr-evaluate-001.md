@@ -10,6 +10,8 @@ verification:
   - id: S1
     scenario: Every case in the fixtures receives exactly one verdict, and a case that could not be run is reported as unrun rather than passed.
   - scenario-ref: SB-REPORT-SPEC-REVISION
+uses-terms:
+  - TERM-REQUIREMENT
 ---
 
 ## Requirement

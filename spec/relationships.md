@@ -20,12 +20,17 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 | Use Case               | `governed-by`              | Business Rule                                               |
 | Use Case               | `uses-terms`               | Domain Term                                                 |
 | Business Rule          | `applies-to`               | Journey, Use Case, Bounded Context                          |
+| Business Rule          | `uses-terms`               | Domain Term                                                 |
 | Domain Term            | `defined-in`               | Bounded Context                                             |
+| Domain Term            | `uses-terms`               | Domain Term                                                 |
 | Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
 | Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     |
+| Functional Requirement | `uses-terms`               | Domain Term                                                 |
 | Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
 | Quality Requirement    | `verification[].scenario-ref` | Structured Behaviour                                     |
+| Quality Requirement    | `uses-terms`               | Domain Term                                                 |
 | Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
+| Constraint             | `uses-terms`               | Domain Term                                                 |
 | Structured Behaviour   | `illustrates`              | Use Case, Business Rule, Constraint                         |
 | Structured Behaviour   | `uses-terms`               | Domain Term                                                 |
 | Product Change         | `operations.add`           | any product artifact (new ID)                               |
@@ -62,4 +67,6 @@ Structured Behaviour edges participate under the same rule. A Requirement verifi
 
 For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has at least one valid outgoing `Business Rule.applies-to` relationship, incoming `Use Case.governed-by` relationship or incoming `Functional Requirement.derived-from` relationship, and the artifact authoring that relationship is non-retired. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
 
-For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Use Case or Structured Behaviour. A valid `Structured Behaviour.uses-terms` relationship from a non-retired source therefore suppresses `PRODUCT106` for its target.
+`uses-terms` is authored from an artifact whose interpretation requires a Domain Term to that Domain Term. Reverse views are derived and MUST NOT be authored. A Domain Term MAY author `uses-terms` for a definitional dependency; cycles are not prohibited by this relationship alone.
+
+For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour. A prose occurrence, a generated reverse relationship or another relationship path does not count.

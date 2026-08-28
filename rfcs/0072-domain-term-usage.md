@@ -1,8 +1,9 @@
 # RFC 0072: Domain-term usage from semantic artifacts
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-24
+- **Issue:** <https://github.com/product-definition-as-code/spec/pull/72>
 - **Proposed target:** PDaC specification 0.2.0; additive `v1alpha1` schema evolution
 
 ## Problem

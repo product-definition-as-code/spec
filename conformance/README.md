@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 43 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 44 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -76,7 +76,7 @@ The seed test cases target Product Change semantics, the citation contract, and 
 
 ### RFC 0084 fixture matrix
 
-`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, Use Case and Structured Behaviour term usage on one term each, and Product Change addition through `CHG-INITIAL`.
+`artifact-kinds-valid` covers acceptance of the tenth artifact kind, a Functional Requirement reference and mixed verification entry, all three allowed `illustrates` target prefixes, resolving `uses-terms` edges from every permitted semantic source kind, and Product Change addition through `CHG-INITIAL`.
 
 The following cases complete the executable RFC 0084 matrix:
 
@@ -116,6 +116,10 @@ The retired Business Rule and Domain Term target cases assert `PRODUCT008` alone
 
 The two Structured Behaviour semantic-keyword cases also assert `field: /given/0`, so a runner must report the array-member JSON Pointer rather than only the diagnostic code.
 
+### RFC 0072 semantic term usage
+
+`artifact-kinds-valid` authors a resolving `uses-terms` edge from every permitted semantic source kind. `semantic-uses-terms-unknown` asserts `PRODUCT006` for the new Constraint field.
+
 No new-field fixture isolates `PRODUCT007`. The new schemas admit only allowed target prefixes, so a resolving artifact with an admitted prefix but a disallowed type also violates that artifact's ID/type alignment. A conforming implementation emits both `PRODUCT004` against the target artifact and `PRODUCT007` against the source relationship entry, but the two subjects prevent one fixture from isolating one normative clause under the case convention.
 
 Duplicate-ID granularity is fixed in [Validation → Emission granularity and attribution](../spec/validation.md#emission-granularity-and-attribution): deterministic file/document order establishes the first occurrence, and each later occurrence receives one diagnostic. `change-add-existing` and `overlay-duplicate-id` are therefore implementable rather than blocked; their fixtures remain planned.
@@ -137,7 +141,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT003` | unknown artifact `type` | not yet covered |
 | `PRODUCT004` | ID prefix does not match the artifact type | not yet covered |
 | `PRODUCT005` | duplicate ID | not yet covered - duplicate-ID granularity (see above) |
-| `PRODUCT006` | reference to an unknown ID | `structured-behaviour-scenario-ref-unknown`, `structured-behaviour-illustrates-unknown`, `structured-behaviour-uses-terms-unknown` |
+| `PRODUCT006` | reference to an unknown ID | `structured-behaviour-scenario-ref-unknown`, `structured-behaviour-illustrates-unknown`, `structured-behaviour-uses-terms-unknown`, `semantic-uses-terms-unknown` |
 | `PRODUCT007` | relationship targets a disallowed artifact type | not yet covered |
 | `PRODUCT008` | active artifact references a retired artifact | `structured-behaviour-scenario-ref-retired`, `structured-behaviour-illustrates-retired`, `structured-behaviour-uses-terms-retired` |
 | `PRODUCT009` | required body section missing or out of order | `structured-behaviour-body-section-missing`, `structured-behaviour-body-section-order` |
@@ -167,7 +171,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT103` | requirement unreachable from any actor | not yet covered |
 | `PRODUCT104` | deprecated artifact still referenced | not yet covered |
 | `PRODUCT105` | business rule with no consumers | `structured-behaviour-illustrates-no-consumer`, `structured-behaviour-retired-governed-by-no-consumer` |
-| `PRODUCT106` | domain term with no usage | `artifact-kinds-valid` demonstrates both Use Case and Structured Behaviour usage, one term each; `structured-behaviour-retired-uses-terms-no-usage` |
+| `PRODUCT106` | domain term with no incoming `uses-terms` relationship | `artifact-kinds-valid` demonstrates every permitted semantic source kind; `structured-behaviour-retired-uses-terms-no-usage` |
 | `PRODUCT107` | bounded context with no owned language | not yet covered |
 | `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
 | `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |
