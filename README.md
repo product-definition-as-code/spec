@@ -90,13 +90,13 @@ This is not independent validation of the specification: the two codebases share
 
 The specification text was extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. The chapters no longer name the reference implementation or depend on its repository layout. v1.0 freezes after the public comment period.
 
-The comment period is open. Disagreements are the point: open an issue, or an RFC if you can name the normative text you would change. RFC comment windows apply again from this release, at 72 hours for a determination and 7 days for a change ([CONTRIBUTING.md](CONTRIBUTING.md)).
+The comment period is open. Disagreements are the point: open an issue, or an RFC if you can name the normative text you would change. RFC comment windows are deliberately not running yet, because an elapsed-time window with no external reviewer behind it delays the work without buying review; they begin on their own once an independent implementation or a second adopter exists ([CONTRIBUTING.md](CONTRIBUTING.md)).
 
 | Milestone | State |
 | --- | --- |
 | Chapters extracted | Done at v0.2.0 |
 | Conformance tests (complete, normative set) | In progress; the 44 published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
-| Public comment period (v0.2) | Open, from 2026-08-28 |
+| Public comment period (v0.2) | Open from 2026-08-28, until an independent implementation and a second adopter exist |
 | v1.0 freeze | Planned; gated on [MATURITY.md](MATURITY.md) |
 
 ## Contents
