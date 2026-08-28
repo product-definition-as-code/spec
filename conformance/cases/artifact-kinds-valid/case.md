@@ -15,7 +15,7 @@ Every other published case selects the kinds it needs to make its point. This ca
 
 ## Fixture
 
-`repo/` carries one artifact of each of the ten kinds, plus a second Domain Term, established by an archived `CHG-INITIAL`:
+`repo/` carries one artifact of each of the ten kinds, plus additional Domain Terms used to exercise term dependencies, established by an archived `CHG-INITIAL`:
 
 | Kind | Artifact |
 | --- | --- |
@@ -24,7 +24,7 @@ Every other published case selects the kinds it needs to make its point. This ca
 | Use Case | `UC-EVALUATE-001` |
 | Business Rule | `BR-EXPECTATIONS-ARE-FIXED` |
 | Bounded Context | `BC-CONFORMANCE` |
-| Domain Term | `TERM-FIXTURE`, `TERM-VERDICT` |
+| Domain Term | `TERM-FIXTURE`, `TERM-VERDICT`, `TERM-RULE`, `TERM-BASE`, `TERM-REQUIREMENT`, `TERM-QUALITY`, `TERM-CONSTRAINT` |
 | Functional Requirement | `FR-EVALUATE-001` |
 | Quality Requirement | `QR-DETERMINISM-001` |
 | Constraint | `CON-PLAIN-FILES-001` |
@@ -32,7 +32,7 @@ Every other published case selects the kinds it needs to make its point. This ca
 
 The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context` and `governed-by`, so the bounded context owns language (`PRODUCT107`) and the rule has a consumer (`PRODUCT105`). The Structured Behaviour illustrates the Use Case, Business Rule and Constraint, and is referenced alongside an inline scenario by the Functional Requirement. Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`).
 
-Domain Term is the one kind this fixture holds twice, because `PRODUCT106` accepts term usage from either a Use Case or a Structured Behaviour and a single term cannot demonstrate both paths. `TERM-FIXTURE` is used only by `UC-EVALUATE-001`, and `TERM-VERDICT` only by `SB-REPORT-SPEC-REVISION`. Each edge is therefore the sole reason its own term is not warned about, so dropping either one turns this case's zero-diagnostic expectation into a `PRODUCT106`. Collapsing both onto one term would let either edge satisfy the warning by itself and leave the other path unexercised, which is why neither artifact declares the other's term.
+The fixture includes the seven permitted semantic `uses-terms` source kinds. The Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint and Structured Behaviour each author a resolving edge to a term that no other source uses; every referenced term therefore has a valid incoming use and no `PRODUCT106` warning applies.
 
 No citations and no consumer documents: there is nothing here to pin, so this case never needs a digest repinned when its artifacts are edited.
 

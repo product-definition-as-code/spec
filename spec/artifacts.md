@@ -78,7 +78,7 @@ The body describes observable behaviour, not implementation design.
 
 A Business Rule expresses durable product knowledge that governs behaviour. A rule that applies to multiple use cases or requirements MUST be independently identifiable and reusable rather than hidden inside stories, acceptance criteria, UI validation, code, database constraints, tests or SDD tasks.
 
-Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs).
+Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Rule`, `## Rationale`, `## Examples`, `## Exceptions`.
 
@@ -90,7 +90,7 @@ The `## Examples` section MAY contain local illustrations that do not require in
 
 A Domain Term establishes shared meaning.
 
-Additional frontmatter: `defined-in` (required, Bounded Context ID); `synonyms` (optional, list of strings).
+Additional frontmatter: `defined-in` (required, Bounded Context ID); `synonyms` (optional, list of strings); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Definition`, `## Distinguish From`, `## Usage`.
 
@@ -108,7 +108,7 @@ Required body sections: `## Responsibility`, `## Language`, `## Boundaries`, `##
 
 A Functional Requirement is a derived product obligation stating what the product must do.
 
-Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `verification` (required, non-empty list whose entries are either an inline `scenario` with an optional stable `id` for citation anchoring, or exactly one `scenario-ref` naming a Structured Behaviour; see [Frontmatter reference](frontmatter-reference.md)).
+Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `verification` (required, non-empty list whose entries are either an inline `scenario` with an optional stable `id` for citation anchoring, or exactly one `scenario-ref` naming a Structured Behaviour; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Requirement`, `## Rationale`.
 
@@ -122,7 +122,7 @@ The body SHOULD NOT restate verification criteria. A body section that reproduce
 
 A Quality Requirement states a measurable quality obligation.
 
-Additional frontmatter: `quality-attribute` (required, string such as `portability`, `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context IDs); `verification` (required, non-empty list using the same inline-or-reference union as a Functional Requirement; see [Frontmatter reference](frontmatter-reference.md)).
+Additional frontmatter: `quality-attribute` (required, string such as `portability`, `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context IDs); `verification` (required, non-empty list using the same inline-or-reference union as a Functional Requirement; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Requirement`, `## Measurement`.
 
@@ -132,7 +132,7 @@ The `## Measurement` section MUST state how conformance is measured: a vague qua
 
 A Constraint expresses an externally imposed or deliberately fixed boundary.
 
-Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs). When `applies-to` is absent, the constraint applies to the entire product.
+Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs); `uses-terms` (optional, list of Domain Term IDs). When `applies-to` is absent, the constraint applies to the entire product.
 
 Required body sections: `## Constraint`, `## Rationale`, `## Consequences`.
 

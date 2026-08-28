@@ -85,7 +85,7 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 | `PRODUCT103` | Requirement not reachable from any actor (see [Relationships → Reachability](relationships.md#reachability)); product-wide constraints are reachable by definition |
 | `PRODUCT104` | Deprecated artifact still referenced by an active artifact                                                                                                         |
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
-| `PRODUCT106` | Domain term with no usage                                                                                                                                          |
+| `PRODUCT106` | Domain term with no incoming `uses-terms` relationship                                                                                                           |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
 | `PRODUCT108` | Product Change in status `approved` with an unresolved question (a list item) under `## Open Questions`                                                            |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
