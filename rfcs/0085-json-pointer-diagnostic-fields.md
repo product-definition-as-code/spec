@@ -1,6 +1,6 @@
 # RFC 0085: JSON Pointer diagnostic fields
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-28
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/85>
@@ -49,4 +49,4 @@ Rejected. A new syntax would duplicate RFC 6901 while adding parser and escaping
 
 ## Decision record
 
-Pending human acceptance under [CONTRIBUTING.md](../CONTRIBUTING.md). This is a determination: it selects a representation for an already-required diagnostic attribute and does not alter repository validity, schema semantics or the diagnostic set.
+Accepted under [CONTRIBUTING.md](../CONTRIBUTING.md). This is a determination: it selects a representation for an already-required diagnostic attribute and does not alter repository validity, schema semantics or the diagnostic set.
