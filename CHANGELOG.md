@@ -4,6 +4,8 @@ All notable changes to the Product Definition as Code specification are document
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-28
+
 - RFC 0093 adds a normative `Polarity` column to the canonical relationship vocabulary, declaring which end of a relationship is put in question when the other end changes: `dependency` for a field citing what an artifact builds on, `governance` for an `applies-to` field that couples both ends, `none` for Product Change operation edges. A relationship field added to the vocabulary MUST declare its polarity. `Product Changes → Elaboration` now defines the artifacts an implementation surfaces for review as the ones put in question under that polarity, in place of the artifacts that reference the changed one: `applies-to` is authored on the governing artifact, so a changed Quality Requirement's constrained use cases are its outbound targets and a reverse walk never reached them. No diagnostic, schema field or conformance case is added, and the column governs a SHOULD, so no fixture exercises it.
 - RFC 0072 expands optional `uses-terms` authorship to Business Rules, Domain Terms, Functional Requirements, Quality Requirements and Constraints. The relationship remains canonical from a consuming artifact to a Domain Term; `PRODUCT106` now considers every permitted semantic source. Conformance grows to 44 cases.
 - RFC 0085 selects RFC 6901 JSON Pointer as the representation of schema-derived diagnostic instance paths. `PRODUCT002` and parsed-configuration `PRODUCT050` diagnostics identify a property, including a missing or additional one, by its escaped pointer. Conformance grows to 43 cases.

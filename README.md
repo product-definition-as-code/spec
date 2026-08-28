@@ -86,16 +86,18 @@ This is not independent validation of the specification: the two codebases share
 
 ## Status
 
-**v0.2 (request for comments), extraction in progress.** First published 2026-08-07: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).
+**v0.2.0 (request for comments), released 2026-08-28.** First published 2026-08-07: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).
 
-The specification text is being extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. During extraction, chapters may still contain references to repository layouts or behaviors of the reference implementation; each is being generalized or removed. v1.0 freezes after a public comment period.
+The specification text was extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. The chapters no longer name the reference implementation or depend on its repository layout. v1.0 freezes after the public comment period.
+
+The comment period is open. Disagreements are the point: open an issue, or an RFC if you can name the normative text you would change. RFC comment windows are deliberately not running yet, because an elapsed-time window with no external reviewer behind it delays the work without buying review; they begin on their own once an independent implementation or a second adopter exists ([CONTRIBUTING.md](CONTRIBUTING.md)).
 
 | Milestone | State |
 | --- | --- |
-| Chapters extracted | In progress |
-| Conformance tests (complete, normative set) | In progress; the published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
-| Public comment period (v0.2) | Planned |
-| v1.0 freeze | Planned |
+| Chapters extracted | Done at v0.2.0 |
+| Conformance tests (complete, normative set) | In progress; the 44 published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
+| Public comment period (v0.2) | Open from 2026-08-28, until the v1.0 freeze |
+| v1.0 freeze | Planned; gated on [MATURITY.md](MATURITY.md) |
 
 ## Contents
 

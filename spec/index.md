@@ -1,6 +1,6 @@
 # Product Definition as Code: Specification
 
-> **Status: v0.2 draft (request for comments).** Extracted from the reference implementation and under public review; see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
+> **Status: v0.2.0 (request for comments), released 2026-08-28.** Extracted from the reference implementation; the public comment period is open, see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
 
 This is the normative specification for Product Definition as Code; the chapters below define its terms, contracts and conformance criteria.
 

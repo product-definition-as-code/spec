@@ -65,7 +65,7 @@ Two assignments are worth stating rather than reading off the table.
 
 ### Elaboration
 
-The middle clause of the second paragraph of [Product Changes → Elaboration](../spec/product-changes.md#elaboration) is replaced. It currently reads "the artifacts that reference them". It becomes "the artifacts put in question by those artifacts under the impact polarity of [Relationships → Canonical vocabulary](relationships.md#canonical-vocabulary)".
+The middle clause of the second paragraph of [Product Changes → Elaboration](../spec/product-changes.md#elaboration) is replaced. It currently reads "the artifacts that reference them". It becomes "the artifacts put in question by those artifacts under the impact polarity of [Relationships → Canonical vocabulary](../spec/relationships.md#canonical-vocabulary)".
 
 The paragraph stays a SHOULD and the rest of it, including "This is assistance, not authority", is unchanged. What changes is that the SHOULD now has one answer rather than one per implementation.
 
@@ -101,4 +101,4 @@ Rejected, and it is the closest call in the table. The argument for `governance`
 
 ## Decision record
 
-Pending human acceptance under [CONTRIBUTING.md](../CONTRIBUTING.md). This RFC states a property of relationships the specification already defines, and corrects one clause of existing guidance. It adds no obligation on a repository, no schema, no diagnostic and no conformance case.
+Accepted under [CONTRIBUTING.md](../CONTRIBUTING.md). This RFC states a property of relationships the specification already defines, and corrects one clause of existing guidance. It adds no obligation on a repository, no schema, no diagnostic and no conformance case.
