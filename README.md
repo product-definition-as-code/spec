@@ -96,7 +96,7 @@ The comment period is open. Disagreements are the point: open an issue, or an RF
 | --- | --- |
 | Chapters extracted | Done at v0.2.0 |
 | Conformance tests (complete, normative set) | In progress; the 44 published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
-| Public comment period (v0.2) | Open from 2026-08-28, until an independent implementation and a second adopter exist |
+| Public comment period (v0.2) | Open from 2026-08-28, until the v1.0 freeze |
 | v1.0 freeze | Planned; gated on [MATURITY.md](MATURITY.md) |
 
 ## Contents
