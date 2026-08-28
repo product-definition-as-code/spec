@@ -5,7 +5,8 @@
       "severity": "error",
       "code": "PRODUCT002",
       "file": "docs/product/model/behaviours/sb-keyword.md",
-      "artifact": "SB-KEYWORD"
+      "artifact": "SB-KEYWORD",
+      "field": "/given/0"
     }
   ]
 }

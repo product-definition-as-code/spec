@@ -44,7 +44,7 @@ Configuration MUST NOT suppress a diagnostic defined by this specification. `war
 
 Malformed YAML, unsupported `version`, schema failure, forbidden YAML features, an invalid `product-root`, or an unknown key outside `extensions` produces exactly one `PRODUCT050` against `.product/config.yaml` and exits `2` before artifact discovery or command-specific work.
 
-When the document parsed, `field` is the first invalid instance path in Unicode code-point order. When it did not parse, `field` is absent. `artifact`, `change` and `target` are absent. A command MUST NOT continue with defaults after finding an invalid configuration file.
+When the document parsed, `field` is the first invalid instance path in Unicode code-point order, represented as the JSON Pointer defined in [Validation](validation.md#schema-instance-path-notation). When it did not parse, `field` is absent. `artifact`, `change` and `target` are absent. A command MUST NOT continue with defaults after finding an invalid configuration file.
 
 ## Extension boundary
 

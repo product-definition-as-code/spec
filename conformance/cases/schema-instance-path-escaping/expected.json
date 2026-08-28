@@ -1,0 +1,12 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT002",
+      "file": "docs/product/model/actors/act-instance-path.md",
+      "artifact": "ACT-INSTANCE-PATH",
+      "field": "/provenance/recovered~1by~0"
+    }
+  ]
+}

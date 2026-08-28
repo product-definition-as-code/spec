@@ -132,6 +132,14 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT104` | active relationship entry targeting a deprecated artifact | source `artifact`, `field`, `target` |
 | `PRODUCT108` | approved Product Change containing one or more unresolved-question list items | `change`, `field: Open Questions` |
 
+### Schema-instance path notation
+
+Where `field` is an instance path, it MUST be an [RFC 6901](https://www.rfc-editor.org/rfc/rfc6901) JSON Pointer. The pointer identifies the location in the parsed document that failed validation, not a source span or a schema location. Array indexes are ordinary pointer segments: the first `given` item is `/given/0`.
+
+For a missing required property or an additional property, `field` MUST identify the named property as though it were present. A missing top-level `status` is therefore `/status`; an additional `recovered/by~` property inside `provenance` is `/provenance/recovered~1by~0`. Pointer tokens MUST use RFC 6901 escaping: `~` becomes `~0` and `/` becomes `~1`.
+
+The empty string is the pointer to the document root. An implementation MUST emit that empty string when the failed schema instance is the root and no named property identifies the failure.
+
 For a `PRODUCT009` transposition, `field` MUST name the section that appears in the file before a required section that must precede it.
 
 For duplicate detection, “first” is the first occurrence after sorting files by repository-relative POSIX path and, when a file can contain several documents, by one-based document order. The first occurrence is not itself diagnosed; each later occurrence is. Overlay order uses baseline files before proposed files, with each group sorted the same way.
