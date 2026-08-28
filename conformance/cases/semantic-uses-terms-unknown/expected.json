@@ -1,0 +1,13 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT006",
+      "file": "docs/product/model/requirements/constraints/con-terms.md",
+      "artifact": "CON-TERMS",
+      "field": "uses-terms",
+      "target": "TERM-UNKNOWN"
+    }
+  ]
+}
