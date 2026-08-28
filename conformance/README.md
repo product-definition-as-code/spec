@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 42 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 43 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -108,6 +108,14 @@ The following cases complete the executable RFC 0084 matrix:
 
 The retired Business Rule and Domain Term target cases assert `PRODUCT008` alone because retired targets are outside the `PRODUCT105` and `PRODUCT106` warning populations. Each relationship-negative case asserts the source artifact, exact field and target, including the exact `verification[].scenario-ref` spelling.
 
+### RFC 0085 diagnostic-field notation
+
+| Case | Verifies | Status |
+| --- | --- | --- |
+| `schema-instance-path-escaping` | nested additional property has an escaped JSON Pointer `field`; `PRODUCT002` | runnable |
+
+The two Structured Behaviour semantic-keyword cases also assert `field: /given/0`, so a runner must report the array-member JSON Pointer rather than only the diagnostic code.
+
 No new-field fixture isolates `PRODUCT007`. The new schemas admit only allowed target prefixes, so a resolving artifact with an admitted prefix but a disallowed type also violates that artifact's ID/type alignment. A conforming implementation emits both `PRODUCT004` against the target artifact and `PRODUCT007` against the source relationship entry, but the two subjects prevent one fixture from isolating one normative clause under the case convention.
 
 Duplicate-ID granularity is fixed in [Validation → Emission granularity and attribution](../spec/validation.md#emission-granularity-and-attribution): deterministic file/document order establishes the first occurrence, and each later occurrence receives one diagnostic. `change-add-existing` and `overlay-duplicate-id` are therefore implementable rather than blocked; their fixtures remain planned.
@@ -125,7 +133,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | Code | Condition | Exercised by |
 | --- | --- | --- |
 | `PRODUCT001` | invalid frontmatter or unparseable document | not yet covered |
-| `PRODUCT002` | JSON Schema violation | `structured-behaviour-semantic-keyword`, `structured-behaviour-semantic-keyword-case` |
+| `PRODUCT002` | JSON Schema violation | `structured-behaviour-semantic-keyword`, `structured-behaviour-semantic-keyword-case`, `schema-instance-path-escaping` |
 | `PRODUCT003` | unknown artifact `type` | not yet covered |
 | `PRODUCT004` | ID prefix does not match the artifact type | not yet covered |
 | `PRODUCT005` | duplicate ID | not yet covered - duplicate-ID granularity (see above) |

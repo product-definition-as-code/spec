@@ -319,6 +319,16 @@ Rejected as a prerequisite. Structured Behaviour promotes semantics already mand
 
 Rejected. The independent citation-granularity problem exists now, and no identified 0.2 dependency prevents this backward-compatible expansion of the draft alpha serialization. Version 0.3 should respond to implementation and adoption evidence from 0.2 rather than postpone collecting it.
 
+## Amendment record: clause-keyword letter case
+
+**Status:** proposed for human acceptance
+**Source:** PR #88
+**Target:** PDaC specification 0.2.0
+
+The original RFC specified a case-sensitive ASCII prohibition for a leading `GIVEN`, `WHEN`, `THEN` or `AND` keyword. PR #88 corrects that rule before the first release containing Structured Behaviour: the prohibition is case-insensitive and still applies only to a complete leading word. Thus `Given a context exists` is invalid and `Givens are recorded` remains valid.
+
+The correction is intentionally limited to the Structured Behaviour clause rule. It adds no artifact kind, field, relationship, diagnostic code or lifecycle semantics. The schema, [Artifacts](../spec/artifacts.md) chapter and conformance cases carry the amended rule. This record does not alter the accepted historical text above; it records the proposed amendment that must be accepted before a v0.2 freeze can claim RFC 0084 is implemented exactly.
+
 ## Consequences
 
 PDaC 0.2 gains an explicit, citable unit of accepted observable behaviour. Requirements can keep lightweight inline criteria or refer to reusable behaviours, and delivery consumers can cite the exact behaviour on which they rely rather than pinning a whole Requirement.
