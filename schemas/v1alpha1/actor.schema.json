@@ -15,6 +15,10 @@
     "actor-kind": {
       "enum": ["human", "external-system", "scheduled-process", "product"]
     },
+    "uses-terms": {
+      "type": "array",
+      "items": { "$ref": "urn:product-definition-as-code:schema:common:v1alpha1#/$defs/domainTermId" }
+    },
     "provenance": {
       "$ref": "urn:product-definition-as-code:schema:common:v1alpha1#/$defs/provenance"
     }

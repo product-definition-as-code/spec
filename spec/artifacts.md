@@ -48,7 +48,7 @@ Rules:
 
 An Actor identifies who or what interacts with the product to achieve a meaningful outcome.
 
-Additional frontmatter: `actor-kind` (required), one of `human`, `external-system`, `scheduled-process`, `product`.
+Additional frontmatter: `actor-kind` (required), one of `human`, `external-system`, `scheduled-process`, `product`; `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Purpose`, `## Goals`, `## Responsibilities`, `## Boundaries`.
 
@@ -58,7 +58,7 @@ Actors are not personas. Actor artifacts MUST NOT model demographics or fictiona
 
 A Journey describes an end-to-end outcome pursued by an actor. It may cross use cases, channels, bounded contexts, external systems, manual activities, waiting periods, branches and failure paths.
 
-Additional frontmatter: `primary-actor` (required, Actor ID); `steps` (required, ordered list of `- use-case: <UC id>` entries defining the main journey).
+Additional frontmatter: `primary-actor` (required, Actor ID); `steps` (required, ordered list of `- use-case: <UC id>` entries defining the main journey); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Intended Outcome`, `## Entry Conditions`, `## Journey Narrative`, `## Variants and Branches`, `## Completion Conditions`.
 
@@ -100,7 +100,7 @@ A term's definition MUST NOT merely repeat its title.
 
 A Bounded Context is a product-language boundary: it delimits where a set of domain terms carries a specific meaning. Bounded contexts in v0.2 do not imply aggregates, implementation modules or source-code structure.
 
-Additional frontmatter: none beyond the common contract. In particular, `owns-terms` MUST NOT be authored: term ownership is derived from `Domain Term.defined-in` (see [Relationships](relationships.md)).
+Additional frontmatter: `uses-terms` (optional, list of Domain Term IDs). `owns-terms` MUST NOT be authored: term ownership is derived from `Domain Term.defined-in` (see [Relationships](relationships.md)).
 
 Required body sections: `## Responsibility`, `## Language`, `## Boundaries`, `## External Relationships`.
 

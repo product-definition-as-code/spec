@@ -9,7 +9,7 @@ This page is the single source of truth for what each public surface of Product 
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.2 draft, extracted from one implementation, not yet independently implemented |
 | ProductShape | Reference implementation and design origin |
-| Conformance | 44 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, semantic `uses-terms` sources and JSON Pointer diagnostic fields, run by [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance). This is executable suite capability, not ProductShape pass evidence: ProductShape has not implemented RFC 0084 (see [conformance/README.md](conformance/README.md)). |
+| Conformance | 44 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, every Product Artifact `uses-terms` source and JSON Pointer diagnostic fields, run by [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance). This is executable suite capability, not ProductShape pass evidence: ProductShape has not implemented RFC 0084 (see [conformance/README.md](conformance/README.md)). |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 

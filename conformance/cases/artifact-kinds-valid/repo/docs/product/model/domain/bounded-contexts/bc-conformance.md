@@ -3,6 +3,8 @@ id: BC-CONFORMANCE
 type: bounded-context
 title: Conformance
 status: active
+uses-terms:
+  - TERM-CONTEXT
 ---
 
 ## Responsibility

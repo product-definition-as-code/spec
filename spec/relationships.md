@@ -12,8 +12,10 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 
 | Source                 | Field                      | Allowed targets                                             |
 | ---------------------- | -------------------------- | ----------------------------------------------------------- |
+| Actor                  | `uses-terms`               | Domain Term                                                 |
 | Journey                | `primary-actor`            | Actor                                                       |
 | Journey                | `steps[].use-case`         | Use Case                                                    |
+| Journey                | `uses-terms`               | Domain Term                                                 |
 | Use Case               | `primary-actor`            | Actor                                                       |
 | Use Case               | `supporting-actors`        | Actor                                                       |
 | Use Case               | `bounded-context`          | Bounded Context                                             |
@@ -23,6 +25,7 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 | Business Rule          | `uses-terms`               | Domain Term                                                 |
 | Domain Term            | `defined-in`               | Bounded Context                                             |
 | Domain Term            | `uses-terms`               | Domain Term                                                 |
+| Bounded Context        | `uses-terms`               | Domain Term                                                 |
 | Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
 | Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     |
 | Functional Requirement | `uses-terms`               | Domain Term                                                 |
@@ -69,4 +72,4 @@ For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has 
 
 `uses-terms` is authored from an artifact whose interpretation requires a Domain Term to that Domain Term. Reverse views are derived and MUST NOT be authored. A Domain Term MAY author `uses-terms` for a definitional dependency; cycles are not prohibited by this relationship alone.
 
-For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour. A prose occurrence, a generated reverse relationship or another relationship path does not count.
+For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour. A prose occurrence, a generated reverse relationship or another relationship path does not count.

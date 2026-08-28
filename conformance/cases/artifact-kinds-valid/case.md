@@ -32,7 +32,7 @@ Every other published case selects the kinds it needs to make its point. This ca
 
 The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context` and `governed-by`, so the bounded context owns language (`PRODUCT107`) and the rule has a consumer (`PRODUCT105`). The Structured Behaviour illustrates the Use Case, Business Rule and Constraint, and is referenced alongside an inline scenario by the Functional Requirement. Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`).
 
-The fixture includes the seven permitted `uses-terms` source kinds. The Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint and Structured Behaviour each author a resolving edge; every referenced term therefore has a valid incoming use and no `PRODUCT106` warning applies.
+The fixture includes all ten permitted `uses-terms` source kinds. The Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement, Constraint and Structured Behaviour each author a resolving edge; every referenced term therefore has a valid incoming use and no `PRODUCT106` warning applies.
 
 No citations and no consumer documents: there is nothing here to pin, so this case never needs a digest repinned when its artifacts are edited.
 

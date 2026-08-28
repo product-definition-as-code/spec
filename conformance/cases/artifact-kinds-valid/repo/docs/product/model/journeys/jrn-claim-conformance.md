@@ -6,6 +6,8 @@ status: active
 primary-actor: ACT-IMPLEMENTER
 steps:
   - use-case: UC-EVALUATE-001
+uses-terms:
+  - TERM-JOURNEY
 ---
 
 ## Intended Outcome
