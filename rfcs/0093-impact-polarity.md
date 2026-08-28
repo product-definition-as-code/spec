@@ -1,6 +1,6 @@
 # RFC 0093: Impact polarity in the canonical relationship vocabulary
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-28
 - **Issue:** <https://github.com/product-definition-as-code/spec/pull/93>
