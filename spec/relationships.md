@@ -10,34 +10,44 @@ _Figure PDaC-6 - what happens when one part of the product changes? Non-normativ
 
 Every relationship has exactly one canonical direction: it is authored on one artifact type, in one frontmatter field, targeting an allowed set of types.
 
-| Source                 | Field                      | Allowed targets                                             |
-| ---------------------- | -------------------------- | ----------------------------------------------------------- |
-| Journey                | `primary-actor`            | Actor                                                       |
-| Journey                | `steps[].use-case`         | Use Case                                                    |
-| Use Case               | `primary-actor`            | Actor                                                       |
-| Use Case               | `supporting-actors`        | Actor                                                       |
-| Use Case               | `bounded-context`          | Bounded Context                                             |
-| Use Case               | `governed-by`              | Business Rule                                               |
-| Use Case               | `uses-terms`               | Domain Term                                                 |
-| Business Rule          | `applies-to`               | Journey, Use Case, Bounded Context                          |
-| Business Rule          | `uses-terms`               | Domain Term                                                 |
-| Domain Term            | `defined-in`               | Bounded Context                                             |
-| Domain Term            | `uses-terms`               | Domain Term                                                 |
-| Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         |
-| Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     |
-| Functional Requirement | `uses-terms`               | Domain Term                                                 |
-| Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          |
-| Quality Requirement    | `verification[].scenario-ref` | Structured Behaviour                                     |
-| Quality Requirement    | `uses-terms`               | Domain Term                                                 |
-| Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product |
-| Constraint             | `uses-terms`               | Domain Term                                                 |
-| Structured Behaviour   | `illustrates`              | Use Case, Business Rule, Constraint                         |
-| Structured Behaviour   | `uses-terms`               | Domain Term                                                 |
-| Product Change         | `operations.add`           | any product artifact (new ID)                               |
-| Product Change         | `operations.modify`        | any existing product artifact                               |
-| Product Change         | `operations.remove`        | any existing product artifact                               |
+| Source                 | Field                      | Allowed targets                                             | Polarity   |
+| ---------------------- | -------------------------- | ----------------------------------------------------------- | ---------- |
+| Journey                | `primary-actor`            | Actor                                                       | dependency |
+| Journey                | `steps[].use-case`         | Use Case                                                    | dependency |
+| Use Case               | `primary-actor`            | Actor                                                       | dependency |
+| Use Case               | `supporting-actors`        | Actor                                                       | dependency |
+| Use Case               | `bounded-context`          | Bounded Context                                             | dependency |
+| Use Case               | `governed-by`              | Business Rule                                               | dependency |
+| Use Case               | `uses-terms`               | Domain Term                                                 | dependency |
+| Business Rule          | `applies-to`               | Journey, Use Case, Bounded Context                          | governance |
+| Business Rule          | `uses-terms`               | Domain Term                                                 | dependency |
+| Domain Term            | `defined-in`               | Bounded Context                                             | dependency |
+| Domain Term            | `uses-terms`               | Domain Term                                                 | dependency |
+| Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         | dependency |
+| Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     | dependency |
+| Functional Requirement | `uses-terms`               | Domain Term                                                 | dependency |
+| Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          | governance |
+| Quality Requirement    | `verification[].scenario-ref` | Structured Behaviour                                     | dependency |
+| Quality Requirement    | `uses-terms`               | Domain Term                                                 | dependency |
+| Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product | governance |
+| Constraint             | `uses-terms`               | Domain Term                                                 | dependency |
+| Structured Behaviour   | `illustrates`              | Use Case, Business Rule, Constraint                         | dependency |
+| Structured Behaviour   | `uses-terms`               | Domain Term                                                 | dependency |
+| Product Change         | `operations.add`           | any product artifact (new ID)                               | none       |
+| Product Change         | `operations.modify`        | any existing product artifact                               | none       |
+| Product Change         | `operations.remove`        | any existing product artifact                               | none       |
 
 A relationship referencing an unknown ID, or targeting a type outside the allowed set, is a validation error.
+
+Canonical authoring direction is not impact direction. The `Polarity` column declares which end of a relationship is put in question when the other end changes.
+
+- **`dependency`.** The source cites what it builds on. A change to the target puts the source in question. A change to the source says nothing about the target.
+- **`governance`.** The edge couples both ends. The governed artifact must be reconsidered when the governing artifact changes, and the governing artifact's continued applicability must be reconsidered when the governed artifact changes.
+- **`none`.** The field carries no impact polarity. Product Change operation edges record a proposal, not a dependency between Product Artifacts.
+
+A relationship field added to this vocabulary MUST declare its polarity.
+
+Polarity is a property of the relationship. It places no obligation on an author and produces no diagnostic of its own. What an implementation does with it is stated in [Product Changes → Elaboration](product-changes.md#elaboration).
 
 Array-member relationship fields use the `[]` attribution convention. Diagnostics for a `scenario-ref` relationship MUST report `field` as `verification[].scenario-ref`, just as a Journey step relationship reports `steps[].use-case`. Schema diagnostics such as `PRODUCT002` continue to report their own instance paths.
 
