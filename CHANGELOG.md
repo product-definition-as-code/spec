@@ -4,6 +4,8 @@ All notable changes to the Product Definition as Code specification are document
 
 ## [Unreleased]
 
+- The `configuration-unknown-key` conformance case now asserts `field: /tooling`, the RFC 6901 JSON Pointer that RFC 0085 and `Configuration → Invalid configuration` require for a parsed document. The fixture had kept the pre-RFC dotted value, so a conforming implementation failed the case.
+
 ## [0.2.0] - 2026-08-28
 
 - RFC 0093 adds a normative `Polarity` column to the canonical relationship vocabulary, declaring which end of a relationship is put in question when the other end changes: `dependency` for a field citing what an artifact builds on, `governance` for an `applies-to` field that couples both ends, `none` for Product Change operation edges. A relationship field added to the vocabulary MUST declare its polarity. `Product Changes → Elaboration` now defines the artifacts an implementation surfaces for review as the ones put in question under that polarity, in place of the artifacts that reference the changed one: `applies-to` is authored on the governing artifact, so a changed Quality Requirement's constrained use cases are its outbound targets and a reverse walk never reached them. No diagnostic, schema field or conformance case is added, and the column governs a SHOULD, so no fixture exercises it.
