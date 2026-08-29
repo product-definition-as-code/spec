@@ -4,11 +4,11 @@
 
 **The normative specification of Product Definition as Code (PDaC).**
 
-<!-- canonical-pdac-definition:start — copy verbatim or link; see CONTRIBUTING.md, "Agreed wording" -->
+<!-- canonical-pdac-definition:start: copy verbatim or link; see CONTRIBUTING.md, "Agreed wording" -->
 
 Product Definition as Code keeps the agreed product definition in versioned Markdown that delivery work cites instead of restating.
 
-The definition lives as small, related Markdown files — actors, journeys, use cases, business rules, domain terms, requirements — compiled into a validated product graph that humans and AI agents read alike. It changes only through an explicit Product Change, reviewed and accepted by a human. Consumer documents (SDD specs, tasks, agent prompts) cite the exact product text they rely on by stable ID and content digest, and when cited text changes, tools flag every recorded citation for review: documentation drift is detected instead of silent. Deterministic tools check structure and references, never truth; people decide what is true and what should change.
+The definition lives in small, related Markdown files: actors, journeys, use cases, business rules, domain terms and requirements. Together they form a validated product graph that humans and AI agents can read alike. It changes only through an explicit Product Change, reviewed and accepted by a human. Consumer documents such as SDD specs, tasks and agent prompts cite the exact product text they rely on by stable ID and content digest. When cited text changes, tools flag every recorded citation for review, so documentation drift is detected instead of remaining silent. Deterministic tools check structure and references, never truth. People decide what is true and what should change.
 
 <!-- canonical-pdac-definition:end -->
 
@@ -21,9 +21,9 @@ warning PRODUCT061 openspec/checkout-flow.citations.yaml [BR-REFUND-001]: Citati
 1 citation(s): 0 current, 1 stale, 0 tampered, 0 unresolved
 ```
 
-That is the citation contract, the delivery boundary of PDaC — an open methodology for the upstream layer of the AI-SDLC. Those citations brief a Spec-Driven Development framework, an AI coding agent, or a human team. [See it in 30 seconds on pdac.dev](https://pdac.dev/).
+That is the citation contract and the delivery boundary of PDaC. It is an open methodology for the upstream layer of the AI-SDLC. Those citations brief a Spec-Driven Development framework, an AI coding agent or a human team. [See it in 30 seconds on pdac.dev](https://pdac.dev/).
 
-This repository holds the Product Definition as Code specification, the manifesto and the conformance tests — implementation-independent by design: contracts, not commands.
+This repository holds the Product Definition as Code specification, the manifesto and the conformance tests. It is implementation-independent by design: contracts, not commands.
 
 <p align="center"> <img src="assets/diagrams/pdac-0-one-minute-map.png" alt="Two zones. On the left, product thinking: what the product means, holding the accepted product definition, versioned, related and reviewable. On the right, software delivery: how the product is built, holding SDD specs, AI agents, developers, backlog and code. An arrow labelled 'cited by' runs from the definition to delivery, and a dashed amber arrow returns, labelled 'delivery evidence reveals new product questions or changes'." width="720" /> </p>
 
