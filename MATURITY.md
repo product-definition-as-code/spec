@@ -9,7 +9,7 @@ This page is the single source of truth for what each public surface of Product 
 | PDaC methodology | Experimental, open RFC |
 | PDaC specification | v0.2.0 released for comment 2026-08-28, extracted from one implementation, not yet independently implemented. Every chapter is at most `draft` until v1.0 |
 | ProductShape | Reference implementation and design origin |
-| Conformance | 44 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, semantic `uses-terms` sources and JSON Pointer diagnostic fields, run by [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance). This is executable suite capability, not ProductShape pass evidence: ProductShape has not implemented RFC 0084 (see [conformance/README.md](conformance/README.md)). |
+| Conformance | 44 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, semantic `uses-terms` sources and JSON Pointer diagnostic fields, run by [`pdac-conformance@1.0.1`](https://www.npmjs.com/package/pdac-conformance). The reference implementation passes the whole set: 44 of 44 cases and 12 of 12 pinned digests on 2026-08-29, run against the published `@prodshape/cli` 0.16.0 from npm; the dated record lives in [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md). |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 
