@@ -10,6 +10,7 @@ uses-terms:
 <!--
 Constraint: an externally imposed or deliberately fixed boundary. When
 applies-to is absent, the constraint applies to the entire product.
+Reference layout: docs/product/model/requirements/constraints/con-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Constraint). Fields: spec/frontmatter-reference.md.
 -->
 

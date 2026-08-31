@@ -13,6 +13,7 @@ Journey: an end-to-end outcome pursued by an actor. It may cross use cases,
 channels, bounded contexts, waiting periods, branches and failure paths.
 steps: the main ordered path only, one `- use-case:` entry per step; branches
 and exceptional paths belong in the body. No screen-by-screen UI behaviour.
+Reference layout: docs/product/model/journeys/jrn-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Journey). Fields: spec/frontmatter-reference.md.
 -->
 

@@ -14,6 +14,7 @@ Business Rule: durable product knowledge that governs behaviour. A rule used by
 several use cases or requirements is defined once, here, and referenced by ID,
 never restated inside stories, acceptance criteria, code or tests.
 The Rule section holds exactly one clear normative statement.
+Reference layout: docs/product/model/business-rules/br-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Business Rule). Fields: spec/frontmatter-reference.md.
 -->
 

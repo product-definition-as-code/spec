@@ -21,7 +21,7 @@ operations: every added or modified ID needs a complete proposed future-state
 artifact under this change's proposed/ directory.
 Open Questions is syntactic: a list item counts as unresolved whatever it says;
 resolve a question by removing its item. "None." in prose is resolved.
-This file lives at docs/product/changes/active/chg-example-001/change.md.
+Reference layout: docs/product/changes/active/chg-example-001/change.md.
 Contract: spec/product-changes.md. Fields: spec/frontmatter-reference.md.
 -->
 

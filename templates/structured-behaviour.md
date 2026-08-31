@@ -25,6 +25,7 @@ GIVEN, WHEN, THEN or AND keyword in any letter case; renderers add those words.
 All given entries are conjunctive, all then entries are conjunctive: express an
 alternative as a separate Structured Behaviour. Never name test classes, mocks
 or other implementation machinery.
+Reference layout: docs/product/model/behaviours/sb-example-001.md (the file is named by its lowercase ID). The directory is behaviours, not structured-behaviours.
 Contract: spec/artifacts.md (Structured Behaviour). Fields: spec/frontmatter-reference.md.
 -->
 
