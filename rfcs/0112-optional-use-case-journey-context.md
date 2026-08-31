@@ -1,8 +1,10 @@
-# RFC 0000: Use Case journey context is optional
+# RFC 0112: Use Case journey context is optional
 
 - **Status:** draft
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-08-31
+- **Issue:** <https://github.com/product-definition-as-code/spec/pull/112>
+- **Proposed target:** PDaC specification 0.3.0; no schema or serialization-version change
 
 ## Problem
 
