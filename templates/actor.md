@@ -10,6 +10,7 @@ actor-kind: human
 Actor: who or what interacts with the product to achieve a meaningful outcome.
 Actors are not personas: no demographics, no fictional detail.
 actor-kind: human | external-system | scheduled-process | product.
+Reference layout: docs/product/model/actors/act-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Actor). Fields: spec/frontmatter-reference.md.
 Copy this file, replace the id (immutable once accepted), fill the sections,
 and keep them in this order. More sections may follow the required ones.

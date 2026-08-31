@@ -15,6 +15,7 @@ uses-terms:
 Use Case: one concrete interaction through which an actor obtains a product
 outcome. The body describes observable behaviour, not implementation design.
 Optional frontmatter: supporting-actors, bounded-context, governed-by, uses-terms.
+Reference layout: docs/product/model/use-cases/uc-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Use Case). Fields: spec/frontmatter-reference.md.
 -->
 

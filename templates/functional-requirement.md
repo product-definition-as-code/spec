@@ -20,6 +20,7 @@ verification: each entry is either an inline scenario (optional stable id makes
 it citable by anchor) or exactly one scenario-ref naming a Structured Behaviour:
   - scenario-ref: SB-EXAMPLE-001
 The body should not restate the verification entries.
+Reference layout: docs/product/model/requirements/functional/fr-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Functional Requirement). Fields: spec/frontmatter-reference.md.
 -->
 

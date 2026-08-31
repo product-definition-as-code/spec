@@ -18,6 +18,7 @@ the quality (responsiveness, portability, determinism, ...). applies-to names
 the journeys, use cases or bounded contexts it binds. The Measurement section
 must state how conformance is measured; "should be fast" does not qualify.
 verification uses the same inline-or-reference union as a Functional Requirement.
+Reference layout: docs/product/model/requirements/quality/qr-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Quality Requirement). Fields: spec/frontmatter-reference.md.
 -->
 

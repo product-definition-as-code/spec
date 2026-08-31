@@ -10,6 +10,7 @@ Bounded Context: a product-language boundary, delimiting where a set of domain
 terms carries a specific meaning. It implies nothing about modules or code
 structure. Term ownership is derived from each Domain Term's defined-in; do not
 author owns-terms here.
+Reference layout: docs/product/model/domain/bounded-contexts/bc-example-001.md (the file is named by its lowercase ID).
 Contract: spec/artifacts.md (Bounded Context). Fields: spec/frontmatter-reference.md.
 -->
 

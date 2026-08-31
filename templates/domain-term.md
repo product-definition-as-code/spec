@@ -11,7 +11,8 @@ synonyms:
 <!--
 Domain Term: shared meaning, defined where it holds. The definition must say
 more than the title does. defined-in names the bounded context that owns the
-term. Contract: spec/artifacts.md (Domain Term). Fields: spec/frontmatter-reference.md.
+term. Reference layout: docs/product/model/domain/terms/term-example-001.md (the file is named by its lowercase ID).
+Contract: spec/artifacts.md (Domain Term). Fields: spec/frontmatter-reference.md.
 -->
 
 ## Definition
