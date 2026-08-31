@@ -11,11 +11,13 @@ name: Notify site
 on:
   push:
     branches: [main]
-    # Only what the site actually reads: the chapters, the manifesto and the diagrams. A change to
-    # the conformance tests, the RFCs or this workflow does not reach a page, so it does not spend a rebuild.
+    # Only what the site actually reads: the chapters, the manifesto, the signatory ledger and the
+    # diagrams. A change to the conformance tests, the RFCs or this workflow does not reach a page,
+    # so it does not spend a rebuild.
     paths:
       - 'spec/**'
       - 'MANIFESTO.md'
+      - 'SIGNATORIES.md'
       - 'assets/diagrams/**'
   workflow_dispatch:
 
