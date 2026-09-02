@@ -64,6 +64,8 @@ Required body sections: `## Intended Outcome`, `## Entry Conditions`, `## Journe
 
 Branches and exceptional paths belong in the body. There is no workflow DSL: `steps` defines the main ordered path only. Journeys MUST NOT describe screen-by-screen UI behaviour unless the UI sequence is materially part of the product behaviour.
 
+A Journey MAY reference a Use Case in `steps` when that Use Case occurs on the Journey's main ordered path. A Use Case MAY be referenced by zero, one or multiple Journeys. Absence of an incoming `steps[].use-case` relationship does not make a Use Case invalid.
+
 ## Use Case (`use-case`, `UC-`)
 
 A Use Case describes a concrete interaction through which an actor obtains a product outcome.
@@ -73,6 +75,8 @@ Additional frontmatter: `primary-actor` (required, Actor ID); `supporting-actors
 Required body sections: `## Goal`, `## Trigger`, `## Preconditions`, `## Main Flow`, `## Alternative Flows`, `## Failure Conditions`, `## Postconditions`.
 
 The body describes observable behaviour, not implementation design.
+
+Journey context is optional. A Use Case MAY be referenced by zero, one or multiple Journeys (see [Journey](#journey-journey-jrn-)). An implementation MUST NOT emit a conformance diagnostic solely because an active Use Case is not referenced by a Journey. It MAY surface the absence as non-conformance advice for human review, for example to ask whether the Use Case contributes to a wider actor outcome, occurs only on a branch, or is intentionally standalone.
 
 ## Business Rule (`business-rule`, `BR-`)
 
