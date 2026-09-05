@@ -4,7 +4,7 @@ Known implementations of the Product Definition as Code specification.
 
 | Implementation | Language | Spec version targeted | Conformance | Notes |
 | --- | --- | --- | --- | --- |
-| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | 0.2.0, v1alpha1 serialization | **Last verified pass:** 44 of 44 cases and 12 of 12 pinned digests.<br>**Record:** 2026-08-29, spec [`7feb4ec`](https://github.com/product-definition-as-code/spec/commit/7feb4ec), published `@prodshape/cli` 0.16.0 installed from npm (shasum `8e8a8ccce4d9ac6d240f64b5e3b5379fe9b4c6b9`), `pdac-conformance` 1.0.1 runner, claimed as specification 0.2.0 on serialization v1alpha1.<br>This is a dated record of one run, not a live status. It says nothing about releases of the spec or the implementation made after that date. | Reference implementation; the spec was extracted from it; implements the citation contract and Structured Behaviour |
+| [ProductShape](https://github.com/juangcarmona/productshape) | TypeScript | 0.2.0, v1alpha1 serialization | **Last verified pass:** 44 of 44 cases and 12 of 12 pinned digests.<br>**Record:** 2026-09-05, spec [`7feb4ec`](https://github.com/product-definition-as-code/spec/commit/7feb4ec), published `@prodshape/cli` 0.19.0 installed from npm (shasum `6f504607e6ed415c7a24cb8125b7ec230a64f4bc`), `pdac-conformance` 1.0.1 runner, claimed as specification 0.2.0 on serialization v1alpha1.<br>This is a dated record of one run, not a live status. It says nothing about releases of the spec or the implementation made after that date. | Reference implementation; the spec was extracted from it; implements the citation contract and Structured Behaviour, and hosts the product workflow in OpenSpec and Spec Kit |
 
 ## Conformance tooling
 
