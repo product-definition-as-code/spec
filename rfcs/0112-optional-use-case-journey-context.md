@@ -1,6 +1,6 @@
 # RFC 0112: Use Case journey context is optional
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-08-31
 - **Issue:** <https://github.com/product-definition-as-code/spec/pull/112>

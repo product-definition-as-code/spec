@@ -4,6 +4,7 @@ All notable changes to the Product Definition as Code specification are document
 
 ## [Unreleased]
 
+- RFC 0112 applied: Use Case journey context is optional. A Journey MAY reference a Use Case in `steps` when that Use Case is on its main ordered path, a Use Case MAY be referenced by zero, one or multiple Journeys, and absence of an incoming `steps[].use-case` relationship does not make a Use Case invalid. An implementation MUST NOT emit a conformance diagnostic solely because an active Use Case is not referenced by a Journey; it MAY surface the absence as non-conformance advice for human review. `PRODUCT102` is retired with no replacement and is never reissued with a new meaning. A repository that produced only `PRODUCT102` under `validation.warnings-as-errors` now passes; no artifact, schema, configuration or serialization change is required. Conformance grows to 45 cases: `use-case-without-journey` holds an active Use Case with a primary actor and a derived Functional Requirement, no Journey anywhere in the model, and expects zero diagnostics.
 - The `configuration-unknown-key` conformance case now asserts `field: /tooling`, the RFC 6901 JSON Pointer that RFC 0085 and `Configuration → Invalid configuration` require for a parsed document. The fixture had kept the pre-RFC dotted value, so a conforming implementation failed the case.
 
 ## [0.2.0] - 2026-08-28

@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 44 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 45 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -124,6 +124,14 @@ No new-field fixture isolates `PRODUCT007`. The new schemas admit only allowed t
 
 The prose-only case the RFC promised, a Domain Term named only in body prose and in no `uses-terms` list, still producing `PRODUCT106`, is not yet added. [#95](https://github.com/product-definition-as-code/spec/issues/95) tracks adding it.
 
+### RFC 0112 optional journey context
+
+| Case | Verifies | Status |
+| --- | --- | --- |
+| `use-case-without-journey` | an active Use Case that no Journey references produces no diagnostic; `PRODUCT102` retired | runnable |
+
+The case is a zero-diagnostic fixture, so it asserts an absence rather than a code. An implementation that keeps the old check fails it whatever code or severity it reports the Use Case under, which is the point: the retirement removes the obligation, and nothing replaces it. The specification still permits surfacing the absence as non-conformance advice for human review, and a runner comparing diagnostics cannot see such a surface, so the line between advice and diagnostic is verified by review.
+
 Duplicate-ID granularity is fixed in [Validation → Emission granularity and attribution](../spec/validation.md#emission-granularity-and-attribution): deterministic file/document order establishes the first occurrence, and each later occurrence receives one diagnostic. `change-add-existing` and `overlay-duplicate-id` are therefore implementable rather than blocked; their fixtures remain planned.
 
 What the tests cannot check they do not pretend to. Repository conformance clauses 1, 5 and 8 ([Conformance](../spec/conformance.md)) are about the repository rather than its files, a git repository, a canonical branch, a reviewed merge and the absence of an external source of truth, and a runner executes each fixture in a plain working copy. Those clauses are verified by review. The model-repository pointer has no fixture either: a pointer case needs two repository roots, the consumer and the model repository it points at, where a case is one `repo/`, and the specification deliberately fixes the pointer's record shape without fixing a serialization to check. Pointer cases arrive with that serialization.
@@ -134,7 +142,7 @@ The three configuration fixtures specify `exitCode` because invalid configuratio
 
 ## Diagnostic coverage
 
-Which fixture exercises which diagnostic code, code by code. "Exercises" means the case expects the diagnostic and fails an implementation that does not emit it; the zero-diagnostic cases (`artifact-kinds-valid`, `citation-current`, `configuration-custom-root`, `digest-bytes-not-text`, `greenfield-first-increment`, `dedicated-topology`, `structured-behaviour-quality-reference`, `structured-behaviour-change-add`, `structured-behaviour-change-modify`, `structured-behaviour-citation-current` and `structured-behaviour-citation-unaffected`) additionally fail an implementation that emits any of these codes where none is warranted, and `citation-tampered-and-stale` asserts the *absence* of `PRODUCT061` next to the `PRODUCT062` it expects. Codes marked not yet covered are honest gaps: a badge computed from these tests says nothing about them. The retired codes (`PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109`, `PRODUCT110`) and the reserved `PRODUCT070`-`PRODUCT079` band are never issued, so they have nothing to cover.
+Which fixture exercises which diagnostic code, code by code. "Exercises" means the case expects the diagnostic and fails an implementation that does not emit it; the zero-diagnostic cases (`artifact-kinds-valid`, `citation-current`, `configuration-custom-root`, `digest-bytes-not-text`, `greenfield-first-increment`, `dedicated-topology`, `structured-behaviour-quality-reference`, `structured-behaviour-change-add`, `structured-behaviour-change-modify`, `structured-behaviour-citation-current`, `structured-behaviour-citation-unaffected` and `use-case-without-journey`) additionally fail an implementation that emits any of these codes where none is warranted, and `citation-tampered-and-stale` asserts the *absence* of `PRODUCT061` next to the `PRODUCT062` it expects. Codes marked not yet covered are honest gaps: a badge computed from these tests says nothing about them. The retired codes (`PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT102`, `PRODUCT109`, `PRODUCT110`) and the reserved `PRODUCT070`-`PRODUCT079` band are never issued, so they have nothing to cover.
 
 | Code | Condition | Exercised by |
 | --- | --- | --- |
@@ -169,7 +177,7 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT066` | invalid exemption | not yet covered - needs an adapter fixture format |
 | `PRODUCT067` | malformed, orphaned or conflicting citation carrier | not yet covered |
 | `PRODUCT101` | file name not aligned with ID | not yet covered |
-| `PRODUCT102` | active use case in no journey | not yet covered |
+| `PRODUCT102` | retired by [RFC 0112](../rfcs/0112-optional-use-case-journey-context.md); never issued | nothing to cover; `use-case-without-journey` asserts its absence |
 | `PRODUCT103` | requirement unreachable from any actor | not yet covered |
 | `PRODUCT104` | deprecated artifact still referenced | not yet covered |
 | `PRODUCT105` | business rule with no consumers | `structured-behaviour-illustrates-no-consumer`, `structured-behaviour-retired-governed-by-no-consumer` |

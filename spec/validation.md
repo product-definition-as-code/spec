@@ -75,13 +75,14 @@ When more than one citation condition holds, [Citation Contract → Precedence](
 
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
+`PRODUCT102`, "active use case not present in any journey", is retired by [RFC 0112](../rfcs/0112-optional-use-case-journey-context.md) with no replacement. Journey context is optional, so the absence of an incoming `steps[].use-case` relationship is not a defect; see [Artifacts → Use Case](artifacts.md#use-case-use-case-uc-). Like the codes above, it is never reissued with a new meaning.
+
 ## Warning codes
 
 | Code         | Condition                                                                                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT101` | Artifact file name not aligned with its ID                                                                                                                         |
-| `PRODUCT102` | Active use case not present in any journey                                                                                                                         |
 | `PRODUCT103` | Requirement not reachable from any actor (see [Relationships → Reachability](relationships.md#reachability)); product-wide constraints are reachable by definition |
 | `PRODUCT104` | Deprecated artifact still referenced by an active artifact                                                                                                         |
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
@@ -128,7 +129,7 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT050` | invalid configuration file | configuration `field` when it can be parsed |
 | `PRODUCT051` | managed file whose bytes differ from its recorded ownership contract | none |
 | `PRODUCT052` | expected managed or generated file that is missing | none; `file` is the expected path |
-| `PRODUCT101`-`PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
+| `PRODUCT101`, `PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
 | `PRODUCT104` | active relationship entry targeting a deprecated artifact | source `artifact`, `field`, `target` |
 | `PRODUCT108` | approved Product Change containing one or more unresolved-question list items | `change`, `field: Open Questions` |
 
