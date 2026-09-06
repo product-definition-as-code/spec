@@ -1,9 +1,9 @@
-# RFC 0000: Apply surfaces the affected citation set before a change is accepted
+# RFC 0115: Apply surfaces the affected citation set before a change is accepted
 
 - **Status:** draft
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-08-19, revised 2026-09-06
-- **Issue:** <https://github.com/product-definition-as-code/spec/issues/48>
+- **Issue:** <https://github.com/product-definition-as-code/spec/issues/48>; PR <https://github.com/product-definition-as-code/spec/pull/115>
 - **Supersedes:** the draft in [PR #50](https://github.com/product-definition-as-code/spec/pull/50), closed on 2026-08-26 and deferred to 0.3.0
 - **Class:** change (adds an implementation obligation); public comment window of at least seven days before v1.0, binding once gate 2 or the first listed adopter exists ([CONTRIBUTING → The RFC process](../CONTRIBUTING.md#the-rfc-process))
 - **Proposed target:** PDaC specification 0.3.0; no schema or serialization-version change
