@@ -1,8 +1,9 @@
-# RFC 0000: Domain Behaviour and Verification Evidence
+# RFC 0116: Domain Behaviour and Verification Evidence
 
 - **Status:** draft
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-09-24
+- **PR:** [#116](https://github.com/product-definition-as-code/spec/pull/116)
 - **Class:** change (adds an artifact kind and implementation obligations, and removes an allowed relationship target)
 - **Proposed target:** PDaC specification 0.3.0; additive `v1alpha1` evolution except where noted
 
