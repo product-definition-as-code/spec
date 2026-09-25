@@ -6,6 +6,8 @@ status: active
 defined-in: BC-CONFORMANCE
 synonyms:
   - case repository
+uses-terms:
+  - TERM-BASE
 ---
 
 ## Definition

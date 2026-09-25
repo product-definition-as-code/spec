@@ -17,7 +17,7 @@ For well-formed UTF-8 the readings agree, because decoding and re-encoding is a 
 
 Amend [Validation → Digests](../spec/validation.md#digests) to fix the byte reading in so many words:
 
-> Content digests are SHA-256 over the artifact's raw bytes, with CRLF and CR byte sequences normalized to LF, rendered as `sha256:<lowercase hex>`. The input to the hash is bytes, never decoded text: an implementation MUST NOT decode content before hashing, MUST NOT strip a byte order mark, and MUST hash a byte sequence that is not well-formed UTF-8 exactly as it appears in the file. This normalization is mandatory: digests MUST be identical across operating systems and Git line-ending configurations. Citation digests use the same normalization (see the [Citation Contract](citation-contract.md)).
+> Content digests are SHA-256 over the artifact's raw bytes, with CRLF and CR byte sequences normalized to LF, rendered as `sha256:<lowercase hex>`. The input to the hash is bytes, never decoded text: an implementation MUST NOT decode content before hashing, MUST NOT strip a byte order mark, and MUST hash a byte sequence that is not well-formed UTF-8 exactly as it appears in the file. This normalization is mandatory: digests MUST be identical across operating systems and Git line-ending configurations. Citation digests use the same normalization (see the [Citation Contract](../spec/citation-contract.md)).
 
 Bytes is the right reading because it needs no decoder, cannot be perturbed by one, and keeps the digest a pure function of repository content.
 

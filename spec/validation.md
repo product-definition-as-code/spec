@@ -71,9 +71,11 @@ When a dangling reference in the overlay is caused by an ID named in the change'
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
-`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.1: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
+`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.2: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
 
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
+
+`PRODUCT102`, "active use case not present in any journey", is retired by [RFC 0112](../rfcs/0112-optional-use-case-journey-context.md) with no replacement. Journey context is optional, so the absence of an incoming `steps[].use-case` relationship is not a defect; see [Artifacts → Use Case](artifacts.md#use-case-use-case-uc-). Like the codes above, it is never reissued with a new meaning.
 
 ## Warning codes
 
@@ -81,11 +83,10 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT101` | Artifact file name not aligned with its ID                                                                                                                         |
-| `PRODUCT102` | Active use case not present in any journey                                                                                                                         |
 | `PRODUCT103` | Requirement not reachable from any actor (see [Relationships → Reachability](relationships.md#reachability)); product-wide constraints are reachable by definition |
 | `PRODUCT104` | Deprecated artifact still referenced by an active artifact                                                                                                         |
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
-| `PRODUCT106` | Domain term with no usage                                                                                                                                          |
+| `PRODUCT106` | Domain term with no incoming `uses-terms` relationship                                                                                                           |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
 | `PRODUCT108` | Product Change in status `approved` with an unresolved question (a list item) under `## Open Questions`                                                            |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
@@ -93,6 +94,12 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `validation.warnings-as-errors` is set.
 
 `PRODUCT111` marks recovered knowledge that needs human validation rather than a defect to repair; see [Frontmatter reference → Provenance](frontmatter-reference.md#provenance).
+
+Existing diagnostics apply to Structured Behaviour and its relationships without allocating new codes. In particular, `PRODUCT005` and `PRODUCT023` cover duplicate `SB-` IDs; `PRODUCT006` covers unresolved `illustrates`, `uses-terms` and `scenario-ref` targets; `PRODUCT008` covers an active artifact referencing a retired target; `PRODUCT009` covers a missing or out-of-order required Structured Behaviour body section; `PRODUCT024` covers a removal that leaves one of the new relationships dangling; and `PRODUCT063` covers an anchor that does not resolve within a Structured Behaviour.
+
+`PRODUCT007` covers a source relationship entry whose resolved target has a known but disallowed artifact type. When prefix typing also makes that target artifact violate ID/type alignment, an implementation MUST emit both `PRODUCT004` against the target artifact and `PRODUCT007` against the source relationship entry.
+
+Retired Business Rules and Domain Terms MUST be excluded from the `PRODUCT105` and `PRODUCT106` warning populations. An active Structured Behaviour that references one still produces `PRODUCT008`, but the retired target does not receive either warning. The exact relationships that count as consumption and usage are defined in [Relationships](relationships.md#knowledge-warning-relationship-sets).
 
 ## Emission granularity and attribution
 
@@ -122,9 +129,19 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT050` | invalid configuration file | configuration `field` when it can be parsed |
 | `PRODUCT051` | managed file whose bytes differ from its recorded ownership contract | none |
 | `PRODUCT052` | expected managed or generated file that is missing | none; `file` is the expected path |
-| `PRODUCT101`-`PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
+| `PRODUCT101`, `PRODUCT103`, `PRODUCT105`-`PRODUCT107`, `PRODUCT111` | artifact satisfying the warning condition | `artifact` |
 | `PRODUCT104` | active relationship entry targeting a deprecated artifact | source `artifact`, `field`, `target` |
 | `PRODUCT108` | approved Product Change containing one or more unresolved-question list items | `change`, `field: Open Questions` |
+
+### Schema-instance path notation
+
+Where `field` is an instance path, it MUST be an [RFC 6901](https://www.rfc-editor.org/rfc/rfc6901) JSON Pointer. The pointer identifies the location in the parsed document that failed validation, not a source span or a schema location. Array indexes are ordinary pointer segments: the first `given` item is `/given/0`.
+
+For a missing required property or an additional property, `field` MUST identify the named property as though it were present. A missing top-level `status` is therefore `/status`; an additional `recovered/by~` property inside `provenance` is `/provenance/recovered~1by~0`. Pointer tokens MUST use RFC 6901 escaping: `~` becomes `~0` and `/` becomes `~1`.
+
+The empty string is the pointer to the document root. An implementation MUST emit that empty string when the failed schema instance is the root and no named property identifies the failure.
+
+For a `PRODUCT009` transposition, `field` MUST name the section that appears in the file before a required section that must precede it.
 
 For duplicate detection, “first” is the first occurrence after sorting files by repository-relative POSIX path and, when a file can contain several documents, by one-based document order. The first occurrence is not itself diagnosed; each later occurrence is. Overlay order uses baseline files before proposed files, with each group sorted the same way.
 
@@ -144,6 +161,22 @@ For `PRODUCT025`, each change's overlap set is `operations.modify ∪ operations
 ## Digests
 
 Content digests are SHA-256 over the artifact's raw bytes, with CRLF and CR byte sequences normalized to LF, rendered as `sha256:<lowercase hex>`. The input to the hash is bytes, never decoded text: an implementation MUST NOT decode content before hashing, MUST NOT strip a byte order mark, and MUST hash a byte sequence that is not well-formed UTF-8 exactly as it appears in the file ([RFC 0038](../rfcs/0038-digest-bytes.md)). This normalization is mandatory: digests MUST be identical across operating systems and Git line-ending configurations. Citation digests use the same normalization (see the [Citation Contract](citation-contract.md)).
+
+### What a digest proves
+
+A digest proves byte-identity under the normalization above, and nothing more. It answers one question - is this the same content that was recorded? - and it answers it by recomputation from repository content alone, which is what makes citation statuses, baseline drift detection and the product diff reproducible on every machine ([Determinism requirements](#determinism-requirements), [manifesto](../MANIFESTO.md) principle 10).
+
+A digest is not authentication. It carries no identity, no key and no assertion about who produced the content. A digest recorded alongside the content it covers therefore cannot establish that either one is authentic: whoever can edit the content can recompute the digest in the same commit. Digest comparison detects **drift** - content that moved while a reference to it did not - and it is silent against someone who intended a change to pass unnoticed. This holds for every use of digests in this specification, the `tampered` citation status included: that status names an embedded projection observed to diverge from the canonical text at its recorded digest, not the presence of an attacker ([Citation Contract → Statuses](citation-contract.md#statuses)).
+
+Authority over the accepted Product Definition rests elsewhere by design. A change is approved by a human and accepted when a human merges the pull request carrying it ([Product Changes → Apply](product-changes.md#apply), [manifesto](../MANIFESTO.md) principle 5), and Git history records who changed which files and when. Where a repository needs that authority to be cryptographically verifiable, the mechanisms belong to the version control system and its host - signed commits and tags, protected branches, required reviews - and they apply to a PDaC repository exactly as to any other. This specification neither restates them nor defines a signing format of its own.
+
+### Open directions
+
+Not decisions, and not obligations on any implementation. They are recorded so that the boundary above reads as chosen rather than overlooked; each would need an RFC.
+
+- **A digest over a set of files.** This section defines the digest of one artifact. Anything that fingerprints a group of files - a change directory, a model snapshot, a set of managed files - needs its own construction, including an unambiguous encoding of the paths and digests it covers, so that two implementations agree and no path content can forge an entry boundary. The [DSSE](https://github.com/secure-systems-lab/dsse) pre-authentication encoding is the standard illustration of why such constructions fail in the encoding rather than in the hash.
+- **A signed attestation over an accepted change.** If a Product Definition is consumed across a trust boundary - a published definition, citations crossing a repository or an organization, an audit regime that requires non-repudiable evidence of who approved product intent - the object worth signing is the accepted change and the model state it produced, not the individual digests. An existing envelope such as DSSE carrying an [in-toto](https://in-toto.io) predicate would be the starting point, rather than a PDaC-specific format. Signature verification needs a key, a trust root and a revocation policy, none of which are repository content, so a conformance rule resting on them would not satisfy [Determinism requirements](#determinism-requirements) as written.
+- **The name of the `tampered` status.** Its condition is well defined and its precedence is deliberate ([Citation Contract → Precedence](citation-contract.md#precedence)). Only the word claims more than the mechanism delivers.
 
 ## Determinism requirements
 

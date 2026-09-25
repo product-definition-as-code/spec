@@ -1,0 +1,13 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT008",
+      "file": "docs/product/model/behaviours/sb-terms.md",
+      "artifact": "SB-TERMS",
+      "field": "uses-terms",
+      "target": "TERM-RETIRED"
+    }
+  ]
+}

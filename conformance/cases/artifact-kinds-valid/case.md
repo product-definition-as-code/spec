@@ -1,6 +1,6 @@
 # Case: artifact-kinds-valid
 
-**Verifies:** every artifact kind of the product model is accepted when it satisfies its contract, and a model containing all nine, wired into a complete graph, validates with no diagnostics at all.
+**Verifies:** every artifact kind of the product model is accepted when it satisfies its contract, and a model containing all ten, wired into a complete graph, validates with no diagnostics at all.
 
 **Spec references:**
 
@@ -11,11 +11,11 @@
 
 ## Why this case exists
 
-Every other case selects the kinds it needs to make its point, and between them they only ever used Actor, Journey, Use Case, Business Rule and Functional Requirement. Quality Requirement, Constraint, Domain Term and Bounded Context appeared nowhere. An implementation could reject all four and still pass all the conformance tests while claiming conformance.
+Every other published case selects the kinds it needs to make its point. This case keeps one minimal positive example of every kind together so an implementation cannot reject a less common kind while still passing the published suite.
 
 ## Fixture
 
-`repo/` carries one artifact of each of the nine kinds, established by an archived `CHG-INITIAL`:
+`repo/` carries one artifact of each of the ten kinds, plus additional Domain Terms used to exercise term dependencies, established by an archived `CHG-INITIAL`:
 
 | Kind | Artifact |
 | --- | --- |
@@ -24,12 +24,15 @@ Every other case selects the kinds it needs to make its point, and between them 
 | Use Case | `UC-EVALUATE-001` |
 | Business Rule | `BR-EXPECTATIONS-ARE-FIXED` |
 | Bounded Context | `BC-CONFORMANCE` |
-| Domain Term | `TERM-FIXTURE` |
+| Domain Term | `TERM-FIXTURE`, `TERM-VERDICT`, `TERM-RULE`, `TERM-BASE`, `TERM-REQUIREMENT`, `TERM-QUALITY`, `TERM-CONSTRAINT` |
 | Functional Requirement | `FR-EVALUATE-001` |
 | Quality Requirement | `QR-DETERMINISM-001` |
 | Constraint | `CON-PLAIN-FILES-001` |
+| Structured Behaviour | `SB-REPORT-SPEC-REVISION` |
 
-The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, so the use case is not orphaned (`PRODUCT102`). The use case declares `bounded-context`, `governed-by` and `uses-terms`, so the bounded context owns language (`PRODUCT107`), the rule has a consumer (`PRODUCT105`) and the term has usage (`PRODUCT106`). Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`). Those four warnings are what a fixture holding the four missing kinds and nothing else produces, and a case that expected them would be asserting its own incompleteness.
+The graph is complete on purpose, not decorative. The journey carries the use case in `steps`, which exercises the `steps[].use-case` relationship; that relationship is optional for the use case, and its absence is not a defect ([RFC 0112](../../../rfcs/0112-optional-use-case-journey-context.md) retired `PRODUCT102`). The use case declares `bounded-context` and `governed-by`, so the bounded context owns language (`PRODUCT107`) and the rule has a consumer (`PRODUCT105`). The Structured Behaviour illustrates the Use Case, Business Rule and Constraint, and is referenced alongside an inline scenario by the Functional Requirement. Every requirement, including the Quality Requirement and the Constraint, reaches the actor through the use case, so none is unreachable (`PRODUCT103`).
+
+The fixture includes the seven permitted semantic `uses-terms` source kinds. The Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint and Structured Behaviour each author a resolving edge to a term that no other source uses; every referenced term therefore has a valid incoming use and no `PRODUCT106` warning applies.
 
 No citations and no consumer documents: there is nothing here to pin, so this case never needs a digest repinned when its artifacts are edited.
 
@@ -41,4 +44,4 @@ The fixture deliberately uses descriptive nested directories such as `model/doma
 
 ## Note on the reference implementation
 
-This case currently fails ProductShape, with `PRODUCT009` against the Functional Requirement and the Quality Requirement, because ProductShape still requires the `## Acceptance Scenarios` and `## Verification` body sections that [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) removed from the required sets. The fixture is correct against the specification as it stands; the implementation has not caught up. Every other conformance test reports the same finding for the same reason.
+This fixture follows the current specification. A reference implementation that has not yet implemented [RFC 0022](../../../rfcs/0022-criteria-in-verification-list.md) and [RFC 0084](../../../rfcs/0084-explicit-behaviour-semantics.md) may fail it for obsolete Requirement body-section rules, the new artifact kind or the expanded verification union. Those are implementation gaps, not fixture exemptions.

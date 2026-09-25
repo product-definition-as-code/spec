@@ -23,10 +23,12 @@ jobs:
       # the tool deciding it must not change under the repository: green tests that go red without a
       # spec change would be indistinguishable from real drift. Bump this deliberately.
       #
-      # A failure here is a defect in this repository, unlike pdac-lint's own conformance job, where
+      # A failure here is a defect in this repository, unlike pdac-conformance's own conformance job, where
       # a failing case is a verdict about an implementation. So this one fails the build.
       - name: verify the digests the conformance tests pin
-        run: npx --yes pdac-lint@0.1.2 digests --spec .
+        run: >-
+          npx --yes pdac-conformance@1.0.0 digests --spec .
+          --spec-version 0.2.0 --serialization-version v1alpha1
       - name: keep the digest schema description aligned with the raw-byte contract
         run: >-
           node -e "const fs = require('node:fs');

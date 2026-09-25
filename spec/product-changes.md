@@ -43,9 +43,11 @@ Each terminal status has exactly one archive directory: applied changes are arch
 
 A Product Change is elaborated iteratively while it is `draft` or `proposed`: opened with a partial intent, then widened, narrowed, corrected and revised until it is worth proposing for approval. Several Product Changes MAY be active at once.
 
-Implementations SHOULD use the product graph to support elaboration: surfacing the artifacts a proposed operation would affect, the artifacts that reference them, and the open questions the change has not answered. This is assistance, not authority. A tool MUST NOT resolve an open question, invent a product decision or set `approved` on the author's behalf ([manifesto](../MANIFESTO.md) principles 6 and 7).
+Implementations SHOULD use the product graph to support elaboration: surfacing the artifacts a proposed operation would affect, the artifacts put in question by those artifacts under the impact polarity of [Relationships → Canonical vocabulary](relationships.md#canonical-vocabulary), and the open questions the change has not answered. This is assistance, not authority. A tool MUST NOT resolve an open question, invent a product decision or set `approved` on the author's behalf ([manifesto](../MANIFESTO.md) principles 6 and 7).
 
 ## Operations
+
+Operation IDs MAY name any Product Artifact, including a Structured Behaviour.
 
 - Every ID in `operations.add` MUST NOT exist in the baseline, and MUST have a complete proposed future-state artifact under `proposed/`.
 - Every ID in `operations.modify` MUST exist in the baseline, and MUST have a complete proposed future-state artifact under `proposed/` using the same ID.
@@ -134,4 +136,4 @@ They can legitimately disagree in scope. A declared `modify` may leave the artif
 
 The stale set is the machine-derivable answer to "what does this change oblige us to revisit": which specifications, tasks and prompts cited intent that no longer says what it said. PDaC surfaces that set. Whether it is answered by updating the citing document, planning rework, or contesting the change is a decision for the consuming process, not a conformance criterion.
 
-Citations resolve within one repository in v0.1. Where the model repository may live is settled by [Conformance → Topologies](conformance.md#topologies); resolving a citation across a repository boundary remains out of scope ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
+Citations resolve within one repository in v0.2. Where the model repository may live is settled by [Conformance → Topologies](conformance.md#topologies); resolving a citation across a repository boundary remains out of scope ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).

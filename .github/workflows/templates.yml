@@ -1,0 +1,24 @@
+name: Templates
+
+# The templates exemplify the schemas and the chapters' required sections. This
+# check reads those sources directly, so a template that drifts from the
+# normative text fails the pull request that introduced the drift, wherever the
+# drift happened: in the template, the schema or the chapter.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+jobs:
+  check:
+    name: templates match the schemas and the chapters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - run: node scripts/check-templates.mjs

@@ -5,6 +5,8 @@ title: A fixture is plain files and nothing else
 status: active
 applies-to:
   - UC-EVALUATE-001
+uses-terms:
+  - TERM-CONSTRAINT
 ---
 
 ## Constraint

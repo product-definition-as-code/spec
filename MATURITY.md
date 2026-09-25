@@ -7,21 +7,21 @@ This page is the single source of truth for what each public surface of Product 
 | Surface | Status |
 | --- | --- |
 | PDaC methodology | Experimental, open RFC |
-| PDaC specification | v0.1 draft, extracted from one implementation, not yet independently implemented |
+| PDaC specification | v0.2.0 released for comment 2026-08-28, extracted from one implementation, not yet independently implemented. Every chapter is at most `draft` until v1.0 |
 | ProductShape | Reference implementation and design origin |
-| Conformance | 16 of 28 seed cases runnable, covering initialisation, the citation contract, topology, artifact kinds and most of the Product Change band, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint); the rest are planned or blocked on an open spec question (see [conformance/README.md](conformance/README.md)) |
+| Conformance | 45 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, semantic `uses-terms` sources, JSON Pointer diagnostic fields and optional journey context, run by [`pdac-conformance@1.0.1`](https://www.npmjs.com/package/pdac-conformance). The last recorded pass of the reference implementation covers the 44 cases published then: 44 of 44 cases and 12 of 12 pinned digests on 2026-08-29, run against the published `@prodshape/cli` 0.16.0 from npm. `use-case-without-journey` was published after that run and has no recorded result yet. The dated record lives in [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md). |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 
 ## Version dimensions
 
-These are different dimensions, not one number. Every validation result should be interpretable against this matrix.
+These are different dimensions, not one number. Every conformance claim MUST identify both the method/spec version and the serialization version. That pair selects the accepted document set and semantic contract. A Git revision MAY identify the specification repository content that was observed, but MUST NOT substitute for either claimed version.
 
 | Dimension | Current | Governs |
 | --- | --- | --- |
-| Method / spec version | 0.1.0-rfc | Semantic rules |
-| Serialization version | v1alpha1 | File representation and schemas |
-| Conformance suite | the conformance tests in this repository, run by [`pdac-lint`](https://www.npmjs.com/package/pdac-lint) | Executable rule fixtures |
+| Method / spec version | 0.2.0 | Semantic rules |
+| Serialization version | v1alpha1 | File representation and authoritative schemas; paired with the method/spec version to select the accepted document set |
+| Conformance suite | the conformance tests in this repository, run by [`pdac-conformance`](https://www.npmjs.com/package/pdac-conformance) | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |
 | Integration binding | openspec adapter | Citation contract |
 

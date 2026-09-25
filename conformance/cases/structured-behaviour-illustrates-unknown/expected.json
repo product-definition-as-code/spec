@@ -1,0 +1,13 @@
+{
+  "exitCode": 1,
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT006",
+      "file": "docs/product/model/behaviours/sb-illustrates.md",
+      "artifact": "SB-ILLUSTRATES",
+      "field": "illustrates",
+      "target": "UC-UNKNOWN"
+    }
+  ]
+}

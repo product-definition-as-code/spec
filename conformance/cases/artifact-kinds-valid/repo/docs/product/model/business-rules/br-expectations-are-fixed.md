@@ -5,6 +5,8 @@ title: Expectations belong to the case, never to the implementation
 status: active
 applies-to:
   - UC-EVALUATE-001
+uses-terms:
+  - TERM-RULE
 ---
 
 ## Rule

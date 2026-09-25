@@ -11,6 +11,8 @@ verification:
     scenario: The same fixture evaluated twice in one environment produces the same verdict and the same diagnostics in the same order.
   - id: S2
     scenario: The same fixture evaluated on a Windows checkout and on a Linux checkout produces the same verdict.
+uses-terms:
+  - TERM-QUALITY
 ---
 
 ## Requirement

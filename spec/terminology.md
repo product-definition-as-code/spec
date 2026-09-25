@@ -2,7 +2,7 @@
 
 Definitions used normatively throughout this specification.
 
-**Product Artifact.** An independently addressable unit of product knowledge with a stable immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement or Constraint.
+**Product Artifact.** An independently addressable unit of product knowledge with a stable immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour.
 
 **Product Definition (Baseline).** The accepted, versioned and validated graph of product artifacts under `docs/product/model`. It describes the product as currently defined, including behaviour that is accepted. The Product Definition is the accepted product intent on the repository's canonical branch; acceptance and implementation are distinct facts. Also called the _baseline_ when a Product Change is validated against it.
 
@@ -22,7 +22,13 @@ Definitions used normatively throughout this specification.
 
 **Citation.** A machine-verifiable reference from a consumer document to canonical product text: the target artifact's `id`, the content `digest` of the cited canonical text, and an optional `anchor` addressing a verification scenario by its stable `id`. See the [Citation Contract](citation-contract.md).
 
-**Verification scenario.** An entry of a Functional or Quality Requirement's `verification` list: a product-level acceptance criterion for that requirement, expressed as something observably true of the product rather than of any implementation of it. A scenario is the unit a delivery process verifies against, and the unit a consumer cites when its scope covers part of a requirement rather than all of it ([Citation Contract → Anchors](citation-contract.md#anchors)). PDaC does not own the verification workflow: turning a scenario into an executable test, running it, and judging the evidence it produces belong to the delivery process ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
+**Verification entry.** An entry of a Functional or Quality Requirement's `verification` list. It is exactly one inline verification scenario or one `scenario-ref` to a Structured Behaviour. PDaC does not own the verification workflow: turning an inline scenario or referenced Structured Behaviour into an executable test, running it and judging the evidence it produces belong to the delivery process ([Citation Contract → Delivery boundary](citation-contract.md#delivery-boundary)).
+
+**Verification scenario.** The inline form of a verification entry, carrying `scenario` and an optional stable local `id`. It is a product-level acceptance criterion expressed as something observably true of the product rather than of any implementation. Its local `id` is an anchor within the containing Requirement, not an independent Product Artifact ID ([Citation Contract → Anchors](citation-contract.md#anchors)).
+
+**Scenario reference.** The reference form of a verification entry, carrying exactly one `scenario-ref` whose value is a Structured Behaviour ID. It authors the Requirement-to-Structured-Behaviour relationship and does not create an anchor within the Requirement.
+
+**Structured Behaviour.** A Product Artifact containing one concrete, implementation-independent example of accepted observable product behaviour, separated into optional context, one stimulus and one or more expected outcomes. It has independent identity, lifecycle, provenance, Product Change history and whole-artifact citation.
 
 **Product Graph.** The derived directed graph whose nodes are product artifacts and whose typed edges are the canonical relationships declared in artifact frontmatter, together with derived reverse indexes. The graph is always compiled from the canonical files and is never authored.
 
