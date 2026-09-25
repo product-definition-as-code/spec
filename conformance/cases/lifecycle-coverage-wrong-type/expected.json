@@ -1,0 +1,26 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT002",
+      "file": "docs/product/model/lc-b.md",
+      "field": "/id"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT004",
+      "file": "docs/product/model/lc-b.md",
+      "artifact": "LC-B",
+      "field": "id"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT007",
+      "file": "docs/product/model/sb-a.md",
+      "artifact": "SB-A",
+      "field": "covers-transition.lifecycle",
+      "target": "LC-B"
+    }
+  ],
+  "exitCode": 1
+}

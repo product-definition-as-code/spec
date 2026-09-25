@@ -1,0 +1,21 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT011",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "transitions[FINISH].from",
+      "target": "MISSING"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT011",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "transitions[FINISH].to",
+      "target": "ABSENT"
+    }
+  ],
+  "exitCode": 1
+}

@@ -28,7 +28,7 @@ jobs:
       - name: verify the digests the conformance tests pin
         run: >-
           npx --yes pdac-conformance@1.0.0 digests --spec .
-          --spec-version 0.2.0 --serialization-version v1alpha1
+          --spec-version 0.3.0 --serialization-version v1alpha2
       - name: keep the digest schema description aligned with the raw-byte contract
         run: >-
           node -e "const fs = require('node:fs');

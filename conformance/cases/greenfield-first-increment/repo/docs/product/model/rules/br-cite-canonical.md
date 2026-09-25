@@ -3,8 +3,6 @@ id: BR-CITE-CANONICAL
 type: business-rule
 title: Consumer documents cite canonical text
 status: active
-applies-to:
-  - UC-VALIDATE-001
 ---
 
 ## Rule

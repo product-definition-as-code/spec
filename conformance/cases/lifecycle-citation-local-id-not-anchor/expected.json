@@ -1,0 +1,12 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT063",
+      "file": "consumers/lifecycle.md",
+      "target": "LC-A",
+      "line": 1
+    }
+  ],
+  "exitCode": 1
+}

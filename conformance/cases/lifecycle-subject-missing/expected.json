@@ -1,0 +1,19 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT006",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "subject",
+      "target": "TERM-MISSING"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT106",
+      "file": "docs/product/model/term-a.md",
+      "artifact": "TERM-A"
+    }
+  ],
+  "exitCode": 1
+}

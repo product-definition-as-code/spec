@@ -1,0 +1,12 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT009",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "Transition Semantics"
+    }
+  ],
+  "exitCode": 1
+}

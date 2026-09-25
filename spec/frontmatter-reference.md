@@ -22,7 +22,7 @@ Four fields are common to every Markdown-authored kind: `id` (stable and immutab
 
 ## Provenance
 
-`provenance` is an optional object accepted by all ten artifact kinds. It records the **evidence** behind recovered knowledge: where a claim came from and how strongly the evidence supports it.
+`provenance` is an optional object accepted by all eleven artifact kinds. It records the **evidence** behind recovered knowledge: where a claim came from and how strongly the evidence supports it.
 
 Set it on recovered (brownfield) artifacts. Leave it unset on greenfield artifacts authored from intent: there is no evidence to cite, and an empty claim of provenance is worse than none.
 
@@ -49,7 +49,7 @@ provenance:
 
 ## Artifact frontmatter
 
-The ten artifact types of the current product model.
+The eleven artifact types of the current product model.
 
 ### Actor
 
@@ -119,7 +119,7 @@ The ten artifact types of the current product model.
 | `title`                     | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
 | `status`                    | yes      | enum            | `draft`, `active`, `deprecated`, `retired`               | Lifecycle of a product artifact.                                                                                                                                   |
 | `applies-to`                | no       | array of string |                                                          |                                                                                                                                                                    |
-| `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A journey, use case or bounded context.                                                                                                                            |
+| `applies-to[]`              | yes      | string          | `^(JRN\|BC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A Journey or Bounded Context; no implicit scope when absent or empty.                                                                                                                            |
 | `uses-terms`                | no       | array of string |                                                          |                                                                                                                                                                    |
 | `uses-terms[]`              | yes      | string          | `^TERM-[A-Z0-9]+(-[A-Z0-9]+)*$`                          |                                                                                                                                                                    |
 | `provenance`                | no       | object          |                                                          | Evidence behind recovered knowledge. Set on recovered (brownfield) artifacts only.                                                                                 |
@@ -174,8 +174,8 @@ Each `verification[]` entry is exactly one closed form: an inline form with requ
 | `type`                      | yes      | const           | `functional-requirement`                                 |                                                                                                                                                                    |
 | `title`                     | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
 | `status`                    | yes      | enum            | `draft`, `active`, `deprecated`, `retired`               | Lifecycle of a product artifact.                                                                                                                                   |
-| `derived-from`              | yes      | array of string |                                                          | Traceability to the use cases, business rules or constraints this requirement originates from. At least one entry.                                                 |
-| `derived-from[]`            | yes      | string          | `^(UC\|BR\|CON)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 |                                                                                                                                                                    |
+| `derived-from`              | yes      | array of string |                                                          | Traceability to the use cases, business rules, constraints or domain lifecycles this requirement originates from. At least one entry.                                                 |
+| `derived-from[]`            | yes      | string          | `^(UC\|BR\|CON\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 |                                                                                                                                                                    |
 | `verification`              | yes      | array of object |                                                          | At least one entry.                                                                                                                                                |
 | `verification[].scenario`   | no       | string          |                                                          | Required in the inline form. Must not be empty.                                                                                                                    |
 | `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the inline scenario is citable via anchor (see [Citation Contract](citation-contract.md)).            |
@@ -201,7 +201,7 @@ Each `verification[]` entry uses the same exact inline-or-reference union as a F
 | `status`                    | yes      | enum            | `draft`, `active`, `deprecated`, `retired`               | Lifecycle of a product artifact.                                                                                                                                   |
 | `quality-attribute`         | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
 | `applies-to`                | yes      | array of string |                                                          | At least one entry.                                                                                                                                                |
-| `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A journey, use case or bounded context.                                                                                                                            |
+| `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A Journey, Use Case, Bounded Context or Domain Lifecycle.                                                                                                                            |
 | `verification`              | yes      | array of object |                                                          | At least one entry.                                                                                                                                                |
 | `verification[].scenario`   | no       | string          |                                                          | Required in the inline form. Must not be empty.                                                                                                                    |
 | `verification[].id`         | no       | string          | `^[A-Z0-9]+(-[A-Z0-9]+)*$`                               | Optional stable id, unique within the artifact. When present, the inline scenario is citable via anchor (see [Citation Contract](citation-contract.md)).            |
@@ -224,7 +224,7 @@ Each `verification[]` entry uses the same exact inline-or-reference union as a F
 | `title`                     | yes      | string          |                                                          | Must not be empty.                                                                                                                                                 |
 | `status`                    | yes      | enum            | `draft`, `active`, `deprecated`, `retired`               | Lifecycle of a product artifact.                                                                                                                                   |
 | `applies-to`                | no       | array of string |                                                          |                                                                                                                                                                    |
-| `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A journey, use case or bounded context.                                                                                                                            |
+| `applies-to[]`              | yes      | string          | `^(JRN\|UC\|BC\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$`                 | A Journey, Use Case, Bounded Context or Domain Lifecycle.                                                                                                                            |
 | `uses-terms`                | no       | array of string |                                                          |                                                                                                                                                                    |
 | `uses-terms[]`              | yes      | string          | `^TERM-[A-Z0-9]+(-[A-Z0-9]+)*$`                          |                                                                                                                                                                    |
 | `provenance`                | no       | object          |                                                          | Evidence behind recovered knowledge. Set on recovered (brownfield) artifacts only.                                                                                 |
@@ -257,10 +257,44 @@ The schema rejects a `given[]`, `when` or `then[]` string beginning with the cas
 | `provenance.source`         | yes      | string          |                                                          | Where the knowledge came from: a file path, a URL, a ticket reference, or 'interview: <person>'. Must not be empty.                                                |
 | `provenance.confidence`     | yes      | enum            | `high`, `medium`, `low`                                  | high: read directly from a specification scenario or a test. medium: inferred from structured prose. low: inferred from indirect evidence such as a variable name. |
 | `provenance.recovered-from` | no       | enum            | `observation`, `inference`, `interview`, `documentation` | How the knowledge was recovered from the evidence.                                                                                                                 |
+| `covers-transition` | no | object | closed | Authored transition coverage; `illustrates` remains required. |
+| `covers-transition.lifecycle` | yes | string | `^LC-[A-Z0-9]+(-[A-Z0-9]+)*$` | Canonical dependency target. |
+| `covers-transition.transition` | yes | string | `^[A-Z0-9]+(-[A-Z0-9]+)*$` | Local transition selector within that LC. |
+
 
 ---
 
+### Domain Lifecycle
+
+`LC-`. Explicit product-significant state and transition semantics. See [Artifacts](artifacts.md#domain-lifecycle-domain-lifecycle-lc-). All records below are closed; local uniqueness and state resolution are semantic checks.
+
+| Field | Required | Type | Allowed values / meaning |
+| --- | --- | --- | --- |
+| `id` | yes | string | `^LC-[A-Z0-9]+(-[A-Z0-9]+)*$` |
+| `type` | yes | const | `domain-lifecycle` |
+| `title` | yes | string | non-empty |
+| `status` | yes | enum | `draft`, `active`, `deprecated`, `retired` |
+| `subject` | yes | string | Domain Term ID |
+| `states` | yes | array of object | ordered, non-empty |
+| `states[].id` | yes | string | `^[A-Z0-9]+(-[A-Z0-9]+)*$`, unique within states |
+| `states[].title` | yes | string | non-empty |
+| `states[].initial` | no | boolean | default false; exactly one state is initial |
+| `states[].terminal` | no | boolean | default false; cannot be a transition source |
+| `transitions` | yes | array of object | ordered; may be empty |
+| `transitions[].id` | yes | string | same local grammar; unique within transitions |
+| `transitions[].title` | yes | string | non-empty |
+| `transitions[].from` | yes | array of string | non-empty list of local state IDs |
+| `transitions[].to` | yes | string | one local state ID |
+| `transitions[].trigger` | yes | string | non-empty product-level stimulus |
+| `transitions[].initiated-by` | no | array of string | Actor IDs |
+| `transitions[].governed-by` | no | array of string | Business Rule IDs |
+| `transitions[].realized-by` | no | array of string | Use Case IDs |
+| `uses-terms` | no | array of string | Domain Term IDs |
+| `provenance` | no | object | the common [Provenance](#provenance) record, with required source/confidence and optional recovered-from |
+
 ## Product Change frontmatter
+
+
 
 ### Product Change
 
@@ -277,10 +311,21 @@ Note that `provenance` is **not** accepted here. Recovered knowledge carries pro
 | `base-revision`       | yes      | string          | `^[0-9a-f]{7,40}$`                                                   | Baseline Git revision, or exactly `0000000` only for `CHG-INITIAL`. |
 | `operations`          | yes      | object          |                                                                      |                                                            |
 | `operations.add`      | yes      | array of string |                                                                      |                                                            |
-| `operations.add[]`    | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
+| `operations.add[]`    | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
 | `operations.modify`   | yes      | array of string |                                                                      |                                                            |
-| `operations.modify[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
+| `operations.modify[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
 | `operations.remove`   | yes      | array of string |                                                                      |                                                            |
-| `operations.remove[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
+| `operations.remove[]` | yes      | string          | `^(ACT\|JRN\|UC\|BR\|TERM\|BC\|FR\|QR\|CON\|SB\|LC)-[A-Z0-9]+(-[A-Z0-9]+)*$` | Any artifact of the current product model.                 |
 
 `base-revision` normally names the Git commit containing the baseline against which the change was created. The exact seven-character string `0000000` is the reserved **no-baseline sentinel** only when `id` is `CHG-INITIAL`; it records that no commit names the empty Product Definition baseline. An implementation MUST NOT resolve that pair against Git. Other all-zero strings and `0000000` on any other Product Change are ordinary revisions. `CHG-INITIAL` MAY instead name a real commit at which the Product Definition is empty ([RFC 0066](../rfcs/0066-initial-base-revision-sentinel.md)).
+
+### Impact acknowledgments
+
+Product Change frontmatter optionally accepts `unaffected`, an array of closed records with exactly one of these shapes. Strings called nonblank MUST contain a non-whitespace character. See [Impact accounting](product-changes.md#impact-accounting) for semantic matching and digest selection.
+
+| Shape | Required fields | Forbidden fields |
+| --- | --- | --- |
+| Artifact | `id` and `cause`: Product Artifact IDs including LC; `relationship`: nonblank canonical field; `digest` and `cause-digest`: standard SHA-256 pins; `reason`: nonblank | `scope`, any unknown field |
+| Product scope | `scope: product`; `cause`: Constraint ID; `relationship: applies-to`; `cause-digest`: standard SHA-256 pin; `reason`: nonblank | `id`, `digest`, any unknown field |
+
+The ledger stores no disposition, derived cause list or citation forecast. An absent or empty ledger acknowledges no causes.

@@ -1,0 +1,27 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "verify-evidence",
+  "evidence": [
+    "evidence/run.json"
+  ],
+  "reports": {},
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT081",
+      "file": "evidence/run.json",
+      "field": "results[2].test-id"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT060",
+      "file": "evidence/run.json",
+      "target": "SB-MISSING",
+      "entry": 3
+    }
+  ],
+  "exitCode": 1
+}

@@ -3,8 +3,6 @@ id: BR-NO-SILENT-EDITS
 type: business-rule
 title: No silent edits to the Product Definition
 status: active
-applies-to:
-  - UC-VALIDATE-001
 ---
 
 ## Rule

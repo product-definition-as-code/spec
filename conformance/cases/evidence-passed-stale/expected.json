@@ -1,0 +1,33 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "verify-evidence",
+  "evidence": [
+    "evidence/run.json"
+  ],
+  "reports": {
+    "evidenceResults": [
+      {
+        "testId": "test-1",
+        "level": "domain",
+        "outcome": "passed",
+        "citationStatuses": [
+          "stale"
+        ]
+      }
+    ],
+    "runRevision": "1111111111111111111111111111111111111111"
+  },
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT061",
+      "file": "evidence/run.json",
+      "target": "SB-A",
+      "entry": 1
+    }
+  ],
+  "exitCode": 0
+}

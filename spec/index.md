@@ -1,6 +1,6 @@
 # Product Definition as Code: Specification
 
-> **Status: v0.2.0 (request for comments), released 2026-08-28.** Extracted from the reference implementation; the public comment period is open, see the [repository README](../README.md) for milestones. All chapters are currently at stability level `draft` as defined in [GOVERNANCE.md](../GOVERNANCE.md).
+> **Status: v0.3.0 development candidate; not released.** The last released specification is v0.2.0. This candidate uses serialization `v1alpha2`; release requires the [qualification plan](../docs/releases/v0.3.0-plan.md).
 
 This is the normative specification for Product Definition as Code; the chapters below define its terms, contracts and conformance criteria.
 
@@ -28,7 +28,7 @@ The grouping below mirrors the manifesto's ["a kernel, a profile, a workflow"](.
 
 **The reference profile** - the artifact vocabulary: opinionated, a good default, distinguished from the kernel on purpose.
 
-7. [Artifacts](artifacts.md) - the ten artifact types, frontmatter contracts, required body sections, lifecycle states.
+7. [Artifacts](artifacts.md) - the eleven artifact types, frontmatter contracts, required body sections, lifecycle states.
 8. [Frontmatter reference](frontmatter-reference.md) - the exhaustive per-kind field tables: required and optional fields, allowed values, provenance.
 
 **The reference workflow** - how the accepted definition evolves.
@@ -36,6 +36,8 @@ The grouping below mirrors the manifesto's ["a kernel, a profile, a workflow"](.
 9. [Product Changes](product-changes.md) - change structure, operations, overlay validation, lifecycle, apply, initialisation through `CHG-INITIAL`, change history.
 
 10. [Conformance](conformance.md) - what it means for a repository and an implementation to conform, the co-located and dedicated topologies a model repository may take, and the pointer to a dedicated one.
+
+11. [Verification Evidence](verification-evidence.md) - optional external verification integration and evidence citation checks.
 
 ## Canonical authority
 

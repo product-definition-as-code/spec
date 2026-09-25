@@ -1,7 +1,7 @@
 // Checks that every file in templates/ is a valid artifact of its type:
-// frontmatter validates against the v1alpha1 schema, and the body carries the
+// frontmatter validates against the v1alpha2 schema, and the body carries the
 // required sections the chapters name, in order. The requirements are read
-// from schemas/v1alpha1 and from the chapters themselves, never restated here,
+// from schemas/v1alpha2 and from the chapters themselves, never restated here,
 // so the templates cannot drift from the normative text they exemplify.
 //
 // No dependencies on purpose. The YAML and JSON Schema support below covers
@@ -16,7 +16,7 @@ const errors = [];
 const fail = (msg) => errors.push(msg);
 
 // --- Schemas, indexed by $id and by type name (file base). -----------------
-const schemaDir = join(root, 'schemas', 'v1alpha1');
+const schemaDir = join(root, 'schemas', 'v1alpha2');
 const schemasById = new Map();
 const schemasByType = new Map();
 for (const file of readdirSync(schemaDir)) {
@@ -37,6 +37,7 @@ function parseYaml(text, file) {
   function scalar(raw) {
     const v = raw.trim();
     if (v === '[]') return [];
+    if (v === 'true' || v === 'false') return v === 'true';
     if (v.startsWith('[') && v.endsWith(']')) {
       return v.slice(1, -1).split(',').map((s) => scalar(s));
     }
@@ -59,10 +60,12 @@ function parseYaml(text, file) {
           obj[m[1]] = m[2] !== undefined ? scalar(m[2]) : parseBlock(indentOf(lines[pos] ?? '') );
           // continuation keys of the same object, indented deeper than the dash
           while (pos < lines.length && indentOf(lines[pos]) > indent && !lines[pos].trim().startsWith('- ')) {
-            const c = lines[pos].trim().match(/^([A-Za-z0-9-]+): (.*)$/);
+            const c = lines[pos].trim().match(/^([A-Za-z0-9-]+):(?: (.*))?$/);
             if (!c) throw new Error(`${file}: unsupported YAML at '${lines[pos]}'`);
-            obj[c[1]] = scalar(c[2]);
+            const keyIndent = indentOf(lines[pos]);
             pos++;
+            if (c[2] === undefined && (pos >= lines.length || indentOf(lines[pos]) <= keyIndent)) throw new Error(`${file}: key '${c[1]}' has no value`);
+            obj[c[1]] = c[2] !== undefined ? scalar(c[2]) : parseBlock(indentOf(lines[pos]));
           }
           arr.push(obj);
         } else {
@@ -95,7 +98,7 @@ function parseYaml(text, file) {
 }
 
 // --- JSON Schema subset validator. ------------------------------------------
-const ANNOTATIONS = new Set(['$schema', '$id', 'title', 'description', '$defs', '$comment']);
+const ANNOTATIONS = new Set(['$schema', '$id', 'title', 'description', '$defs', '$comment', 'default']);
 const KEYWORDS = new Set([
   '$ref', 'type', 'const', 'enum', 'pattern', 'minLength', 'minItems',
   'required', 'properties', 'additionalProperties', 'items', 'oneOf', 'not',
@@ -148,6 +151,10 @@ function validate(value, schema, path, root, out) {
     validate(value, schema.not, path, root, attempt);
     if (attempt.length === 0) out.push(`${path}: value matches a prohibited pattern`);
   }
+  if (schema.type === 'boolean') {
+    if (typeof value !== 'boolean') out.push(`${path}: expected a boolean`);
+    return;
+  }
   if (schema.type === 'object') {
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
       out.push(`${path}: expected an object`);
@@ -194,12 +201,12 @@ function validate(value, schema, path, root, out) {
 // --- Required body sections, read from the chapters. -------------------------
 function sectionRequirements() {
   const map = new Map();
-  const artifacts = readFileSync(join(root, 'spec', 'artifacts.md'), 'utf8');
+  const artifacts = readFileSync(join(root, 'spec', 'artifacts.md'), 'utf8').replace(/\r\n?/g, '\n');
   for (const m of artifacts.matchAll(/^## .+\(`([a-z-]+)`, `[A-Z]+-`\)[\s\S]*?(?=^## |$(?![\s\S]))/gm)) {
     const line = m[0].match(/Required body sections: (.+?)\.\n/);
     if (line) map.set(m[1], [...line[1].matchAll(/`## ([^`]+)`/g)].map((s) => s[1]));
   }
-  const changes = readFileSync(join(root, 'spec', 'product-changes.md'), 'utf8');
+  const changes = readFileSync(join(root, 'spec', 'product-changes.md'), 'utf8').replace(/\r\n?/g, '\n');
   const line = changes.match(/Required body sections: (.+?)\.\n/);
   if (line) map.set('product-change', [...line[1].matchAll(/`## ([^`]+)`/g)].map((s) => s[1]));
   return map;
@@ -218,7 +225,7 @@ const declaredIds = new Set();
 const referencedIds = new Set();
 
 for (const file of templates) {
-  const raw = readFileSync(join(templateDir, file), 'utf8');
+  const raw = readFileSync(join(templateDir, file), 'utf8').replace(/\r\n?/g, '\n');
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n/);
   if (!fmMatch) { fail(`${file}: no frontmatter`); continue; }
 
@@ -246,7 +253,7 @@ for (const file of templates) {
   }
 
   declaredIds.add(fm.id);
-  for (const m of fmMatch[1].matchAll(/\b(?:ACT|JRN|UC|BR|TERM|BC|FR|QR|CON|SB|CHG)-EXAMPLE-\d+\b/g)) {
+  for (const m of fmMatch[1].matchAll(/\b(?:ACT|JRN|UC|BR|TERM|BC|FR|QR|CON|SB|LC|CHG)-EXAMPLE-\d+\b/g)) {
     referencedIds.add(m[0]);
   }
 }

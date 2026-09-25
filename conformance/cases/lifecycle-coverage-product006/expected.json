@@ -1,0 +1,13 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT006",
+      "file": "docs/product/model/sb-a.md",
+      "artifact": "SB-A",
+      "field": "covers-transition.lifecycle",
+      "target": "LC-MISSING"
+    }
+  ],
+  "exitCode": 1
+}

@@ -1,0 +1,23 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "LC-A",
+      "field": "subject",
+      "target": "TERM-A",
+      "change": "CHG-A"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "LC-A",
+      "field": "uses-terms",
+      "target": "TERM-A",
+      "change": "CHG-A"
+    }
+  ],
+  "exitCode": 0
+}

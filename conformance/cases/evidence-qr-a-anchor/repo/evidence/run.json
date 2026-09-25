@@ -1,0 +1,20 @@
+{
+  "format": "pdac-verification-evidence/v1alpha1",
+  "provider": "external",
+  "run-id": "run-1",
+  "revision": "1111111111111111111111111111111111111111",
+  "results": [
+    {
+      "test-id": "test-1",
+      "level": "domain",
+      "outcome": "passed",
+      "citations": [
+        {
+          "id": "QR-A",
+          "digest": "sha256:3b3dd38697c41e4d89d92f7c4e9cd3e7aab62584dac8c1b1ce8cab0c890d358e",
+          "anchor": "S1"
+        }
+      ]
+    }
+  ]
+}

@@ -120,3 +120,5 @@ Changes to the specification go through the [RFC process](CONTRIBUTING.md), whic
 ## License
 
 The specification text and the manifesto are licensed under [CC BY 4.0](LICENSE.md). Code samples and conformance fixtures are licensed under Apache 2.0.
+
+The working tree now contains a **v0.3.0 / v1alpha2 development candidate**, implementing accepted RFCs #116, #82 and #115. The latest released version remains v0.2.0. See the [implementation and qualification plan](docs/releases/v0.3.0-plan.md), [migration guide](docs/migrations/v0.3.0.md) and [new case inventory](conformance/v0.3.0-cases.md). No v0.3 implementation conformance claim or release is implied by this candidate.

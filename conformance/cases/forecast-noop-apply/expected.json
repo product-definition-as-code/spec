@@ -1,0 +1,23 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": {
+      "count": 0,
+      "records": []
+    },
+    "productDiff": []
+  },
+  "tree": {
+    "after": "after",
+    "optionalAbsent": [
+      "docs/product/changes/completed/chg-a/proposed/sb-a.md"
+    ]
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

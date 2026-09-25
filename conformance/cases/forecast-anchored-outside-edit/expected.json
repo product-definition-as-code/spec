@@ -1,0 +1,34 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply-dry-run",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": {
+      "count": 1,
+      "records": [
+        {
+          "file": "consumers/a.md",
+          "line": 1,
+          "target": "FR-A",
+          "status": "stale",
+          "anchor": "S1"
+        }
+      ]
+    },
+    "productDiff": [
+      {
+        "id": "FR-A",
+        "kind": "modified",
+        "digest": "sha256:bfb1d67538897ae5d14a0098ab668e11f93efce703939331d8fe936240ec595d"
+      }
+    ]
+  },
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

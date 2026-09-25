@@ -1,0 +1,32 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": {
+      "count": 1,
+      "records": [
+        {
+          "file": "consumers/a.md",
+          "line": 1,
+          "target": "SB-A",
+          "status": "unresolved"
+        }
+      ]
+    },
+    "productDiff": [
+      {
+        "id": "SB-A",
+        "kind": "removed"
+      }
+    ]
+  },
+  "tree": {
+    "after": "after"
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

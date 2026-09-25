@@ -23,6 +23,7 @@ IDs are uppercase. The prefix is fixed per artifact type:
 | `QR-`   | Quality Requirement    |
 | `CON-`  | Constraint             |
 | `SB-`   | Structured Behaviour   |
+| `LC-`   | Domain Lifecycle       |
 | `CHG-`  | Product Change         |
 
 An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs MUST be unique within one product repository across all artifact kinds.
@@ -31,7 +32,7 @@ An ID whose prefix does not match its artifact's `type` is invalid. Authored IDs
 
 ## Authored identifiers
 
-All IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.2. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`, `SB-CANCEL-PAID-ORDER`, `CHG-CITATIONS-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
+All IDs are authored by humans (possibly assisted by AI) and accepted into the model by a reviewed merge. No prefix is tool-minted in v0.3. IDs MAY be human-readable (`ACT-PRODUCT-ENGINEER`, `FR-VALIDATE-001`, `SB-CANCEL-PAID-ORDER`, `CHG-CITATIONS-001`). Readability is encouraged but carries no semantics: tools MUST treat IDs as opaque.
 
 ## Immutability
 
@@ -51,3 +52,5 @@ Identity is defined by the `id` field only:
 ## File naming
 
 An artifact's file name SHOULD be its lowercase ID followed by `.md` (for example `fr-validate-001.md` for `FR-VALIDATE-001`). Validation MUST treat file-name misalignment as a warning (`PRODUCT101`), never as an error and never as an identity mechanism.
+
+Lifecycle state and transition IDs are local selectors in separate namespaces within one `LC-` artifact. They follow the segment grammar without a required artifact prefix and MUST NOT be treated as global artifact identities or citation anchors.

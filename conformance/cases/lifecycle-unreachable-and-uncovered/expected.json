@@ -1,0 +1,21 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT112",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "states[WAITING]",
+      "target": "WAITING"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT113",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "transitions[FINISH]",
+      "target": "FINISH"
+    }
+  ],
+  "exitCode": 0
+}

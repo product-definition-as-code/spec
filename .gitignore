@@ -1,3 +1,4 @@
 .git-lock-trash/
 *.lock
 .vscode/settings.json
+__pycache__/

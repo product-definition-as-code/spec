@@ -1,0 +1,22 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "verify-evidence",
+  "evidence": [
+    "evidence/run.json"
+  ],
+  "reports": {},
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT081",
+      "file": "evidence/run.json",
+      "field": "results[1].citations[1].id",
+      "target": "UC-A",
+      "entry": 1
+    }
+  ],
+  "exitCode": 1
+}

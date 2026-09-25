@@ -19,20 +19,26 @@ Every relationship has exactly one canonical direction: it is authored on one ar
 | Use Case               | `bounded-context`          | Bounded Context                                             | dependency |
 | Use Case               | `governed-by`              | Business Rule                                               | dependency |
 | Use Case               | `uses-terms`               | Domain Term                                                 | dependency |
-| Business Rule          | `applies-to`               | Journey, Use Case, Bounded Context                          | governance |
+| Business Rule          | `applies-to`               | Journey, Bounded Context                          | governance |
 | Business Rule          | `uses-terms`               | Domain Term                                                 | dependency |
 | Domain Term            | `defined-in`               | Bounded Context                                             | dependency |
 | Domain Term            | `uses-terms`               | Domain Term                                                 | dependency |
-| Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint                         | dependency |
+| Functional Requirement | `derived-from`             | Use Case, Business Rule, Constraint, Domain Lifecycle                         | dependency |
 | Functional Requirement | `verification[].scenario-ref` | Structured Behaviour                                     | dependency |
 | Functional Requirement | `uses-terms`               | Domain Term                                                 | dependency |
-| Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context                          | governance |
+| Quality Requirement    | `applies-to`               | Journey, Use Case, Bounded Context, Domain Lifecycle                          | governance |
 | Quality Requirement    | `verification[].scenario-ref` | Structured Behaviour                                     | dependency |
 | Quality Requirement    | `uses-terms`               | Domain Term                                                 | dependency |
-| Constraint             | `applies-to`               | Journey, Use Case, Bounded Context; absent = entire product | governance |
+| Constraint             | `applies-to`               | Journey, Use Case, Bounded Context, Domain Lifecycle; absent = entire product | governance |
 | Constraint             | `uses-terms`               | Domain Term                                                 | dependency |
 | Structured Behaviour   | `illustrates`              | Use Case, Business Rule, Constraint                         | dependency |
 | Structured Behaviour   | `uses-terms`               | Domain Term                                                 | dependency |
+| Domain Lifecycle | `subject` | Domain Term | dependency |
+| Domain Lifecycle | `uses-terms` | Domain Term | dependency |
+| Domain Lifecycle | `transitions[].initiated-by` | Actor | dependency |
+| Domain Lifecycle | `transitions[].governed-by` | Business Rule | dependency |
+| Domain Lifecycle | `transitions[].realized-by` | Use Case | dependency |
+| Structured Behaviour | `covers-transition.lifecycle` | Domain Lifecycle | dependency |
 | Product Change         | `operations.add`           | any product artifact (new ID)                               | none       |
 | Product Change         | `operations.modify`        | any existing product artifact                               | none       |
 | Product Change         | `operations.remove`        | any existing product artifact                               | none       |
@@ -47,9 +53,13 @@ Canonical authoring direction is not impact direction. The `Polarity` column dec
 
 A relationship field added to this vocabulary MUST declare its polarity.
 
-Polarity is a property of the relationship. It places no obligation on an author and produces no diagnostic of its own. What an implementation does with it is stated in [Product Changes → Elaboration](product-changes.md#elaboration).
+Polarity is a property of the relationship and produces no diagnostic on its own. The mandatory accounting obligations that use it are defined in [Product Changes → Impact accounting](product-changes.md#impact-accounting).
 
 Array-member relationship fields use the `[]` attribution convention. Diagnostics for a `scenario-ref` relationship MUST report `field` as `verification[].scenario-ref`, just as a Journey step relationship reports `steps[].use-case`. Schema diagnostics such as `PRODUCT002` continue to report their own instance paths.
+
+Lifecycle transition relationships use the containing LC ID as source and the table's canonical `transitions[]` field for attribution. Implementations MUST retain each authored occurrence for relationship diagnostics, even when occurrences yield the same edge. Local `from`, `to` and `covers-transition.transition` values do not introduce graph nodes or edges. [Product Change impact accounting](product-changes.md#impact-accounting) separately projects relationships to a set for cause computation.
+
+`Use Case.governed-by` is the canonical specific Rule/Use Case association. Absent or empty Business Rule scope has no implicit edges. Only an absent Constraint `applies-to` has implicit product-wide scope; an empty authored list does not.
 
 ## Derived relationships
 
@@ -71,12 +81,12 @@ All other reverse views (`Actor ← journeys`, `Business Rule ← governed use c
 
 Some diagnostics depend on _reachability_, defined deterministically as follows: two artifacts are connected if a path exists between them in the undirected view of the product graph restricted to the canonical product relationships above, excluding Product Change edges. A requirement is _reachable from an actor_ when it is connected to at least one Actor node under this definition.
 
-Structured Behaviour edges participate under the same rule. A Requirement verified by a Structured Behaviour is connected to the behaviour's source Use Cases, Business Rules and Constraints. Structural impact analysis therefore includes changes to a Structured Behaviour through those authored edges, without making a semantic impact claim.
+Structured Behaviour and Domain Lifecycle edges participate under the same rule. Lifecycle local state references and coverage transition selectors are not graph edges. A Requirement verified by a Structured Behaviour is connected to the behaviour's source Use Cases, Business Rules and Constraints. Structural impact analysis therefore includes changes to a Structured Behaviour through those authored edges, without making a semantic impact claim.
 
 ## Knowledge warning relationship sets
 
-For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has at least one valid outgoing `Business Rule.applies-to` relationship, incoming `Use Case.governed-by` relationship or incoming `Functional Requirement.derived-from` relationship, and the artifact authoring that relationship is non-retired. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
+For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has at least one valid outgoing `Business Rule.applies-to` relationship, incoming `Use Case.governed-by` relationship or incoming `Functional Requirement.derived-from` relationship or incoming `Domain Lifecycle.transitions[].governed-by` relationship, and the artifact authoring that relationship is non-retired. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
 
 `uses-terms` is authored from an artifact whose interpretation requires a Domain Term to that Domain Term. Reverse views are derived and MUST NOT be authored. A Domain Term MAY author `uses-terms` for a definitional dependency; cycles are not prohibited by this relationship alone.
 
-For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `uses-terms` relationship authored by a non-retired Use Case, Business Rule, Domain Term, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour. A prose occurrence, a generated reverse relationship or another relationship path does not count.
+For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `Domain Lifecycle.subject` relationship or `uses-terms` relationship authored by a non-retired Use Case, Business Rule, Domain Term, Domain Lifecycle, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour. A prose occurrence, a generated reverse relationship or another relationship path does not count.

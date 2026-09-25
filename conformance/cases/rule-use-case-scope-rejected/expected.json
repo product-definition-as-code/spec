@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT002",
+      "file": "docs/product/model/br-a.md",
+      "field": "/applies-to/0"
+    }
+  ],
+  "exitCode": 1
+}

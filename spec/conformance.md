@@ -1,12 +1,12 @@
 # Conformance
 
-A conformance claim MUST identify both the method/spec version and the serialization version. The pair selects the accepted document set and semantic contract. A conforming v0.2 implementation MUST recognise the expanded `v1alpha1` schemas and semantics; conformance only to the tagged v0.1 specification does not establish conformance to v0.2.
+A conformance claim MUST identify both the method/spec version and the serialization version. The pair selects the accepted document set and semantic contract. A conforming v0.3.0 implementation MUST recognise the `v1alpha2` schemas and semantics. A v0.2.0/v1alpha1 invocation retains the released v0.2 contract; support for that pair does not establish v0.3 conformance.
 
 An implementation MAY additionally record the Git revision of the specification repository content it observed. That revision identifies the observed input state and MUST NOT substitute for either claimed version.
 
 ## Repository conformance
 
-A repository conforms to Product Definition as Code v0.2 when:
+A repository conforms to Product Definition as Code v0.3 when:
 
 1. Its canonical product definition lives in a git repository, the **model repository**, under the product root selected by [Configuration](configuration.md), with the `model/` root and `changes/` lifecycle directories defined in this specification. Subdirectories below `model/` are non-normative; artifact kinds are discovered from frontmatter `type`, not paths. See [Specification index → Canonical authority](index.md#canonical-authority) and [Topologies](#topologies).
 2. Every product artifact satisfies the [artifact contracts](artifacts.md): valid frontmatter per schema, required body sections, valid lifecycle state.
@@ -27,9 +27,9 @@ When one repository serves the product, co-location SHOULD be the default: the d
 
 Both topologies use the same product roots, the same artifact contracts, the same validation and the same Product Change lifecycle. A dedicated model repository is not a different kind of repository, only one whose software lives elsewhere.
 
-A model repository holds one Product Definition. Splitting a single Product Definition across repositories is out of scope for v0.2.
+A model repository holds one Product Definition. Splitting a single Product Definition across repositories is out of scope for v0.3.
 
-| Layout                                                        | Topology   | v0.2                                                              |
+| Layout                                                        | Topology   | v0.3                                                              |
 | ------------------------------------------------------------- | ---------- | ----------------------------------------------------------------- |
 | Monorepo: one repository holding the product and its software | co-located | conforms, and is the default                                      |
 | One repository per product, beside the software it defines     | co-located | conforms, and is the default                                      |
@@ -56,9 +56,9 @@ The pointer MUST be readable as data, without executing code.
 
 The pointer locates the model repository and MUST NOT contain, summarize or restate product artifacts.
 
-A consuming repository carries at most one model-repository pointer in v0.2.
+A consuming repository carries at most one model-repository pointer in v0.3.
 
-This specification fixes the pointer's record shape. It does not fix the pointer's serialization or its location in the consuming repository, exactly as the [Citation Contract](citation-contract.md) fixes the citation record and not one of its three forms. Resolution is implementation-defined in v0.2: how an implementation fetches the model repository, caches it, authenticates, and what it reports when the repository is unreachable. `PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution and no code in that band is issued in v0.2.
+This specification fixes the pointer's record shape. It does not fix the pointer's serialization or its location in the consuming repository, unlike the [Citation Contract](citation-contract.md), which fixes both its record and its supported carriers. Resolution is implementation-defined in v0.3: how an implementation fetches the model repository, caches it, authenticates, and what it reports when the repository is unreachable. `PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution and no code in that band is issued in v0.3.
 
 ### Services over the model
 
@@ -83,7 +83,7 @@ An implementation (tooling) conforms when:
 11. It MUST NOT require a co-located software tree in order to validate a Product Definition ([Topologies](#topologies)).
 12. It MUST NOT read canonical product artifacts from a network service. It MAY serve them ([Services over the model](#services-over-the-model)).
 13. When it claims population-aware consumer verification for an integration, it enumerates and classifies that provider's current document population and reports `PRODUCT064`-`PRODUCT066` under the [Citation Contract](citation-contract.md#population-aware-consumer-verification). Implementations that provide no such integration remain conforming.
-14. It dispatches schema and semantic validation by the claimed method/spec and serialization version, and recognises Structured Behaviour as an optional Product Artifact in v0.2 `v1alpha1`, including its schema, canonical relationships, Product Change operations, graph and impact participation, citation target behaviour and the inline-or-reference Requirement verification union.
+14. It dispatches schema and semantic validation by the claimed method/spec and serialization version, and recognises Structured Behaviour as an optional Product Artifact in v0.3 `v1alpha2`, including its schema, canonical relationships, Product Change operations, graph and impact participation, citation target behaviour and the inline-or-reference Requirement verification union.
 
 ## Violation mapping
 
@@ -94,3 +94,11 @@ Other normative statements remain conformance criteria without pretending to be 
 Diagnostic codes are stable and are never renumbered or reused. A change to mechanically checkable normative behaviour MUST update the specification, diagnostic table and applicable fixtures together. A change to a review-conformance criterion updates its normative text and review evidence; it does not receive a diagnostic merely to satisfy a universal mapping claim.
 
 Consumer projections remain provider-specific and non-canonical. Conformance tests MUST NOT require OpenSpec, Spec Kit, Kiro, Cucumber or any other named consumer.
+
+## v0.3.0 obligations
+
+Domain Lifecycle is optional to author and required to support, including its local-state diagnostics and canonical relationships. Lifecycle multi-source equivalence, refusal examples, and avoidance of duplicated prose require human review rather than invented diagnostics. Verification Evidence integration is optional; implementations claiming it MUST support its envelope, citation checks, attribution, selection and outcome/status separation. No claim requires test execution, test management or minimum evidence coverage.
+
+Live Product Changes MUST support one-hop impact accounting, pinned acknowledgments and the staged apply/dry-run gate. Both apply forms MUST surface the prospective affected-citation report, including evaluated zero, without persisting it or treating citation statuses as an apply veto.
+
+Conformance evidence MUST distinguish schema/fixture integrity checks from observed implementation behavior. Apply cases require history, invocation, report and before/after-tree assertions; evidence cases require explicit adapter selection. A runner that cannot execute a case MUST report it by name and reason as unexecuted, never count a partial or validation-only run as a pass.
