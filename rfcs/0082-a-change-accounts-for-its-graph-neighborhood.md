@@ -1,6 +1,7 @@
 # RFC 0082: A Product Change accounts for its graph neighborhood
 
-- **Status:** draft
+- **Status:** accepted
+- **Accepted:** 2026-09-25 by Juan G. Carmona
 - **Author(s):** juangcarmona
 - **Created:** 2026-08-25
 - **Revised:** 2026-08-28 (v6; v2 added impact polarity, per-cause acknowledgments, digest pinning and the apply gate; v3 closed the no-op modify bypass, fixed diagnostic attribution, split PRODUCT002 from PRODUCT033, accounted for product-wide constraints and pinned removals; v4 fixed PRODUCT033 precedence and attribution strings, modeled product scope as an implicit edge and staged the apply preconditions; v5 moves semantic acknowledgment validation after baseline drift; v6 extracts the impact polarity column into RFC 0093 targeting 0.2.0 and depends on it)
@@ -18,7 +19,15 @@ A change must account for the model artifacts it directly puts in question: actu
 - Missing accounting warns during elaboration (PRODUCT029) and blocks apply/dry-run (PRODUCT034). Malformed or stale acknowledgments cannot satisfy the gate (PRODUCT002/033).
 - Downstream citation staleness is a separate forecast under RFC 0115 and does not itself block apply. This is a record of review over modeled relationships, not proof of semantic completeness.
 
-This RFC targets v0.3.0/v1alpha2. It remains a proposal; schemas, diagnostics and executable cases follow acceptance.
+This RFC targets v0.3.0/v1alpha2. Its design is accepted; schemas, diagnostics and executable cases remain follow-up implementation work.
+
+## Decision record
+
+Accepted for v0.3.0 by the founding maintainer, Juan G. Carmona, on 2026-09-25: Product Changes must account for their directly affected model neighborhood before apply. Keep impact one hop, count repeated identical edges once, and require reasons pinned to reviewed content for unchanged candidates. This records review without claiming complete semantic impact; stale downstream citations remain non-blocking.
+
+The maintainer explicitly authorized recording this rationale and merging RFC #82 after RFC #116. No substantive review feedback was outstanding at the decision. The published MATURITY and ADOPTERS records show neither an independent implementation/clean-room validator nor an adopter other than the reference implementation, so CONTRIBUTING's conditional minimum elapsed comment window is not yet a merge condition. Publication, the maintainer decision and rationale, and resolution of substantive feedback remain required and are recorded here.
+
+Acceptance records the design, not its implementation or the v0.3.0 release. RFC #115 remains a separate decision.
 
 ## Problem
 
