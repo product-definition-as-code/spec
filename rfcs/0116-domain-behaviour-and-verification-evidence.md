@@ -1,6 +1,7 @@
 # RFC 0116: Domain Behaviour and Verification Evidence
 
-- **Status:** draft
+- **Status:** accepted
+- **Accepted:** 2026-09-25 by Juan G. Carmona
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-09-24
 - **PR:** [#116](https://github.com/product-definition-as-code/spec/pull/116)
@@ -18,7 +19,15 @@ This proposal asks for four decisions:
 3. Keep Verification Evidence optional and external: record what an external provider claims it verified, against which revision and citations. PDaC does not run tests, manage them, mandate coverage or gate apply on their results.
 4. Give #82 a stable artifact-level graph vocabulary. The later RFC owns cause deduplication and the one-hop apply gate; #115 owns the downstream citation forecast.
 
-The worked Product Change lifecycle below exercises a successful transition and a refused operation. The [implementation checklist](#implementation-checklist) makes the follow-up scope explicit. This PR changes the RFC only; its proposed schemas, diagnostics and fixtures are not yet implemented or accepted.
+The worked Product Change lifecycle below exercises a successful transition and a refused operation. The [implementation checklist](#implementation-checklist) makes the follow-up scope explicit. This RFC records the accepted design; the schemas, diagnostics and fixtures remain follow-up implementation work.
+
+## Decision record
+
+Accepted for v0.3.0 by the founding maintainer, Juan G. Carmona, on 2026-09-25: explicit domain lifecycles and a single rule/use-case relationship give impact accounting a stable graph. Verification Evidence remains optional external traceability. The breaking relationship change uses v1alpha2 with migration, preserving v1alpha1.
+
+The maintainer explicitly authorized recording this rationale and merging RFC #116. No substantive review feedback was outstanding at the decision. The repository's published MATURITY and ADOPTERS records show neither an independent implementation/clean-room validator nor an adopter other than the reference implementation, so CONTRIBUTING's conditional minimum elapsed comment window is not yet a merge condition. Publication, an explicit decision and rationale, and resolution of substantive feedback remain required and are recorded here.
+
+Acceptance authorizes the specification implementation in a follow-up PR; it does not implement or release v0.3.0. RFC #82 and RFC #115 remain separate decisions.
 
 ## Problem
 
