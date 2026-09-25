@@ -5,7 +5,20 @@
 - **Created:** 2026-09-24
 - **PR:** [#116](https://github.com/product-definition-as-code/spec/pull/116)
 - **Class:** change (adds an artifact kind and implementation obligations, and removes an allowed relationship target)
-- **Proposed target:** PDaC specification 0.3.0; additive `v1alpha1` evolution except where noted
+- **Revised:** 2026-09-25, coordinated v0.3.0 release
+- **Proposed target:** PDaC specification 0.3.0, serialization `v1alpha2`
+- **Sequence:** this RFC precedes [RFC 0082](https://github.com/product-definition-as-code/spec/pull/82), which precedes [RFC 0115](https://github.com/product-definition-as-code/spec/pull/115). All three target v0.3.0; neither later RFC is a prerequisite for accepting this vocabulary.
+
+## Review in brief
+
+This proposal asks for four decisions:
+
+1. Add an optional Domain Lifecycle artifact. States and transitions live inside it; they do not become independently versioned graph nodes or citation targets.
+2. Author rule/use-case governance once, on `Use Case.governed-by`. Keep Business Rule `applies-to` for Journey/Bounded Context scope. This breaks an existing allowed relationship and therefore requires `v1alpha2` and an explicit migration.
+3. Keep Verification Evidence optional and external: record what an external provider claims it verified, against which revision and citations. PDaC does not run tests, manage them, mandate coverage or gate apply on their results.
+4. Give #82 a stable artifact-level graph vocabulary. The later RFC owns cause deduplication and the one-hop apply gate; #115 owns the downstream citation forecast.
+
+The worked Product Change lifecycle below exercises a successful transition and a refused operation. The [implementation checklist](#implementation-checklist) makes the follow-up scope explicit. This PR changes the RFC only; its proposed schemas, diagnostics and fixtures are not yet implemented or accepted.
 
 ## Problem
 
@@ -40,7 +53,7 @@ In addition to the common artifact fields, a Domain Lifecycle has:
 | `transitions` | required | ordered list of closed Transition records; MAY be empty | Legal state changes |
 | `uses-terms` | optional | Domain Term IDs | Additional terms needed to interpret the lifecycle |
 
-A State record has `id` (local identifier matching `[A-Z0-9]+(-[A-Z0-9]+)*`), `title`, optional `initial` (default `false`) and optional `terminal` (default `false`). A Transition record has `id` (local identifier in a separate namespace), `title`, non-empty `from` (local State IDs), `to` (one local State ID), `trigger` (non-empty product-level stimulus), and optional `initiated-by` (Actor IDs), `governed-by` (Business Rule IDs) and `realized-by` (Use Case IDs).
+A State record has `id` (local identifier matching `^[A-Z0-9]+(-[A-Z0-9]+)*$`), non-empty `title`, optional boolean `initial` (default `false`) and optional boolean `terminal` (default `false`). A Transition record has `id` (the same local identifier pattern in a separate namespace), non-empty `title`, non-empty `from` (local State IDs), `to` (one local State ID), `trigger` (non-empty product-level stimulus), and optional `initiated-by` (Actor IDs), `governed-by` (Business Rule IDs) and `realized-by` (Use Case IDs).
 
 Exactly one State MUST declare `initial: true`. A Lifecycle MAY have zero transitions to support a documented single-state concept or an incomplete model. A terminal State MUST NOT occur in any Transition's `from` list. A Transition MAY list multiple source states only when its trigger, outcome and product meaning are equivalent for every listed source state; otherwise the author MUST define separate Transitions. This equivalence is reviewed by people and MUST NOT be claimed as a deterministic validation result. State and Transition IDs are local to their Lifecycle, are not Product Artifact IDs and MUST NOT be independently cited.
 
@@ -71,7 +84,7 @@ The exercise identifies these invariants:
 2. Only an `APPROVED` change can be applied.
 3. Apply does not accept the resulting Product Definition; human merge is a separate acceptance event.
 4. `APPLIED`, `REJECTED` and `SUPERSEDED` are terminal lifecycle states.
-5. A refused apply caused by an unapproved status or baseline drift leaves the change and working tree unchanged.
+5. A refused apply leaves the change and working tree unchanged, including refusal for an unapproved status or baseline drift. RFC 0082 will add unresolved model impact as another precondition without changing this lifecycle.
 
 The first four are lifecycle or Business Rule semantics. The fifth is a rejected operation with no state transition and is represented by a Structured Behaviour that illustrates `UC-CHANGE-001` and `BR-CHANGE-001` without claiming to cover a transition.
 
@@ -182,7 +195,7 @@ Only a human product decision can approve a change. Only an approved change can 
 
 ## Transition Semantics
 
-`apply` requires an approved change and a compatible baseline. If either condition fails, the operation is refused and the lifecycle state and working tree remain unchanged. Rejection is available from draft or proposed. Superseding is available from any non-terminal state.
+`apply` requires approval and all preconditions in the Product Change apply contract. If a precondition fails, the operation is refused and the lifecycle state and working tree remain unchanged. Rejection is available from draft or proposed. Superseding is available from any non-terminal state.
 
 ## Boundaries
 
@@ -202,6 +215,7 @@ illustrates:
 given:
   - The Product Change has status APPROVED
   - Its base revision is compatible with the current baseline
+  - Its overlay satisfies the Product Change apply preconditions
 when: The actor applies the Product Change
 then:
   - The proposed operations are materialized on the working branch
@@ -235,6 +249,8 @@ then:
 
 Structured Behaviour gains an optional `covers-transition` closed object containing `lifecycle` (Domain Lifecycle ID) and `transition` (local Transition ID declared by that Lifecycle). The `lifecycle` member is a canonical Product Graph relationship. The `transition` member is resolved within that Lifecycle and is not a separate graph node or edge.
 
+A Domain Lifecycle is an ordinary whole-artifact citation target. Its local State and Transition IDs MUST NOT resolve as citation anchors. Evidence of a particular transition cites its covering Structured Behaviour. Editing any part of the Lifecycle changes its whole-artifact digest under the existing normalization; this RFC defines no local-record digest.
+
 `covers-transition` MUST NOT replace the Structured Behaviour's required `illustrates` relationship. A transition example still identifies the Use Case, Business Rule or Constraint it makes concrete. A refused operation that leaves the state unchanged MUST NOT claim transition coverage.
 
 ### Canonical relationships
@@ -253,6 +269,10 @@ Add these canonical relationships, with the existing relationship-polarity rules
 | Quality Requirement | `applies-to` | Domain Lifecycle, in addition to current targets | governance |
 | Constraint | `applies-to` | Domain Lifecycle, in addition to current targets | governance |
 
+The containing Domain Lifecycle is the source artifact of every Transition relationship. Local records have no separate artifact status; the Lifecycle's status determines the ordinary relationship status checks. All these canonical edges participate in the existing undirected actor-reachability rule. Derived reverse views and local `from`/`to` selectors add no Product Graph edges.
+
+Preserve every authored relationship occurrence for the existing per-entry diagnostics. For impact accounting, [RFC 0082](https://github.com/product-definition-as-code/spec/pull/82) will define the set projection and cause identity. Repeated references from several transitions do not introduce independently acknowledged transition nodes. Distinct canonical fields remain distinct relationships: `subject` and `uses-terms` may both target the same term without being synonyms.
+
 Extend the existing knowledge-warning relationship sets alongside these new edges. For `PRODUCT105`, a non-retired Business Rule is consumed if and only if it has at least one valid outgoing `applies-to` relationship, an incoming `Use Case.governed-by`, `Functional Requirement.derived-from` or `Domain Lifecycle.transitions[].governed-by` relationship authored by a non-retired artifact. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
 
 For `PRODUCT106`, a non-retired Domain Term is used if and only if it has at least one valid incoming `Domain Lifecycle.subject` or `uses-terms` relationship authored by a non-retired artifact. The `uses-terms` author set MUST include Domain Lifecycle in addition to the existing artifact kinds. Prose occurrences, generated reverse relationships and other relationship paths do not count.
@@ -268,13 +288,13 @@ Give these relationships separate meanings:
 
 Remove Use Case from the allowed target set of `Business Rule.applies-to`. Authors MUST use `Use Case.governed-by` to associate a rule with a Use Case. The edge remains authored once, from Use Case to Business Rule; reverse “governed use cases” views are derived.
 
-An absent `Business Rule.applies-to` means that no broad scope is declared in that field; it MUST NOT be interpreted as “applies to the entire product.” A rule can still govern one or more Use Cases through their `governed-by` fields.
+An absent or empty `Business Rule.applies-to` means that no broad scope is declared in that field; it MUST NOT be interpreted as “applies to the entire product.” A rule can still govern one or more Use Cases through their `governed-by` fields. The implicit product scope of a Constraint with absent `applies-to` remains specific to Constraints; it is not a general default for this field name.
 
 Changing a Business Rule puts its citing Use Cases in question under dependency polarity and its declared Journey/Bounded Context scope in question under governance polarity. A Use Case change does not automatically put the Business Rule in question under dependency polarity. Structural impact remains a review signal, not a semantic judgment.
 
-The `PRODUCT105` definition is extended as stated under [Canonical relationships](#canonical-relationships): a Lifecycle Transition governed by a rule is a consumer. An incoming `Structured Behaviour.illustrates` relationship MUST NOT count as a consumer.
-
 This change removes an existing allowed edge and requires migration: every current `Business Rule.applies-to` entry targeting a Use Case MUST be moved to that Use Case's `governed-by` list. If the Business Rule also has a broader scope, its Journey or Bounded Context target remains in `applies-to`.
+
+Migration MUST preserve an existing matching `governed-by` entry rather than duplicate it, and MUST NOT infer a broad scope from the Use Case's context. Remove `applies-to` when no broad targets remain. Missing or invalid targets require repair, not silent deletion or invented artifacts. Review the accepted model and each active proposal; explicitly rebase active changes after baseline migration. Archived changes and historical evidence remain untouched. Changed artifact digests can stale consumer citations; migration MUST NOT automatically refresh them. This is a behavioral change: a Use Case edit no longer questions its rule through the removed governance edge.
 
 For example, a rule that applies throughout the Product Definition context and governs the change use case is authored as:
 
@@ -301,19 +321,19 @@ This RFC adds no `Domain Event` kind. A future Domain Event RFC is warranted whe
 
 ### Verification evidence
 
-Verification evidence remains outside the Product Definition and Product Graph. A test or QA consumer MUST cite the accepted Structured Behaviour it verifies, using the existing citation record (`id`, whole-artifact `digest`, optional supported `anchor`). If the Structured Behaviour has `covers-transition`, that relationship identifies the transition exercised. Evidence MAY instead cite a Requirement with an existing supported anchor when it verifies an obligation rather than an independently identified behavior.
+Verification evidence remains outside the Product Definition and Product Graph. An integration claiming this optional evidence contract MUST cite the accepted Structured Behaviour it verifies, using the existing citation record (`id`, whole-artifact `digest`, optional supported `anchor`). If the Structured Behaviour has `covers-transition`, that relationship identifies the transition exercised. Evidence MAY instead cite a Functional or Quality Requirement with an existing supported anchor when it verifies an obligation rather than an independently identified behavior. No evidence integration, test execution or evidence storage is required for core PDaC conformance.
 
-Add a canonical JSON verification-evidence document for integrations that claim PDaC verification traceability. A document MUST validate against `schemas/v1alpha1/verification-evidence.schema.json`, reject unknown properties, and contain:
+Add a standard JSON verification-evidence document for integrations that claim PDaC verification traceability. It is external evidence, never canonical product intent. A document MUST validate against `schemas/v1alpha2/verification-evidence.schema.json`, reject unknown properties, and contain:
 
 | Field | Meaning |
 |---|---|
 | `format` | Required constant `pdac-verification-evidence/v1alpha1` |
-| `provider` | Required non-empty provider identity string |
-| `run-id` | Required non-empty provider-native stable run identifier or URL |
+| `provider` | Required non-blank provider identity string |
+| `run-id` | Required non-blank provider-native stable run identifier or URL |
 | `revision` | Required full Git commit SHA (40 or 64 lowercase hexadecimal characters) against which evidence was produced |
 | `results` | Required non-empty list of result records |
 
-Each result record is a closed object with required `test-id` (non-empty provider-native stable test/evidence identifier), `level` (one of `domain`, `component`, `integration`, `end-to-end`, `manual`, `exploratory`), `outcome` (one of `passed`, `failed`, `inconclusive`) and `citations` (non-empty list of standard PDaC citation records). A citation MUST target a Structured Behaviour, Functional Requirement or Quality Requirement. A citation to a Structured Behaviour MUST NOT carry an anchor. A citation to a Functional or Quality Requirement MAY use an anchor supported by the existing Citation Contract. Duplicate test IDs within one document MUST be rejected.
+Each result record is a closed object with required `test-id` (non-blank provider-native stable test/evidence identifier), `level` (one of `domain`, `component`, `integration`, `end-to-end`, `manual`, `exploratory`), `outcome` (one of `passed`, `failed`, `inconclusive`) and `citations` (non-empty list of standard PDaC citation records). A citation MUST target a Structured Behaviour, Functional Requirement or Quality Requirement. A citation to a Structured Behaviour MUST NOT carry an anchor. A citation to a Functional or Quality Requirement MAY use an anchor supported by the existing Citation Contract. Duplicate test IDs within one document MUST be rejected; the same provider test ID in another run document is permitted.
 
 Example:
 
@@ -341,15 +361,69 @@ Example:
 
 An implementation MAY emit this document in CI output or a provider-owned sidecar. This RFC fixes the document shape but does not prescribe test provider APIs, result retention, execution commands or a repository path. An adapter claiming support MUST report the exact run revision and citation status; it MUST NOT silently refresh a digest after the cited Product Artifact changes. Implementations MUST apply the existing citation digest, resolution and staleness rules to each evidence citation.
 
+The run revision identifies the source revision of the external verification; it does not redefine the digest domain or prove that a run occurred. Citation status is evaluated against the explicitly selected model revision, which the adapter MUST report separately from the run revision. Historical comparison MAY select that revision; current verification selects the current model. A passing result with a stale citation remains `passed` evidence with a `stale` citation, not evidence of successful verification of the changed intent. PDaC neither authenticates a provider's claim nor executes it.
+
+An evidence adapter MUST document how evidence documents are selected. This contract does not add a general citation carrier or require a duplicate `.citations.yml` ledger. The adapter reads each embedded citation once, attributes it to the evidence file and a one-based `entry` ordinal flattened in result/citation order, and records its result identity. Immutable historical runs are not current consumers. If an adapter includes explicitly current evidence in the live population, it MUST use the same population for current citation verification and any apply forecast; [RFC 0115](https://github.com/product-definition-as-code/spec/pull/115) will make that forecast mandatory. Arbitrary JSON documents MUST NOT be treated as evidence merely because they contain an `id` or `digest`.
+
+This requires a narrow extension to [Validation's diagnostic model](../spec/validation.md#diagnostics): `entry` is permitted for an explicitly selected evidence document as well as a citation sidecar, and `field` may identify an evidence-document field. Evidence `entry` counts all citation records in document order, including those in a result later rejected for a duplicate test ID; suppression does not renumber later entries. Existing payload and sidecar attribution is unchanged. No new diagnostic attribute is introduced.
+
+This contract introduces no test scheduling, suites, retries, test-management state, execution command, mandatory evidence coverage or apply gate. The evidence format identifier versions this first external envelope independently of the model serialization directory.
+
 An implementation MAY derive a coverage view joining Business Rules, Lifecycle Transitions, Structured Behaviours and evidence records. It MUST display test level separately from outcome. Missing evidence at a particular level is not a validation error by default; a repository MAY set risk-based policy for selected behaviors. The existence of a passing evidence record MUST NOT be represented as proof that the product is correct or that the cited behavior is completely covered.
 
 ### Validation
 
 The common relationship contract MUST resolve and type-check `subject`, `uses-terms`, Transition relationship fields and `covers-transition.lifecycle`. Lifecycle validation MUST report errors for duplicate local State IDs or duplicate local Transition IDs within their respective namespaces; unknown local State references in `from` or `to`; anything other than exactly one initial State; a terminal State used in `from`; and an unresolved `covers-transition.transition`. The Lifecycle body MUST contain the required sections in the stated order; conformance tests MUST cover missing and out-of-order sections.
 
-Lifecycle validation SHOULD report a warning for a non-initial State unreachable from the initial State and an active Transition with no Structured Behaviour covering it. Both remain warnings so partial models can be authored. Transition coverage is per Transition; when a Transition has multiple source states, authors are responsible for the required equivalence stated above.
+Lifecycle validation MUST report a warning for each non-initial State of an active Lifecycle unreachable from its initial State and each Transition of an active Lifecycle with no active Structured Behaviour whose coverage pair resolves to it. There is no separate Transition status. Reachability follows directed local `from` to `to` links. Both remain warnings so partial models can be authored. Transition coverage is per Transition; when a Transition has multiple source states, authors are responsible for the required equivalence stated above. Retired or draft Lifecycles are outside these warning populations.
 
-No new diagnostic codes are reserved here; the RFC implementation PR MUST allocate available codes and add portable conformance cases. Implementations MUST use stable local-ID field paths rather than array indexes for local State/Transition diagnostics.
+Allocate PRODUCT010 (duplicate local ID), PRODUCT011 (unknown local state), PRODUCT012 (initial-state cardinality), PRODUCT013 (terminal source), PRODUCT014 (unknown local coverage transition), PRODUCT112 (unreachable state) and PRODUCT113 (uncovered transition). Exact units and fields are in the diagnostic table below. A missing or wrong-type Lifecycle target receives the ordinary relationship diagnostic, not an additional PRODUCT014. Checks requiring unique IDs, valid local references or one initial state MUST NOT run when their prerequisites are invalid. Independent structural diagnostics remain reportable.
+
+| Code | Unit | Required attribution beyond file |
+| --- | --- | --- |
+| PRODUCT010 | repeated local ID, once per repeated key in each namespace | artifact=LC, field=`states[ID].id` or `transitions[ID].id`, target=ID |
+| PRODUCT011 | distinct unknown local state per Transition field | artifact=LC, field=`transitions[ID].from` or `transitions[ID].to`, target=state ID |
+| PRODUCT012 | Lifecycle whose initial-state count is not one | artifact=LC, field=`states` |
+| PRODUCT013 | distinct terminal source per Transition | artifact=LC, field=`transitions[ID].from`, target=state ID |
+| PRODUCT014 | unresolved local coverage selector after Lifecycle resolution | artifact=SB, field=`covers-transition.transition`, target=transition ID |
+| PRODUCT112 | unreachable non-initial state of an active Lifecycle | artifact=LC, field=`states[ID]`, target=state ID |
+| PRODUCT113 | uncovered transition of an active Lifecycle | artifact=LC, field=`transitions[ID]`, target=transition ID |
+
+These stable local-ID paths are semantic attribution only. PRODUCT002 continues to use JSON Pointers, including numeric array indexes, under RFC 0085. Relationship diagnostics continue to use canonical `transitions[].<field>` names and per-authored-entry granularity. PRODUCT009 handles body sections. Existing status and removal diagnostics apply to every new canonical relationship.
+
+For evidence, allocate PRODUCT080 (error, one per malformed evidence document; when parseable, field is the first invalid JSON Pointer in Unicode code-point order) and PRODUCT081 (error, one per duplicate test-id occurrence after the first or resolved disallowed citation target kind). Duplicate JSON object keys make the evidence document malformed and MUST NOT be silently overwritten; because no unambiguous parsed object exists, that PRODUCT080 omits field. PRODUCT081 carries file and `field: results[n].test-id` or `results[n].citations[m].id` with one-based positions. The disallowed-target form additionally carries target equal to the cited artifact ID and the flattened entry ordinal; the duplicate-test form omits target and entry. Neither carries artifact or change. A malformed document stops its semantic checks; a duplicate result ID stops citation evaluation for that duplicate result. Resolve absent citation targets as PRODUCT060 before testing target kind. A disallowed resolved target produces PRODUCT081 alone for that citation. Other evidence citation failures reuse the Citation Contract and its precedence, with flattened entry attribution. Unsupported anchors are PRODUCT063. Evidence has no embedded projection and cannot itself produce PRODUCT062. Schema-validity checks precede semantic checks; malformed citation shapes within the closed evidence document are PRODUCT080.
+
+### Serialization and release boundary
+
+The removal of Use Case from Business Rule scope invalidates documents accepted by released `v1alpha1`, so [Schemas → Versioning](../schemas/README.md) requires a new `schemas/v1alpha2/` directory. Preserve released `v1alpha1` schemas unchanged. Copy the complete schema set with new URNs/references, select configuration `version: v1alpha2`, and add the Lifecycle and evidence schemas. Conformance claims identify specification 0.3.0 and serialization v1alpha2. Explicit v0.2/v1alpha1 operation remains governed by the old contract; no-config discovery uses the explicitly selected version pair rather than silently migrating data.
+
+This RFC supplies graph vocabulary to #82; it does not duplicate that RFC's impact ledger or #115's citation-report rules. Its own follow-up scope is listed below so acceptance does not depend on an unpublished release plan.
+
+### Implementation checklist
+
+| Surface | Required follow-up |
+| --- | --- |
+| `spec/artifacts.md`, `spec/identifiers.md`, `spec/terminology.md`, `spec/frontmatter-reference.md` | Add LC, local State/Transition records and SB coverage; update all affected target unions and the BR migration; identify semantic authoring checks as human review. |
+| `spec/relationships.md` | Add the nine relationship-table changes above, narrow BR scope, update PRODUCT105/106 sets, and retain LC as every transition reference's source. |
+| `spec/validation.md` | Add the proposed code units and prerequisite rules, evidence field/entry attribution and standard LC relationship/body/status/removal diagnostics. Recheck code availability before allocation. |
+| `schemas/v1alpha2/` | Copy the complete schema set with new URNs/references/config version; add LC and evidence schemas; extend common artifact ID/type unions with LC. Use separate BR scope (JRN/BC) and QR/Constraint scope (JRN/UC/BC/LC) definitions so narrowing BR does not narrow other kinds. FR derived-from gains LC; SB gains the closed coverage pair. Preserve `schemas/v1alpha1/` unchanged. |
+| `spec/verification-evidence.md` (new), `spec/citation-contract.md` | Publish the conditional evidence contract and link to the existing citation rules without duplicating their precedence; support whole-LC citations without local anchors. Evidence JSON schema reuses standard citationRecord; duplicate test IDs and resolved target kinds are semantic checks. |
+| `spec/configuration.md`, `spec/conformance.md`, `spec/index.md`, `schemas/README.md`, `MATURITY.md` | Document the version pair and configuration selection; require LC support but keep authoring optional; make evidence conformance conditional; distinguish executable checks from review criteria. |
+| `templates/domain-lifecycle.md` (new), `templates/business-rule.md`, `templates/use-case.md`, `templates/structured-behaviour.md`, `templates/README.md`, `scripts/check-templates.mjs` | Add LC example, migrate BR/UC association, document coverage; select new schemas and support boolean scalars/validation and CRLF input. Evidence is external JSON, not an artifact template. |
+| `docs/migrations/v0.2-to-v0.3.md` (new) | Document the migration above, idempotence, unresolved-target repair, explicit active-change rebase and preservation of archives/citation pins. |
+| `conformance/cases/`, `conformance/README.md`, `.github/workflows/conformance.yml` | Implement the case matrix below, update known BR/UC fixtures, intentionally recompute affected pins and retain a pinned v0.2 regression lane. Pin a runner with evidence support before claiming evidence coverage. |
+
+The existing runner accepts flat model fixtures with diagnostics and exit codes; it cannot execute an evidence-adapter case. That extension is an explicit implementation dependency, not a reason to represent unexecuted cases as passes. LC validation and migration cases can use the existing flat format. The worked model's multi-source equivalence, semantic adequacy and absence of implementation design remain human-review criteria.
+
+Minimum fixture families for this RFC (each case names its clause and exact diagnostic attribution):
+
+- `domain-lifecycle-valid`, `domain-lifecycle-single-state`, `domain-lifecycle-empty-transitions`, `domain-lifecycle-multiple-sources`: all relationship fields, common status/provenance, FR derivation, QR/Constraint scope and SB coverage; allow a state and transition to share a local spelling.
+- `domain-lifecycle-schema-*`, `domain-lifecycle-duplicate-*`, `domain-lifecycle-unknown-*`, `domain-lifecycle-no-initial`, `domain-lifecycle-multiple-initial`, `domain-lifecycle-terminal-source`, `domain-lifecycle-section-*`: closed shapes, booleans, local uniqueness/references, cardinality and body order, including suppression when prerequisites fail.
+- `domain-lifecycle-<relationship>-{unknown,wrong-type,retired,removed}` and `covers-transition-{unknown-lifecycle,wrong-lifecycle-type,removed-lifecycle,unknown-transition,removed-transition,missing-illustrates}`: existing per-entry codes, PRODUCT014 only after valid LC resolution, and no replacement of required illustrates.
+- `domain-lifecycle-{unreachable-state,uncovered-transition,draft-no-warning,deprecated-no-warning,retired-no-warning,coverage-retired-sb}` plus `lifecycle-{rule-consumed,term-subject-used,term-uses-used,retired-source-no-consumption}`: warning populations, exact counts and absence assertions.
+- `business-rule-{uc-scope-rejected,uc-governance-migrated,broad-scope-preserved,absent-scope-not-global}`, migration idempotence/unresolved-target checks, and `lifecycle-citation-{current,stale,anchor-rejected}`. Extend all-kinds and LC add/modify/remove fixtures; archives remain inert.
+- `evidence-{valid,duplicate-test-id,duplicate-json-key,disallowed-target-kind,unknown-property,blank-identity,invalid-revision,invalid-level,invalid-outcome,empty-results,empty-citations}`: both full SHA lengths, all levels/outcomes, closed shapes and exact error precedence.
+- `evidence-{unknown-target,missing-anchor,sb-anchor,stale-target,passed-stale,current-enumerated,historical-excluded,entry-after-duplicate-result}`: existing citation semantics, outcome/status separation, explicit selection and stable ordinals. Missing evidence alone produces no diagnostic. The same test ID in separate runs remains valid.
 
 ### Worked-model DDD decisions
 
@@ -357,7 +431,7 @@ The Product Change pilot does not require Entity/Value Object classification or 
 
 ## Impact
 
-- **On existing conformant repositories:** adding Domain Lifecycle and `covers-transition` is optional and additive. Removing Use Case from `Business Rule.applies-to` is a normative breaking change to the current relationship target set; repositories using that edge MUST migrate it to `Use Case.governed-by` before claiming conformance to the RFC's target version. Existing repositories that do not use that edge require no relationship migration.
+- **On existing conformant repositories:** authoring Domain Lifecycle and `covers-transition` is optional. Removing Use Case from `Business Rule.applies-to` is a normative breaking change; repositories using that edge MUST migrate it to `Use Case.governed-by` before claiming conformance to 0.3.0/v1alpha2. Repositories without that edge need no relationship migration, but still select the new version pair and update configuration where present.
 - **On existing implementations:** implementations must add a Lifecycle parser/schema, graph links, validation, impact handling and Structured Behaviour transition coverage. Implementations claiming verification-evidence traceability must implement the evidence record contract. Existing implementations that do not claim the optional evidence integration need not execute or store tests.
 - **On the conformance tests:** add valid Lifecycle and transition-coverage cases; common relationship resolution and target-type cases for Lifecycle fields; unknown/duplicate local State and Transition cases; missing/multiple initial State cases; terminal-source cases; required body-section/order cases; unreachable-state and uncovered-transition warnings; migration coverage for `Business Rule.applies-to` Use Case removal; `PRODUCT105` cases proving a rule referenced only by a Lifecycle Transition is consumed; `PRODUCT106` cases proving a term referenced as a Lifecycle subject or through `uses-terms` is used; and verification-evidence cases for schema closure, citation target kinds, test levels, outcomes, full revision format, duplicate test IDs and stale targets.
 - **On ProductShape's self-model:** a candidate `TERM-PRODUCT-CHANGE`, `LC-PRODUCT-CHANGE` and the two Structured Behaviours above exercise the contract. Adding them to ProductShape's accepted model requires its own Product Change and is outside this specification RFC.
