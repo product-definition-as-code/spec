@@ -2,6 +2,15 @@
   "exitCode": 1,
   "diagnostics": [
     {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-remove-term/change.md",
+      "change": "CHG-REMOVE-TERM",
+      "target": "TERM-REMOVE",
+      "field": "uses-terms",
+      "artifact": "SB-TERMS"
+    },
+    {
       "severity": "error",
       "code": "PRODUCT024",
       "file": "docs/product/model/behaviours/sb-terms.md",

@@ -1,6 +1,15 @@
 {
   "diagnostics": [
     {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-retire-anchor-uc/change.md",
+      "change": "CHG-RETIRE-ANCHOR-UC",
+      "target": "UC-VALIDATE-002",
+      "field": "steps[].use-case",
+      "artifact": "JRN-VALIDATE"
+    },
+    {
       "severity": "error",
       "code": "PRODUCT024",
       "file": "docs/product/model/journeys/jrn-validate.md",

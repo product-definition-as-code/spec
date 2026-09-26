@@ -2,6 +2,23 @@
   "exitCode": 1,
   "diagnostics": [
     {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-remove-illustration/change.md",
+      "change": "CHG-REMOVE-ILLUSTRATION",
+      "target": "CON-ILLUSTRATION",
+      "field": "applies-to"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-remove-illustration/change.md",
+      "change": "CHG-REMOVE-ILLUSTRATION",
+      "target": "CON-ILLUSTRATION",
+      "field": "illustrates",
+      "artifact": "SB-ILLUSTRATES"
+    },
+    {
       "severity": "error",
       "code": "PRODUCT024",
       "file": "docs/product/model/behaviours/sb-illustrates.md",
