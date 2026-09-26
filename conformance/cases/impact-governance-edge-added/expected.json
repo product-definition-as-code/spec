@@ -8,6 +8,12 @@
       "field": "applies-to",
       "target": "CON-A",
       "change": "CHG-A"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT103",
+      "file": "docs/product/model/con-a.md",
+      "artifact": "CON-A"
     }
   ],
   "exitCode": 0

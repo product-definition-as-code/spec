@@ -3,6 +3,12 @@
     {
       "severity": "warning",
       "code": "PRODUCT103",
+      "file": "docs/product/changes/active/chg-a/proposed/con-a.md",
+      "artifact": "CON-A"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT103",
       "file": "docs/product/model/con-a.md",
       "artifact": "CON-A"
     }

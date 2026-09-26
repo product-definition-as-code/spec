@@ -5,6 +5,14 @@
       "code": "PRODUCT002",
       "file": "docs/product/model/br-a.md",
       "field": "/applies-to/0"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT007",
+      "file": "docs/product/model/br-a.md",
+      "artifact": "BR-A",
+      "field": "applies-to",
+      "target": "UC-A"
     }
   ],
   "exitCode": 1
