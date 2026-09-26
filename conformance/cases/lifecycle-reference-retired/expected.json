@@ -1,0 +1,13 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT008",
+      "file": "docs/product/model/lc-a.md",
+      "artifact": "LC-A",
+      "field": "transitions[].governed-by",
+      "target": "BR-A"
+    }
+  ],
+  "exitCode": 1
+}

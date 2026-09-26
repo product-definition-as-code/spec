@@ -36,3 +36,5 @@ These are release gates, not aspirations to be waived:
 5. Governance with more than one organization represented.
 
 Until every gate is met, the accurate description of this work is: an open RFC methodology with a working reference implementation.
+
+The working v0.3.0 candidate introduces serialization `v1alpha2`, including the breaking Rule/Use Case governance migration. It is not released or independently qualified merely because RFCs #116, #82 and #115 were accepted. See the [release plan](docs/releases/v0.3.0-plan.md) and [migration guide](docs/migrations/v0.3.0.md).

@@ -1,0 +1,20 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "verify-evidence",
+  "evidence": [
+    "evidence/run.json"
+  ],
+  "reports": {},
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT080",
+      "file": "evidence/run.json",
+      "field": "/revision"
+    }
+  ],
+  "exitCode": 1
+}

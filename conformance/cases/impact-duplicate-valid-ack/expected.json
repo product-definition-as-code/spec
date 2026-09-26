@@ -1,0 +1,26 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply-dry-run",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": {
+      "count": 0,
+      "records": []
+    },
+    "productDiff": [
+      {
+        "id": "BR-A",
+        "kind": "modified",
+        "digest": "sha256:22a6cb10b877fbc5145e6c258d38e8d27c7d41ccf02bf1e9f629a5ca4a137db3"
+      }
+    ]
+  },
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

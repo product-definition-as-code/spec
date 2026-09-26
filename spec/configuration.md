@@ -14,12 +14,12 @@ Repository-relative paths in this contract resolve from the configuration root, 
 
 ## Versioned document
 
-When present, `.product/config.yaml` MUST be one YAML 1.2 document and MUST validate against [`schemas/v1alpha1/config.schema.json`](../schemas/v1alpha1/config.schema.json). Duplicate mapping keys, aliases, anchors, tags and merge keys are not permitted.
+When present, `.product/config.yaml` MUST be one YAML 1.2 document and MUST validate against [`schemas/v1alpha2/config.schema.json`](../schemas/v1alpha2/config.schema.json). Duplicate mapping keys, aliases, anchors, tags and merge keys are not permitted.
 
 The document has this complete kernel shape:
 
 ```yaml
-version: v1alpha1
+version: v1alpha2
 product-root: docs/product
 validation:
   warnings-as-errors: false
@@ -28,7 +28,7 @@ extensions: {}
 
 | Key | Presence | Meaning and default |
 | --- | --- | --- |
-| `version` | required when the file exists | Configuration serialization version; exactly `v1alpha1`. |
+| `version` | required when the file exists | Configuration serialization version; exactly `v1alpha2`. |
 | `product-root` | optional | Repository-relative POSIX path to the Product Definition root; default `docs/product`. |
 | `validation` | optional | Kernel validation policy; default `{}`. |
 | `validation.warnings-as-errors` | optional | Escalate every normative warning to a failing result; default `false`. |
@@ -49,3 +49,5 @@ When the document parsed, `field` is the first invalid instance path in Unicode 
 ## Extension boundary
 
 An implementation MAY define its own nested mapping below an extension key it controls, preferably a reverse-DNS name such as `extensions.com.example.tool`. That mapping and its versioning are implementation-defined. No extension key makes an implementation-specific command, integration, generated file or policy part of PDaC conformance.
+
+Specification 0.3.0 uses serialization `v1alpha2`. A tool supporting multiple specification versions MUST select and report the specification/serialization pair. Without a configuration file, defaults belong to the explicitly selected pair; absence MUST NOT silently migrate a v0.2/v1alpha1 invocation. An explicit v0.2/v1alpha1 invocation retains that released contract. See the [migration guide](../docs/migrations/v0.3.0.md).

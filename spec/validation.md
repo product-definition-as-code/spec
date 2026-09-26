@@ -14,10 +14,10 @@ Every diagnostic carries:
 | `file`     | always          | repository-relative source or expected file (POSIX separators)                              |
 | `artifact` | when applicable | ID of the Product Artifact the diagnostic is about; never a Product Change or unresolved ID |
 | `change`   | when applicable | ID of the Product Change the diagnostic is about                                            |
-| `field`    | when applicable | frontmatter field, relationship or body section                                             |
+| `field`    | when applicable | frontmatter field, relationship, body section or evidence path                                             |
 | `target`   | when applicable | referenced, operated-on or cited ID exactly as authored, whether or not it resolves          |
 | `line`     | payload only    | one-based consumer-file line carrying a citation payload                                     |
-| `entry`    | sidecar only    | one-based citation entry within the sidecar's `citations` sequence                           |
+| `entry`    | sidecar/evidence | one-based sidecar citation position or flattened evidence citation ordinal                           |
 
 `artifact`, `change` and `target` are distinct subjects. In particular, a citation diagnostic uses `target` for the cited ID. An unresolved ID MUST NOT appear in `artifact`, because resolution is what would establish that it identifies an artifact. A Product Change ID MUST appear in `change`, never `artifact`.
 
@@ -38,6 +38,11 @@ Warnings are not errors. `validation.warnings-as-errors` in the versioned [Confi
 | `PRODUCT007` | Relationship targets a disallowed artifact type                                        |
 | `PRODUCT008` | Active artifact references a retired artifact                                          |
 | `PRODUCT009` | Required body section missing or out of order                                          |
+| `PRODUCT010` | Duplicate lifecycle local state or transition ID |
+| `PRODUCT011` | Lifecycle transition refers to an unknown local state |
+| `PRODUCT012` | Lifecycle does not contain exactly one initial state |
+| `PRODUCT013` | Lifecycle transition has a terminal source state |
+| `PRODUCT014` | Structured Behaviour coverage selects an unknown local transition |
 | `PRODUCT020` | Product Change addition whose ID already exists in the baseline                        |
 | `PRODUCT021` | Product Change modification of an ID that does not exist in the baseline               |
 | `PRODUCT022` | Product Change removal of an ID that does not exist in the baseline                    |
@@ -47,6 +52,8 @@ Warnings are not errors. `validation.warnings-as-errors` in the versioned [Confi
 | `PRODUCT026` | Proposed artifact not listed in operations, or operation without its proposed artifact |
 | `PRODUCT027` | Ordinary base revision does not resolve, or a modify/remove target changed since it    |
 | `PRODUCT028` | Apply attempted on a Product Change whose status is not `approved`                     |
+| `PRODUCT033` | Semantically invalid impact acknowledgment entry |
+| `PRODUCT034` | Apply or dry run has an unacknowledged model-impact cause |
 | `PRODUCT042` | Invalid or unverifiable citation digest                                                 |
 | `PRODUCT050` | Invalid configuration or unknown top-level configuration key                           |
 | `PRODUCT051` | Managed integration file modified by hand                                              |
@@ -58,6 +65,8 @@ Warnings are not errors. `validation.warnings-as-errors` in the versioned [Confi
 | `PRODUCT065` | Consumer document declares `bound` but contains no citations                           |
 | `PRODUCT066` | Invalid exemption: empty reason or citation present                                    |
 | `PRODUCT067` | Malformed citation carrier, missing sidecar consumer or mixed carriers                  |
+| `PRODUCT080` | Malformed or schema-invalid explicitly selected Verification Evidence document |
+| `PRODUCT081` | Duplicate evidence test identifier or disallowed resolved evidence citation target kind |
 
 `PRODUCT020`-`PRODUCT028` apply to Product Changes and their overlays; see [Product Changes](product-changes.md). They are reported when a change is validated or applied, never when validating the baseline alone, and never against archived changes.
 
@@ -71,7 +80,7 @@ When a dangling reference in the overlay is caused by an ID named in the change'
 
 When more than one citation condition holds, [Citation Contract → Precedence](citation-contract.md#precedence) decides which one is reported, and only that condition's diagnostic is emitted: an embedded projection edited by hand whose cited text has also moved is `PRODUCT062`, never `PRODUCT062` and `PRODUCT061` together.
 
-`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.2: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
+`PRODUCT070`-`PRODUCT079` is reserved for model-repository resolution ([Conformance → Topologies](conformance.md#topologies)). No code in that band is issued in v0.3: the model-repository pointer's record shape is fixed and its serialization is not, so there is no portable input to check.
 
 Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PRODUCT032`, `PRODUCT040`-`PRODUCT041`, `PRODUCT043`-`PRODUCT044`, `PRODUCT109` and `PRODUCT110` are retired: they belonged to the delivery pipeline removed by [RFC 0004](../rfcs/0004-delivery-model-reset.md) and are never reissued with a new meaning.
 
@@ -81,15 +90,18 @@ Diagnostic codes are stable and are never renumbered or reused. `PRODUCT030`-`PR
 
 | Code         | Condition                                                                                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PRODUCT029` | Unacknowledged model-impact cause during Product Change validation |
 | `PRODUCT061` | Stale citation: target resolves but canonical content changed since the citation                                                                                   |
 | `PRODUCT101` | Artifact file name not aligned with its ID                                                                                                                         |
 | `PRODUCT103` | Requirement not reachable from any actor (see [Relationships → Reachability](relationships.md#reachability)); product-wide constraints are reachable by definition |
 | `PRODUCT104` | Deprecated artifact still referenced by an active artifact                                                                                                         |
 | `PRODUCT105` | Business rule with no consumers                                                                                                                                    |
-| `PRODUCT106` | Domain term with no incoming `uses-terms` relationship                                                                                                           |
+| `PRODUCT106` | Domain term unused under the canonical usage relationship set                                                                                                           |
 | `PRODUCT107` | Bounded context with no owned domain language                                                                                                                      |
 | `PRODUCT108` | Product Change in status `approved` with an unresolved question (a list item) under `## Open Questions`                                                            |
 | `PRODUCT111` | Draft artifact whose `provenance.confidence` is `low`                                                                                                              |
+| `PRODUCT112` | Non-initial state unreachable from the initial state in an active Domain Lifecycle |
+| `PRODUCT113` | Transition in an active Domain Lifecycle with no active Structured Behaviour coverage |
 
 `PRODUCT101` is mechanically resolvable: an implementation MAY offer a fix operation renaming each file to `<id.toLowerCase()>.md`. The fix operation renames through a temporary name so it also works on case-insensitive filesystems, where a casing-only rename is otherwise a silent no-op. `--dry-run` reports the plan and exits non-zero when anything would change, which makes the dry run usable as a CI gate: `PRODUCT101` is a warning, so it is not otherwise caught unless `validation.warnings-as-errors` is set.
 
@@ -114,6 +126,17 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT005` | occurrence of a duplicated ID after its first occurrence in deterministic file/document order | `artifact` |
 | `PRODUCT006`-`PRODUCT008` | authored relationship entry that violates the condition | source `artifact`, `field`, `target` |
 | `PRODUCT009` | required body section that is missing or out of order | `artifact`, `field` = section heading |
+| `PRODUCT010` | duplicated local key in each of the separate state/transition namespaces | LC `artifact`, `field: states[ID].id` or `transitions[ID].id`, local `target` |
+| `PRODUCT011` | distinct unknown state per transition field | LC `artifact`, `field: transitions[ID].from` or `.to`, local `target` |
+| `PRODUCT012` | lifecycle with initial-state count other than one | LC `artifact`, `field: states` |
+| `PRODUCT013` | distinct terminal source per transition | LC `artifact`, `field: transitions[ID].from`, local `target` |
+| `PRODUCT014` | unresolved coverage transition after valid unambiguous lifecycle resolution | SB `artifact`, `field: covers-transition.transition`, local `target` |
+| `PRODUCT029`, `PRODUCT034` | unacknowledged impact cause | `change`, candidate `artifact` (omit for product scope), cause `target`, canonical relationship `field`; `file` is change.md |
+| `PRODUCT033` | schema-valid but semantically invalid ledger entry | `change`, `field: unaffected[n]` (one-based), `target` selected by ledger precedence; `file` is change.md |
+| `PRODUCT080` | malformed evidence document | first invalid JSON Pointer `field` when parseable; no artifact/change |
+| `PRODUCT081` | duplicate test-id occurrence after first, or disallowed resolved citation target | evidence attribution and suppression from [Verification Evidence](verification-evidence.md#citation-evaluation) |
+| `PRODUCT112` | unreachable non-initial state in an active lifecycle | LC `artifact`, `field: states[ID]`, local `target` |
+| `PRODUCT113` | uncovered transition in an active lifecycle | LC `artifact`, `field: transitions[ID]`, local `target` |
 | `PRODUCT020`-`PRODUCT022` | invalid Product Change operation entry | `change`, operation `field`, `target` |
 | `PRODUCT023` | overlay occurrence of a duplicated ID after its first occurrence in deterministic file/document order | `artifact` |
 | `PRODUCT024` | relationship entry made dangling by the removal | source `artifact`, `field`, `target` |
@@ -121,7 +144,7 @@ The table below is normative. “Per” fixes diagnostic count: an implementatio
 | `PRODUCT026` | undeclared proposed artifact, or operation entry without its proposed artifact | proposed-file direction: `artifact`; operation direction: `change`, operation `field`, `target` |
 | `PRODUCT027` | unresolved ordinary base revision, or changed `modify`/`remove` target | unresolved-revision form: `change`, `field: base-revision`; changed-target form: `change`, operation `field`, `target` |
 | `PRODUCT028` | apply invocation against a non-approved change | `change`, `field: status` |
-| `PRODUCT042`, `PRODUCT060`-`PRODUCT063` | citation record | cited `target`, plus payload `line` or sidecar `entry` |
+| `PRODUCT042`, `PRODUCT060`-`PRODUCT063` | citation record | cited `target`, plus payload `line`, sidecar `entry` or evidence flattened `entry` |
 | `PRODUCT064` | enumerated current consumer document with no scope declaration | `field: scope` |
 | `PRODUCT065` | enumerated current consumer document declared `bound` with no citations | `field: scope` |
 | `PRODUCT066` | enumerated current consumer document with one or both invalid-exemption conditions | `field: scope` |
@@ -184,3 +207,19 @@ Not decisions, and not obligations on any implementation. They are recorded so t
 - Generated outputs (`product-graph.json`, indexes, Mermaid, diagnostics JSON) MUST be byte-identical for identical input content, and `product-graph.json` MUST carry a versioned schema identifier.
 
 Product diff determinism is semantic: the same baseline and applied result MUST yield the same set of impacted artifacts, impact kinds and resulting digests. Byte-identity of the diff report is not required while its serialization remains unfixed ([RFC 0004](../rfcs/0004-delivery-model-reset.md) open question 3).
+
+## Lifecycle diagnostic prerequisites
+
+Common schema, body, reference, artifact status and removal diagnostics apply to Domain Lifecycle and coverage relationships. `PRODUCT002` uses JSON Pointers with numeric indexes, including nested state and transition records. Canonical artifact relationship diagnostics retain each authored occurrence and use the [relationship table](relationships.md), for example `transitions[].governed-by`; local diagnostics use the stable notation above.
+
+`PRODUCT010` reports one finding per duplicated key, not per duplicate pair. Local checks MUST NOT guess an ambiguous state or transition identity. `PRODUCT014` requires a valid, unambiguous LC target; a missing or wrong-type lifecycle produces the normal relationship diagnostic without an additional local-selector error. Independent computable findings MUST still be reported.
+
+`PRODUCT112` uses directed local reachability from the sole initial state: a transition is traversable from each source in `from` to its `to`. It requires unique local IDs, valid local state references and exactly one initial state. Actor reachability is a separate graph check. `PRODUCT113` requires unambiguous transition identity and at least one active SB whose coverage pair resolves to that transition. Draft, deprecated and retired lifecycles are outside both warning populations. A transition has no independent status.
+
+## Impact and forecast diagnostics
+
+`PRODUCT029`, `PRODUCT033` and `PRODUCT034` concern only live Product Changes, never baseline-only validation or archived history. [Impact accounting](product-changes.md#impact-accounting) defines causes, acknowledgment validity and the first-holds precedence for `PRODUCT033`. A malformed ledger entry produces `PRODUCT002`, not `PRODUCT033` for that entry. Invalid entries acknowledge nothing; repeated valid entries count once.
+
+Validation reports `PRODUCT029` once per unresolved cause and all independent computable findings. Apply and dry run use the [ordered preconditions](product-changes.md#apply); unresolved causes produce `PRODUCT034`, exit 1 and an unchanged working tree, without an additional `PRODUCT029`. An earlier failing stage suppresses later stages. Warnings-as-errors stops the applicable stage without changing emitted severity.
+
+Affected-citation forecasts are reports, not diagnostics. Their statuses MUST NOT enter warnings-as-errors handling or block apply. Forecast content and record order are deterministic; this does not require byte-identical output serialization across implementations.

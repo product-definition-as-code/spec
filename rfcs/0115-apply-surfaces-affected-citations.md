@@ -1,6 +1,6 @@
 # RFC 0115: Apply surfaces the affected citation set before a change is accepted
 
-- **Status:** draft
+- **Status:** accepted
 - **Author(s):** Juan G. Carmona
 - **Created:** 2026-08-19, revised 2026-09-06
 - **Issue:** <https://github.com/product-definition-as-code/spec/issues/48>; PR <https://github.com/product-definition-as-code/spec/pull/115>
@@ -112,3 +112,7 @@ Rejected. An archived change and the applying change's own container record the 
 - Cross-repository citation resolution; the set covers the repository the model lives in, per the boundary restated in [Change impact](../spec/product-changes.md#change-impact).
 - Automatic revision, digest refresh or rewriting of consumer documents; [RFC 0042](0042-consumer-binding-for-sdd-alignment.md) forbids it and nothing here relaxes that.
 - Consumer-population accounting, which is [RFC 0042](0042-consumer-binding-for-sdd-alignment.md)'s subject; this RFC only requires apply and verification to agree on the population.
+
+## Maintainer decision
+
+Accepted by Juan G. Carmona on 2026-09-25 and merged through PR #115. Before apply writes anything, report the live downstream citations affected by the effective product diff, including an explicit zero. Use the same population and status rules as citation verification, with deterministic records and no persistence. Surface stale or unresolved consequences without making them an apply veto. This record reconciles the RFC file with the acceptance already recorded on the merged PR.

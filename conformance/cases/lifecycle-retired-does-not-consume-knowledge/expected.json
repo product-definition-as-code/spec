@@ -1,0 +1,17 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT105",
+      "file": "docs/product/model/br-a.md",
+      "artifact": "BR-A"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT106",
+      "file": "docs/product/model/term-a.md",
+      "artifact": "TERM-A"
+    }
+  ],
+  "exitCode": 0
+}

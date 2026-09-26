@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 45 published fixture directories execute today via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. The original 45 fixture directories execute via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -13,7 +13,7 @@ conformance/cases/<case-name>/
   case.md                    # what this case verifies, citing the spec chapter and clause
 ```
 
-Rules for these tests: fixtures use only the normative repository, configuration and citation-carrier contracts; expected diagnostics reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/validation.md); a case covers exactly one normative clause wherever possible; and the tests are versioned with the spec. A conformance claim names both the method/spec version and the serialization version, so `0.2.0` with `v1alpha1` selects one precise document set and semantic contract.
+Rules for these tests: fixtures use only the normative repository, configuration and citation-carrier contracts; expected diagnostics reference the stable PRODUCT0xx/1xx codes defined in [validation](../spec/validation.md); a case covers exactly one normative clause wherever possible; and the tests are versioned with the spec. A conformance claim names both the method/spec version and the serialization version, so `0.3.0` with `v1alpha2` selects one precise document set and semantic contract.
 
 ## Comparing diagnostics
 
@@ -185,3 +185,9 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT107` | bounded context with no owned language | not yet covered |
 | `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
 | `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |
+
+## v0.3.0 candidate
+
+The candidate selects 0.3.0/v1alpha2 and adds the [v0.3 case inventory](v0.3.0-cases.md). Domain Lifecycle schema/graph cases and impact validation cases use the flat format. Apply and explicit evidence cases use the [operation protocol](operations.md), supported by the coordinated runner PR. Published runner 1.0.0 explicitly skips that format. Passing its flat digest audit does not mean operation cases ran.
+
+Run `python scripts/check-v030.py` from the repository root after installing `scripts/requirements.txt` to check new schema closure, fixture schema paths, acknowledgment/evidence pins and forecast-source integrity. This is a fixture audit, not an implementation validator. The [release plan](../docs/releases/v0.3.0-plan.md) records the remaining qualification gates.

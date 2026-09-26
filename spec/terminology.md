@@ -2,7 +2,7 @@
 
 Definitions used normatively throughout this specification.
 
-**Product Artifact.** An independently addressable unit of product knowledge with a stable immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement, Constraint or Structured Behaviour.
+**Product Artifact.** An independently addressable unit of product knowledge with a stable immutable ID: an Actor, Journey, Use Case, Business Rule, Domain Term, Bounded Context, Functional Requirement, Quality Requirement, Constraint, Structured Behaviour or Domain Lifecycle.
 
 **Product Definition (Baseline).** The accepted, versioned and validated graph of product artifacts under `docs/product/model`. It describes the product as currently defined, including behaviour that is accepted. The Product Definition is the accepted product intent on the repository's canonical branch; acceptance and implementation are distinct facts. Also called the _baseline_ when a Product Change is validated against it.
 
@@ -16,7 +16,7 @@ Definitions used normatively throughout this specification.
 
 **Apply.** The explicit, human-triggered operation that materializes an approved Product Change: it writes the change's operations into the proposal's model files, computes the product diff, validates the resulting model, and archives the change. Apply never merges and never commits, and it does not accept the change: the accepted Product Definition changes only when a human merges the pull request carrying the applied result.
 
-**Product diff.** The difference between the baseline and the result of applying a Product Change: the set of artifacts that effectively changed, the kind of impact on each, and the resulting digest of each artifact added or modified. The diff is authoritative for what changed; the change's `operations` are authoritative for what was intended. Impact is computed from the diff and the citation index.
+**Product diff.** The difference between the baseline and the result of applying a Product Change: the set of artifacts that effectively changed, the kind of impact on each, and the resulting digest of each artifact added or modified. The diff is authoritative for what changed; the change's `operations` are authoritative for what was intended. Model-impact accounting uses canonical one-hop relationships; the affected-citation forecast uses the effective diff and live citation index.
 
 **Proposal.** The branch bearing an applied Product Change, offered for review as a pull request. The proposed tree is validated in full before merge.
 
@@ -43,3 +43,7 @@ Definitions used normatively throughout this specification.
 **Structural impact.** The set of artifacts reachable from a given artifact through graph edges within a stated direction and depth. Structural impact is deterministic and makes no semantic claim.
 
 **Diagnostic.** A machine-readable validation finding with severity, stable code, message, source file and, when available, artifact ID, field and target ID.
+
+**Domain Lifecycle.** A Product Artifact describing product-significant states and transitions of a Domain Term. Its local business states are distinct from the artifact's draft/active/deprecated/retired status.
+
+**Verification Evidence.** An external provider's traceable claim about a verification run, with test identifiers, level, outcome, run revision and citations. It is not a Product Artifact, graph node, test definition or execution service. See [Verification Evidence](verification-evidence.md).

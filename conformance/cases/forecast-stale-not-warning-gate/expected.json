@@ -1,0 +1,33 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply-dry-run",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": {
+      "count": 1,
+      "records": [
+        {
+          "file": "consumers/a.md",
+          "line": 1,
+          "target": "SB-A",
+          "status": "stale"
+        }
+      ]
+    },
+    "productDiff": [
+      {
+        "id": "SB-A",
+        "kind": "modified",
+        "digest": "sha256:3dcc950e62aecf9da0ade069c480bdd7729e1a2546f3e7439c201dbb9640eb0b"
+      }
+    ]
+  },
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

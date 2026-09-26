@@ -1,0 +1,13 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "verify-evidence",
+  "evidence": [
+    "evidence/run.json"
+  ],
+  "reports": {},
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [],
+  "exitCode": 0
+}

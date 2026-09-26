@@ -30,7 +30,7 @@ pdac:cite id="<artifact-id>" digest="<digest>" [anchor="<anchor>"]
 
 Values are double-quoted and have no escape syntax. Unknown, repeated or out-of-order attributes are invalid. Discovery scans text lines for the exact `pdac:cite` token followed by payload-like `id=` text; a malformed candidate produces `PRODUCT067` rather than disappearing as prose. The payload rides inside the host format's native comment, whose opener and closer carry no citation semantics.
 
-For a consumer named `<stem>.<extension>`, the adjacent sidecar is `<stem>.citations.yml`, replacing only the final extension; a consumer with no extension appends `.citations.yml`. The sidecar MUST satisfy the normative [`citation-sidecar` schema](../schemas/v1alpha1/citation-sidecar.schema.json): one YAML 1.2 document, exactly one top-level `citations` key, and a non-empty sequence of closed citation records. Duplicate YAML keys, aliases, anchors, tags and merge keys are forbidden. The corresponding consumer file MUST exist. A ledger entry's location is its one-based sequence position.
+For a consumer named `<stem>.<extension>`, the adjacent sidecar is `<stem>.citations.yml`, replacing only the final extension; a consumer with no extension appends `.citations.yml`. The sidecar MUST satisfy the normative [`citation-sidecar` schema](../schemas/v1alpha2/citation-sidecar.schema.json): one YAML 1.2 document, exactly one top-level `citations` key, and a non-empty sequence of closed citation records. Duplicate YAML keys, aliases, anchors, tags and merge keys are forbidden. The corresponding consumer file MUST exist. A ledger entry's location is its one-based sequence position.
 
 ```yaml
 citations:
@@ -45,11 +45,11 @@ Payload verification and impact output report the consumer file and one-based `l
 
 ## Anchors
 
-An anchor addresses a location within the target artifact. In v0.2, an anchor is an inline verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the inline scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial dependency scope expressible as a set of cited scenario ids instead of prose.
+An anchor addresses a location within the target artifact. In v0.3, an anchor is an inline verification scenario's stable `id` (see [Frontmatter reference → verification](frontmatter-reference.md)): a citation with `anchor: S1` on target `FR-X` addresses the inline scenario whose `id` is `S1` within `FR-X`. Scenario anchors make partial dependency scope expressible as a set of cited scenario ids instead of prose.
 
 An anchor does not narrow digest scope. Every citation digest covers the whole target artifact. A verifier resolves the target and anchor, then compares the recorded digest with the whole artifact's recomputed digest. Any normalized-byte edit to that artifact makes the citation stale, including an edit to another scenario or to artifact prose; an edit to another artifact does not. The anchor tells a reviewer what was relied on, while whole-artifact staleness conservatively requires review of any change to its containing requirement ([RFC 0077](../rfcs/0077-whole-artifact-digests-for-anchored-citations.md)).
 
-Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.2 anchors to inline scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
+Section-slug anchors (addressing a required body section by its heading slug) are deferred to a follow-up. Restricting v0.3 anchors to inline scenario ids keeps citation resolution deterministic ([manifesto](../MANIFESTO.md) principle 10) and avoids non-ASCII heading canonicalization.
 
 A `scenario-ref` does not create an anchor within its parent Requirement. The referenced Structured Behaviour is a Product Artifact with its own ID and whole-artifact digest, so it is cited directly. An anchor on a Structured Behaviour does not resolve and produces `PRODUCT063` unless a later specification version defines anchors within that artifact kind.
 
@@ -160,8 +160,14 @@ Semantic contradiction between a citation and its surrounding consumer text is e
 
 Consumers of the model (SDD frameworks, AI agents, human teams) retain native ownership of their own artifacts and workflow. A consumer MUST NOT write to the canonical product model. A consumer MAY propose a [Product Change](product-changes.md) when implementation reveals a contradiction; a human decides whether to approve and accept it ([manifesto](../MANIFESTO.md) principle 9). Acceptance is a human decision: tools MUST NOT merge, auto-approve or self-merge model changes.
 
-A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.2: how a tool verifies a citation digest against a model repository the consumer does not contain, and what that tool reports when the repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.2.
+A cited model may live in a repository of its own: [Conformance → Topologies](conformance.md#topologies) defines the co-located and dedicated topologies and the pointer a consuming repository carries to a dedicated model repository. Cross-repository citation *resolution* is a different question and remains out of scope for v0.3: how a tool verifies a citation digest against a model repository the consumer does not contain, and what that tool reports when the repository is unreachable, are deferred ([RFC 0021](../rfcs/0021-deployment-topologies.md)). Citations resolve within one repository in v0.3.
 
 ## Generated context documents
 
 A repository MAY generate a readable document composed entirely of citations, for the convenience of a consumer that prefers a single bundle over resolving citations individually. Such a generated document is non-canonical, reproducible from the citations it contains, and carries an explicit size budget it never silently exceeds. It is not a PDaC artifact and is not required for conformance; the citation contract is the normative surface, not any generated bundle.
+
+## Lifecycle and evidence integration
+
+A Domain Lifecycle is citable as a whole artifact. State and transition IDs are local selectors, not citation anchors; an anchor on a lifecycle produces `PRODUCT063`. Optional [Verification Evidence](verification-evidence.md) adapters reuse citation records, hashing and precedence under their narrower target-kind contract. They do not add graph edges or a general-purpose third citation carrier.
+
+Apply and dry run MUST report the [affected live citation set](product-changes.md#affected-citations) after model-impact gates and before writes. That forecast reuses verification's population and statuses, but its statuses are report data, not emitted consumer diagnostics or apply vetoes.

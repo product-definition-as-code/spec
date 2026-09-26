@@ -1,0 +1,22 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "UC-A",
+      "field": "governed-by",
+      "target": "BR-A",
+      "change": "CHG-A"
+    },
+    {
+      "severity": "error",
+      "code": "PRODUCT033",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "field": "unaffected[1]",
+      "target": "UC-A",
+      "change": "CHG-A"
+    }
+  ],
+  "exitCode": 1
+}

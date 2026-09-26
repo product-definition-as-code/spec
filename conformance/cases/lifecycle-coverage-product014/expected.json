@@ -1,0 +1,13 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT014",
+      "file": "docs/product/model/sb-a.md",
+      "artifact": "SB-A",
+      "field": "covers-transition.transition",
+      "target": "ABSENT"
+    }
+  ],
+  "exitCode": 1
+}

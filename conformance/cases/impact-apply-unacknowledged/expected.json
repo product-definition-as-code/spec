@@ -1,0 +1,26 @@
+{
+  "format": "pdac-conformance-case/v2",
+  "operation": "apply-dry-run",
+  "change": "CHG-A",
+  "history": [
+    "history/base"
+  ],
+  "reports": {
+    "affectedCitations": null
+  },
+  "tree": {
+    "unchanged": true
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT034",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "UC-A",
+      "field": "governed-by",
+      "target": "BR-A",
+      "change": "CHG-A"
+    }
+  ],
+  "exitCode": 1
+}

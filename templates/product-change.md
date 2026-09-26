@@ -9,6 +9,7 @@ operations:
     - BR-EXAMPLE-001
   modify: []
   remove: []
+unaffected: []
 ---
 
 <!--
@@ -19,6 +20,9 @@ base-revision: the commit of the baseline the change was written against
 (CHG-INITIAL with no baseline commit uses the 0000000 sentinel).
 operations: every added or modified ID needs a complete proposed future-state
 artifact under this change's proposed/ directory.
+unaffected: record reviewed unchanged neighbors with candidate/cause digest pins,
+canonical relationship and a reason. An empty list acknowledges no causes.
+Product-wide Constraint judgments use scope: product without candidate id/digest.
 Open Questions is syntactic: a list item counts as unresolved whatever it says;
 resolve a question by removing its item. "None." in prose is resolved.
 Reference layout: docs/product/changes/active/chg-example-001/change.md.

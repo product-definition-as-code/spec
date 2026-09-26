@@ -3,8 +3,6 @@ id: BR-EXAMPLE-001
 type: business-rule
 title: Booking lead time
 status: draft
-applies-to:
-  - UC-EXAMPLE-001
 uses-terms:
   - TERM-EXAMPLE-001
 ---

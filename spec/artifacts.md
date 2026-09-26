@@ -19,7 +19,7 @@ status: active # artifact lifecycle state
 ---
 ```
 
-- `type` MUST be one of: `actor`, `journey`, `use-case`, `business-rule`, `domain-term`, `bounded-context`, `functional-requirement`, `quality-requirement`, `constraint`, `structured-behaviour`.
+- `type` MUST be one of: `actor`, `journey`, `use-case`, `business-rule`, `domain-term`, `bounded-context`, `functional-requirement`, `quality-requirement`, `constraint`, `structured-behaviour`, `domain-lifecycle`.
 - Frontmatter MUST validate against the JSON Schema for its `type` (`schemas/<type>.schema.json`). Unknown frontmatter properties are invalid. The exhaustive per-kind field tables (required and optional properties, allowed values, ID patterns) are in the [Frontmatter reference](frontmatter-reference.md), maintained by hand against those authoritative schemas.
 - The Markdown body MUST contain the required sections for its type as `##` headings, in the order listed. Additional sections MAY follow the required ones.
 - Every artifact type additionally accepts the optional `provenance` object ([Frontmatter reference → Provenance](frontmatter-reference.md#provenance)).
@@ -82,13 +82,15 @@ Journey context is optional. A Use Case MAY be referenced by zero, one or multip
 
 A Business Rule expresses durable product knowledge that governs behaviour. A rule that applies to multiple use cases or requirements MUST be independently identifiable and reusable rather than hidden inside stories, acceptance criteria, UI validation, code, database constraints, tests or SDD tasks.
 
-Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs); `uses-terms` (optional, list of Domain Term IDs).
+Additional frontmatter: `applies-to` (optional, list of Journey or Bounded Context IDs); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Rule`, `## Rationale`, `## Examples`, `## Exceptions`.
 
 The `## Rule` section MUST contain one clear normative statement.
 
 The `## Examples` section MAY contain local illustrations that do not require independent identity, reuse, lifecycle or citation. When a concrete, testable example is authored as a Structured Behaviour, that artifact is the canonical carrier of its clauses and `illustrates` is the canonical association to the Business Rule. The Business Rule body MUST NOT present an authored restatement as a second canonical carrier. It MAY mention the Structured Behaviour ID or contain non-canonical explanatory prose. It MAY carry a restatement only as a non-canonical projection that cites the Structured Behaviour and follows the [embedding rules](citation-contract.md#embedding). Whether differently worded prose restates the same behaviour is a review question, not a deterministic validation rule.
+
+A specific Rule/Use Case association MUST be authored as `Use Case.governed-by`. `Business Rule.applies-to` records broader Journey or Bounded Context scope only. An absent or empty Business Rule scope is not product-wide scope, and membership of a Use Case in a Bounded Context does not author a `governed-by` edge.
 
 ## Domain Term (`domain-term`, `TERM-`)
 
@@ -102,7 +104,7 @@ A term's definition MUST NOT merely repeat its title.
 
 ## Bounded Context (`bounded-context`, `BC-`)
 
-A Bounded Context is a product-language boundary: it delimits where a set of domain terms carries a specific meaning. Bounded contexts in v0.2 do not imply aggregates, implementation modules or source-code structure.
+A Bounded Context is a product-language boundary: it delimits where a set of domain terms carries a specific meaning. Bounded contexts do not imply aggregates, implementation modules or source-code structure.
 
 Additional frontmatter: none beyond the common contract. In particular, `owns-terms` MUST NOT be authored: term ownership is derived from `Domain Term.defined-in` (see [Relationships](relationships.md)).
 
@@ -112,7 +114,7 @@ Required body sections: `## Responsibility`, `## Language`, `## Boundaries`, `##
 
 A Functional Requirement is a derived product obligation stating what the product must do.
 
-Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `verification` (required, non-empty list whose entries are either an inline `scenario` with an optional stable `id` for citation anchoring, or exactly one `scenario-ref` naming a Structured Behaviour; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
+Additional frontmatter: `derived-from` (required, non-empty list of Use Case, Business Rule, Constraint or Domain Lifecycle IDs); `verification` (required, non-empty list whose entries are either an inline `scenario` with an optional stable `id` for citation anchoring, or exactly one `scenario-ref` naming a Structured Behaviour; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Requirement`, `## Rationale`.
 
@@ -126,7 +128,7 @@ The body SHOULD NOT restate verification criteria. A body section that reproduce
 
 A Quality Requirement states a measurable quality obligation.
 
-Additional frontmatter: `quality-attribute` (required, string such as `portability`, `determinism`); `applies-to` (required, non-empty list of Journey, Use Case or Bounded Context IDs); `verification` (required, non-empty list using the same inline-or-reference union as a Functional Requirement; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
+Additional frontmatter: `quality-attribute` (required, string such as `portability`, `determinism`); `applies-to` (required, non-empty list of Journey, Use Case, Bounded Context or Domain Lifecycle IDs); `verification` (required, non-empty list using the same inline-or-reference union as a Functional Requirement; see [Frontmatter reference](frontmatter-reference.md)); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Requirement`, `## Measurement`.
 
@@ -136,7 +138,7 @@ The `## Measurement` section MUST state how conformance is measured: a vague qua
 
 A Constraint expresses an externally imposed or deliberately fixed boundary.
 
-Additional frontmatter: `applies-to` (optional, list of Journey, Use Case or Bounded Context IDs); `uses-terms` (optional, list of Domain Term IDs). When `applies-to` is absent, the constraint applies to the entire product.
+Additional frontmatter: `applies-to` (optional, list of Journey, Use Case, Bounded Context or Domain Lifecycle IDs); `uses-terms` (optional, list of Domain Term IDs). When `applies-to` is absent, the constraint applies to the entire product. An authored empty list does not have this implicit scope.
 
 Required body sections: `## Constraint`, `## Rationale`, `## Consequences`.
 
@@ -144,7 +146,7 @@ Required body sections: `## Constraint`, `## Rationale`, `## Consequences`.
 
 A Structured Behaviour is one concrete, implementation-independent example of accepted observable product behaviour. It separates the context in which behaviour occurs, the single stimulus that occurs and the observable outcomes that follow. Authors MAY continue to use inline Requirement verification scenarios when independent identity, reuse, lifecycle or citation is not needed.
 
-Additional frontmatter: `illustrates` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `given` (optional, non-empty ordered list of context strings); `when` (required, one stimulus string); `then` (required, non-empty ordered list of outcome strings); `uses-terms` (optional, list of Domain Term IDs).
+Additional frontmatter: `covers-transition` (optional, lifecycle/transition pair described below); `illustrates` (required, non-empty list of Use Case, Business Rule or Constraint IDs); `given` (optional, non-empty ordered list of context strings); `when` (required, one stimulus string); `then` (required, non-empty ordered list of outcome strings); `uses-terms` (optional, list of Domain Term IDs).
 
 Required body sections: `## Intent`, `## Boundaries`.
 
@@ -186,3 +188,19 @@ All `given` entries are conjunctive, and all `then` entries are conjunctive. Alt
 A Structured Behaviour MUST NOT name test classes, step definitions, selectors, mocks, database rows, internal messages or other implementation machinery. An externally visible API operation, event or document MAY be named when it is itself part of the product contract.
 
 The required `illustrates` relationship gives every Structured Behaviour an authored position in the Product Graph. Absence of a Requirement reference does not make the behaviour disconnected or invalid. Implementations MAY report possible omissions as non-conformance advice for human review, but MUST NOT present that advice as a deterministic diagnostic.
+
+## Domain Lifecycle (`domain-lifecycle`, `LC-`)
+
+A Domain Lifecycle defines explicit product-significant states and permitted transitions of one Domain Term. Authoring a lifecycle is optional; conforming implementations MUST support it. It is a normal Product Artifact, with common status, provenance, Product Changes, relationships and whole-artifact citations.
+
+Additional frontmatter: `subject` (required, Domain Term ID); `states` (required, non-empty ordered list of closed State records); `transitions` (required, ordered list of closed Transition records, possibly empty); `uses-terms` (optional, list of Domain Term IDs). Record fields are defined in the [Frontmatter reference](frontmatter-reference.md#domain-lifecycle).
+
+Required body sections: `## Purpose`, `## Invariants`, `## State Semantics`, `## Transition Semantics`, `## Boundaries`.
+
+State IDs MUST be unique within `states`; transition IDs MUST be unique within `transitions`. These are separate namespaces scoped to this lifecycle. Local IDs MUST match `^[A-Z0-9]+(-[A-Z0-9]+)*$`; they are neither Product Artifact IDs nor citation anchors. Titles and triggers MUST be non-empty. Omitted `initial` and `terminal` booleans mean false. Exactly one state MUST be initial. A single state MAY be both initial and terminal, with an empty transition list. A terminal state MUST NOT occur in any transition's `from` list.
+
+Every `from` and `to` selector MUST resolve to a state in this lifecycle. A transition has one non-empty `from` list, one `to` and one product-level `trigger`. Multiple source states in one transition MUST have equivalent stimulus, outcome and product meaning; otherwise authors MUST split them. This equivalence is a human review criterion. The body explains significance, invariants and boundaries and SHOULD NOT restate the complete state/transition table; semantic duplication is also reviewed by humans.
+
+Transitions inherit the containing artifact's status; they have no independent status. Their optional `initiated-by`, `governed-by` and `realized-by` lists target Actors, Business Rules and Use Cases respectively. All such graph edges originate at the containing Lifecycle, never a local transition node.
+
+A Structured Behaviour MAY add a closed `covers-transition` object with required `lifecycle` (LC ID) and `transition` (local transition ID). `illustrates` remains required and its allowed targets remain Use Case, Business Rule and Constraint. The pair MUST resolve unambiguously. The lifecycle member authors one dependency edge; the transition member is a local selector. A refused operation that performs no transition MUST NOT claim transition coverage. Coverage is an authored example association, not proof that a test ran or passed.

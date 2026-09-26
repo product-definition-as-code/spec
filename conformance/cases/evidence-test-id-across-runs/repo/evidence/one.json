@@ -1,0 +1,1 @@
+{"format": "pdac-verification-evidence/v1alpha1", "provider": "external", "run-id": "run-1", "revision": "1111111111111111111111111111111111111111", "results": [{"test-id": "test-1", "level": "domain", "outcome": "passed", "citations": [{"id": "SB-A", "digest": "sha256:ea5601bcd80438fa6e0c74ee53ed550f0f8147b0fd01c1c356462ea720a8f185"}]}]}

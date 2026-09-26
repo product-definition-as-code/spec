@@ -1,0 +1,23 @@
+{
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "CON-A",
+      "field": "applies-to",
+      "target": "LC-A",
+      "change": "CHG-A"
+    },
+    {
+      "severity": "warning",
+      "code": "PRODUCT029",
+      "file": "docs/product/changes/active/chg-a/change.md",
+      "artifact": "SB-A",
+      "field": "covers-transition.lifecycle",
+      "target": "LC-A",
+      "change": "CHG-A"
+    }
+  ],
+  "exitCode": 0
+}

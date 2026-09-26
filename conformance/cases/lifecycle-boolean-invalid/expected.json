@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "PRODUCT002",
+      "file": "docs/product/model/lc-a.md",
+      "field": "/states/0/initial"
+    }
+  ],
+  "exitCode": 1
+}
