@@ -2,7 +2,12 @@
 
 All notable changes to the Product Definition as Code specification are documented here. The specification is versioned with semantic versioning, independently of any implementation.
 
-## [Unreleased]
+## [0.3.0] - 2026-11-26
+
+- RFC 0116: Domain Lifecycles, lifecycle transitions and Structured Behaviour coverage; optional external Verification Evidence with outcome authenticity separate from citation freshness. Serialization v1alpha2 includes explicit Rule/Use Case governance migration; released v1alpha1 schemas remain unchanged.
+- RFC 0082: accountable one-hop Product Change neighbourhoods, pinned unchanged judgments, PRODUCT029/033/034 and ordered apply gates.
+- RFC 0115: affected citations forecast before writes, including dry-run equivalence and transactional rollback; stale citations alone do not veto apply.
+- Publish 147 executable conformance cases (102 new), the trusted operation protocol and reproducible ProductShape 0.26.1 qualification. See [exact results and the tagged v0.2.0 fixture erratum](docs/releases/v0.3.0.md).
 
 - RFC 0112 applied: Use Case journey context is optional. A Journey MAY reference a Use Case in `steps` when that Use Case is on its main ordered path, a Use Case MAY be referenced by zero, one or multiple Journeys, and absence of an incoming `steps[].use-case` relationship does not make a Use Case invalid. An implementation MUST NOT emit a conformance diagnostic solely because an active Use Case is not referenced by a Journey; it MAY surface the absence as non-conformance advice for human review. `PRODUCT102` is retired with no replacement and is never reissued with a new meaning. A repository that produced only `PRODUCT102` under `validation.warnings-as-errors` now passes; no artifact, schema, configuration or serialization change is required. Conformance grows to 45 cases: `use-case-without-journey` holds an active Use Case with a primary actor and a derived Functional Requirement, no Journey anywhere in the model, and expects zero diagnostics.
 - The `configuration-unknown-key` conformance case now asserts `field: /tooling`, the RFC 6901 JSON Pointer that RFC 0085 and `Configuration → Invalid configuration` require for a parsed document. The fixture had kept the pre-RFC dotted value, so a conforming implementation failed the case.

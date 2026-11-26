@@ -1,0 +1,67 @@
+{
+  "schema": "productshape/pdac-conformance-evidence/v1",
+  "generatedAt": "2026-11-26T23:03:15.597Z",
+  "profile": "full published v0.2.0 conformance tests (kernel, reference profile and reference workflow)",
+  "productshape": {
+    "package": "@prodshape/cli",
+    "version": "0.26.1",
+    "sourceSha": "91a9bcb7cc1eb48abb6647d89f8c28c4489dd24a",
+    "tarball": "prodshape-cli-0.26.1.tgz",
+    "tarballSha256": "e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3"
+  },
+  "spec": {
+    "repository": "product-definition-as-code/spec",
+    "commit": "b3f44d2179a58bbee0478fae517ab75f3249ca39"
+  },
+  "runner": {
+    "package": "pdac-conformance",
+    "version": "1.0.1"
+  },
+  "commands": {
+    "implementation": [
+      "prodshape validate --root . --consumers .",
+      "prodshape change validate --root . --consumers .",
+      "prodshape citations verify . --root ."
+    ],
+    "digests": "pdac-conformance digests --spec pdac-spec",
+    "actual": {
+      "conformance": "/tmp/pdac-v030-release/toolchain/node_modules/.bin/pdac-conformance run --spec /tmp/pdac-v030-release/spec-v020-corrected --spec-version 0.2.0 --serialization-version v1alpha1 --implementation-name @prodshape/cli --implementation-version 0.26.1 --implementation-artifact sha256:e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3 --command \"/tmp/pdac-v030-release/toolchain/node_modules/.bin/prodshape validate --root . --consumers .\" --command \"/tmp/pdac-v030-release/toolchain/node_modules/.bin/prodshape change validate --root . --consumers .\" --command \"/tmp/pdac-v030-release/toolchain/node_modules/.bin/prodshape citations verify . --root .\" --format json",
+      "negativeControl": "/tmp/pdac-v030-release/toolchain/node_modules/.bin/pdac-conformance run --spec /tmp/pdac-v030-release/spec-v020-corrected --spec-version 0.2.0 --serialization-version v1alpha1 --implementation-name @prodshape/cli --implementation-version 0.26.1 --implementation-artifact sha256:e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3 --command \"/tmp/pdac-v030-release/toolchain/node_modules/.bin/prodshape validate --root .\" --command \"/tmp/pdac-v030-release/toolchain/node_modules/.bin/prodshape change validate --root .\" --format json",
+      "digests": "/tmp/pdac-v030-release/toolchain/node_modules/.bin/pdac-conformance digests --spec /tmp/pdac-v030-release/spec-v020-corrected --spec-version 0.2.0 --serialization-version v1alpha1 --implementation-name @prodshape/cli --implementation-version 0.26.1 --implementation-artifact sha256:e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3 --format json"
+    }
+  },
+  "conformance": {
+    "total": 45,
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0,
+    "errored": 0
+  },
+  "digests": {
+    "total": 12,
+    "verified": 12,
+    "failed": 0,
+    "cases": 45,
+    "skipped": 0
+  },
+  "citations": {
+    "total": 12,
+    "cases": 11,
+    "sidecars": 11,
+    "markers": 1,
+    "mappedLedgerFiles": 10,
+    "mappedLedgerPins": 11
+  },
+  "negativeControl": {
+    "total": 45,
+    "passed": 34,
+    "failed": 11,
+    "skipped": 0,
+    "errored": 0,
+    "expectedExitCode": 1,
+    "actualExitCode": 1,
+    "failedCases": 11,
+    "missingDiagnostics": 6,
+    "failedPinGuards": 6
+  }
+}

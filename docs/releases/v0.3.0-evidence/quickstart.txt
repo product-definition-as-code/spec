@@ -1,0 +1,28 @@
+(node:2967918) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+added 43 packages, and audited 44 packages in 620ms
+
+6 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+openspec/specs/checkout/spec.md:4:Customers can request a refund within 30 days of delivery.
+openspec/specs/billing/spec.md:4:Refunds are issued for purchases made in the last 30 days.
+openspec/specs/support/spec.md:3:## Refunds
+openspec/specs/support/spec.md:4:If the order is less than a month old, offer a refund.
+current	BR-REFUND-001	openspec/specs/billing/spec.md:4
+current	BR-REFUND-001	openspec/specs/checkout/spec.md:4
+current	BR-REFUND-001	openspec/specs/support/spec.md:4
+warning PRODUCT105 docs/product/model/business-rules/br-refund-001.md [BR-REFUND-001]: Business rule 'BR-REFUND-001' has no consumers
+3 citation(s): 3 current, 0 stale, 0 tampered, 0 unresolved
+Tip: use --provider openspec for OpenSpec-aware verification that distinguishes current from archived material and enforces scope declarations.
+stale	BR-REFUND-001	openspec/specs/billing/spec.md:4
+stale	BR-REFUND-001	openspec/specs/checkout/spec.md:4
+stale	BR-REFUND-001	openspec/specs/support/spec.md:4
+warning PRODUCT105 docs/product/model/business-rules/br-refund-001.md [BR-REFUND-001]: Business rule 'BR-REFUND-001' has no consumers
+warning PRODUCT061 openspec/specs/billing/spec.md:4: Citation of 'BR-REFUND-001' is stale: canonical content changed since the citation was recorded (BR-REFUND-001)
+warning PRODUCT061 openspec/specs/checkout/spec.md:4: Citation of 'BR-REFUND-001' is stale: canonical content changed since the citation was recorded (BR-REFUND-001)
+warning PRODUCT061 openspec/specs/support/spec.md:4: Citation of 'BR-REFUND-001' is stale: canonical content changed since the citation was recorded (BR-REFUND-001)
+3 citation(s): 0 current, 3 stale, 0 tampered, 0 unresolved
+Tip: use --provider openspec for OpenSpec-aware verification that distinguishes current from archived material and enforces scope declarations.

@@ -1,0 +1,19 @@
+{
+  "package": "pdac-conformance",
+  "version": "1.1.0",
+  "sourceRevision": "f41d25a5578994b58c87d9f6b1fb58201ccc3fd9",
+  "integrity": "sha512-l4tp9atH5mfDp020RvpCOGpReE/t1ksxHFFmEaR2lvBPnLtQOvcFwt36Mm9AlzItEK+r/sbgx3xA4WG321lnng==",
+  "shasum": "6f7381f8e0a5135b3080931cea9d508e0977863b",
+  "tarball": "https://registry.npmjs.org/pdac-conformance/-/pdac-conformance-1.1.0.tgz",
+  "publicationWorkflow": "https://github.com/product-definition-as-code/pdac-conformance/actions/runs/45909045201",
+  "workflowResult": "npm publish succeeded; verification timed out during registry processing before tag creation",
+  "bundleSha256": "e7b69acdfd6799e9575373b221dadfa41db77cde96249597ce2411be9c8dcdfd",
+  "sourceBundleIdentical": true,
+  "initialQualificationSource": "00b5a23d409ac1c57c65464d00d7c7d02c93e854",
+  "normalRegistryInstall": {
+    "runner": "1.1.0",
+    "implementation": "0.26.1",
+    "result": "npm install --save-exact pdac-conformance@1.1.0 @prodshape/cli@0.26.1 succeeded from an empty prefix after cached 404 expiry"
+  },
+  "normalInstallBundleIdentical": true
+}

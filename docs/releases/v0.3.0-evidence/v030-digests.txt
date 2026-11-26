@@ -1,0 +1,56 @@
+Conformance: /srv/repos/product-definition-as-code/spec @ e2baf07, release/v0.3.0, dirty
+Runner: pdac-conformance 1.1.0
+
+  unresolved-as-expected in citation-unresolved
+    source     repo/specs/feature-x.citations.yml
+    artifact   FR-VALIDATE-002
+    pinned     sha256:cb93b565e529ada665c37f3c962ed50221bb6cade065fa332a4aa9ee148a4970
+  skipped evidence-blank-provider: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-citation-shape: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-current: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-disallowed-target: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-duplicate-json-key: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-duplicate-test-and-entry-order: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-empty-results: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-format: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-fr-a-anchor: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-full-sha256-run: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-passed-stale: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-qr-a-anchor: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-revision-abbreviated: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-sb-anchor: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-test-id-across-runs: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-unknown-result-field: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped evidence-unresolved-before-kind: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-added-resolves: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-anchor-removed: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-anchored-outside-edit: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-current-evidence-only: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-excludes-history-and-applying-container: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-modified-apply: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-modified-apply-dry-run: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-noop-apply: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-noop-apply-dry-run: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-occurrence-order: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-removed-apply: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-removed-apply-dry-run: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-stale-not-warning-gate: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-tampered-and-stale: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped forecast-unrelated-zero: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-acknowledged-with-stale-citation: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-acknowledged-zero: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-apply-not-approved-first: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-apply-revision-first: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-apply-unacknowledged: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-baseline-drift-before-causes: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-config-first: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-duplicate-valid-ack: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-invalid-duplicate-not-hidden: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-ledger-candidate-pin: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-ledger-cause-pin: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-ledger-missing-candidate: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-ledger-schema-first: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-ledger-wrong-relationship: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+  skipped impact-product-scope-acknowledged: operation-case pins require the versioned spec fixture audit, not the baseline-only digest audit
+
+14 pinned digest(s) verified across 147 case(s)
