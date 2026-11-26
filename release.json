@@ -13,6 +13,6 @@
     "revision": "91a9bcb7cc1eb48abb6647d89f8c28c4489dd24a",
     "sha256": "e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3"
   },
-  "evidence": "docs/releases/v0.3.0-evidence/v030-conformance.json",
+  "evidence": "docs/releases/v0.3.0-evidence/v030-registry-conformance.json",
   "cases": 147
 }
