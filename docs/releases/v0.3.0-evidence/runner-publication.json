@@ -9,5 +9,11 @@
   "workflowResult": "npm publish succeeded; verification timed out during registry processing before tag creation",
   "bundleSha256": "e7b69acdfd6799e9575373b221dadfa41db77cde96249597ce2411be9c8dcdfd",
   "sourceBundleIdentical": true,
-  "initialQualificationSource": "00b5a23d409ac1c57c65464d00d7c7d02c93e854"
+  "initialQualificationSource": "00b5a23d409ac1c57c65464d00d7c7d02c93e854",
+  "normalRegistryInstall": {
+    "runner": "1.1.0",
+    "implementation": "0.26.1",
+    "result": "npm install --save-exact pdac-conformance@1.1.0 @prodshape/cli@0.26.1 succeeded from an empty prefix after cached 404 expiry"
+  },
+  "normalInstallBundleIdentical": true
 }
