@@ -58,6 +58,9 @@ if (process.argv.includes('--self-test')) {
     const published = await response.json();
     assert.equal(published.draft, false);
     assert.equal(published.prerelease, false);
+    const latest = await fetch('https://api.github.com/repos/product-definition-as-code/spec/releases/latest');
+    assert.ok(latest.ok, `Latest release: HTTP ${latest.status}`);
+    assert.equal((await latest.json()).tag_name, `v${release.methodVersion}`);
     const live = await fetch('https://pdac.dev/release.json');
     assert.ok(live.ok, `Live release manifest: HTTP ${live.status}`);
     assert.deepEqual(await live.json(), release);
