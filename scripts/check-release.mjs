@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -51,7 +52,13 @@ if (process.argv.includes('--self-test')) {
     for (const pkg of [release.runner, release.implementation]) {
       const response = await fetch(`https://registry.npmjs.org/${pkg.package}/${pkg.version}`);
       assert.ok(response.ok, `${pkg.package}@${pkg.version}: registry HTTP ${response.status}`);
-      assert.equal((await response.json()).version, pkg.version);
+      const metadata = await response.json();
+      assert.equal(metadata.version, pkg.version);
+      const artifact = await fetch(metadata.dist.tarball);
+      assert.ok(artifact.ok, `${pkg.package} tarball: HTTP ${artifact.status}`);
+      const digest = createHash('sha512').update(new Uint8Array(await artifact.arrayBuffer())).digest('base64');
+      assert.equal(`sha512-${digest}`, metadata.dist.integrity);
+      if (pkg.revision && metadata.gitHead) assert.equal(metadata.gitHead, pkg.revision);
     }
     const response = await fetch(`https://api.github.com/repos/product-definition-as-code/spec/releases/tags/v${release.methodVersion}`);
     assert.ok(response.ok, `Official release: HTTP ${response.status}`);
