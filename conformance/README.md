@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. The original 45 fixture directories execute via [`pdac-conformance@1.1.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. All 147 cases execute via [`pdac-conformance@1.1.0`](https://www.npmjs.com/package/pdac-conformance); operation cases require an explicitly supplied trusted adapter.
 
 ## Design
 
@@ -25,7 +25,7 @@ Several cases pin a content digest: a citation ledger (`*.citations.yml`) or a M
 
 ```bash
 npx --yes pdac-conformance@1.1.0 digests --spec . \
-  --spec-version 0.2.0 --serialization-version v1alpha1
+  --spec-version 0.3.0 --serialization-version v1alpha2
 ```
 
 A pin is expected to match the artifact it cites, except in a case that exists because it does not: a case expecting `PRODUCT061` or `PRODUCT062` for an artifact pins a digest that MUST differ, and the check asserts the difference, so an edit that accidentally makes a tampered fixture faithful is reported rather than quietly voiding the case. A case expecting `PRODUCT060` for a target pins an ID that MUST NOT resolve, asserted the same way. After changing a fixture artifact, recompute its digest and update every pin against it.
