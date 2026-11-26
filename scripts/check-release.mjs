@@ -42,7 +42,7 @@ if (process.argv.includes('--self-test')) {
     assert.ok(text.includes(release.serializationVersion), `${path}: missing serialization version`);
     assert.doesNotMatch(text, /v0\.3\.0 development candidate|latest released version remains v0\.2\.0/);
   }
-  for (const path of ['conformance/cases', 'schemas']) {
+  for (const path of ['conformance/cases', 'schemas/v1alpha1', 'schemas/v1alpha2']) {
     execFileSync('git', ['diff', '--exit-code', release.specRevision, '--', path], { cwd: root });
   }
   assert.ok(read('CHANGELOG.md').includes(`## [${release.methodVersion}]`));

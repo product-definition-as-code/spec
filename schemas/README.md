@@ -1,6 +1,6 @@
 # Schemas
 
-**These JSON Schemas are normative.** They define the serialization contract (released: `v1alpha1`; v0.3.0 candidate: `v1alpha2`) for every artifact kind, repository configuration and citation sidecar: closed shapes, allowed values and required fields that the specification text describes in prose. Where prose and schema disagree, the schema wins and the prose has a bug.
+**These JSON Schemas are normative.** They define the serialization contract (PDaC v0.3.0: `v1alpha2`; retained v0.2.0: `v1alpha1`) for every artifact kind, repository configuration and citation sidecar: closed shapes, allowed values and required fields that the specification text describes in prose. Where prose and schema disagree, the schema wins and the prose has a bug.
 
 They were extracted from the reference implementation ([ProductShape](https://github.com/juangcarmona/productshape), commit `e00f67e`), which developed and validated them against a self-hosted product model. From this point forward this repository is their home: implementations, including the reference one, consume released schema versions from here. Migrating ProductShape to consume these released schemas instead of its internal copies is tracked work, not an assumption.
 
