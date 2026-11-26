@@ -5,7 +5,7 @@
   "runner": {
     "package": "pdac-conformance",
     "version": "1.1.0",
-    "revision": "00b5a23d409ac1c57c65464d00d7c7d02c93e854"
+    "revision": "f41d25a5578994b58c87d9f6b1fb58201ccc3fd9"
   },
   "implementation": {
     "package": "@prodshape/cli",
