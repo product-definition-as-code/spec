@@ -86,7 +86,7 @@ This is not independent validation of the specification: the two codebases share
 
 ## Status
 
-**v0.2.0 (request for comments), released 2026-08-28.** First published 2026-08-07: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).
+**v0.3.0, serialization `v1alpha2`.** See the [official release](https://github.com/product-definition-as-code/spec/releases/tag/v0.3.0) and [qualification evidence](docs/releases/v0.3.0.md). First published 2026-08-07: this is an early draft, not a near-final standard. The honest picture of every surface, the version dimensions and the gates to v1 are in [MATURITY.md](MATURITY.md); what the methodology cannot claim yet is in [known limits](https://pdac.dev/known-limits/).
 
 The specification text was extracted from the [reference implementation](https://github.com/juangcarmona/productshape), where it was developed and validated against a self-hosted product model. The chapters no longer name the reference implementation or depend on its repository layout. v1.0 freezes after the public comment period.
 
@@ -95,13 +95,13 @@ The comment period is open. Disagreements are the point: open an issue, or an RF
 | Milestone | State |
 | --- | --- |
 | Chapters extracted | Done at v0.2.0 |
-| Conformance tests (complete, normative set) | In progress; the 45 published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
-| Public comment period (v0.2) | Open from 2026-08-28, until the v1.0 freeze |
+| Conformance tests (complete, normative set) | In progress; the 147 published cases run today via [pdac-conformance](https://www.npmjs.com/package/pdac-conformance) |
+| Public comment period | Open from 2026-08-28, until the v1.0 freeze |
 | v1.0 freeze | Planned; gated on [MATURITY.md](MATURITY.md) |
 
 ## Contents
 
-The specification lives in [`spec/`](spec/index.md): ten normative chapters, terminology to conformance.
+The specification lives in [`spec/`](spec/index.md): normative chapters, terminology to conformance.
 
 The founding position is [the manifesto](MANIFESTO.md), which you can [sign](SIGNATORIES.md).
 
@@ -121,4 +121,4 @@ Changes to the specification go through the [RFC process](CONTRIBUTING.md), whic
 
 The specification text and the manifesto are licensed under [CC BY 4.0](LICENSE.md). Code samples and conformance fixtures are licensed under Apache 2.0.
 
-The working tree now contains a **v0.3.0 / v1alpha2 development candidate**, implementing accepted RFCs #116, #82 and #115. The latest released version remains v0.2.0. See the [implementation and qualification plan](docs/releases/v0.3.0-plan.md), [migration guide](docs/migrations/v0.3.0.md) and [new case inventory](conformance/v0.3.0-cases.md). No v0.3 implementation conformance claim or release is implied by this candidate.
+PDaC **0.3.0 / v1alpha2** implements accepted RFCs #116, #82 and #115. ProductShape `@prodshape/cli@0.26.1` passes all 147 executable cases with the trusted operation adapter. This is a bounded conformance result, not independent validation or a v1.0 maturity claim. See the [release evidence](docs/releases/v0.3.0.md), [migration guide](docs/migrations/v0.3.0.md) and [case inventory](conformance/v0.3.0-cases.md). Released v0.2.0 and its v1alpha1 schemas remain available unchanged.

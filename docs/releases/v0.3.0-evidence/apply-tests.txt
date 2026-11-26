@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /srv/repos/product-definition-as-code/productshape-release-v030
+
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  22:58:34
+   Duration  2.01s (transform 60%, import 22%, tests 18%)
+

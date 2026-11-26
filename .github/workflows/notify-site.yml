@@ -15,6 +15,7 @@ on:
     # templates and the diagrams. A change to the conformance tests, the RFCs or this workflow does
     # not reach a page, so it does not spend a rebuild.
     paths:
+      - 'release.json'
       - 'spec/**'
       - 'MANIFESTO.md'
       - 'SIGNATORIES.md'

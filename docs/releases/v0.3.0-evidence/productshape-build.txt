@@ -1,0 +1,136 @@
+Scope: 9 of 10 workspace projects
+src/packages/cli build$ tsup && node scripts/stage.mjs
+src/packages/core build$ tsup
+src/packages/integration-claude build$ tsup
+src/packages/integration-codex build$ tsup
+src/packages/core build: CLI Building entry: src/index.ts
+src/packages/core build: CLI Using tsconfig: tsconfig.json
+src/packages/core build: CLI tsup v8.5.1
+src/packages/core build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/core/tsup.config.ts
+src/packages/core build: CLI Target: es2022
+src/packages/core build: CLI Cleaning output folder
+src/packages/core build: ESM Build start
+src/packages/cli build: CLI Building entry: src/bin.ts
+src/packages/cli build: CLI Using tsconfig: tsconfig.json
+src/packages/cli build: CLI tsup v8.5.1
+src/packages/cli build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/cli/tsup.config.ts
+src/packages/cli build: CLI Target: es2022
+src/packages/cli build: CLI Cleaning output folder
+src/packages/cli build: ESM Build start
+src/packages/integration-claude build: CLI Building entry: src/index.ts
+src/packages/integration-claude build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-claude build: CLI tsup v8.5.1
+src/packages/integration-claude build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-claude/tsup.config.ts
+src/packages/integration-claude build: CLI Target: es2022
+src/packages/integration-claude build: CLI Cleaning output folder
+src/packages/integration-claude build: ESM Build start
+src/packages/integration-claude build: ESM dist/index.js     2.29 KB
+src/packages/integration-claude build: ESM dist/index.js.map 5.61 KB
+src/packages/integration-claude build: ESM ⚡️ Build success in 12ms
+src/packages/integration-codex build: CLI Building entry: src/index.ts
+src/packages/integration-codex build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-codex build: CLI tsup v8.5.1
+src/packages/integration-codex build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-codex/tsup.config.ts
+src/packages/core build: ESM dist/index.js     396.36 KB
+src/packages/core build: ESM dist/index.js.map 709.93 KB
+src/packages/core build: ESM ⚡️ Build success in 66ms
+src/packages/integration-codex build: CLI Target: es2022
+src/packages/integration-codex build: CLI Cleaning output folder
+src/packages/integration-codex build: ESM Build start
+src/packages/integration-codex build: ESM dist/index.js     1.73 KB
+src/packages/integration-codex build: ESM dist/index.js.map 4.72 KB
+src/packages/integration-codex build: ESM ⚡️ Build success in 8ms
+src/packages/cli build: ESM dist/bin.js 736.27 KB
+src/packages/cli build: ESM ⚡️ Build success in 77ms
+src/packages/cli build: staged /srv/repos/product-definition-as-code/productshape-release-v030/schemas -> /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/cli/schemas
+src/packages/cli build: staged /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/distribution/assets -> /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/cli/assets
+src/packages/cli build: staged /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-openspec/assets/openspec-product-change-schema -> /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/cli/assets/openspec-product-change-schema
+src/packages/cli build: staged /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-openspec/assets/openspec-product-recovery-schema -> /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/cli/assets/openspec-product-recovery-schema
+src/packages/cli build: Done
+src/packages/integration-copilot build$ tsup
+src/packages/integration-claude build: DTS Build start
+src/packages/integration-codex build: DTS Build start
+src/packages/core build: DTS Build start
+src/packages/integration-copilot build: CLI Building entry: src/index.ts
+src/packages/integration-copilot build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-copilot build: CLI tsup v8.5.1
+src/packages/integration-copilot build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-copilot/tsup.config.ts
+src/packages/integration-copilot build: CLI Target: es2022
+src/packages/integration-copilot build: CLI Cleaning output folder
+src/packages/integration-copilot build: ESM Build start
+src/packages/integration-copilot build: ESM dist/index.js     2.59 KB
+src/packages/integration-copilot build: ESM dist/index.js.map 6.42 KB
+src/packages/integration-copilot build: ESM ⚡️ Build success in 8ms
+src/packages/integration-copilot build: DTS Build start
+src/packages/integration-claude build: DTS ⚡️ Build success in 1011ms
+src/packages/integration-claude build: DTS dist/index.d.ts 1.36 KB
+src/packages/integration-codex build: DTS ⚡️ Build success in 999ms
+src/packages/integration-codex build: DTS dist/index.d.ts 1.55 KB
+src/packages/integration-claude build: Done
+src/packages/integration-opencode build$ tsup
+src/packages/integration-codex build: Done
+src/packages/integration-opencode build: CLI Building entry: src/index.ts
+src/packages/integration-opencode build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-opencode build: CLI tsup v8.5.1
+src/packages/integration-opencode build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-opencode/tsup.config.ts
+src/packages/integration-opencode build: CLI Target: es2022
+src/packages/integration-opencode build: CLI Cleaning output folder
+src/packages/integration-opencode build: ESM Build start
+src/packages/integration-opencode build: ESM dist/index.js     2.56 KB
+src/packages/integration-opencode build: ESM dist/index.js.map 6.99 KB
+src/packages/integration-opencode build: ESM ⚡️ Build success in 11ms
+src/packages/integration-copilot build: DTS ⚡️ Build success in 944ms
+src/packages/integration-copilot build: DTS dist/index.d.ts 1.37 KB
+src/packages/integration-copilot build: Done
+src/packages/integration-opencode build: DTS Build start
+src/packages/core build: DTS ⚡️ Build success in 2028ms
+src/packages/core build: DTS dist/index.d.ts 89.54 KB
+src/packages/core build: Done
+src/packages/integration-opencode build: DTS ⚡️ Build success in 976ms
+src/packages/integration-opencode build: DTS dist/index.d.ts 1.77 KB
+src/packages/integration-opencode build: Done
+src/packages/distribution build$ tsup
+src/packages/integration-openspec build$ tsup
+src/packages/integration-speckit build$ tsup
+src/packages/distribution build: CLI Building entry: src/index.ts
+src/packages/distribution build: CLI Using tsconfig: tsconfig.json
+src/packages/distribution build: CLI tsup v8.5.1
+src/packages/distribution build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/distribution/tsup.config.ts
+src/packages/distribution build: CLI Target: es2022
+src/packages/distribution build: CLI Cleaning output folder
+src/packages/distribution build: ESM Build start
+src/packages/integration-speckit build: CLI Building entry: src/index.ts
+src/packages/integration-speckit build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-speckit build: CLI tsup v8.5.1
+src/packages/integration-speckit build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-speckit/tsup.config.ts
+src/packages/integration-speckit build: CLI Target: es2022
+src/packages/integration-speckit build: CLI Cleaning output folder
+src/packages/integration-speckit build: ESM Build start
+src/packages/distribution build: ESM dist/index.js     44.28 KB
+src/packages/distribution build: ESM dist/index.js.map 104.60 KB
+src/packages/distribution build: ESM ⚡️ Build success in 25ms
+src/packages/integration-openspec build: CLI Building entry: src/index.ts
+src/packages/integration-openspec build: CLI Using tsconfig: tsconfig.json
+src/packages/integration-openspec build: CLI tsup v8.5.1
+src/packages/integration-openspec build: CLI Using tsup config: /srv/repos/product-definition-as-code/productshape-release-v030/src/packages/integration-openspec/tsup.config.ts
+src/packages/integration-speckit build: ESM dist/index.js     39.06 KB
+src/packages/integration-speckit build: ESM dist/index.js.map 81.25 KB
+src/packages/integration-speckit build: ESM ⚡️ Build success in 25ms
+src/packages/integration-openspec build: CLI Target: es2022
+src/packages/integration-openspec build: CLI Cleaning output folder
+src/packages/integration-openspec build: ESM Build start
+src/packages/integration-openspec build: ESM dist/index.js     71.87 KB
+src/packages/integration-openspec build: ESM dist/index.js.map 155.33 KB
+src/packages/integration-openspec build: ESM ⚡️ Build success in 32ms
+src/packages/distribution build: DTS Build start
+src/packages/integration-speckit build: DTS Build start
+src/packages/integration-openspec build: DTS Build start
+src/packages/integration-speckit build: DTS ⚡️ Build success in 1933ms
+src/packages/integration-speckit build: DTS dist/index.d.ts 20.43 KB
+src/packages/integration-speckit build: Done
+src/packages/distribution build: DTS ⚡️ Build success in 2044ms
+src/packages/distribution build: DTS dist/index.d.ts 25.58 KB
+src/packages/distribution build: Done
+src/packages/integration-openspec build: DTS ⚡️ Build success in 2073ms
+src/packages/integration-openspec build: DTS dist/index.d.ts 25.01 KB
+src/packages/integration-openspec build: Done

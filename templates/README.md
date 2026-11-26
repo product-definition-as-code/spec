@@ -51,4 +51,4 @@ docs/product/
 
 pdac.dev renders this directory at [pdac.dev/templates](https://pdac.dev/templates/).
 
-`domain-lifecycle.md` illustrates explicit domain state and transitions. A suggested location is `model/domain/lifecycles/`; folder names do not determine artifact kind. Structured Behaviour may use `covers-transition` to name a lifecycle transition while retaining `illustrates`. Verification Evidence is external JSON and has no Product Artifact template. Templates target the v0.3.0/v1alpha2 candidate.
+`domain-lifecycle.md` illustrates explicit domain state and transitions. A suggested location is `model/domain/lifecycles/`; folder names do not determine artifact kind. Structured Behaviour may use `covers-transition` to name a lifecycle transition while retaining `illustrates`. Verification Evidence is external JSON and has no Product Artifact template. Templates target the v0.3.0/v1alpha2 release.

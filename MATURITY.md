@@ -7,9 +7,9 @@ This page is the single source of truth for what each public surface of Product 
 | Surface | Status |
 | --- | --- |
 | PDaC methodology | Experimental, open RFC |
-| PDaC specification | v0.2.0 released for comment 2026-08-28, extracted from one implementation, not yet independently implemented. Every chapter is at most `draft` until v1.0 |
+| PDaC specification | v0.3.0 released, serialization v1alpha2, extracted from one implementation, not yet independently implemented. Every chapter is at most `draft` until v1.0 |
 | ProductShape | Reference implementation and design origin |
-| Conformance | 45 published cases runnable, covering initialisation, the citation contract, configuration, topology, artifact kinds, most of the Product Change band, the full Structured Behaviour matrix, semantic `uses-terms` sources, JSON Pointer diagnostic fields and optional journey context, run by [`pdac-conformance@1.0.1`](https://www.npmjs.com/package/pdac-conformance). The last recorded pass of the reference implementation covers the 44 cases published then: 44 of 44 cases and 12 of 12 pinned digests on 2026-08-29, run against the published `@prodshape/cli` 0.16.0 from npm. `use-case-without-journey` was published after that run and has no recorded result yet. The dated record lives in [IMPLEMENTATIONS.md](IMPLEMENTATIONS.md). |
+| Conformance | 147/147 executable v0.3.0/v1alpha2 cases pass against published ProductShape 0.26.1 with runner 1.1.0 and its trusted operation adapter. No skips. The suite does not cover every normative rule. Exact revisions, legacy regression and limitations: [release evidence](docs/releases/v0.3.0.md). |
 | Adoption | One listed adopter (ProductShape itself) |
 | Governance | Founder-led, pro tempore, with published decision records |
 
@@ -19,8 +19,8 @@ These are different dimensions, not one number. Every conformance claim MUST ide
 
 | Dimension | Current | Governs |
 | --- | --- | --- |
-| Method / spec version | 0.2.0 | Semantic rules |
-| Serialization version | v1alpha1 | File representation and authoritative schemas; paired with the method/spec version to select the accepted document set |
+| Method / spec version | 0.3.0 | Semantic rules |
+| Serialization version | v1alpha2 | File representation and authoritative schemas; paired with the method/spec version to select the accepted document set |
 | Conformance suite | the conformance tests in this repository, run by [`pdac-conformance`](https://www.npmjs.com/package/pdac-conformance) | Executable rule fixtures |
 | Reference implementation | `@prodshape/cli` (see [npm](https://www.npmjs.com/package/@prodshape/cli) for current) | Tool behaviour |
 | Integration binding | openspec adapter | Citation contract |
@@ -37,4 +37,4 @@ These are release gates, not aspirations to be waived:
 
 Until every gate is met, the accurate description of this work is: an open RFC methodology with a working reference implementation.
 
-The working v0.3.0 candidate introduces serialization `v1alpha2`, including the breaking Rule/Use Case governance migration. It is not released or independently qualified merely because RFCs #116, #82 and #115 were accepted. See the [release plan](docs/releases/v0.3.0-plan.md) and [migration guide](docs/migrations/v0.3.0.md).
+v0.3.0 selects serialization `v1alpha2`, including the explicit Rule/Use Case governance migration. Releasing this pair does not satisfy the independent-implementation or other v1.0 maturity gates. See the [release evidence](docs/releases/v0.3.0.md) and [migration guide](docs/migrations/v0.3.0.md).

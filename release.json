@@ -1,0 +1,18 @@
+{
+  "methodVersion": "0.3.0",
+  "serializationVersion": "v1alpha2",
+  "specRevision": "197353d4ab82e107ec277458bf81354617d62e7b",
+  "runner": {
+    "package": "pdac-conformance",
+    "version": "1.1.0",
+    "revision": "00b5a23d409ac1c57c65464d00d7c7d02c93e854"
+  },
+  "implementation": {
+    "package": "@prodshape/cli",
+    "version": "0.26.1",
+    "revision": "91a9bcb7cc1eb48abb6647d89f8c28c4489dd24a",
+    "sha256": "e4664bb263e821b595ff72e1b44bf7c39d6be840e9d3123326b23b448912dfa3"
+  },
+  "evidence": "docs/releases/v0.3.0-evidence/v030-conformance.json",
+  "cases": 147
+}

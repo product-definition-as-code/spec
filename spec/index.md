@@ -1,6 +1,6 @@
 # Product Definition as Code: Specification
 
-> **Status: v0.3.0 development candidate; not released.** The last released specification is v0.2.0. This candidate uses serialization `v1alpha2`; release requires the [qualification plan](../docs/releases/v0.3.0-plan.md).
+> **Status: v0.3.0 released; serialization `v1alpha2`.** See the [release and qualification record](../docs/releases/v0.3.0.md). Released v0.2.0/v1alpha1 remains available unchanged.
 
 This is the normative specification for Product Definition as Code; the chapters below define its terms, contracts and conformance criteria.
 

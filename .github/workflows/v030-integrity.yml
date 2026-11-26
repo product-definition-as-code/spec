@@ -1,4 +1,4 @@
-name: v0.3 candidate integrity
+name: Release integrity
 
 on:
   push:
@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -22,3 +24,5 @@ jobs:
       - run: python scripts/check-v030.py
       - run: python scripts/test-migration.py
       - run: node --test scripts/check-templates.test.mjs
+      - run: node scripts/check-release.mjs --self-test
+      - run: node scripts/check-release.mjs

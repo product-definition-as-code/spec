@@ -1,6 +1,6 @@
 # Conformance tests
 
-**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. The original 45 fixture directories execute via [`pdac-conformance@1.0.0`](https://www.npmjs.com/package/pdac-conformance).
+**Status: published and runnable, not yet a complete normative set.** This directory holds the portable conformance tests: a set of fixture repositories plus expected-diagnostics files that any implementation, in any language, can run to verify conformance with the specification. The original 45 fixture directories execute via [`pdac-conformance@1.1.0`](https://www.npmjs.com/package/pdac-conformance).
 
 ## Design
 
@@ -24,7 +24,7 @@ A runner compares `severity`, `code`, `file`, `artifact`, `change`, `field`, `ta
 Several cases pin a content digest: a citation ledger (`*.citations.yml`) or a Markdown marker block records the digest of the artifact it cites. Editing a fixture artifact changes that digest, so a pin left behind describes a citation the case no longer contains. Every pin is recomputed on each pull request by the `Conformance` workflow, and locally with:
 
 ```bash
-npx --yes pdac-conformance@1.0.0 digests --spec . \
+npx --yes pdac-conformance@1.1.0 digests --spec . \
   --spec-version 0.2.0 --serialization-version v1alpha1
 ```
 
@@ -138,7 +138,7 @@ What the tests cannot check they do not pretend to. Repository conformance claus
 
 The planned apply cases (`apply-not-approved`, `apply-baseline-drift`, `apply-initial-sentinel` and `apply-base-revision-unresolved`) are not expressible as a flat `repo/` plus `expected.json`: they need the case format to express an apply invocation and working-tree outcome, and, for drift and revision resolution, a Git history. The runner can assert an `exitCode` for its configured validation commands, but it does not yet describe an apply invocation or repository history. The shape of the product diff report is likewise not asserted by the tests - fixing an expected report in a fixture would fix the serialization [RFC 0004](../rfcs/0004-delivery-model-reset.md) defers - so the reporting obligation joins `--dry-run` and `--format json` as implementation-conformance criteria verified by review rather than by fixture.
 
-The three configuration fixtures specify `exitCode` because invalid configuration MUST exit `2` before validation. `pdac-conformance@1.0.0` asserts that exit code independently for every configured implementation command. A skipped case is not conformance evidence.
+The three configuration fixtures specify `exitCode` because invalid configuration MUST exit `2` before validation. `pdac-conformance@1.1.0` asserts that exit code independently for every configured implementation command. A skipped case is not conformance evidence.
 
 ## Diagnostic coverage
 
@@ -186,8 +186,8 @@ Which fixture exercises which diagnostic code, code by code. "Exercises" means t
 | `PRODUCT108` | `approved` change with unresolved open questions | `change-open-questions` |
 | `PRODUCT111` | draft artifact with low-confidence provenance | not yet covered |
 
-## v0.3.0 candidate
+## v0.3.0
 
-The candidate selects 0.3.0/v1alpha2 and adds the [v0.3 case inventory](v0.3.0-cases.md). Domain Lifecycle schema/graph cases and impact validation cases use the flat format. Apply and explicit evidence cases use the [operation protocol](operations.md), supported by the coordinated runner PR. Published runner 1.0.0 explicitly skips that format. Passing its flat digest audit does not mean operation cases ran.
+The release selects 0.3.0/v1alpha2 and adds the [v0.3 case inventory](v0.3.0-cases.md). Domain Lifecycle schema/graph cases and impact validation cases use the flat format. Apply and explicit evidence cases use the [operation protocol](operations.md), supported by runner 1.1.0 with an explicitly supplied trusted adapter. Older published runners skip that format. Passing its flat digest audit does not mean operation cases ran.
 
-Run `python scripts/check-v030.py` from the repository root after installing `scripts/requirements.txt` to check new schema closure, fixture schema paths, acknowledgment/evidence pins and forecast-source integrity. This is a fixture audit, not an implementation validator. The [release plan](../docs/releases/v0.3.0-plan.md) records the remaining qualification gates.
+Run `python scripts/check-v030.py` from the repository root after installing `scripts/requirements.txt` to check new schema closure, fixture schema paths, acknowledgment/evidence pins and forecast-source integrity. This is a fixture audit, not an implementation validator. The [release plan](../docs/releases/v0.3.0-plan.md) is retained as historical planning; the [release record](../docs/releases/v0.3.0.md) contains observed results.
