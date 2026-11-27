@@ -1,0 +1,937 @@
+{
+  "status": "proposed_pending_human_G1",
+  "purpose": "Public calibration only. These examples are not exhaustive requirements, held-outs, or a reference decision implementation.",
+  "construction": "For every case, start with base_input and replace exactly the input_overrides keys. expected is the complete returned object. missing_keys, when present, removes those keys after overrides.",
+  "base_input": {
+    "status": 0,
+    "used": 0,
+    "capacity": 6,
+    "days": 2,
+    "due": false,
+    "actor": 7,
+    "owner": 7,
+    "issuer": 0,
+    "authenticated": true,
+    "editor": false,
+    "operation": 0
+  },
+  "common_cases": [
+    {
+      "id": "invalid-used-over-capacity",
+      "input_overrides": {
+        "used": 7
+      },
+      "expected": {
+        "accepted": false,
+        "status": 0,
+        "used": 7,
+        "owner": 7
+      }
+    },
+    {
+      "id": "bool-is-not-integer",
+      "input_overrides": {
+        "used": true
+      },
+      "expected": {
+        "accepted": false,
+        "status": 0,
+        "used": true,
+        "owner": 7
+      }
+    },
+    {
+      "id": "missing-state-key",
+      "input_overrides": {},
+      "missing_keys": [
+        "owner"
+      ],
+      "expected": {
+        "accepted": false,
+        "status": 0,
+        "used": 0,
+        "owner": null
+      }
+    },
+    {
+      "id": "untrusted-editor",
+      "input_overrides": {
+        "editor": true,
+        "actor": 9,
+        "issuer": 2
+      },
+      "expected": {
+        "accepted": false,
+        "status": 0,
+        "used": 0,
+        "owner": 7
+      }
+    },
+    {
+      "id": "terminal-no-second-release",
+      "input_overrides": {
+        "status": 3,
+        "used": 3,
+        "editor": true,
+        "operation": 2,
+        "due": true
+      },
+      "expected": {
+        "accepted": false,
+        "status": 3,
+        "used": 3,
+        "owner": 7
+      }
+    }
+  ],
+  "episodes": {
+    "B0": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 48
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 1,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 49
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 5,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 1,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 1,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B1": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 1,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 5,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 1,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 1,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B2": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B3": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": true,
+          "status": 3,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B4": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": true,
+          "status": 3,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B5": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": true,
+          "status": 3,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "B6": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": true,
+          "status": 3,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ],
+    "A0": [
+      {
+        "id": "confirm-inclusive-lead",
+        "input_overrides": {
+          "days": 21
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "confirm-past-lead",
+        "input_overrides": {
+          "days": 22
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "capacity-two-free",
+        "input_overrides": {
+          "used": 4
+        },
+        "expected": {
+          "accepted": false,
+          "status": 0,
+          "used": 4,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-at-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 2,
+          "used": 0,
+          "owner": 7
+        }
+      },
+      {
+        "id": "cancel-below-cutoff",
+        "input_overrides": {
+          "status": 1,
+          "used": 3,
+          "days": 1,
+          "operation": 1
+        },
+        "expected": {
+          "accepted": false,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "requested-due-expiry",
+        "input_overrides": {
+          "operation": 2,
+          "due": true,
+          "editor": true,
+          "used": 2
+        },
+        "expected": {
+          "accepted": true,
+          "status": 3,
+          "used": 2,
+          "owner": 7
+        }
+      },
+      {
+        "id": "issuer-one-owner-confirm",
+        "input_overrides": {
+          "issuer": 1
+        },
+        "expected": {
+          "accepted": true,
+          "status": 1,
+          "used": 3,
+          "owner": 7
+        }
+      },
+      {
+        "id": "owner-edit",
+        "input_overrides": {
+          "operation": 3
+        },
+        "expected": {
+          "accepted": true,
+          "status": 0,
+          "used": 0,
+          "owner": 7
+        }
+      }
+    ]
+  }
+}

@@ -1,3 +1,5 @@
+> Current implemented G1 candidate: [single owner decision](../evaluation/G1-decision.md), [executable protocol](../evaluation/frozen-protocol.md), [custody commitments](../evaluation/custody.json). The initial proposal below remains historical design context. Current technical/staffing choices are resolved in that candidate. Its narrower finite-discrepancy endpoint is an explicit proposed amendment requiring owner approval; original mutant-detection/human-time endpoints remain unmeasured. No scored run is authorized by preparation.
+
 # Independent evaluation plan — proposed
 
 Issue #129. Prepared 2026-11-27. Status: thresholds, evaluators and protocol approval pending. No observations or scores exist. [Protocol](experimental-protocol.md) and [benchmark](benchmark-plan.md).

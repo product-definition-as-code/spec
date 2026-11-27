@@ -1,0 +1,38 @@
+{
+  "status": "preparation qualified; owner G1 pending; zero scored sessions",
+  "base_main": "c3c42a18d3e8be9148a61acf6b99dff1b404f7a3",
+  "checks": {
+    "pilot_unit_tests": 6,
+    "scorer_public_tests": 10,
+    "namespace_host_exclusion": "pass",
+    "gateway_public_z3_unsat": "pass",
+    "productshape_gateway_version_init_validate": "pass",
+    "authentication_transport": "TRANSPORT_OK; no tools/product task",
+    "prepared_order": 64,
+    "v030_schema_case_pin_audit": "16 schemas,102 cases,57 pins",
+    "migration_tests": 3,
+    "template_tests": 3,
+    "release_guard": "147 passing historical qualification cases; not new formal results"
+  },
+  "transport": {
+    "model_requested": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "codex_cli": "0.172.0",
+    "input_tokens": 14847,
+    "cached_input_tokens": 12288,
+    "output_tokens": 7,
+    "money": "unavailable; existing subscription; no purchase",
+    "serving_revision": "not exposed"
+  },
+  "limitations": [
+    "Infrastructure tests are not cohort results.",
+    "Private oracle qualification reported by separate custodian; host model did not read private contents.",
+    "No universal executable/formal proof or human expert validation."
+  ],
+  "corrected_preparation_defects": [
+    "cvc5 incremental mode omitted in initial public test; raw failed output retained",
+    "Git author identity not propagated by transient service; set explicitly per contained Git command",
+    "Initial readiness test lacked frozen public-input stub; corrected test fixture"
+  ],
+  "selftest_archive_sha256": "1929999cca5c64b5dccd9150e3caab8a3e60f9183ae3f2dc30d82a828c648243"
+}

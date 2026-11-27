@@ -1,0 +1,101 @@
+{
+  "status": "proposed_pending_human_G1",
+  "cohorts": {
+    "1": "Ordinary requirements and executable decision model; no PDaC or formal verification.",
+    "2": "Released PDaC v0.3 artifacts, real Product Changes, executable decision model; no formal verification.",
+    "3": "Ordinary requirements, equivalent change/traceability history, executable decision model and external SMT contracts/verification; no PDaC.",
+    "4": "Released PDaC v0.3 artifacts and real Product Changes, executable decision model and same external SMT tools/configuration as cohort 3."
+  },
+  "seed_schedules": [
+    17,
+    29
+  ],
+  "session_count": 64,
+  "episode_order": [
+    "B0",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "A0"
+  ],
+  "order_note": "This is the common logical dependency order, not a cohort scheduling/randomization file. Orchestration freezes actual counterbalanced session ordering separately. Seed values identify schedules, not guaranteed deterministic provider outputs.",
+  "fresh_session_each_episode": true,
+  "common_inputs": [
+    "INTERFACE.md",
+    "author-instructions.md",
+    "intent-template.md rendered with current episode parameters only",
+    "current episode request and examples",
+    "accepted predecessor outputs, requests, parameter snapshots and complete equivalent past history"
+  ],
+  "episodes": [
+    {
+      "id": "B0",
+      "parent": null,
+      "request": "Establish the complete proposed baseline from product-intent.md. Expose additional decisions for owner review before claiming fidelity.",
+      "complete_parameters": "intent.json#/episodes/B0/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B0"
+    },
+    {
+      "id": "B1",
+      "parent": "B0",
+      "request": "Change only the inclusive maximum CONFIRM lead window from 48 to 21 whole days. Preserve all other policies.",
+      "complete_parameters": "intent.json#/episodes/B1/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B1"
+    },
+    {
+      "id": "B2",
+      "parent": "B1",
+      "request": "Change reservation footprint from 1 to 3 indivisible capacity units. Update dependent occupancy, capacity, release rules and public examples. No historic state migration or unit conversion.",
+      "complete_parameters": "intent.json#/episodes/B2/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B2"
+    },
+    {
+      "id": "B3",
+      "parent": "B2",
+      "request": "Allow due REQUESTED reservations to EXPIRE as well as due CONFIRMED reservations; release units only for a previously CONFIRMED reservation. Preserve authorization.",
+      "complete_parameters": "intent.json#/episodes/B3/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B3"
+    },
+    {
+      "id": "B4",
+      "parent": "B3",
+      "request": "Add issuer 1 to the trusted external authenticator issuers alongside issuer 0. Preserve direct booking use-case text byte-for-byte where possible; update the external assumption and transitive evidence applicability honestly.",
+      "complete_parameters": "intent.json#/episodes/B4/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B4"
+    },
+    {
+      "id": "B5",
+      "parent": "B4",
+      "request": "Change only independent audit retention from 7 to 14 whole days. No booking/auth semantics change. Do not invent a retention operation.",
+      "complete_parameters": "intent.json#/episodes/B5/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B5"
+    },
+    {
+      "id": "B6",
+      "parent": "B5",
+      "request": "Replace only SB-CAPACITY text with its supplied editorial wording. Retain its meaning and all decision behavior; account separately for citation freshness and mathematical validity.",
+      "complete_parameters": "intent.json#/episodes/B6/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/B6"
+    },
+    {
+      "id": "A0",
+      "parent": "B6",
+      "request": "Start from B6 in a separate authorization contrast. Permit authenticated trusted-issuer owners as well as trusted editors to EDIT active reservations. Preserve all other authorization and booking policies and interface.",
+      "complete_parameters": "intent.json#/episodes/A0/parameters",
+      "prose_authority": "product-intent.md",
+      "public_examples": "public-examples.json#/episodes/A0"
+    }
+  ],
+  "approval": "No scored authoring or evaluation before human G1 freeze. Synthetic Product Change approvals do not constitute human product acceptance.",
+  "author_isolation": "Owner preparation files product-intent.md, intent.json and tasks.json contain future episodes; do not deliver them to author sessions. The coordinator renders the template from the current snapshot and supplies current/past information only."
+}

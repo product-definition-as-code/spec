@@ -1,3 +1,5 @@
+> Current implemented G1 candidate: [single owner decision](../evaluation/G1-decision.md), [executable protocol](../evaluation/frozen-protocol.md), [custody commitments](../evaluation/custody.json). The initial proposal below remains historical design context. Current technical/staffing choices are resolved in that candidate. Its narrower finite-discrepancy endpoint is an explicit proposed amendment requiring owner approval; original mutant-detection/human-time endpoints remain unmeasured. No scored run is authorized by preparation.
+
 # Execution safeguards and evaluation planning
 
 Owner correction at G1 authorizes exploratory technical execution, calibration and documentary review using existing environments, tools and subscriptions. **No monetary/token ceilings, billing verification or LLM metering prerequisites.** Do not purchase services or provision paid infrastructure. Missing consumption data is unknown, not zero, and never blocks research.

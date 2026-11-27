@@ -1,3 +1,5 @@
+> Current implemented G1 candidate: [single owner decision](../evaluation/G1-decision.md), [executable protocol](../evaluation/frozen-protocol.md), [custody commitments](../evaluation/custody.json). The initial proposal below remains historical design context. Current technical/staffing choices are resolved in that candidate. Its narrower finite-discrepancy endpoint is an explicit proposed amendment requiring owner approval; original mutant-detection/human-time endpoints remain unmeasured. No scored run is authorized by preparation.
+
 # Small benchmark plan — proposed
 
 Issue #129. Prepared 2026-11-27. Status: owner approval and independent review pending; no benchmark was executed. [Protocol](experimental-protocol.md) governs fairness, freeze and evidence. These illustrative domain decisions are not accepted product knowledge.

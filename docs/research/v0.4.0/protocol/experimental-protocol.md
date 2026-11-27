@@ -1,3 +1,5 @@
+> Current implemented G1 candidate: [single owner decision](../evaluation/G1-decision.md), [executable protocol](../evaluation/frozen-protocol.md), [custody commitments](../evaluation/custody.json). The initial proposal below remains historical design context. Current technical/staffing choices are resolved in that candidate. Its narrower finite-discrepancy endpoint is an explicit proposed amendment requiring owner approval; original mutant-detection/human-time endpoints remain unmeasured. No scored run is authorized by preparation.
+
 # Experimental protocol — G1 candidate
 
 Issue: [#129](https://github.com/product-definition-as-code/spec/issues/129); gate: [#130](https://github.com/product-definition-as-code/spec/issues/130). Prepared 2026-11-27. Status: **proposal, approval and independent review pending; not pre-registered evaluation**. Authority: [approved research proposal](../../v0.4.0-formal-product-definition.md).
