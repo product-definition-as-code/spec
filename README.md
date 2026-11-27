@@ -122,3 +122,5 @@ Changes to the specification go through the [RFC process](CONTRIBUTING.md), whic
 The specification text and the manifesto are licensed under [CC BY 4.0](LICENSE.md). Code samples and conformance fixtures are licensed under Apache 2.0.
 
 PDaC **0.3.0 / v1alpha2** implements accepted RFCs #116, #82 and #115. ProductShape `@prodshape/cli@0.26.1` passes all 147 executable cases with the trusted operation adapter. This is a bounded conformance result, not independent validation or a v1.0 maturity claim. See the [release evidence](docs/releases/v0.3.0.md), [migration guide](docs/migrations/v0.3.0.md) and [case inventory](conformance/v0.3.0-cases.md). Released v0.2.0 and its v1alpha1 schemas remain available unchanged.
+
+Non-normative research: [Formal Product Definition and Proof-Driven Verification](docs/research/v0.4.0-formal-product-definition.md), exploring a possible v0.4.0. This is not accepted release scope; v0.3.0 remains current.
