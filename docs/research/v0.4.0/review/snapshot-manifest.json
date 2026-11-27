@@ -1,0 +1,110 @@
+{
+  "status": "review not launched",
+  "repository": "product-definition-as-code/spec",
+  "repository_id": 1318490705,
+  "main_at_preparation": "81346c16ee57d59f71e14196a16d1bb763e667e5",
+  "proposal_path": "docs/research/v0.4.0-formal-product-definition.md",
+  "proposal_revision": "81346c16ee57d59f71e14196a16d1bb763e667e5",
+  "inputs": [
+    {
+      "pr": 141,
+      "commit": "094f1204e9b8a03597ff174302c2a7619d27a9ef",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/01-microsoft-github-next.md",
+          "sha256": "7ace74ae5333374664e53ee41c8e1029fee1b8e0e953edfcb03546698b1baf8a"
+        }
+      ]
+    },
+    {
+      "pr": 142,
+      "commit": "1de520ef8510f66fc2226f61aa5fbace151178c7",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/02-formal-requirements.md",
+          "sha256": "500a0fe1291cc8d067dccc3251575106c023da0a54370428deb4362b75a9b926"
+        }
+      ]
+    },
+    {
+      "pr": 143,
+      "commit": "3286ac0d339e4edf7b956bd7d6b4e068bff2aa5f",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/03-reasoning-model-checking.md",
+          "sha256": "5bda3339ab58113d7e2dc961004645f933179095395671b7c7e7c7ceb49217bf"
+        }
+      ]
+    },
+    {
+      "pr": 144,
+      "commit": "d4b763b60b7317373a099d9e93ab24af124da3e1",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/04-proof-oriented-implementation.md",
+          "sha256": "fa20f864f4ac7c64e4d8f8be89b800d731f1a8f013251097d526e9a9a6686200"
+        }
+      ]
+    },
+    {
+      "pr": 145,
+      "commit": "e6ab4355ebbfd4dae6579cac76435bdb8572c582",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/05-specification-adequacy.md",
+          "sha256": "feb45d7c29440964c1c4eb928f14637fdf9a4c0c332e397aa6ec1632cf950986"
+        }
+      ]
+    },
+    {
+      "pr": 146,
+      "commit": "6ef902045c39e7d67d92843187a47ecaa957f9f2",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/06-evolution-assurance.md",
+          "sha256": "62b93b3f114a6aeab2e4df8a9c9db0f9090107aa860c5425e845e39d72a6b83c"
+        }
+      ]
+    },
+    {
+      "pr": 147,
+      "commit": "3da4c1b4dad6e0905ad9aff285708a22856bd243",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/reports/07-baseline-synthesis.md",
+          "sha256": "ff9059e788dc5239ee053900377090954ad2c2f026b9bfa9ea52adf82a509c92"
+        },
+        {
+          "path": "docs/research/v0.4.0/claim-evidence-ledger.md",
+          "sha256": "d639c65ed52851b0fd89f9c968b190ffa8dab20f0018bb2664f021afa42f875a"
+        }
+      ]
+    },
+    {
+      "pr": 148,
+      "commit": "e5542f2ea486100c35327b418e3e020e4a93b3aa",
+      "files": [
+        {
+          "path": "docs/research/v0.4.0/protocol/experimental-protocol.md",
+          "sha256": "2648d916c702e232789f79f642c8026fb7db499ad2ec7287325071ecc68e3d12"
+        },
+        {
+          "path": "docs/research/v0.4.0/protocol/benchmark-plan.md",
+          "sha256": "b4dfdc737f7b36cb6f101afcd2e1f2868964621c8927a56a7a71c1328c1231e4"
+        },
+        {
+          "path": "docs/research/v0.4.0/protocol/resource-proposal.md",
+          "sha256": "8c3431717d5cb126572593c9938a4ee149012df77586280fddf3207f2a6e3b4e"
+        },
+        {
+          "path": "docs/research/v0.4.0/protocol/evaluation-plan.md",
+          "sha256": "4be16a701712c5227110e670bd3d2ad23c4dae65a4a970fec53e65d73311760c"
+        },
+        {
+          "path": "docs/research/v0.4.0/gates/phase-1-decision.md",
+          "sha256": "5714f6d668f7a3a452384c1d14ddb1692b52d104d6e84437afcdef7b4152e54f"
+        }
+      ]
+    }
+  ]
+}

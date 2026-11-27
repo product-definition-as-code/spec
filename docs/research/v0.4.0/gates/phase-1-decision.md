@@ -1,6 +1,10 @@
-# G1 decision request — pending
+# G1 decision — calibration authorized; preflight blocked
 
-Owner decision: **pending**. Prepared 2026-11-27 for [gate #130](https://github.com/product-definition-as-code/spec/issues/130); epic [#121](https://github.com/product-definition-as-code/spec/issues/121). This is an agent-authored request, not an owner approval or passed phase exit.
+Owner decision: **calibration only**, recorded in [#130](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7211316146), against PR #148 at `e5542f2ea486100c35327b418e3e020e4a93b3aa`. No scored phase-2 approval. G1 remains open; no PR merge is authorized.
+
+**Current status:** [preflight stopped](../calibration/preflight.md) before the first check: billing attribution and enforceable EUR/token containment unavailable. 0/4 checks executed; actual coordinator costs unknown. [Four pinned candidates](../calibration/public-check-plan.md) and [three reviewer tracks](../review/review-plan.md) are prepared. Reviews not launched.
+
+**Next owner action:** provide an execution mechanism with verifiable billing and controls for the already authorized calibration; separately accept/amend review ceilings (EUR 3 / 84,000 tokens / 36 active minutes, sequential, zero retries) and the distinct proposed remediation allowance (EUR 1 / 16,000 tokens / 10 minutes, one pass). Budget approval cannot replace containment. After evidence returns, approve exact reviewed revisions, responsibilities/custody, reduced pilot caps/query limits and final thresholds. No calibration-derived recommendation or cost reduction is claimed yet.
 
 **Finding:** the six documentary reviews identify reusable external mechanisms, but no measured distinctive PDaC benefit or justified normative extension. Synthesis and protocol use explicitly provisional, unmerged inputs. No benchmark, solver, implementation proof or independent review ran.
 
@@ -10,7 +14,7 @@ Owner decision: **pending**. Prepared 2026-11-27 for [gate #130](https://github.
 
 **Cost status:** documentary session token/spend and human-attention metering unavailable. No delegated agents or reasoning jobs. Proposed pilot ceilings are not approved: 64 authoring + eight evaluator sessions, 1.2 million tokens, eight active hours, 120 human-review minutes, no automatic retries. Money and aggregate query caps, actual tool versions and reviewers remain pending.
 
-## Exact owner choices
+## Subsequent choices after outstanding requirements
 
 - **Revise / pause / stop** with the bounded requested change and reason.
 - **Approve calibration only:** accept or amend four public tool-feasibility checks, 20 active minutes, 32,000 tokens, per-process 30 seconds / 2 GiB, no automatic retries, named operator and explicit monetary ceiling. This does not authorize scored phase-2 experiments; return results to this same gate.
