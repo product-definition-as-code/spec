@@ -1,0 +1,118 @@
+{
+  "custodian_role": "independent evaluator agent session heldout_custodian; not benchmark intent author or scored author",
+  "endpoint_status": {
+    "approval": "owner must explicitly freeze the proposed alternative and 10 percentage point improvement/zero added valid-behavior rejection safeguard before scoring; not a retrospective substitute for original endpoint",
+    "original_mutant_fault_detection": "unmeasured; controls are qualified independently but no author mutation-injection/detection campaign exists",
+    "proposed_alternative": "held-out case discrepancy union: decision discrepancy OR applicable SMT relation discrepancy for proof cohorts; runtime decision discrepancy for other cohorts",
+    "threshold_claim": "No threshold outcome measured or claimed."
+  },
+  "exposure": [
+    "Custodian read public intent, interface, public calibration examples and protocol; no scored author outputs read.",
+    "Coordinator and authors must not inspect private files. Root/host administrators can access the same host; provider/session separation does not provide independent organization or model family.",
+    "Public examples crosschecked for oracle qualification and excluded by exact episode/input identity from heldouts; semantic boundary themes can overlap.",
+    "No public feasibility fixture was imported or used as heldout input.",
+    "No human product owner or formal methods expert has validated oracle/cases; owner proposed intent remains pending G1."
+  ],
+  "future_cli": "python3 docs/research/v0.4.0/evaluation/score.py --manifest frozen-submissions.json --cases /home/juan/.local/share/pdac-v040-evaluation/g1-custody/cases.json --output /home/juan/.local/share/pdac-v040-evaluation/scored-attempt-1 --ledger /home/juan/.local/share/pdac-v040-evaluation/solver-ledger.json",
+  "human_expert_validation": false,
+  "limitations": [
+    "Mutation fixtures are independently classified output/relation controls with direct witness comparisons, including two noneligible control categories; no executable contract mutation injection/campaign or author fault-detection score implemented.",
+    "Contradiction/vacuity controls are finite witness sanity checks; no general contradiction/vacuity assurance.",
+    "Runtime frame checks cover returned status/used/owner only; other reservations, persistence, hidden writes and audit retention lack executable state and are outside this oracle.",
+    "Dependency/evidence freshness and B5/B6 documentary continuity need separate evaluator review; unchanged decisions are sampled, not proof of dependency closure.",
+    "No scored authoring/evaluation run performed."
+  ],
+  "model_identity": "Codex GPT-6 agent; exact serving model/provider revision not exposed to this session",
+  "private_commitments": {
+    "build.py": "72b29da4e0c042362810840eaf4423201bbe8261058ff19b5b9dddecf421f856",
+    "cases-17.json": "d546beb41d6bb2e55ad43748e797af62e422727db714ea57d648a6339daac6b3",
+    "cases-29.json": "07c7db7316db8e75051921b3bdefe515410bc182fe8d8b236dd9b5f377d0d6ee",
+    "cases.json": "cee666adf68d58fbb98d03f37c67c57a3bbeb99389870b2eec4282dd158cb12c",
+    "mutations.json": "88985c3275e5058804fbf18956d5ef387cc22e24b2dffc9af4b5f7348c42f0e2",
+    "qualification.json": "3058646d4fae57bc03c0559371f7ed980b51ebcf4fe53d41a3ba214b953a72b0"
+  },
+  "provider_independence": false,
+  "qualification": {
+    "accepted_count": 396,
+    "case_count": 1164,
+    "class_counts": {
+      "assumption": 128,
+      "authorization": 128,
+      "frame": 38,
+      "guard": 268,
+      "invalid_domain": 160,
+      "invalid_runtime": 192,
+      "lifecycle": 250
+    },
+    "episode_counts": {
+      "A0": 146,
+      "B0": 144,
+      "B1": 144,
+      "B2": 146,
+      "B3": 146,
+      "B4": 146,
+      "B5": 146,
+      "B6": 146
+    },
+    "hand_derived_core_checks": 7,
+    "mutation_coverage": "qualified output/relation fixtures only; not executable mutation campaign",
+    "mutation_eligible_count": 48,
+    "mutation_equivalent_count": 8,
+    "mutation_fixture_count": 64,
+    "mutation_invalid_count": 8,
+    "outcome": "pass",
+    "public_example_crosscheck": true,
+    "public_input_overlap": 0,
+    "rejected_count": 768,
+    "schedule_counts": {
+      "17": 582,
+      "29": 582
+    }
+  },
+  "requalification_history": [
+    {
+      "author_instructions_sha256": "adbad14b481e201426a3563dde4063f582f75e15a259a1e62ef0f255a5ca3aeb",
+      "change_review": "INTERFACE report.json readiness status/unresolved_decisions fields only; fixed decision and Step signatures/input/output semantics unchanged. Author instructions add matching handoff declaration.",
+      "committed_case_expected_rechecks": 1164,
+      "current_interface_sha256": "82c069b4e40ebc1506bd6e9e184de44c6c95dcaff4ac33196f08d6047bae30ea",
+      "id": "readiness-handoff-requalification-1",
+      "original_private_commitments_preserved": true,
+      "outcome": "pass",
+      "previous_interface_sha256": "6a2089715203068b673345376bbd583e0e48a684a45872238e630329f7d0207b",
+      "private_receipt_sha256": "995eee40f5fce1ede2aba4a77b6797b4cc7bf96bde824b7b4972fa26499c81d6",
+      "public_example_checks": 104,
+      "regenerated_cases": false,
+      "scored_execution": false
+    },
+    {
+      "change_review": "Author instructions exact report fields list now explicitly includes already-required status and unresolved_decisions; no decision/Step/intent/example change.",
+      "current_author_instructions_sha256": "048e807ac7296051c53c682ec0a5e6edaec0a64cfe0fe45b928050d3211b7c3b",
+      "id": "author-field-list-requalification-2",
+      "original_private_commitments_preserved": true,
+      "outcome": "pass",
+      "previous_author_instructions_sha256": "adbad14b481e201426a3563dde4063f582f75e15a259a1e62ef0f255a5ca3aeb",
+      "private_receipt_sha256": "9da8959aa51a3e8c08935b74295fee336218afb398a07e106329870180a8d6ea",
+      "qualification_basis": "Prior readiness requalification remains applicable; unchanged intent/interface/example pins and all private commitments verified.",
+      "regenerated_cases": false,
+      "scored_execution": false
+    }
+  ],
+  "scoring": "Use combined cases.json; optional schedule selects submission seed17 or29. Formal relation applies only to full correctly typed inputs; runtime malformed-input rejection is evaluated separately. Finite input evidence is not universal correctness.",
+  "source_pins": {
+    "INTERFACE.md": "82c069b4e40ebc1506bd6e9e184de44c6c95dcaff4ac33196f08d6047bae30ea",
+    "author-instructions.md": "048e807ac7296051c53c682ec0a5e6edaec0a64cfe0fe45b928050d3211b7c3b",
+    "intent.json": "2e44306bca78e5fab9009cd56397d9372245fb10430453b4a20fa4c56be2b1df",
+    "product-intent.md": "fce4e46010220bacec1873b77c40d6634af3628316147cae4720235e56745ae5",
+    "public-examples.json": "137acedba761504f51537f5567f87ee0c76131fae5113055f4209f6e276c57ab"
+  },
+  "status": "prepared_pending_owner_G1_and_separate_review",
+  "storage": {
+    "author_access": "must be excluded by author mount namespace; discretionary same-user permissions alone are insufficient",
+    "directory": "/home/juan/.local/share/pdac-v040-evaluation/g1-custody",
+    "directory_mode": "0700",
+    "files_mode": "0600",
+    "recovery": "if lost or source pins change, stop scored use and requalify/recommit before author work; never silently regenerate after outcomes",
+    "retention": "retain through frozen-output evaluation, separate review, publication decision and reproducibility retention; no automatic deletion",
+    "reveal": "no private oracle, inputs or answers to authors/coordinator before all scored outputs and attempts freeze; later reveal only by explicit owner release decision"
+  }
+}

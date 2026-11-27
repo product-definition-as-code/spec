@@ -1,0 +1,267 @@
+{
+  "status": "proposed_pending_human_G1",
+  "purpose": "Complete episode parameter snapshots and prose identifiers for machine preparation; not an executable oracle, formal language or released PDaC schema. Unlisted rules are completely specified in product-intent.md and unchanged.",
+  "status_codes": {
+    "REQUESTED": 0,
+    "CONFIRMED": 1,
+    "CANCELLED": 2,
+    "EXPIRED": 3
+  },
+  "operation_codes": {
+    "CONFIRM": 0,
+    "CANCEL": 1,
+    "EXPIRE": 2,
+    "EDIT": 3
+  },
+  "episodes": {
+    "B0": {
+      "parameters": {
+        "maximum_lead_days": 48,
+        "reservation_footprint_units": 1,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 7,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": null
+    },
+    "B1": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 1,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 7,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B0"
+    },
+    "B2": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 7,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B1"
+    },
+    "B3": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "REQUESTED",
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 7,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B2"
+    },
+    "B4": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "REQUESTED",
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0,
+          1
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 7,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B3"
+    },
+    "B5": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "REQUESTED",
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0,
+          1
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 14,
+        "sb_capacity_text": "A requested reservation with sufficient free units can be confirmed by an authorized caller within the lead window."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B4"
+    },
+    "B6": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "REQUESTED",
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0,
+          1
+        ],
+        "edit_rights": "trusted_editor",
+        "audit_retention_days": 14,
+        "sb_capacity_text": "Within the lead window, an authorized caller can confirm a requested reservation when sufficient units are free."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B5"
+    },
+    "A0": {
+      "parameters": {
+        "maximum_lead_days": 21,
+        "reservation_footprint_units": 3,
+        "confirmed_cancellation_minimum_days": 2,
+        "expiry_source_statuses": [
+          "REQUESTED",
+          "CONFIRMED"
+        ],
+        "trusted_issuers": [
+          0,
+          1
+        ],
+        "edit_rights": "owner_or_trusted_editor",
+        "audit_retention_days": 14,
+        "sb_capacity_text": "Within the lead window, an authorized caller can confirm a requested reservation when sufficient units are free."
+      },
+      "prose_decision_ids": [
+        "BOOK-DOMAIN",
+        "BOOK-INPUT",
+        "AUTH-TRUST",
+        "AUTH-RIGHTS",
+        "BOOK-CONFIRM",
+        "BOOK-CANCEL",
+        "BOOK-EXPIRE",
+        "BOOK-EDIT",
+        "AUDIT-RETENTION",
+        "SB-CAPACITY"
+      ],
+      "authority": "product-intent.md",
+      "parent": "B6"
+    }
+  }
+}
