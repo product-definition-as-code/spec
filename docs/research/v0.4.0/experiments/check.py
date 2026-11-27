@@ -22,14 +22,14 @@ def validate(output):
       'weak-contract-counterexample':lambda v:v['used']<v['capacity']<v['nextUsed'],
       'structured-behaviour-baseline':lambda v:(v['used'],v['capacity'],v['days'],v['nextUsed'],v['nextState'])==(0,1,30,1,1),
       'structured-behaviour-survives-guard-mutant':lambda v:(v['used'],v['capacity'],v['days'],v['nextUsed'],v['nextState'])==(0,1,30,1,1),
-      'guard-mutant-overbooks':lambda v:0<=v['used']<=v['capacity'] and v['nextUsed']==v['used']+1>v['capacity'],
-      'missing-frame-changes-owner':lambda v:v['nextOwner']!=v['owner'],
-      'double-release-mutant':lambda v:v['nextUsed']==v['used']-2<0,
+      'guard-mutant-overbooks':lambda v:0<=v['used']<=v['capacity'] and v['nextUsed']==v['used']+1>v['capacity'] and v['nextState']==1,
+      'missing-frame-changes-owner':lambda v:v['nextOwner']!=v['owner'] and v['nextState']==1,
+      'double-release-mutant':lambda v:v['nextUsed']==v['used']-2<0 and v['nextState']==3,
       'lead-rule-change-breaks-old-contract':lambda v:30<v['days']<=60,
       'hours-conversion-counterexample':lambda v:60<v['days']<=1440}
     verified=0
     for solver in ['z3','cvc5']:
-        text=(output/f'{solver}-booking-corrected.stdout').read_text()
+        text=(output/f'{solver}-booking-v3.stdout').read_text()
         statuses=[l for l in text.splitlines() if l in ['sat','unsat','unknown']];assert statuses==expected
         for i,c in enumerate(cases):
             if c['id'] not in checks:continue

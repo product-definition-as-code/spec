@@ -1,8 +1,9 @@
 {
+  "models/booking-v2.smt2": "cc133586e2a2b21da137370f069b57c88fe8d0c0118ba35e26d2f959e93758c6",
   "models/booking-v1.smt2": "999833762a24f63530e66f50d667b960545da88ce30f1961f077fc8b26dcbb5e",
   "models/booking.dfy": "46fb31da263bad49dd3993ec8a5ec443c662599c78d2838d1c936f1c3db59bf0",
   "models/inconclusive.smt2": "323ae1033a5a0a8807c120012b7942b7a568fc327d421a7bb907a474bd0269a2",
-  "models/booking.smt2": "cc133586e2a2b21da137370f069b57c88fe8d0c0118ba35e26d2f959e93758c6",
+  "models/booking.smt2": "5a272a252ce2fc8f5636e9bcd5596610a71eda5fcd2b6d7e5beb80f00b6d0161",
   "models/feasibility.dfy": "f3285f149c93118fbbf5f85d97dc9dba21d39a9a5c21b51cf0f54b0bfa388c45",
   "models/relations.als": "cbb12cb242c0741e332883038f33c169752791833c90527dcde12fc04eea7c81",
   "models/feasibility.smt2": "3609a103a9556bf6db37f243e171ad597a433138d905d59f6c4ff1ac050e9533",

@@ -109,6 +109,7 @@
 (assert (and (>= days 0) (<= days 60)))
 (assert (= nextUsed (+ used 1)))
 (assert (> nextUsed capacity))
+(assert (= nextState 1))
 (check-sat)
 (get-value (capacity used state days nextUsed nextState owner nextOwner))
 (pop 1)
@@ -118,6 +119,7 @@
 (assert Guard)
 (assert (= nextUsed (+ used 1)))
 (assert (not (= nextOwner owner)))
+(assert (= nextState 1))
 (check-sat)
 (get-value (capacity used state days nextUsed nextState owner nextOwner))
 (pop 1)
@@ -134,6 +136,7 @@
 ; cancel then wrongly expire CANCELLED again
 (assert (= nextUsed (- (- used 1) 1)))
 (assert (< nextUsed 0))
+(assert (= nextState 3))
 (check-sat)
 (get-value (capacity used state days nextUsed nextState owner nextOwner))
 (pop 1)
