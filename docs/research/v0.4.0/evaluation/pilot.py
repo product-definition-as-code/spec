@@ -166,6 +166,7 @@ def check_frozen(out):
     f=load(out/'frozen-inputs.json');approval=load(out/'approval.json')
     assert approval['frozen_manifest_sha256']==sha(out/'frozen-inputs.json') and f['public_inputs']==inputs()
     assert git(REPO,'rev-parse','HEAD')==f['source_revision'],'execute pinned source revision'
+    assert not git(REPO,'status','--porcelain'),'execute from clean frozen checkout'
     assert subprocess.check_output(['codex','--version'],text=True).strip()==f['codex_cli_version']
     assert sha(shutil.which('codex'))==f['codex_launcher_sha256']
     assert tree_sha(Path(f['productshape']))==f['productshape_tree_sha256']

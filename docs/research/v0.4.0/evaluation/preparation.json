@@ -3,7 +3,7 @@
   "base_main": "c3c42a18d3e8be9148a61acf6b99dff1b404f7a3",
   "checks": {
     "pilot_unit_tests": 6,
-    "scorer_public_tests": 11,
+    "scorer_public_tests": 12,
     "namespace_host_exclusion": "pass",
     "gateway_public_z3_unsat": "pass",
     "productshape_gateway_version_init_validate": "pass",
@@ -34,5 +34,5 @@
     "Git author identity not propagated by transient service; set explicitly per contained Git command",
     "Initial readiness test lacked frozen public-input stub; corrected test fixture"
   ],
-  "selftest_archive_sha256": "1929999cca5c64b5dccd9150e3caab8a3e60f9183ae3f2dc30d82a828c648243"
+  "selftest_archive_sha256": "ce0e2f4938f6d014d00e32bb03bfb31da533d394bee86204486eb60c593db37a"
 }

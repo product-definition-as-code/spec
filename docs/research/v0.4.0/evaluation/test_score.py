@@ -97,6 +97,17 @@ class ScorerTests(unittest.TestCase):
                 self.assertFalse(result['primary_screen_10pp'])
                 self.assertFalse(any(result['sensitivity'].values()))
 
+    def test_primary_requires_both_declared_schedules(self):
+        def rows_for(seed, passing):
+            return [dict(cohort=cohort, seed=seed, episode='PUBLIC', id='dummy',
+                         outcome='semantic_error' if cohort == 3 and passing else 'correct',
+                         **{'class': 'dummy'}) for cohort in (3, 4)]
+        schedule17 = rows_for(17, True)
+        self.assertTrue(score.summarize(schedule17 + rows_for(29, True))['primary_screen_both_schedules'])
+        self.assertFalse(score.summarize(schedule17 + rows_for(29, False))['primary_screen_both_schedules'])
+        self.assertFalse(score.summarize(schedule17)['primary_screen_both_schedules'])
+        self.assertFalse(score.summarize(rows_for(29, True))['primary_screen_both_schedules'])
+
     def test_unknown_baseline_does_not_establish_improvement(self):
         rows = [dict(cohort=c, seed=17, episode='PUBLIC', id='dummy',
                      outcome='unknown' if c == 3 else 'correct', **{'class': 'dummy'}) for c in (3, 4)]

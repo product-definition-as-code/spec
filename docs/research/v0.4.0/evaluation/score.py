@@ -306,7 +306,9 @@ def summarize(rows):
                             'sensitivity': {str(margin): lower_bound + 1e-12 >= margin / 100 and safeguard for margin in (5, 10, 15)},
                             'measure': 'PROPOSED G1 amendment: finite executable-or-formal case discrepancy; not seeded mutation detection',
                             'primary_screen_10pp': lower_bound + 1e-12 >= .10 and safeguard})
+    schedule_screens = {row['seed']: row['primary_screen_10pp'] for row in comparisons if row['episode'] == '*'}
     return {'counts': counts, 'paired_4_vs_3': paired, 'comparisons': comparisons,
+            'primary_screen_both_schedules': all(schedule_screens.get(seed, False) for seed in ('17', '29')),
             'limitations': ['Finite tested model consistency is not unbounded program/formal correspondence.',
                             'Dependent episodes have no independence-based statistics or p-values.',
                             'Mutation detection, continuity, human review and effort require independent evaluation.']}

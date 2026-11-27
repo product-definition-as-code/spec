@@ -3,6 +3,7 @@ from pathlib import Path
 from unittest.mock import patch
 from pilot import approve, packet, execute, prepare, load, inputs, readiness
 from isolation import namespace, environment
+from review import evaluate
 from solver_gateway import Gateway
 
 class Preparation(unittest.TestCase):
@@ -12,6 +13,8 @@ class Preparation(unittest.TestCase):
         (self.root/'frozen-inputs.json').write_text(json.dumps({'public_inputs':inputs()}))
         with self.assertRaises(FileNotFoundError):execute(self.root)
         self.assertFalse((self.root/'attempts').exists())
+        with self.assertRaises(FileNotFoundError):evaluate(self.root,self.root/'score',self.root/'review')
+        self.assertFalse((self.root/'review').exists())
         with self.assertRaises(AssertionError):approve(self.root,'https://wrong.example/approval')
     def test_current_only_packets_and_real_git_handoff(self):
         # No auth, model, network or held-out material required to prepare packets.
@@ -24,7 +27,8 @@ class Preparation(unittest.TestCase):
         self.assertEqual(len(list((second/'intent-history').glob('*.json'))),2)
         self.assertFalse((first/'intent-history/B1.json').exists())
     def test_mount_boundary_omits_host_and_disables_worker_network(self):
-        result=subprocess.run(namespace(self.root,['python3','-c','from pathlib import Path; assert not Path("/home/juan").exists(); assert not Path("/srv/repos").exists(); assert not Path("/run/user").exists()'],network=False),capture_output=True,env=environment())
+        (self.root/'facts.txt').write_text('immutable')
+        result=subprocess.run(namespace(self.root,['python3','-c','from pathlib import Path; assert not Path("/home/juan").exists(); assert not Path("/srv/repos").exists(); assert not Path("/run/user").exists(); p=Path("/work/facts.txt"); assert p.read_text()=="immutable"; assert not __import__("os").access(p,__import__("os").W_OK)'],network=False,readonly=['facts.txt']),capture_output=True,env=environment())
         self.assertEqual(result.returncode,0,result.stderr)
     def test_gateway_reserves_budget_before_compute_and_refuses_retry(self):
         tool=self.root/'fake-solver';tool.write_bytes(b'pinned fake binary')
