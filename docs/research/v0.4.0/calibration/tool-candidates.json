@@ -1,0 +1,74 @@
+{
+  "retrieved": "2026-11-27",
+  "status": "metadata only; no installation or execution",
+  "tools": [
+    {
+      "repository": "Z3Prover/z3",
+      "release_url": "https://github.com/Z3Prover/z3/releases/tag/z3-5.3.3",
+      "tag": "z3-5.3.3",
+      "commit": "430d19e697e2ec9bad79ff210d41b4a7a5fcfa3e",
+      "published_at": "2026-10-29T14:26:36Z",
+      "license_spdx": "NOASSERTION",
+      "license_url": "https://github.com/Z3Prover/z3/blob/z3-5.3.3/LICENSE.txt",
+      "assets": [
+        {
+          "name": "z3-5.3.3-x64-glibc-2.39.zip",
+          "size": 69671358,
+          "digest": "sha256:d56f60b06f432f33de5810f7f1a384a339131f361e2d54d08ea83eea14326880",
+          "url": "https://github.com/Z3Prover/z3/releases/download/z3-5.3.3/z3-5.3.3-x64-glibc-2.39.zip"
+        }
+      ]
+    },
+    {
+      "repository": "cvc5/cvc5",
+      "release_url": "https://github.com/cvc5/cvc5/releases/tag/cvc5-1.4.2",
+      "tag": "cvc5-1.4.2",
+      "commit": "282d5e0c84baf49c780704c532f87ba66d8b513d",
+      "published_at": "2026-10-08T01:22:02Z",
+      "license_spdx": "NOASSERTION",
+      "license_url": "https://github.com/cvc5/cvc5/blob/cvc5-1.4.2/COPYING",
+      "assets": [
+        {
+          "name": "cvc5-Linux-x86_64-static.zip",
+          "size": 43693999,
+          "digest": "sha256:7eb18f8c814c36a46c5a7d003983e9cfbc4b0a9828d6dd596239291bd4cc61d8",
+          "url": "https://github.com/cvc5/cvc5/releases/download/cvc5-1.4.2/cvc5-Linux-x86_64-static.zip"
+        }
+      ]
+    },
+    {
+      "repository": "AlloyTools/org.alloytools.alloy",
+      "release_url": "https://github.com/AlloyTools/org.alloytools.alloy/releases/tag/v6.2.0",
+      "tag": "v6.2.0",
+      "commit": "59ba2033993449d483d54acad0e11a7bbf20354f",
+      "published_at": "2025-01-09T16:34:04Z",
+      "license_spdx": "NOASSERTION",
+      "license_url": "https://github.com/AlloyTools/org.alloytools.alloy/blob/v6.2.0/LICENSE",
+      "assets": [
+        {
+          "name": "org.alloytools.alloy.dist.jar",
+          "size": 21062377,
+          "digest": null,
+          "url": "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v6.2.0/org.alloytools.alloy.dist.jar"
+        }
+      ]
+    },
+    {
+      "repository": "dafny-lang/dafny",
+      "release_url": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
+      "tag": "v4.11.0",
+      "commit": "fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+      "published_at": "2025-08-25T19:53:51Z",
+      "license_spdx": "NOASSERTION",
+      "license_url": "https://github.com/dafny-lang/dafny/blob/v4.11.0/LICENSE.txt",
+      "assets": [
+        {
+          "name": "dafny-4.11.0-x64-ubuntu-22.04.zip",
+          "size": 65307946,
+          "digest": "sha256:a46a9ff7cdd720f7955854c78e95df13f4cfe6b80691b05f8654fe19e8267179",
+          "url": "https://github.com/dafny-lang/dafny/releases/download/v4.11.0/dafny-4.11.0-x64-ubuntu-22.04.zip"
+        }
+      ]
+    }
+  ]
+}

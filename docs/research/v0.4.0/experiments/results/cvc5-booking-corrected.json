@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/tmp/pdac-v040-tools/cvc5/cvc5-Linux-x86_64-static/bin/cvc5",
+    "--incremental",
+    "models/booking.smt2"
+  ],
+  "containment_command": [
+    "systemd-run",
+    "--user",
+    "--quiet",
+    "--wait",
+    "--pipe",
+    "-p",
+    "MemoryMax=2147483648",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "RuntimeMaxSec=30",
+    "-p",
+    "TasksMax=64",
+    "-p",
+    "KillMode=control-group",
+    "--working-directory=/tmp/pdac-v040-phase1/spec/docs/research/v0.4.0/experiments",
+    "--",
+    "/tmp/pdac-v040-tools/cvc5/cvc5-Linux-x86_64-static/bin/cvc5",
+    "--incremental",
+    "models/booking.smt2"
+  ],
+  "returncode": 0,
+  "wall_seconds": 0.07397,
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "stdout_sha256": "563e71c19052ab5e512390dd4fc181dfbec422c28895904dbd9bbf8453d4b436",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "llm_calls_by_runner": 0,
+  "automatic_retries": 0
+}

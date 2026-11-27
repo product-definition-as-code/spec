@@ -1,0 +1,70 @@
+[
+  {
+    "id": "domain-witness",
+    "expected": "sat"
+  },
+  {
+    "id": "confirm-preserves-invariant",
+    "expected": "unsat"
+  },
+  {
+    "id": "cancel-preserves-invariant",
+    "expected": "unsat"
+  },
+  {
+    "id": "expire-preserves-invariant",
+    "expected": "unsat"
+  },
+  {
+    "id": "contradictory-rules",
+    "expected": "unsat"
+  },
+  {
+    "id": "bad-guard-vacuous-safety",
+    "expected": "unsat"
+  },
+  {
+    "id": "bad-guard-unreachable",
+    "expected": "unsat"
+  },
+  {
+    "id": "weak-contract-counterexample",
+    "expected": "sat"
+  },
+  {
+    "id": "structured-behaviour-baseline",
+    "expected": "sat"
+  },
+  {
+    "id": "structured-behaviour-survives-guard-mutant",
+    "expected": "sat"
+  },
+  {
+    "id": "guard-mutant-overbooks",
+    "expected": "sat"
+  },
+  {
+    "id": "missing-frame-changes-owner",
+    "expected": "sat"
+  },
+  {
+    "id": "explicit-frame-preserves-owner",
+    "expected": "unsat"
+  },
+  {
+    "id": "double-release-mutant",
+    "expected": "sat"
+  },
+  {
+    "id": "correct-expiry-refuses-cancelled",
+    "expected": "unsat"
+  },
+  {
+    "id": "lead-rule-change-breaks-old-contract",
+    "expected": "sat"
+  },
+  {
+    "id": "hours-conversion-counterexample",
+    "expected": "sat"
+  }
+]

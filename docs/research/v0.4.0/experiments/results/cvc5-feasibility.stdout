@@ -1,0 +1,34 @@
+sat
+((x 0))
+unsat
+(
+upper
+contradiction
+)
+(
+(declare-const x Int)
+(define @t1 () (<= x 2))
+(define @t2 () (+ 2 1))
+(define @t3 () (>= x @t2))
+(define @t4 () (>= x 3))
+(assume @p1 (>= x 0))
+(assume @p2 @t1)
+(assume @p3 (> x 2))
+(step @p4 :rule evaluate :args (@t2))
+(step @p5 :rule cong :premises (@p4) :args (@t3))
+(step @p6 :rule cong :premises (@p5) :args ((not @t3)))
+(step @p7 :rule arith-leq-norm :args (x 2))
+(step @p8 :rule trans :premises (@p7 @p6))
+(step @p9 :rule eq_resolve :premises (@p2 @p8))
+(step @p10 :rule bool-double-not-elim :args (@t4))
+(step @p11 :rule cong :premises (@p8) :args ((not @t1)))
+(step @p12 :rule trans :premises (@p11 @p10))
+(step @p13 :rule arith-elim-leq :args (x 2))
+(step @p14 :rule symm :premises (@p13))
+(step @p15 :rule cong :premises (@p14) :args ((not (>= 2 x))))
+(step @p16 :rule arith-elim-gt :args (x 2))
+(step @p17 :rule trans :premises (@p16 @p15))
+(step @p18 :rule trans :premises (@p17 @p12))
+(step @p19 :rule eq_resolve :premises (@p3 @p18))
+(step @p20 false :rule chain_m_resolution :premises (@p19 @p9) :args (false (@list true) (@list @t4)))
+)

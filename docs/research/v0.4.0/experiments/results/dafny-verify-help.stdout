@@ -1,0 +1,96 @@
+Description:
+  Verify the program.
+
+Usage:
+  Dafny verify [<file>...] [options]
+
+Arguments:
+  <file>  Dafny input files and/or a Dafny project file
+
+Options:
+  --filter-symbol <filter-symbol>                                         Filter what gets verified by selecting only symbols whose fully qualified name contains the given argument, for example: "--filter-symbol=MyNestedModule.MyFooFunction". Place a dot at the end of the argument to indicate the symbol name must end like this, which can be useful if one symbol name is a prefix of another.
+  --filter-position <filter-position>                                     Filter what gets verified based on a source location. The location is specified as a file path suffix, optionally followed by a colon and a line number or line range. For example, `dafny verify dfyconfig.toml --filter-position=source1.dfy:5-7` will only verify things that between (and including) line 5 and 7 in the file `source1.dfy`. You can also use `:5`, `:5-`, `:-5` to specify individual lines or open ranges. In combination with `--isolate-assertions`, individual assertions can be verified by filtering on the line that contains them. When processing a single file, the filename can be skipped, for example: `dafny verify MyFile.dfy --filter-position=:23`
+  --dont-verify-dependencies                                              Allows Dafny to accept dependencies that may not have been previously verified, which can be useful during development.
+  --progress <Batch|None|Symbol>                                          While verifying, output information that helps track progress. Use 'Symbol' to show progress across symbols such as methods and functions. Verification of a symbol may be split across several assertion batches. Use Batch to additionally show progress across batches.
+  --relax-definite-assignment                                             Allow variables to be read before they are assigned, but only if they have an auto-initializable type or if they are ghost and have a nonempty type.
+  --verification-time-limit <seconds>                                     Limit the number of seconds spent trying to verify each assertion batch. A value of 0 indicates no limit [default: 30]
+  --verify-included-files                                                 Verify code in included files.
+  --manual-lemma-induction                                                Turn off automatic induction for lemmas.
+  --solver-path <solver-path>                                             Can be used to specify a custom SMT solver to use for verifying Dafny proofs.
+  --disable-nonlinear-arithmetic                                          (experimental, will be replaced in the future)
+                                                                          Reduce Dafny's knowledge of non-linear arithmetic (*,/,%).
+  
+                                                                          Results in more manual work, but also produces more predictable behavior.
+  --isolate-assertions                                                    Verify each assertion in isolation.
+  --boogie <arguments>                                                    Specify arguments that are passed to Boogie, a tool used to verify Dafny programs.
+  --log-format <configuration>                                            Logs verification results using the given test result format. The currently supported formats are `trx`, `csv`, and `text`. These are: the XML-based format commonly used for test results for .NET languages, a custom CSV schema, and a textual format meant for human consumption. You can provide configuration using the same string format as when using the --logger option for dotnet test, such as: --format "trx;LogFileName=<...>");
+  
+                                                                          The `trx` and `csv` formats automatically choose an output file name by default, and print the name of this file to the console. The `text` format prints its output to the console by default, but can send output to a file given the `LogFileName` option.
+  
+                                                                          The `text` format also includes a more detailed breakdown of what assertions appear in each assertion batch. When combined with the isolate-assertions option, it will provide approximate time and resource use costs for each assertion, allowing identification of especially expensive assertions.
+  --resource-limit <resource-limit>                                       Specify the maximum resource limit (rlimit) value to pass to Z3. A resource limit is a deterministic alternative to a time limit. The output produced by `--log-format csv` includes the resource use of each proof effort, which you can use to determine an appropriate limit for your program.
+  --solver-plugin <solver-plugin>                                         Dafny uses Boogie as part of its verification process. This option allows customising that part using a Boogie plugin. More information about Boogie can be found at https://github.com/boogie-org/boogie. Information on how to construct Boogie plugins can be found by looking at the code in https://github.com/boogie-org/boogie/blob/v2.16.3/Source/Provers/SMTLib/ProverUtil.cs#L316
+  --json-output                                                           Return output in a JSON format.
+  --error-limit <error-limit>                                             Set the maximum number of errors to report (0 for unlimited). [default: 5]
+  --default-function-opacity <AutoRevealDependencies|Opaque|Transparent>  Change the default opacity of functions. 
+                                                                          `transparent` (default) means functions are transparent, can be manually made opaque and then revealed. 
+                                                                          `autoRevealDependencies` makes all functions not explicitly labelled as opaque to be opaque but reveals them automatically in scopes which do not have `{:autoRevealDependencies false}`. 
+                                                                          `opaque` means functions are always opaque so the opaque keyword is not needed, and functions must be revealed everywhere needed for a proof. [default: Transparent]
+  --analyze-proofs                                                        Uses data from the verifier to suggest ways to refine the proof:
+                                                                          Warning if any assertions are proved based on contradictory assumptions (vacuously).
+                                                                          Warning if any `requires` clause or `assume` statement was not needed to complete verification.
+                                                                          Suggestions for moving assertions into by-proofs and hiding unused function definitions.
+                                                                          May slow down verification slightly, or make it more brittle.
+                                                                          May produce spurious warnings.
+                                                                          Use the `{:contradiction}` attribute to mark any `assert` statement intended to be part of a proof by contradiction.
+  --verification-coverage-report <directory>                              Emit verification coverage report to a given directory, in the same format as a test coverage report.
+  --extract-counterexample                                                If verification fails, report a detailed counterexample for the first failing assertion (experimental). [default: False]
+  --show-snippets                                                         Show a source code snippet for each Dafny message. [default: True]
+  --allow-warnings                                                        Allow compilation to continue and succeed when warnings occur. Errors will still halt and fail compilation.
+  --warn-shadowing                                                        Emits a warning if the name of a declared variable caused another variable to be shadowed.
+  --warn-missing-constructor-parentheses                                  Emits a warning when a constructor name in a case pattern is not followed by parentheses.
+  --track-print-effects                                                   A compiled method, constructor, or iterator is allowed to have print effects only if it is marked with {{:print}}.
+  --allow-axioms                                                          Prevents a warning from being generated for axioms, such as assume statements and functions or methods without a body, that don't have an {:axiom} attribute. [default: False]
+  --enforce-determinism                                                   Check that only deterministic statements are used, so that values seen during execution will be the same in every run of the program.
+  --allow-external-contracts                                              Allow exporting callables with preconditions, and importing callables with postconditions
+  --find-project                                                          Uses the first specified input file as a starting path, from which to search for a project file by traversing up the file tree.
+  --stdin                                                                 Read standard input and treat it as an input .dfy file. [default: False]
+  --verbose                                                               Print additional information such as which files are emitted where.
+  --cores <count>                                                         Run the Dafny verifier using <n> cores, or using <XX%> of the machine's logical cores. [default: 10]
+  --library <library>                                                     The contents of this file and any files it includes can be referenced from other files as if they were included. 
+                                                                          However, these contents are skipped during code generation and verification.
+                                                                          This option is useful in a diamond dependency situation, 
+                                                                          to prevent code from the bottom dependency from being generated more than once.
+                                                                          The value may be a comma-separated list of files and folders. []
+  --allow-deprecation                                                     Do not warn about the use of deprecated features.
+  --prelude <file>                                                        Choose the Dafny prelude file.
+  --function-syntax <version>                                             The syntax for functions changed from Dafny version 3 to version 4. This switch controls access to the new syntax, and also provides a mode to help with migration.
+  
+                                                                          3 - Compiled functions are written `function method` and `predicate method`. Ghost functions are written `function` and `predicate`.
+                                                                          4 - Compiled functions are written `function` and `predicate`. Ghost functions are written `ghost function` and `ghost predicate`.
+                                                                          migration3to4 - Compiled functions are written `function method` and `predicate method`. Ghost functions are written `ghost function` and `ghost predicate`. To migrate from version 3 to version 4, use this flag on your version 3 program. This will give flag all occurrences of `function` and `predicate` as parsing errors. These are ghost functions, so change those into the new syntax `ghost function` and `ghost predicate`. Then, start using --functionSyntax:4. This will flag all occurrences of `function method` and `predicate method` as parsing errors. So, change those to just `function` and `predicate`. Now, your program uses version 4 syntax and has the exact same meaning as your previous version 3 program.
+                                                                          experimentalDefaultGhost - Like migration3to4, but allow `function` and `predicate` as alternatives to declaring ghost functions and predicates, respectively.
+                                                                          experimentalDefaultCompiled - Like migration3to4, but allow `function` and `predicate` as alternatives to declaring compiled
+                                                                              functions and predicates, respectively.
+                                                                          experimentalPredicateAlwaysGhost - Compiled functions are written `function`. Ghost functions are written `ghost function`. Predicates are always ghost and are written `predicate`. [default: 4]
+  --quantifier-syntax <version>                                           The syntax for quantification domains is changing from Dafny version 3 to version 4, more specifically where quantifier ranges (|
+                                                                          <Range>) are allowed. This switch gives early access to the new syntax.
+  
+                                                                          3 - Ranges are only allowed after all quantified variables are declared. 
+                                                                              (e.g. set x, y | 0 <= x < |s| && y in s[x] && 0 <= y :: y)
+                                                                          4 - Ranges are allowed after each quantified variable declaration.
+                                                                              (e.g. set x | 0 <= x < |s|, y <- s[x] | 0 <= y :: y)
+  
+                                                                          Note that quantifier variable domains (<- <Domain>) are available in both syntax versions. [default: Version4]
+  --use-basename-for-filename                                             When parsing use basename of file for tokens instead of the path supplied on the command line
+  --emit-uncompilable-code                                                Rather than throwing an exception, allow compilers to emit uncompilable information including what is not compilable instead of regular code. Useful when developing compilers or to document for each test what compiler feature is missing
+  --reads-clauses-on-methods                                              Allows reads clauses on methods (with a default of 'reads *') as well as functions.
+  --standard-libraries                                                    Allow Dafny code to depend on the standard libraries included with the Dafny distribution.
+                                                                          See https://github.com/dafny-lang/dafny/blob/master/Source/DafnyStandardLibraries/README.md for more information.
+                                                                          Not compatible with the --unicode-char:false option.
+                                                                           [default: False]
+  -?, -h, --help                                                          Show help and usage information
+  --help-internal                                                         Show help and usage information, including options designed for developing the Dafny language and toolchain.
+
+
+
