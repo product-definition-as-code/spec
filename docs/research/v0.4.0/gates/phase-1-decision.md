@@ -1,3 +1,5 @@
+> Historical G1 candidate: [owner approval](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7228575750) froze commit `d7a2553`. Attempt1 is preserved and invalid due to tool transport; [G2 recommends bounded revision](phase-2-decision.md). This historical text is not a new approval request or retry authorization.
+
 # G1 — exploratory execution authorized; scored evaluation pending
 
 Owner correction: [decision record](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7211986546). Gate [#130](https://github.com/product-definition-as-code/spec/issues/130); epic [#121](https://github.com/product-definition-as-code/spec/issues/121).

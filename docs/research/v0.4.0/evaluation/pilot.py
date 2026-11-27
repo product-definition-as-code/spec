@@ -3,6 +3,7 @@
 import argparse, ast, concurrent.futures, hashlib, json, os, shutil, subprocess, sys, time, uuid
 from pathlib import Path
 from isolation import namespace, environment
+from preflight import preflight
 from solver_gateway import Gateway, CLIENT, PRODUCTSHAPE_CLIENT, SOLVER_LOCK, run as bounded
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[3]
@@ -27,6 +28,7 @@ def git(root,*args):
 
 def prepare(out,tools,package):
     out.mkdir(parents=True,exist_ok=False)
+    assert preflight(out/'transport-preflight')['passed'],'full tool transport unavailable; no author dispatch or approval package created'
     custody=load(HERE/'custody.json')
     assert all(sha(HERE/name)==pin for name,pin in custody['source_pins'].items()),'custody source pins require requalification'
     tasks=load(HERE/'tasks.json');order=[]

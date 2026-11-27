@@ -1,3 +1,5 @@
+> Historical G1 candidate: [owner approval](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7228575750) froze commit `d7a2553`. Attempt1 is preserved and invalid due to tool transport; [G2 recommends bounded revision](../gates/phase-2-decision.md). This historical text is not a new approval request or retry authorization.
+
 # G1 — approve intent and the controlled pilot
 
 **Decision requested:** approve this exact package for #131–134, ending at G2. Preparation/review is complete; no scored author has run. No tools, agents or infrastructure need choosing by the owner. The full [intent](product-intent.md), [protocol](frozen-protocol.md) and [custody commitments](custody.json) are linked for inspection.
