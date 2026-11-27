@@ -111,9 +111,10 @@ def verify(root):
                 if not data.startswith(b'---'):continue
                 front=yaml.safe_load(data.decode().split('---',2)[1]);id=front['id'];assert id not in mapping;mapping[id]=data
             return mapping
-        def bind(label,source):
+        def bind(label,source,expected_revision):
             meta=json.loads((root/'formal'/label/'semantic-inputs.json').read_text())
-            git('cat-file','-e',meta['actual_run_revision']+'^{commit}')
+            assert meta['actual_run_revision']==expected_revision,label
+            git('cat-file','-e',expected_revision+'^{commit}')
             assert {id:normalized_digest(data) for id,data in source.items()}==meta['source_pins'],label
             folder=Path(temp)/'materialized'/label;folder.mkdir(parents=True)
             paths={}
@@ -123,12 +124,12 @@ def verify(root):
             stage=row['stage'];revision=row['revision'];git('cat-file','-e',revision+'^{commit}')
             # Accepted containers must remain byte-identical throughout later history.
             for path in git('ls-tree','-r','--name-only',revision,'docs/product/changes/completed').decode().splitlines():assert git('show',revision+':'+path)==git('show','HEAD:'+path)
-            if stage=='baseline':bind('baseline',artifacts(row['formal']['run_revision']))
+            if stage=='baseline':bind('baseline',artifacts(row['formal']['run_revision']),row['formal']['run_revision'])
             else:
                 original=artifacts(row['formal']['run_revision'])
                 original.update(artifacts(row['post_apply_full_recheck']['run_revision'],'docs/product/changes/completed/'+IDS[stage]+'/proposed'))
-                bind(stage+'-overlay',original)
-                bind(stage+'-accepted',artifacts(row['post_apply_full_recheck']['run_revision']))
+                bind(stage+'-overlay',original,row['formal']['run_revision'])
+                bind(stage+'-accepted',artifacts(row['post_apply_full_recheck']['run_revision']),row['post_apply_full_recheck']['run_revision'])
             evidence=row.get('new_evidence',row.get('evidence'))
             for doc in evidence['documents']:
                 assert doc['runRevision']==row.get('post_apply_full_recheck',row['formal'])['run_revision']
@@ -142,7 +143,7 @@ def verify(root):
         proposals=[p for p in all_paths if '/chg-unmapped/proposed/' in p]
         assert len(proposals)==1
         drift=artifacts(probe['corrected_encoding']['run_revision']);drift.update(artifacts('HEAD',str(Path(proposals[0]).parent)))
-        bind('unmapped-old-encoding',drift);bind('unmapped-corrected-encoding',drift)
+        bind('unmapped-old-encoding',drift,probe['corrected_encoding']['run_revision']);bind('unmapped-corrected-encoding',drift,probe['corrected_encoding']['run_revision'])
         assert len(git('ls-tree','--name-only','HEAD:docs/product/changes/completed').splitlines())==7
     assert executed_queries==334
     summary={'tool_jobs':len(receipts),'recorded_tool_wall_seconds':round(sum(r['wall_seconds'] for r in receipts.values()),3),'executed_solver_queries':executed_queries,'stages':7,'applied_changes_including_initial':7,'automatic_retries':0,'llm_calls_by_runner':0,'audit':'required receipts/raw statuses, source bindings, revisions, full/cache consistency and immutable accepted history verified'}

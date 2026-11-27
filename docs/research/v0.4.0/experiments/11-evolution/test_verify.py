@@ -1,5 +1,5 @@
 """Regression checks that incomplete or inconsistent saved evidence is rejected."""
-import  json, shutil, sys, tempfile, unittest
+import json, shutil, sys, tempfile, unittest
 from pathlib import Path
 from verify import verify
 SOURCE=Path(sys.argv.pop(1)).resolve()
@@ -20,6 +20,10 @@ class EvidenceRejection(unittest.TestCase):
         with self.assertRaises(AssertionError):verify(self.root)
     def test_semantic_source_pin_does_not_match_git(self):
         p=self.root/'formal/domain-accepted/semantic-inputs.json';m=json.loads(p.read_text());m['source_pins']['TERM-A']='sha256:'+'0'*64;p.write_text(json.dumps(m))
+        with self.assertRaises(AssertionError):verify(self.root)
+
+    def test_existing_but_wrong_run_revision(self):
+        p=self.root/'formal/domain-accepted/semantic-inputs.json';m=json.loads(p.read_text());manifest=json.loads((self.root/'run-manifest.json').read_text());m['actual_run_revision']=manifest['stages'][0]['formal']['run_revision'];p.write_text(json.dumps(m))
         with self.assertRaises(AssertionError):verify(self.root)
 
 if __name__=='__main__':unittest.main()

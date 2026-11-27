@@ -1,0 +1,40 @@
+{
+  "classification": "public exploratory engineering reproduction; no scored evaluation",
+  "source_driver_commit": "bbb48e80391379dfe8dd5e7ff46b98f4e22164fc",
+  "auditor_revision": "see PR Git history; five negative regressions",
+  "runs": [
+    {
+      "name": "reviewed",
+      "archive": "reviewed-evidence.tar.gz",
+      "sha256": "d1c1681b3bfd7e6a7b2e777a04234d42ca1e5936110211e4fd67bead02e7e121",
+      "tool_jobs": 122,
+      "recorded_tool_wall_seconds": 55.032,
+      "executed_solver_queries": 334,
+      "stages": 7,
+      "applied_changes_including_initial": 7,
+      "automatic_retries": 0,
+      "llm_calls_by_runner": 0,
+      "audit": "required receipts/raw statuses, source bindings, revisions, full/cache consistency and immutable accepted history verified"
+    },
+    {
+      "name": "reproduction",
+      "archive": "reproduction-evidence.tar.gz",
+      "sha256": "51f1113c35d2434d03d1cea450aafc818ee53a2415d0dd1198d5a6c379e3c2ec",
+      "tool_jobs": 122,
+      "recorded_tool_wall_seconds": 55.458,
+      "executed_solver_queries": 334,
+      "stages": 7,
+      "applied_changes_including_initial": 7,
+      "automatic_retries": 0,
+      "llm_calls_by_runner": 0,
+      "audit": "required receipts/raw statuses, source bindings, revisions, full/cache consistency and immutable accepted history verified"
+    }
+  ],
+  "usage_metering": "unavailable, not zero; authoring/installation/review excluded from tool-job latency",
+  "development": {
+    "archive": "development-evidence.tar.gz",
+    "sha256": "02312e03d10624e9655c8ac11f01ce27d32ea884d4af4139fbb93038277bff86",
+    "classification": "NOT accepted replications: final aborted on invalid get-value after unsat; verified/canonical precede source-mismatch correction; retained failure/correction evidence"
+  },
+  "reproduction": "Both runs have byte-identical formal models, identical seven committed checkpoint IDs, matching driver hashes and all expected statuses. Same environment/tools/operator; not independent scientific replication."
+}

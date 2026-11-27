@@ -35,3 +35,7 @@ Access limitations and available substitutes are in the six input reports. Score
 | E05 | Corrected SB probes add an omitted final-state conjunct; original results retained. Resource-limited query yields unknown. | Encoding defects and inconclusive outcomes are not successful verification. |
 
 Independent agent review at `91053aa`: [scientific](review/scientific-findings.md), [methodology](review/methodology-findings.md), [architecture](review/architecture-findings.md). Three P2 findings corrected with retained inputs/results; no P0/P1 established within inspected coverage. No independent human expert validation or scored evidence follows. Corrected dispositions are coordinator-verified, not automatically re-accepted.
+
+## Actual ProductShape integration
+
+E06: [Six real Product Changes and deterministic post-apply rechecks](experiments/11-evolution/README.md), [raw receipts/two-run summary](experiments/11-evolution/results/summary.json). ProductShape 0.26.1 against unchanged v0.3.0; 334 executed queries per suite, not independent observations. Direct freshness and old proof outcomes can outlive intent applicability; editorial freshness can change without changing formulas. Handwritten semantic bindings remain a review boundary. Independent review caught a real prose mismatch and incomplete auditor, corrected with retained development evidence ([dispositions](review/integration-findings.md)). No H0/H1/H5 advantage, independent agent maintenance or normative requirement established.

@@ -1,0 +1,2069 @@
+{
+  "driver_sha256": {
+    "11-evolution/experiment.py": "f0358282ddacfbf81f8c7212449e9e0f04aca8299c8ef5f6bf0831ef70345d0c",
+    "11-evolution/formal.py": "b0b63cb4beffdc9d08165b0b618e375b831676fbbad416d07cfccdc5b04c9e9c",
+    "run.py": "3b8b3ce4503b24458e91bdde4208601944bd6a357ca022027574627ff1f60e06"
+  },
+  "status": "public non-scored exploratory integration; synthetic approval fixtures, not human product acceptance",
+  "pdac_method": "0.3.0",
+  "serialization": "v1alpha2",
+  "productshape": "0.26.1",
+  "source_main": "39b5e05547cf8f9f12a1f962d25b854837f4f779",
+  "stages": [
+    {
+      "stage": "baseline",
+      "revision": "2f1a2bdd73bba3756dbe2229dda2daa1ac5e02f7",
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "98a464ec2d44469db9a82feb37bbf7db411f79e30a3da7bdfe892ed6f5f52161",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.063889
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "245cacd810b71d80c38c3bf599ce095042f4caf3678f084f589fe74dbb4ad44d",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.05486
+        },
+        "run_revision": "4c7afcc73faf40997dddf665e3f6fd0dc193b02f"
+      },
+      "evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "4c7afcc73faf40997dddf665e3f6fd0dc193b02f",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "4c7afcc73faf40997dddf665e3f6fd0dc193b02f"
+          }
+        ],
+        "diagnostics": []
+      },
+      "citations": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "current"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 4,
+          "stale": 0,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      }
+    },
+    {
+      "stage": "rule",
+      "change": "CHG-LEAD",
+      "revision": "806058addead7d541b10171b7ddb171042f4fcc6",
+      "changed": [
+        "BR-A"
+      ],
+      "one_hop_causes": [
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-lead/change.md",
+          "change": "CHG-LEAD",
+          "artifact": "UC-A",
+          "target": "BR-A",
+          "field": "governed-by",
+          "message": "existing governed-by impact from BR-A is not accounted for"
+        },
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-lead/change.md",
+          "change": "CHG-LEAD",
+          "artifact": "SB-A",
+          "target": "BR-A",
+          "field": "illustrates",
+          "message": "existing illustrates impact from BR-A is not accounted for"
+        },
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-lead/change.md",
+          "change": "CHG-LEAD",
+          "artifact": "LC-A",
+          "target": "BR-A",
+          "field": "transitions[].governed-by",
+          "message": "existing transitions[].governed-by impact from BR-A is not accounted for"
+        }
+      ],
+      "direct_uc_changed": false,
+      "model_changed": true,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "235654677a8032432773403abd33793490d1deb138e1ad29015aae10955b9911",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.073852
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "3563655c6d6cdec8ae28cbc47dabef915abfeb3f94446404406816d0cabb3275",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.072763
+        },
+        "run_revision": "b12780c1852763117015efe39581faa781ba59a9"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "rule-overlay",
+          "fingerprint": "235654677a8032432773403abd33793490d1deb138e1ad29015aae10955b9911",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.064644
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "rule-overlay",
+          "fingerprint": "3563655c6d6cdec8ae28cbc47dabef915abfeb3f94446404406816d0cabb3275",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.075597
+        },
+        "run_revision": "931e5008b2be69d67aee49417768bce727695fbe"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [
+          "BR-A"
+        ],
+        "authorization": [],
+        "examples": [
+          "BR-A"
+        ]
+      },
+      "forecast": [
+        {
+          "id": "BR-A",
+          "source": "consumers/rule-contract.md",
+          "line": 3,
+          "form": "inline",
+          "prospectiveStatus": "stale"
+        }
+      ],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "b12780c1852763117015efe39581faa781ba59a9",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "4c7afcc73faf40997dddf665e3f6fd0dc193b02f"
+          }
+        ],
+        "diagnostics": []
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 3,
+          "stale": 1,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 2
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "931e5008b2be69d67aee49417768bce727695fbe",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "931e5008b2be69d67aee49417768bce727695fbe"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: generic Use Case/Lifecycle refer to the rule; SB day 30 remains the inclusive boundary."
+    },
+    {
+      "stage": "identity",
+      "change": "CHG-ISSUERS",
+      "revision": "9e54c4bb91a1227546d22708033807f13092896b",
+      "changed": [
+        "TERM-IDENTITY"
+      ],
+      "one_hop_causes": [
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-issuers/change.md",
+          "change": "CHG-ISSUERS",
+          "artifact": "BR-AUTH",
+          "target": "TERM-IDENTITY",
+          "field": "uses-terms",
+          "message": "existing uses-terms impact from TERM-IDENTITY is not accounted for"
+        },
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-issuers/change.md",
+          "change": "CHG-ISSUERS",
+          "artifact": "UC-A",
+          "target": "TERM-IDENTITY",
+          "field": "uses-terms",
+          "message": "existing uses-terms impact from TERM-IDENTITY is not accounted for"
+        }
+      ],
+      "direct_uc_changed": false,
+      "model_changed": true,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "cbbe688ce88b156baa4eb2ab75a87f37517609518cc6ef4d9100235d12522b0d",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.071819
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "c4cfd8facb6e64f83a07e79385c5b9f3c09a49af7bff2eb8c879527a274b9c8d",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.067361
+        },
+        "run_revision": "806058addead7d541b10171b7ddb171042f4fcc6"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "identity-overlay",
+          "fingerprint": "cbbe688ce88b156baa4eb2ab75a87f37517609518cc6ef4d9100235d12522b0d",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.076399
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "identity-overlay",
+          "fingerprint": "c4cfd8facb6e64f83a07e79385c5b9f3c09a49af7bff2eb8c879527a274b9c8d",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.050711
+        },
+        "run_revision": "68f49ea0115ecb0bbf878b9e5053a6c2f312c16c"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [],
+        "authorization": [
+          "TERM-IDENTITY"
+        ],
+        "examples": [
+          "TERM-IDENTITY"
+        ]
+      },
+      "forecast": [],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "806058addead7d541b10171b7ddb171042f4fcc6",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "931e5008b2be69d67aee49417768bce727695fbe"
+          }
+        ],
+        "diagnostics": []
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 3,
+          "stale": 1,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 2
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "68f49ea0115ecb0bbf878b9e5053a6c2f312c16c",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "68f49ea0115ecb0bbf878b9e5053a6c2f312c16c"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: existing rule/Use Case use the declared trusted-issuer set; issuer-A example remains valid but does not enumerate that set."
+    },
+    {
+      "stage": "lifecycle",
+      "change": "CHG-EXPIRY",
+      "revision": "adee509a2130077a636dadd4f2fc0ff42745aba6",
+      "changed": [
+        "LC-A"
+      ],
+      "one_hop_causes": [
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-expiry/change.md",
+          "change": "CHG-EXPIRY",
+          "artifact": "SB-A",
+          "target": "LC-A",
+          "field": "covers-transition.lifecycle",
+          "message": "existing covers-transition.lifecycle impact from LC-A is not accounted for"
+        }
+      ],
+      "direct_uc_changed": false,
+      "model_changed": true,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "39778558855336706bfcc70966fe9caadfc40936069f647e76d3369fa1145fdf",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.070832
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "15168df4eed8f418bf2660502301884adc3adad1f6ee91654385c594bac028f9",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.061351
+        },
+        "run_revision": "9e54c4bb91a1227546d22708033807f13092896b"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "lifecycle-overlay",
+          "fingerprint": "39778558855336706bfcc70966fe9caadfc40936069f647e76d3369fa1145fdf",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.074925
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "lifecycle-overlay",
+          "fingerprint": "15168df4eed8f418bf2660502301884adc3adad1f6ee91654385c594bac028f9",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.068134
+        },
+        "run_revision": "38bd9772ca21bb67b3603c8c5c98e9191ce3d534"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [
+          "LC-A"
+        ],
+        "authorization": [],
+        "examples": [
+          "LC-A"
+        ]
+      },
+      "forecast": [],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "9e54c4bb91a1227546d22708033807f13092896b",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "68f49ea0115ecb0bbf878b9e5053a6c2f312c16c"
+          }
+        ],
+        "diagnostics": []
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 3,
+          "stale": 1,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 2
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "38bd9772ca21bb67b3603c8c5c98e9191ce3d534",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "38bd9772ca21bb67b3603c8c5c98e9191ce3d534"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: existing confirmation example is unchanged; the additional REQUESTED expiry path is checked separately by the external model."
+    },
+    {
+      "stage": "domain",
+      "change": "CHG-FOOTPRINT",
+      "revision": "99e4d38fb14d753aabab445f55d936679046aead",
+      "changed": [
+        "SB-A",
+        "LC-A",
+        "TERM-A",
+        "UC-A"
+      ],
+      "one_hop_causes": [
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-footprint/change.md",
+          "change": "CHG-FOOTPRINT",
+          "artifact": "SB-AUTH",
+          "target": "UC-A",
+          "field": "illustrates",
+          "message": "existing illustrates impact from UC-A is not accounted for"
+        },
+        {
+          "code": "PRODUCT029",
+          "severity": "warning",
+          "file": "docs/product/changes/active/chg-footprint/change.md",
+          "change": "CHG-FOOTPRINT",
+          "artifact": "BR-A",
+          "target": "TERM-A",
+          "field": "uses-terms",
+          "message": "existing uses-terms impact from TERM-A is not accounted for"
+        }
+      ],
+      "direct_uc_changed": true,
+      "model_changed": true,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.061952
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.066976
+        },
+        "run_revision": "adee509a2130077a636dadd4f2fc0ff42745aba6"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "domain-overlay",
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.069417
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "domain-overlay",
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.075606
+        },
+        "run_revision": "45286a86d29c0f11437b6af94c1884b04734f217"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [
+          "TERM-A",
+          "LC-A",
+          "UC-A"
+        ],
+        "authorization": [
+          "UC-A"
+        ],
+        "examples": [
+          "SB-A",
+          "TERM-A",
+          "LC-A"
+        ]
+      },
+      "forecast": [
+        {
+          "id": "UC-A",
+          "source": "consumers/proof-contract.md",
+          "line": 3,
+          "form": "inline",
+          "prospectiveStatus": "stale"
+        },
+        {
+          "id": "SB-A",
+          "source": "consumers/proof-contract.md",
+          "line": 4,
+          "form": "inline",
+          "prospectiveStatus": "stale"
+        },
+        {
+          "id": "SB-A",
+          "source": "current-evidence.json",
+          "entry": 1,
+          "form": "verification-evidence",
+          "prospectiveStatus": "stale"
+        }
+      ],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "adee509a2130077a636dadd4f2fc0ff42745aba6",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "stale"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [
+              {
+                "severity": "warning",
+                "code": "PRODUCT061",
+                "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+                "file": "current-evidence.json",
+                "target": "SB-A",
+                "entry": 1
+              }
+            ],
+            "runRevision": "38bd9772ca21bb67b3603c8c5c98e9191ce3d534"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+            "file": "current-evidence.json",
+            "target": "SB-A",
+            "entry": 1
+          }
+        ]
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'UC-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "UC-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "SB-A",
+            "line": 4
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 1,
+          "stale": 3,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 4
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "45286a86d29c0f11437b6af94c1884b04734f217",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:565a402893c2274789756e08cc0e5e6fa6b341d68ce5423aeb1599badd6d6306",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "45286a86d29c0f11437b6af94c1884b04734f217"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: explicit one-slot Use Case/Lifecycle statements and the concrete SB are changed together with TERM-A. Generic rule references and the issuer-A authorization example remain applicable. External interpretation is revised, not inferred from prose."
+    },
+    {
+      "stage": "unrelated",
+      "change": "CHG-RETENTION",
+      "revision": "8d14858ff519fd80db4d305ff254020a34a1aaed",
+      "changed": [
+        "BR-UNRELATED"
+      ],
+      "one_hop_causes": [],
+      "direct_uc_changed": false,
+      "model_changed": false,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "domain-accepted",
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.074555
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "domain-accepted",
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.054906
+        },
+        "run_revision": "99e4d38fb14d753aabab445f55d936679046aead"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "unrelated-overlay",
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.0729
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "unrelated-overlay",
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.065549
+        },
+        "run_revision": "2c1db23dc910321f59a7aeab527ea75498d177dd"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [],
+        "authorization": [],
+        "examples": []
+      },
+      "forecast": [],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "99e4d38fb14d753aabab445f55d936679046aead",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:565a402893c2274789756e08cc0e5e6fa6b341d68ce5423aeb1599badd6d6306",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "45286a86d29c0f11437b6af94c1884b04734f217"
+          }
+        ],
+        "diagnostics": []
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'UC-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "UC-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "SB-A",
+            "line": 4
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 1,
+          "stale": 3,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 4
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "2c1db23dc910321f59a7aeab527ea75498d177dd",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:565a402893c2274789756e08cc0e5e6fa6b341d68ce5423aeb1599badd6d6306",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "2c1db23dc910321f59a7aeab527ea75498d177dd"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: report retention is outside all declared booking/identity formal dependencies."
+    },
+    {
+      "stage": "editorial",
+      "change": "CHG-EDITORIAL",
+      "revision": "d45d6b1c3fec0ff64f3dd06efccd0f566aa93827",
+      "changed": [
+        "SB-A"
+      ],
+      "one_hop_causes": [],
+      "direct_uc_changed": false,
+      "model_changed": false,
+      "formal": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "unrelated-accepted",
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.059155
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "unrelated-accepted",
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.069062
+        },
+        "run_revision": "8d14858ff519fd80db4d305ff254020a34a1aaed"
+      },
+      "post_apply_full_recheck": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "editorial-overlay",
+          "fingerprint": "3a6b5b0050ccd6cc42f79de0b9dcc7ca559653854e113ac7841fa57c830b4b97",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.075085
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": true,
+          "cache_source": "editorial-overlay",
+          "fingerprint": "1ce691f1a3bbebe91ed38da3d09e3a91ab83430820598ecac0f8b853e176c731",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.068546
+        },
+        "run_revision": "1d5beb4e020731de2f6623da33f9ef1b1a987322"
+      },
+      "changed_declared_formal_dependencies": {
+        "booking": [],
+        "authorization": [],
+        "examples": [
+          "SB-A"
+        ]
+      },
+      "forecast": [
+        {
+          "id": "SB-A",
+          "source": "consumers/proof-contract.md",
+          "line": 4,
+          "form": "inline",
+          "prospectiveStatus": "stale"
+        },
+        {
+          "id": "SB-A",
+          "source": "current-evidence.json",
+          "entry": 1,
+          "form": "verification-evidence",
+          "prospectiveStatus": "stale"
+        }
+      ],
+      "evidence_before_new_run": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "8d14858ff519fd80db4d305ff254020a34a1aaed",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "stale"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:565a402893c2274789756e08cc0e5e6fa6b341d68ce5423aeb1599badd6d6306",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [
+              {
+                "severity": "warning",
+                "code": "PRODUCT061",
+                "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+                "file": "current-evidence.json",
+                "target": "SB-A",
+                "entry": 1
+              }
+            ],
+            "runRevision": "2c1db23dc910321f59a7aeab527ea75498d177dd"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+            "file": "current-evidence.json",
+            "target": "SB-A",
+            "entry": 1
+          }
+        ]
+      },
+      "citations_before_new_run": {
+        "schema": "product-definition-as-code/citations/v1alpha1",
+        "targets": [
+          "consumers"
+        ],
+        "citations": [
+          {
+            "id": "UC-A",
+            "digest": "sha256:f37f3113c3ebf09bb744f3f7a8e1f31d7a61e26be3a2cefb1c18242312e0a286",
+            "source": "consumers/proof-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-A",
+            "digest": "sha256:64f271087a10f33e5465cdca78473d4a05644b2705e5fc7ece1fb3516fdb8d3d",
+            "source": "consumers/proof-contract.md",
+            "line": 4,
+            "form": "inline",
+            "status": "stale"
+          },
+          {
+            "id": "SB-AUTH",
+            "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+            "source": "consumers/proof-contract.md",
+            "line": 5,
+            "form": "inline",
+            "status": "current"
+          },
+          {
+            "id": "BR-A",
+            "digest": "sha256:ab9ba5ddfcbba6b1505c19691a971d9df47f8ad31b40947bdb60ea3ec33b2380",
+            "source": "consumers/rule-contract.md",
+            "line": 3,
+            "form": "inline",
+            "status": "stale"
+          }
+        ],
+        "diagnostics": [
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'UC-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "UC-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'SB-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/proof-contract.md",
+            "target": "SB-A",
+            "line": 4
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT061",
+            "message": "Citation of 'BR-A' is stale: canonical content changed since the citation was recorded",
+            "file": "consumers/rule-contract.md",
+            "target": "BR-A",
+            "line": 3
+          },
+          {
+            "severity": "warning",
+            "code": "PRODUCT105",
+            "message": "Business rule 'BR-UNRELATED' has no consumers",
+            "file": "docs/product/model/business-rules/br-unrelated.md",
+            "artifact": "BR-UNRELATED"
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "current": 1,
+          "stale": 3,
+          "tampered": 0,
+          "unresolved": 0,
+          "errors": 0,
+          "warnings": 4
+        }
+      },
+      "new_evidence": {
+        "documents": [
+          {
+            "file": "current-evidence.json",
+            "modelRevision": "1d5beb4e020731de2f6623da33f9ef1b1a987322",
+            "evidenceResults": [
+              {
+                "testId": "booking/conditional-invariant",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              },
+              {
+                "testId": "authorization/encoded-policy",
+                "level": "domain",
+                "outcome": "passed",
+                "citationStatuses": [
+                  "current"
+                ]
+              }
+            ],
+            "citations": [
+              {
+                "id": "SB-A",
+                "digest": "sha256:e062b4c4fa0a241d1e3cfd7cf79f55ce52e5424ade11ce66f31de9ac2f1bf90f",
+                "source": "current-evidence.json",
+                "line": 1,
+                "form": "verification-evidence",
+                "evidenceField": "results[1].citations[1].id"
+              },
+              {
+                "id": "SB-AUTH",
+                "digest": "sha256:aed8f9868cf29098eb43b9f1e4890baad995d71bd258ebcfbc91a6238c71e4b9",
+                "source": "current-evidence.json",
+                "line": 2,
+                "form": "verification-evidence",
+                "evidenceField": "results[2].citations[1].id"
+              }
+            ],
+            "diagnostics": [],
+            "runRevision": "1d5beb4e020731de2f6623da33f9ef1b1a987322"
+          }
+        ],
+        "diagnostics": []
+      },
+      "synthetic_review_reason": "Synthetic review: no structured scenario value or external formula changes; whole-artifact citation freshness still changes."
+    }
+  ],
+  "negative_proposal": {
+    "productshape_errors": 0,
+    "formal_consistency": "unsat",
+    "applied": false
+  },
+  "retired_contract_and_unmapped_intent_probes": {
+    "old-lead-contract": {
+      "status": "sat",
+      "raw_output": "logs/old-lead-contract.stdout"
+    },
+    "old-issuer-contract": {
+      "status": "sat",
+      "raw_output": "logs/old-issuer-contract.stdout"
+    },
+    "old-footprint-contract": {
+      "status": "sat",
+      "raw_output": "logs/old-footprint-contract.stdout"
+    },
+    "unmapped-intent": {
+      "corrected_encoding_structured_example": "unsat: capacity 2 cannot satisfy footprint 3",
+      "corrected_encoding": {
+        "z3": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "f417e058ffe1afb0e19a4ece4883ea793b5eaca8028fe497adc37522c87870a6",
+          "solver_sha256": "fcd0ca765d1c0b4eac776f442ec0f10294b9a6416be91fad4e52fa19012c8d01",
+          "full_recheck_seconds": 0.063879
+        },
+        "cvc5": {
+          "statuses": [
+            "sat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "unsat",
+            "sat",
+            "unsat",
+            "sat",
+            "sat"
+          ],
+          "cache_hit": false,
+          "cache_source": null,
+          "fingerprint": "e4e04b2eae4280abd4ff07318622dcd7517fc5be3eba189c6816cd76144bd582",
+          "solver_sha256": "6aecddf466552b83bb5883756c7955e0c9d5ddcc6d7f45b48c2f6e06a741b102",
+          "full_recheck_seconds": 0.060679
+        },
+        "run_revision": "d45d6b1c3fec0ff64f3dd06efccd0f566aa93827"
+      },
+      "productshape_errors": 0,
+      "unchanged_formula_still_verifies": true,
+      "formal_dependency_pin_changed": true,
+      "current_intent_applicability": "not established; explicit semantic review/binding update required",
+      "published_new_evidence": false,
+      "applied": false
+    }
+  },
+  "llm_calls_by_runner": 0,
+  "automatic_retries": 0,
+  "limitations": [
+    "Handwritten semantic inputs; no generic prose translator or completeness guarantee.",
+    "Synthetic fixture approvals/acknowledgments exercise CLI gates; not human review.",
+    "Whole-model cache checked against full reruns; not an optimized incremental prover.",
+    "No four-cohort scoring, independent session comparison, H0 effect or normative extension."
+  ]
+}
