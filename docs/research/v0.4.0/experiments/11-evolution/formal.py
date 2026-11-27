@@ -19,10 +19,13 @@ def fm(path):return yaml.safe_load(path.read_text().split('---',2)[1])
 
 def encode(artifacts, semantics):
     """Lifecycle topology comes from frontmatter; rule/term meaning is supplied explicitly."""
+    assert isinstance(semantics['footprint'],int) and semantics['footprint']>0
+    assert isinstance(semantics['lead_days'],int) and semantics['lead_days']>=0
     lc=fm(artifacts['LC-A']);trans={t['id']:t for t in lc['transitions']}
     assert set(CODES)=={s['id'] for s in lc['states']}
     def source(t):return '(or '+' '.join(f'(= state {CODES[s]})' for s in trans[t]['from'])+')'
     def target(t):return CODES[trans[t]['to']]
+    assert semantics['expire_requested']==('REQUESTED' in trans['EXPIRE']['from'])
     size=semantics['footprint'];lead=semantics['lead_days'];ex=semantics['example']
     trusted='(or '+' '.join(f'(= issuer {i})' for i in semantics['trusted_issuers'])+')'
     expiry_effect='(ite (= state 0) used (- used footprint))' if semantics['expire_requested'] else '(- used footprint)'
@@ -62,7 +65,7 @@ def encode(artifacts, semantics):
 (assert (= nextUsed (+ used footprint)))
 (assert (= nextUsed {ex['next_used']}))
 (assert (= nextState {target('CONFIRM')}))
-(assert (= nextState 1))''',True)
+(assert (= nextState 1))''')
     text+=query(NAMES[6],f'(assert (not (= Allow (and authentic editor {trusted}))))')
     text+=query(NAMES[7],f'''(assert (Inv state used))
 (assert (= state 0))
