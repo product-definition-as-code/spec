@@ -25,12 +25,15 @@ def amend(path,transform):
 
 class Experiment:
     def __init__(self,output,package,tools):
+        self.driver_sources={str(p.relative_to(HERE.parent)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),HERE/'formal.py',HERE.parent/'run.py']}
         self.out=output;output.mkdir(parents=True,exist_ok=False)
         self.repo=output/'workspace';self.repo.mkdir()
         self.logs=output/'logs';self.cli=str(package/'node_modules/@prodshape/cli/dist/bin.js')
         p=json.loads((package/'node_modules/@prodshape/cli/package.json').read_text());assert p['version']=='0.26.1'
         self.package=package;self.tools=tools;self.cache={};self.rows=[];self.current=False
         self.ps('version','--version',json_output=False)
+        for name,cmd in [('node-version',['node','--version']),('z3-version',[str(tools/'Z3Prover/z3-5.3.3-x64-glibc-2.39/bin/z3'),'--version']),('cvc5-version',[str(tools/'cvc5/cvc5-Linux-x86_64-static/bin/cvc5'),'--version'])]:
+            assert bounded(name,cmd,self.logs,cwd=self.repo).returncode==0
         self.git('init','-q','-b','main')
         self.ps('init','init','--sdd','none',json_output=False)
         config=self.repo/'.product/config.yaml';data=yaml.safe_load(config.read_text());data['extensions']['prodshape']['citations']['consumer-roots']=['consumers'];config.write_text(yaml.safe_dump(data,sort_keys=False))
@@ -80,16 +83,16 @@ class Experiment:
         assert not verified['summary']['errors'] and not any(x['code']=='PRODUCT029' for x in verified['diagnostics'])
         return causes
 
-    def formal(self,label,artifacts,semantics):
+    def formal(self,label,artifacts,semantics,expected=EXPECTED):
         run_revision=self.git('rev-parse','HEAD') if (self.repo/'.git/HEAD').exists() else None
         model=encode(artifacts,semantics);directory=self.out/'formal'/label;directory.mkdir(parents=True)
         path=directory/'model.smt2';path.write_text(model)
-        (directory/'semantic-inputs.json').write_text(json.dumps({'role':'handwritten experimental interpretation, not canonical PDaC fields','values':semantics,'source_pins':{i:digest(p) for i,p in artifacts.items()},'formal_dependencies':DEPENDENCIES,'actual_run_revision':run_revision,'dirty_workspace':bool(self.git('status','--porcelain'))}},indent=2)+'\n')
+        (directory/'semantic-inputs.json').write_text(json.dumps({'role':'handwritten experimental interpretation, not canonical PDaC fields','values':semantics,'source_pins':{i:digest(p) for i,p in artifacts.items()},'formal_dependencies':DEPENDENCIES,'actual_run_revision':run_revision,'dirty_workspace':bool(self.git('status','--porcelain'))},indent=2)+'\n')
         data={}
         for solver,path_bin,flags in [('z3',self.tools/'Z3Prover/z3-5.3.3-x64-glibc-2.39/bin/z3',[]),('cvc5',self.tools/'cvc5/cvc5-Linux-x86_64-static/bin/cvc5',['--incremental'])]:
             key=fingerprint(model,hashlib.sha256(path_bin.read_bytes()).hexdigest())
             prior=self.cache.get((solver,key));full=bounded(label+'-'+solver,[str(path_bin),*flags,str(path)],self.logs,cwd=self.repo)
-            observed=statuses(full.stdout);assert full.returncode==0 and observed==EXPECTED,(label,solver,observed)
+            observed=statuses(full.stdout);assert full.returncode==0 and observed==expected,(label,solver,observed)
             if prior:assert prior['statuses']==observed
             data[solver]={'statuses':observed,'cache_hit':bool(prior),'cache_source':prior['label'] if prior else None,'fingerprint':key,'full_recheck_seconds':json.loads((self.logs/f'{label}-{solver}.json').read_text())['wall_seconds']}
             self.cache[(solver,key)]={'label':label,'statuses':observed}
@@ -182,7 +185,11 @@ class Experiment:
         assert old_bytes==unchanged_encoding and digest(artifacts['TERM-A'])!=digest(overlay['TERM-A'])
         check=self.formal('unmapped-old-encoding',overlay,self.semantics)
         assert all(check[s]['cache_hit'] for s in ['z3','cvc5'])
-        rows['unmapped-intent']={'productshape_errors':report['summary']['errors'],'unchanged_formula_still_verifies':True,'formal_dependency_pin_changed':True,'current_intent_applicability':'not established; explicit semantic review/binding update required','published_new_evidence':False,'applied':False}
+        updated=copy.deepcopy(self.semantics);updated['footprint']=3
+        negative_expected=list(EXPECTED);negative_expected[5]='unsat'
+        corrected=self.formal('unmapped-corrected-encoding',overlay,updated,expected=negative_expected)
+        assert all(corrected[s]['statuses'][5]=='unsat' for s in ['z3','cvc5'])
+        rows['unmapped-intent']={'corrected_encoding_structured_example':'unsat: capacity 2 cannot satisfy footprint 3','corrected_encoding':corrected,'productshape_errors':report['summary']['errors'],'unchanged_formula_still_verifies':True,'formal_dependency_pin_changed':True,'current_intent_applicability':'not established; explicit semantic review/binding update required','published_new_evidence':False,'applied':False}
         amend(d/'change.md',lambda data,body:({**data,'status':'rejected'},body))
         self.ps('unmapped-archive','change','archive','CHG-UNMAPPED')
         self.git('add','.');self.git('commit','-qm','Retain unapproved unmodeled semantic edit as a negative control')
@@ -221,7 +228,8 @@ def main(package,tools,output):
     assert all(row['formal'][s]['cache_hit'] for row in e.rows if row['stage'] in ['unrelated','editorial'] for s in ['z3','cvc5'])
     applicability=e.applicability_probes()
     e.git('bundle','create',str(output/'history.bundle'),'--all')
-    manifest={'status':'public non-scored exploratory integration; synthetic approval fixtures, not human product acceptance','pdac_method':'0.3.0','serialization':'v1alpha2','productshape':'0.26.1','source_main':'39b5e05547cf8f9f12a1f962d25b854837f4f779','stages':e.rows,'negative_proposal':negative,'retired_contract_and_unmapped_intent_probes':applicability,'llm_calls_by_runner':0,'automatic_retries':0,'limitations':['Handwritten semantic inputs; no generic prose translator or completeness guarantee.','Synthetic fixture approvals/acknowledgments exercise CLI gates; not human review.','Whole-model cache checked against full reruns; not an optimized incremental prover.','No four-cohort scoring, independent session comparison, H0 effect or normative extension.']}
+    assert all(hashlib.sha256((HERE.parent/name).read_bytes()).hexdigest()==value for name,value in e.driver_sources.items()), 'Driver changed during execution'
+    manifest={'driver_sha256':e.driver_sources,'status':'public non-scored exploratory integration; synthetic approval fixtures, not human product acceptance','pdac_method':'0.3.0','serialization':'v1alpha2','productshape':'0.26.1','source_main':'39b5e05547cf8f9f12a1f962d25b854837f4f779','stages':e.rows,'negative_proposal':negative,'retired_contract_and_unmapped_intent_probes':applicability,'llm_calls_by_runner':0,'automatic_retries':0,'limitations':['Handwritten semantic inputs; no generic prose translator or completeness guarantee.','Synthetic fixture approvals/acknowledgments exercise CLI gates; not human review.','Whole-model cache checked against full reruns; not an optimized incremental prover.','No four-cohort scoring, independent session comparison, H0 effect or normative extension.']}
     (output/'run-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print('Actual ProductShape changes and formal rechecks complete.',flush=True)
 
