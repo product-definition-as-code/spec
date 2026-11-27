@@ -72,4 +72,11 @@ class Preparation(unittest.TestCase):
         (work/'docs/product/changes/completed/new').mkdir();(work/'docs/product/changes/completed/new/change.md').write_text('new')
         self.assertEqual(readiness(work,2,prior),[])
 
+    def test_transient_manager_environment_cannot_escape_namespace(self):
+        # The user service manager, unlike the caller, supplies TMPDIR and may supply credentials.
+        command=namespace(self.root,['python3','-c','import os; from pathlib import Path; assert os.environ["TMPDIR"]=="/tmp"; assert Path(os.environ["TMPDIR"]).is_dir(); assert "PDAC_INHERITED_SENTINEL" not in os.environ'],network=False)
+        env=environment();env.update(TMPDIR='/unmounted-host-temp',PDAC_INHERITED_SENTINEL='must-not-reach-child')
+        result=subprocess.run(command,env=env,capture_output=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+
 if __name__=='__main__':unittest.main()

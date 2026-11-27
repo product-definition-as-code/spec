@@ -1,3 +1,5 @@
+> Execution update: G1 was [approved](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7228575750); [attempt1 failed at full tool transport](../reports/12-independent-evaluation.md). All outcomes preserved; [G2 revision approval](../gates/phase-2-decision.md) is pending. The new deterministic `preflight.py` blocks preparation on this host. Original commands below describe the historical frozen package, not authority to retry it.
+
 # Controlled comparison preparation
 
 Prepared after merged #150; non-normative, owner G1 pending. [Single owner decision](G1-decision.md), [complete frozen candidate](frozen-protocol.md), [private commitments and limits](custody.md). Author-only packets are constructed from current approved intent, never the full future episode files. All mathematical checks use deterministic tools; agent interpretation/review is labelled separately.

@@ -1,3 +1,5 @@
+> Historical G1 candidate: [owner approval](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7228575750) froze commit `d7a2553`. Attempt1 is preserved and invalid due to tool transport; [G2 recommends bounded revision](../gates/phase-2-decision.md). This historical text is not a new approval request or retry authorization.
+
 # Controlled pilot — complete G1 candidate, not yet authorized
 
 This replaces provisional pending implementation details in `../protocol/`; the approved research direction and v0.3.0 remain unchanged. Technical feasibility was established in #149–150. No further feasibility campaign or literature review is proposed. Owner approval freezes this package's exact commit, prepared-manifest hash and private commitments before any scored authoring. Only the owner decisions in [G1 package](G1-decision.md) remain; all staffing/tool/infrastructure choices below are coordinator proposals ready to execute.

@@ -4,7 +4,7 @@ from pathlib import Path
 
 def namespace(work, command, auth=None, tools=None, network=True, readonly=()):
     work=Path(work).resolve()
-    args=['bwrap','--die-with-parent','--unshare-pid','--unshare-ipc','--unshare-uts','--new-session']
+    args=['bwrap','--clearenv','--die-with-parent','--unshare-pid','--unshare-ipc','--unshare-uts','--new-session']
     if not network:args+=['--unshare-net']
     for path in ['/usr','/bin','/lib','/lib64']:
         if Path(path).exists():args+=['--ro-bind',path,path]
@@ -18,7 +18,7 @@ def namespace(work, command, auth=None, tools=None, network=True, readonly=()):
     if auth:args+=['--bind',str(Path(auth).resolve()),'/codex','--setenv','CODEX_HOME','/codex']
     if tools:
         for name,path in tools.items():args+=['--ro-bind',str(Path(path).resolve()),'/tools/'+name]
-    args+=['--setenv','HOME','/work/home','--setenv','PATH','/work/bin:/usr/local/bin:/usr/bin:/bin','--',*command]
+    args+=['--setenv','TMPDIR','/tmp','--setenv','TMP','/tmp','--setenv','TEMP','/tmp','--setenv','LANG','C.UTF-8','--setenv','HOME','/work/home','--setenv','PATH','/work/bin:/usr/local/bin:/usr/bin:/bin','--',*command]
     return args
 
 def environment():
