@@ -6,7 +6,7 @@ Owner correction: [decision record](https://github.com/product-definition-as-cod
 
 **Executed:** [models, exact commands and results](../experiments/README.md). Z3/cvc5 agree on 17 product-model query verdicts each; Alloy returns a finite cycle; Dafny verifies positive contracts and rejects deliberate mutants. Five draft change snapshots distinguish one-hop impact, direct citation freshness, formal dependency pins, historical validity and applicability. Negative, `unknown` and corrected encoding attempts are preserved. All reproduction scripts run without an LLM; semantic interpretation is explicitly separate.
 
-**Review:** independent agent documentary review is being recorded in [review plan](../review/review-plan.md); it is not human expert validation. Exploration does not wait for review. Original phase-one documentary revisions remain pinned in the manifest; consolidated updates are in #149. No GitHub PR is merged automatically.
+**Review:** three fresh independent agent documentary reviews and coordinator dispositions are recorded in [review plan](../review/review-plan.md); it is not human expert validation. Exploration does not wait for review. Original phase-one documentary revisions remain pinned in the manifest; consolidated updates are in #149. No GitHub PR is merged automatically.
 
 **Still open before scored comparisons:** independently reviewed/frozen intent and fair four-cohort protocol, named evaluator and held-out custodian, tool/model revisions, technical aggregate query/run limits, reduced task schedule and predeclared quantitative thresholds. Public exploratory examples cannot be held-out cases. Missing cost observations limit cost-benefit claims, not execution authorization.
 

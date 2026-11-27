@@ -1,5 +1,5 @@
 {
-  "status": "review not launched",
+  "status": "Original documentary inputs retained; three agent reviews completed at consolidated commit below, not human approval",
   "repository": "product-definition-as-code/spec",
   "repository_id": 1318490705,
   "main_at_preparation": "81346c16ee57d59f71e14196a16d1bb763e667e5",
@@ -106,5 +106,11 @@
         }
       ]
     }
+  ],
+  "reviewed_consolidated_commit": "91053aadbd2f40f9ae2a3c2a0c12bcd814328169",
+  "review_reports": [
+    "scientific-findings.md",
+    "methodology-findings.md",
+    "architecture-findings.md"
   ]
 }

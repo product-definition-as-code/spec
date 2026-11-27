@@ -9,3 +9,9 @@ Three tracks: [scientific](scientific.md), [methodology](methodology.md), [archi
 Read-only source/primary-source inspection; no recursive reviewers, purchases, production changes or automatic merges. Keep reviews focused; stop rather than loop on inaccessible sources. Report unreviewed areas. Coordinator preserves original findings, records dispositions and exact corrected revisions, reconciles dependent documents and requests proportionate re-review for materially changed claims. Routine bounded corrections are authorized; no separate remediation budget gate.
 
 Documentary critique does not adjudicate product intent or held-out outcomes. Human acceptance, future evaluator/custodian assignments and scientific comparison freeze remain unresolved. No scored phase transition follows review automatically.
+
+## Executed review and dispositions
+
+Three fresh sessions reviewed immutable `91053aadbd2f40f9ae2a3c2a0c12bcd814328169`, sequentially, with no authoring conversation or other reviewers' findings. [Scientific](scientific-findings.md): SCI-01 P2 corrected with state-complete v3 probes. [Methodology](methodology-findings.md): M1 P2 financial-rule inconsistency and M2 P2 unrecorded outer-error path corrected. [Architecture](architecture-findings.md): no evidenced defect in inspected scope. No P0/P1 established. Coordinator checks/reproduction support dispositions; corrected revisions have not received a separate reviewer re-acceptance. These bounded reviews are not exhaustive literature audits, certificate checking, reproduction or human expert approval.
+
+Sessions inherited general system/workspace guidance, including a generic memory summary; no research authoring history was supplied, no memory files were retrieved and no other-reviewer findings were read. All exact serving-model/provider identities remained unavailable; model diversity is not claimed. Usage costs/tokens unavailable, not zero; no additional billing prerequisite or new service.

@@ -33,3 +33,5 @@ Access limitations and available substitutes are in the six input reports. Score
 | E03 | Dafny verifies reserve/release arithmetic and rejects a mutant. | Handwritten contract toy, not executed application correspondence or H4. |
 | E04 | Five draft change snapshots separate hashes/one-hop impact from declared formal dependencies and isolated semantic deltas. | Manual unaudited dependency map; no ProductShape apply, full conformance or automated semantic equivalence claim. |
 | E05 | Corrected SB probes add an omitted final-state conjunct; original results retained. Resource-limited query yields unknown. | Encoding defects and inconclusive outcomes are not successful verification. |
+
+Independent agent review at `91053aa`: [scientific](review/scientific-findings.md), [methodology](review/methodology-findings.md), [architecture](review/architecture-findings.md). Three P2 findings corrected with retained inputs/results; no P0/P1 established within inspected coverage. No independent human expert validation or scored evidence follows. Corrected dispositions are coordinator-verified, not automatically re-accepted.
