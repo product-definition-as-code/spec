@@ -3,14 +3,14 @@ import hashlib, json
 from pathlib import Path
 import yaml
 
-DEPENDENCIES={'booking':['BR-A','TERM-A','LC-A'],
-              'authorization':['BR-AUTH','TERM-IDENTITY'],
+DEPENDENCIES={'booking':['BR-A','TERM-A','LC-A','UC-A'],
+              'authorization':['BR-AUTH','TERM-IDENTITY','UC-A'],
               'examples':['SB-A','SB-AUTH','BR-A','BR-AUTH','TERM-A','TERM-IDENTITY','LC-A']}
 
 CODES={'REQUESTED':0,'CONFIRMED':1,'CANCELLED':2,'EXPIRED':3}
 EXPECTED=['sat','unsat','unsat','unsat','unsat','sat','unsat','sat','unsat','sat','sat']
 NAMES=['confirm-reachable','confirm-invariant','cancel-invariant','expire-invariant',
-       'lead-compliance','structured-example','authorization-adequacy','guard-mutant',
+       'lead-compliance','structured-example','authorization-definition-consistency','guard-mutant',
        'vacuous-guard-witness','frame-mutant','double-release-mutant']
 
 

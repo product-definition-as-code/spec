@@ -94,7 +94,7 @@ class Experiment:
             prior=self.cache.get((solver,key));full=bounded(label+'-'+solver,[str(path_bin),*flags,str(path)],self.logs,cwd=self.repo)
             observed=statuses(full.stdout);assert full.returncode==0 and observed==expected,(label,solver,observed)
             if prior:assert prior['statuses']==observed
-            data[solver]={'statuses':observed,'cache_hit':bool(prior),'cache_source':prior['label'] if prior else None,'fingerprint':key,'full_recheck_seconds':json.loads((self.logs/f'{label}-{solver}.json').read_text())['wall_seconds']}
+            data[solver]={'statuses':observed,'cache_hit':bool(prior),'cache_source':prior['label'] if prior else None,'fingerprint':key,'solver_sha256':hashlib.sha256(path_bin.read_bytes()).hexdigest(),'full_recheck_seconds':json.loads((self.logs/f'{label}-{solver}.json').read_text())['wall_seconds']}
             self.cache[(solver,key)]={'label':label,'statuses':observed}
         assert data['z3']['statuses']==data['cvc5']['statuses']
         data['run_revision']=run_revision
@@ -222,7 +222,9 @@ def main(package,tools,output):
     sem=copy.deepcopy(e.semantics);sem['footprint']=2;sem['example']={'capacity':2,'next_used':2}
     term=current('TERM-A').replace('one indivisible room slot','two indivisible room slots')
     sb=current('SB-A').replace('Capacity is 1','Capacity is 2').replace('used slots are 1','used slots are 2')
-    e.stage('domain','CHG-FOOTPRINT',{'TERM-A':term.encode(),'SB-A':sb.encode()},sem,'Synthetic review: generic footprint references remain applicable; the concrete SB is explicitly changed to capacity/usage 2. External formal interpretation is revised, not inferred from prose.')
+    uc=current('UC-A').replace('releasing exactly one slot','releasing the footprint defined by TERM-A')
+    lc=current('LC-A').replace('CONFIRMED holds one','CONFIRMED holds the footprint defined by TERM-A')
+    e.stage('domain','CHG-FOOTPRINT',{'TERM-A':term.encode(),'SB-A':sb.encode(),'UC-A':uc.encode(),'LC-A':lc.encode()},sem,'Synthetic review: explicit one-slot Use Case/Lifecycle statements and the concrete SB are changed together with TERM-A. Generic rule references and the issuer-A authorization example remain applicable. External interpretation is revised, not inferred from prose.')
     e.stage('unrelated','CHG-RETENTION',{'BR-UNRELATED':current('BR-UNRELATED').replace('7 days','14 days').encode()},copy.deepcopy(e.semantics),'Synthetic review: report retention is outside all declared booking/identity formal dependencies.')
     e.stage('editorial','CHG-EDITORIAL',{'SB-A':(current('SB-A')+'\n<!-- Editorial wording note; scenario values are unchanged. -->\n').encode()},copy.deepcopy(e.semantics),'Synthetic review: no structured scenario value or external formula changes; whole-artifact citation freshness still changes.')
     assert all(row['formal'][s]['cache_hit'] for row in e.rows if row['stage'] in ['unrelated','editorial'] for s in ['z3','cvc5'])
