@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 
-def namespace(work, command, auth=None, tools=None, network=True):
+def namespace(work, command, auth=None, tools=None, network=True, readonly=()):
     work=Path(work).resolve()
     args=['bwrap','--die-with-parent','--unshare-pid','--unshare-ipc','--unshare-uts','--new-session']
     if not network:args+=['--unshare-net']
@@ -12,6 +12,9 @@ def namespace(work, command, auth=None, tools=None, network=True):
     for path in ['/etc/ssl/certs','/etc/resolv.conf','/etc/hosts','/etc/nsswitch.conf','/etc/passwd','/etc/group']:
         if Path(path).exists():args+=['--ro-bind',path,path]
     args+=['--proc','/proc','--dev','/dev','--tmpfs','/tmp','--dir','/home','--dir','/srv','--dir','/run','--bind',str(work),'/work','--chdir','/work']
+    for relative in readonly:
+        source=(work/relative).resolve();assert source.is_relative_to(work)
+        args+=['--ro-bind',str(source),'/work/'+relative]
     if auth:args+=['--bind',str(Path(auth).resolve()),'/codex','--setenv','CODEX_HOME','/codex']
     if tools:
         for name,path in tools.items():args+=['--ro-bind',str(Path(path).resolve()),'/tools/'+name]

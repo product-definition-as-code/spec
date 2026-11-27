@@ -12,6 +12,12 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def dump(p,x):Path(p).write_text(json.dumps(x,indent=2)+'\n')
 def load(p):return json.loads(Path(p).read_text())
 def inputs():return {p.name:sha(p) for p in sorted(HERE.iterdir()) if p.is_file() and p.suffix in ['.py','.md','.json']}
+def tree_sha(root):
+    digest=hashlib.sha256()
+    for p in sorted(Path(root).rglob('*')):
+        if p.is_file() and not p.is_symlink():digest.update(str(p.relative_to(root)).encode()+b'\0'+bytes.fromhex(sha(p)))
+    return digest.hexdigest()
+
 def git(root,*args):
     env={**environment(),'GIT_AUTHOR_NAME':'Synthetic research fixture','GIT_AUTHOR_EMAIL':'research@example.invalid','GIT_COMMITTER_NAME':'Synthetic research fixture','GIT_COMMITTER_EMAIL':'research@example.invalid'}
     command=['git','-c','user.name=Synthetic research fixture','-c','user.email=research@example.invalid','-c','core.hooksPath=/dev/null','-c','core.fsmonitor=false',*args]
@@ -33,7 +39,7 @@ def prepare(out,tools,package):
     versions={k:{'path':p,'sha256':sha(p)} for k,p in binaries.items()}
     assert load(package/'node_modules/@prodshape/cli/package.json')['version']=='0.26.1'
     cli=shutil.which('codex');assert cli
-    protocol={'status':'prepared, not approved or executed','source_revision':git(REPO,'rev-parse','HEAD'),'public_inputs':inputs(),'tools':versions,'productshape':str(package),'productshape_lock_sha256':sha(package/'package-lock.json'),'productshape_cli_sha256':sha(package/'node_modules/@prodshape/cli/dist/bin.js'),'codex_cli_version':subprocess.check_output([cli,'--version'],text=True).strip(),'codex_launcher_sha256':sha(cli),'model_requested':'gpt-6.1-sol','reasoning_effort':'medium','model_resolved_weights':'not exposed by provider; alias drift is a limitation','limits':{'author_sessions':64,'author_concurrency':2,'author_wall_seconds':480,'author_memory_bytes':4294967296,'author_solver_processes_per_session':64,'author_solver_queries_per_session':2048,'automatic_author_retries':0},'plan':order,'custody_commitment':load(HERE/'custody.json')}
+    protocol={'status':'prepared, not approved or executed','source_revision':git(REPO,'rev-parse','HEAD'),'public_inputs':inputs(),'tools':versions,'productshape':str(package),'productshape_tree_sha256':tree_sha(package),'productshape_lock_sha256':sha(package/'package-lock.json'),'productshape_cli_sha256':sha(package/'node_modules/@prodshape/cli/dist/bin.js'),'codex_cli_version':subprocess.check_output([cli,'--version'],text=True).strip(),'codex_launcher_sha256':sha(cli),'model_requested':'gpt-6.1-sol','reasoning_effort':'medium','model_resolved_weights':'not exposed by provider; alias drift is a limitation','limits':{'author_sessions':64,'author_concurrency':2,'author_wall_seconds':480,'author_memory_bytes':4294967296,'author_solver_processes_per_session':64,'author_solver_queries_per_session':2048,'automatic_author_retries':0},'plan':order,'custody_commitment':load(HERE/'custody.json')}
     assert len(order)==64
     dump(out/'frozen-inputs.json',protocol)
     print('Prepared 64 fresh-session jobs; no author or scored evaluator launched.')
@@ -109,6 +115,7 @@ def author(out,f,job):
         prior_record=load(prior.parent/'receipt.json')
         if prior_record['status']!='completed':dump(target/'receipt.json',{'job':job,'status':'blocked by failed predecessor','returncode':125});return
     work=target/'work';inputpins=packet(work,f,job,prior)
+    packet_bytes=sum(p.stat().st_size for p in work.rglob('*') if p.is_file() and '.git' not in p.relative_to(work).parts)
     auth=target/'auth';auth.mkdir(mode=0o700);shutil.copyfile(Path.home()/'.codex/auth.json',auth/'auth.json');(auth/'auth.json').chmod(0o600)
     mounts={};gateway=None;method_gateway=None
     if job['cohort'] in [2,4]:
@@ -132,7 +139,7 @@ def author(out,f,job):
         (auth/'auth.json').unlink(missing_ok=True)
     (target/'events.jsonl').write_bytes(r.stdout);(target/'stderr').write_bytes(r.stderr)
     unchanged=all((work/p).is_file() and not (work/p).is_symlink() and sha(work/p)==pin for p,pin in inputpins.items())
-    receipt={'job':job,'returncode':r.returncode,'wall_seconds':round(time.monotonic()-start,3),'input_pins':inputpins,'inputs_unchanged':unchanged,'command':command,'events_sha256':sha(target/'events.jsonl'),'usage':None,'status':'completed' if r.returncode==0 and unchanged else 'failed; no automatic retry'}
+    receipt={'job':job,'returncode':r.returncode,'wall_seconds':round(time.monotonic()-start,3),'input_pins':inputpins,'packet_bytes_before_author':packet_bytes,'inputs_unchanged':unchanged,'command':command,'events_sha256':sha(target/'events.jsonl'),'usage':None,'status':'completed' if r.returncode==0 and unchanged else 'failed; no automatic retry'}
     for line in r.stdout.decode(errors='replace').splitlines():
         try:
             event=json.loads(line)
@@ -155,15 +162,20 @@ def author(out,f,job):
     receipt['outputs']={name:sha(work/name) for name in ['decision.py','contract.smt2','report.json'] if (work/name).is_file() and not (work/name).is_symlink()}
     dump(target/'receipt.json',receipt)
 
-def execute(out):
+def check_frozen(out):
     f=load(out/'frozen-inputs.json');approval=load(out/'approval.json')
     assert approval['frozen_manifest_sha256']==sha(out/'frozen-inputs.json') and f['public_inputs']==inputs()
     assert git(REPO,'rev-parse','HEAD')==f['source_revision'],'execute pinned source revision'
     assert subprocess.check_output(['codex','--version'],text=True).strip()==f['codex_cli_version']
     assert sha(shutil.which('codex'))==f['codex_launcher_sha256']
+    assert tree_sha(Path(f['productshape']))==f['productshape_tree_sha256']
     assert sha(Path(f['productshape'])/'package-lock.json')==f['productshape_lock_sha256']
     assert sha(Path(f['productshape'])/'node_modules/@prodshape/cli/dist/bin.js')==f['productshape_cli_sha256']
     for v in f['tools'].values():assert sha(v['path'])==v['sha256']
+    return f,approval
+
+def execute(out):
+    f,approval=check_frozen(out)
     assert not (out/'attempts').exists(),'one-shot execution; failed attempts never overwritten or automatically resumed'
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
         for seed in ['17','29']:

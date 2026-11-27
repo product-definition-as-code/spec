@@ -3,7 +3,7 @@
   "base_main": "c3c42a18d3e8be9148a61acf6b99dff1b404f7a3",
   "checks": {
     "pilot_unit_tests": 6,
-    "scorer_public_tests": 10,
+    "scorer_public_tests": 11,
     "namespace_host_exclusion": "pass",
     "gateway_public_z3_unsat": "pass",
     "productshape_gateway_version_init_validate": "pass",

@@ -2,16 +2,17 @@
 """Fresh documentary assessments after frozen deterministic scoring; no expert/proof certification."""
 import argparse, json, shutil, subprocess, time, uuid
 from pathlib import Path
-from pilot import HERE, load, dump, sha
+from pilot import HERE, load, dump, sha, check_frozen
 from isolation import namespace,environment
 
 PROMPT='''Read approved-intent.md, protocol.md, machine-summary.json and trajectory files. You are an independent documentary reviewer, not their author, a human expert or a mathematical verifier. Do not execute submitted programs or alter evidence. Assess explicitly structural impact, citation freshness, declared formal dependencies, mathematical validity versus current-intent applicability, unsupported assumptions and unresolved decisions. Cite concrete path/line or receipt for every finding; severity P0..P3, no speculative scope expansion. Evidence source pins are whole-file; no automatic renewal. State exposure/unblinding, unknown completeness and provider limitations. Write assessment.json with status, findings(list), hypothesis_assessments(mapping), limitations(list), recommendation(proceed/narrow/revise/pause/stop). An agent review is not proof, general correctness or human intent acceptance.'''
 
 def session(work,target,prompt,model):
+    (work/'home').mkdir(exist_ok=True)
     auth=target/'auth';auth.mkdir(mode=0o700);shutil.copyfile(Path.home()/'.codex/auth.json',auth/'auth.json');(auth/'auth.json').chmod(0o600)
     cmd=['codex','exec','--ignore-user-config','--ephemeral','--skip-git-repo-check','--model',model,'-c','model_reasoning_effort="medium"','--sandbox','workspace-write','--json',prompt]
     unit='pdac-review-'+uuid.uuid4().hex
-    wrapped=['systemd-run','--user','--quiet','--wait','--pipe','--collect','--unit='+unit,'-p','MemoryMax=4294967296','-p','MemorySwapMax=0','-p','RuntimeMaxSec=480','-p','TasksMax=128','-p','KillMode=control-group','--',*namespace(work,cmd,auth=auth)]
+    wrapped=['systemd-run','--user','--quiet','--wait','--pipe','--collect','--unit='+unit,'-p','MemoryMax=4294967296','-p','MemorySwapMax=0','-p','RuntimeMaxSec=480','-p','TasksMax=128','-p','KillMode=control-group','--',*namespace(work,cmd,auth=auth,readonly=[p.name for p in work.iterdir() if p.name!='home'])]
     start=time.monotonic()
     pins={str(p.relative_to(work)):sha(p) for p in work.rglob('*') if p.is_file()}
     try:
@@ -26,7 +27,7 @@ def session(work,target,prompt,model):
     dump(target/'receipt.json',result);return result
 
 def evaluate(pilot,scored,out):
-    frozen=load(pilot/'frozen-inputs.json');approval=load(pilot/'approval.json');submissions=load(pilot/'submissions.json')
+    frozen,approval=check_frozen(pilot);submissions=load(pilot/'submissions.json')
     assert approval['frozen_manifest_sha256']==sha(pilot/'frozen-inputs.json')
     assert len(submissions['submissions'])==64 and all((pilot/'attempts'/j['id']/'receipt.json').is_file() for j in frozen['plan'])
     assert load(scored/'inputs.json')['manifest_sha256']==sha(pilot/'submissions.json')
@@ -41,6 +42,13 @@ def evaluate(pilot,scored,out):
                 if str(row['seed'])!=seed or row['cohort']!=cohort:continue
                 source=Path(row['path']);destination=work/row['episode']
                 if source.exists():shutil.copytree(source,destination,symlinks=True,ignore=shutil.ignore_patterns('.git','home','bin','__pycache__'))
+                host_evidence=work/'host-evidence'/row['episode'];host_evidence.mkdir(parents=True)
+                for name in ['receipt.json','events.jsonl','stderr']:
+                    path=source.parent/name
+                    if path.is_file() and not path.is_symlink():shutil.copyfile(path,host_evidence/name)
+                for name in ['solver-receipts','method-receipts']:
+                    path=source.parent/name
+                    if path.is_dir():shutil.copytree(path,host_evidence/name,symlinks=True)
                 if destination.exists():
                     for path in destination.rglob('*'):
                         if path.is_symlink():path.unlink()

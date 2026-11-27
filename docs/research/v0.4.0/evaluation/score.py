@@ -272,6 +272,10 @@ def summarize(rows):
             a = aggregate[scope]
             a['matched_eligible'] += 1
             a['additional_valid_rejections'] += (pair[4]['outcome'] == 'valid_rejection' and pair[3]['outcome'] != 'valid_rejection')
+            for panel in ('decision', 'formal'):
+                before = pair[3].get(panel + '_outcome', pair[3]['outcome'])
+                after = pair[4].get(panel + '_outcome', pair[4]['outcome'])
+                a['additional_' + panel + '_valid_rejections'] += (after == 'valid_rejection' and before != 'valid_rejection')
             for cohort in (3, 4):
                 a[str(cohort) + '_' + pair[cohort]['outcome']] += 1
     comparisons = []
@@ -291,7 +295,8 @@ def summarize(rows):
                                   'valid_rejections': counts_[prefix + 'valid_rejection']}
         improvement = rates['3']['finite_discrepancy_unknown_as_error'] - rates['4']['finite_discrepancy_unknown_as_error']
         lower_bound = rates['3']['finite_discrepancy_all_eligible'] - rates['4']['finite_discrepancy_unknown_as_error']
-        safeguard = counts_['additional_valid_rejections'] == 0
+        safeguard = all(counts_[key] == 0 for key in ('additional_valid_rejections',
+                        'additional_decision_valid_rejections', 'additional_formal_valid_rejections'))
         comparisons.append({'seed': seed, 'episode': episode,
                             'reporting_unit': 'pooled dependent cases' if seed == '*' else 'dependent trajectory' if episode == '*' else 'episode',
                             'counts': dict(counts_), 'rates': rates,

@@ -73,6 +73,30 @@ class ScorerTests(unittest.TestCase):
         self.assertEqual(score.parse_solver({'returncode': 1, 'failure': None}, b'sat\nunsat\n', 2), ['unknown', 'unknown'])
         self.assertEqual(score.parse_solver({'returncode': 0, 'failure': None}, b'sat\n(error fake)\n', 2), ['unknown', 'unknown'])
 
+    def test_rejection_cannot_move_between_panels(self):
+        for regressed_panel in ('formal', 'decision'):
+            rows = []
+            for cohort in (3, 4):
+                rejected_panel = regressed_panel if cohort == 4 else ('decision' if regressed_panel == 'formal' else 'formal')
+                rows.append(dict(cohort=cohort, seed=17, episode='PUBLIC', id='moved-rejection',
+                                 outcome='valid_rejection', decision_outcome='valid_rejection' if rejected_panel == 'decision' else 'correct',
+                                 formal_outcome='valid_rejection' if rejected_panel == 'formal' else 'correct',
+                                 formal_applicable=True, **{'class': 'dummy'}))
+            # Extra corrected discrepancies make the rate margin pass if the safeguard were absent.
+            for pos in range(9):
+                for cohort in (3, 4):
+                    rows.append(dict(cohort=cohort, seed=17, episode='PUBLIC', id=str(pos),
+                                     outcome='semantic_error' if cohort == 3 else 'correct',
+                                     decision_outcome='semantic_error' if cohort == 3 else 'correct',
+                                     formal_outcome='correct', formal_applicable=True, **{'class': 'dummy'}))
+            for result in score.summarize(rows)['comparisons']:
+                self.assertEqual(result['counts']['additional_valid_rejections'], 0)
+                self.assertEqual(result['counts']['additional_' + regressed_panel + '_valid_rejections'], 1)
+                self.assertGreater(result['lower_bound_improvement_percentage_points'], 15)
+                self.assertFalse(result['zero_additional_valid_rejections'])
+                self.assertFalse(result['primary_screen_10pp'])
+                self.assertFalse(any(result['sensitivity'].values()))
+
     def test_unknown_baseline_does_not_establish_improvement(self):
         rows = [dict(cohort=c, seed=17, episode='PUBLIC', id='dummy',
                      outcome='unknown' if c == 3 else 'correct', **{'class': 'dummy'}) for c in (3, 4)]
