@@ -5,7 +5,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 
-def run(name, command, output):
+def run(name, command, output, cwd=None):
+    cwd = Path(cwd).resolve() if cwd is not None else HERE
     output.mkdir(parents=True, exist_ok=True)
     assert name and '/' not in name
     if any((output/f'{name}.{suffix}').exists() for suffix in ['json','stdout','stderr']):
@@ -15,11 +16,11 @@ def run(name, command, output):
     wrapped = ['systemd-run', '--user', '--quiet', '--wait', '--pipe', '--collect', '--unit='+unit,
                '-p', 'MemoryMax=2147483648', '-p', 'MemorySwapMax=0',
                '-p', 'RuntimeMaxSec=30', '-p', 'TasksMax=64',
-               '-p', 'KillMode=control-group', '--working-directory='+str(HERE),
+               '-p', 'KillMode=control-group', '--working-directory='+str(cwd),
                '--', *command]
     inputs = {}
     for arg in command:
-        path = Path(arg) if Path(arg).is_absolute() else HERE/arg
+        path = Path(arg) if Path(arg).is_absolute() else cwd/arg
         if path.is_file() and path.suffix in ['.smt2', '.als', '.dfy']:
             inputs[str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
     start = time.monotonic()
@@ -41,7 +42,7 @@ def run(name, command, output):
         result = subprocess.CompletedProcess(wrapped, 127, b'', str(error).encode())
     for suffix, data in [('stdout', result.stdout), ('stderr', result.stderr)]:
         (output / f'{name}.{suffix}').write_bytes(data)
-    record = {'command': command, 'containment_command': wrapped, 'input_sha256': inputs,
+    record = {'command': command, 'containment_command': wrapped, 'input_sha256': inputs, 'cwd': str(cwd),
               'returncode': result.returncode, 'failure_class': failure_class, 'cleanup': cleanup, 'wall_seconds': round(time.monotonic()-start, 6),
               'platform': platform.platform(), 'machine': platform.machine(),
               'stdout_sha256': hashlib.sha256(result.stdout).hexdigest(),

@@ -1,0 +1,13 @@
+# Independent agent integration review
+
+Fresh read-only session `/root/integration_review`, no authoring conversation, inspected immutable `4d12f9466b5c75d53e710d5d057fcf051af24e04` and its recorded provisional run. System identity: OpenAI Codex based on GPT-6; exact deployment/model identifier unavailable. No known authoring involvement. Generic system context remains shared; this is agent critique, not human expert validation, provider-independent evaluation or independent solver reproduction. Coordinator transcribed findings; no author dialogue or other reviewers' findings exposed during review.
+
+| Severity | Evidenced finding | Disposition |
+| --- | --- | --- |
+| P2 | Domain change updated TERM/SB, but UC-A Alternative Flows still said “releasing exactly one slot” and LC-A State Semantics “CONFIRMED holds one”. The encoder released two. Prior checkpoint `866444a90e33c2ea47b8e2f010c8bd9976826c2b` preserves the contradiction. Generic unaffected judgments were false. | `bbb48e8` updates all four sources through the Product Change and corrects its accounting. Subsequent corrected runs preserve source pins. |
+| P2 | Auditor accepted an empty receipt collection and trusted several claimed statuses without reconciling raw post-apply output or semantic source pins. | `bbb48e8` requires exactly 122 receipts, validates outputs/inputs, raw statuses, cached/full runs and bundled source/formal bindings. Negative regressions reject absent receipts, forged statuses and changed pins. |
+| P3, targeted follow-up | `actual_run_revision` existed but was not compared to the revision used to reconstruct source. A different existing commit could falsely attribute the same pins. | Auditor now requires exact equality at every binding; regression substitutes an existing baseline commit. Coordinator verified rejection; no observed mismatch in the supplied run was alleged. |
+
+Targeted read-only follow-up inspected `bbb48e80391379dfe8dd5e7ff46b98f4e22164fc` and `/tmp/pdac-v040-integration-reviewed`: footprint finding addressed; auditor finding substantially addressed, with the narrow P3 above. No solver execution/evidence mutation by reviewer. Coordinator ran corrected full execution twice, then both positive audits and all five negative regressions. See [saved results](../experiments/11-evolution/results/summary.json). Original provisional and aborted outputs remain in the development archive; they are not accepted replications.
+
+No P0/P1 established within inspected coverage. No claim of complete source fidelity, dependency completeness, adversarial adequacy, independent human intent approval, H0 benefit or production correspondence follows. Corrections are coordinator-verified; final P3 fix was not independently re-reviewed.
