@@ -1,0 +1,35 @@
+{
+  "command": [
+    "/tmp/pdac-v040-tools/Z3Prover/z3-5.3.3-x64-glibc-2.39/bin/z3",
+    "--version"
+  ],
+  "containment_command": [
+    "systemd-run",
+    "--user",
+    "--quiet",
+    "--wait",
+    "--pipe",
+    "-p",
+    "MemoryMax=2147483648",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "RuntimeMaxSec=30",
+    "-p",
+    "TasksMax=64",
+    "-p",
+    "KillMode=control-group",
+    "--working-directory=/tmp/pdac-v040-phase1/spec/docs/research/v0.4.0/experiments",
+    "--",
+    "/tmp/pdac-v040-tools/Z3Prover/z3-5.3.3-x64-glibc-2.39/bin/z3",
+    "--version"
+  ],
+  "returncode": 0,
+  "wall_seconds": 0.050256,
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "stdout_sha256": "60a506553916b49c341d79684f3c8d37b6624e956de1ba0955ef77d48a9766ca",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "llm_calls_by_runner": 0,
+  "automatic_retries": 0
+}

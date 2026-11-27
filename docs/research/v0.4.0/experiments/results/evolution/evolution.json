@@ -1,0 +1,137 @@
+{
+  "status": "public exploratory simulation; no approval/apply/conformance claim",
+  "baseline_formal_dependency_pins": {
+    "confirm-capacity": {
+      "BR-A": "sha256:c0b8495902d8983f388e42fd550a613688317341fd544f70b447d71e00232f95",
+      "TERM-A": "sha256:1db980559de469cd4b31aba03fb9b16160a09a272e29eef7a0a4f6467882e09a",
+      "LC-A": "sha256:8db8e16f8fd7e7ae4642b60dc9e460e96d2e460d305d42238b0a510f0779a3c4"
+    },
+    "authorization": {
+      "UC-A": "sha256:b98b44730cf73adfa8d62c2da7d00d909db6851f023fe27e24cbda5584d0cc18",
+      "TERM-IDENTITY": "sha256:41bc172e5bae394b90537313d8e8e09a23c3f6ad9ec9716bdd4f934684d26cce"
+    }
+  },
+  "dependency_completeness": "manual and unaudited beyond these seeded cases",
+  "stages": [
+    {
+      "change": "CHG-EXP-1",
+      "kind": "rule",
+      "base_revision": "18f03d9ce07ddbfb437193f35789c9059c0287a7",
+      "changed_id": "BR-A",
+      "one_hop_dependents": [
+        "LC-A",
+        "SB-A",
+        "UC-A"
+      ],
+      "direct_uc_citation_current": true,
+      "changed_baseline_formal_pins": {
+        "confirm-capacity": [
+          "BR-A"
+        ],
+        "authorization": []
+      },
+      "expected_delta_query": "sat",
+      "historical_result": "retained for original model/assumptions",
+      "applicability": "requires review; not inferred solely from hashes",
+      "proposal_sha256": "sha256:c3e0c01135f30446b015b736fc095140e3348ff100d8c3212622cbb3ae677d54",
+      "observed_delta_query": "sat"
+    },
+    {
+      "change": "CHG-EXP-2",
+      "kind": "domain",
+      "base_revision": "8a862b2b99936b492a12edd9680b1af020b09fb2",
+      "changed_id": "TERM-A",
+      "one_hop_dependents": [
+        "BR-A",
+        "LC-A",
+        "UC-A"
+      ],
+      "direct_uc_citation_current": true,
+      "changed_baseline_formal_pins": {
+        "confirm-capacity": [
+          "BR-A",
+          "TERM-A"
+        ],
+        "authorization": []
+      },
+      "expected_delta_query": "sat",
+      "historical_result": "retained for original model/assumptions",
+      "applicability": "requires review; not inferred solely from hashes",
+      "proposal_sha256": "sha256:aca7c15d440ae02d31548614b117b97349e2782f90c4a4884026b7fd20d9b299",
+      "observed_delta_query": "sat"
+    },
+    {
+      "change": "CHG-EXP-3",
+      "kind": "external",
+      "base_revision": "d864531147106dcb3f18a270861ec290e3492a95",
+      "changed_id": "TERM-IDENTITY",
+      "one_hop_dependents": [
+        "UC-A"
+      ],
+      "direct_uc_citation_current": true,
+      "changed_baseline_formal_pins": {
+        "confirm-capacity": [
+          "BR-A",
+          "TERM-A"
+        ],
+        "authorization": [
+          "TERM-IDENTITY"
+        ]
+      },
+      "expected_delta_query": "sat",
+      "historical_result": "retained for original model/assumptions",
+      "applicability": "requires review; not inferred solely from hashes",
+      "proposal_sha256": "sha256:1e47a88f12974b1365f7eb4acce2926ef8636ec0f96ccebb88341c371032029c",
+      "observed_delta_query": "sat"
+    },
+    {
+      "change": "CHG-EXP-4",
+      "kind": "unrelated",
+      "base_revision": "39aa92004b46d6ee3e19e26ae50b687a36de897a",
+      "changed_id": "BR-UNRELATED",
+      "one_hop_dependents": [],
+      "direct_uc_citation_current": true,
+      "changed_baseline_formal_pins": {
+        "confirm-capacity": [
+          "BR-A",
+          "TERM-A"
+        ],
+        "authorization": [
+          "TERM-IDENTITY"
+        ]
+      },
+      "expected_delta_query": "unsat",
+      "historical_result": "retained for original model/assumptions",
+      "applicability": "requires review; not inferred solely from hashes",
+      "proposal_sha256": "sha256:2a0d530cec41d04c99fdcef25014a3d09aa6cd87090dd6ada53cc4ee0e3c7be5",
+      "observed_delta_query": "unsat"
+    },
+    {
+      "change": "CHG-EXP-5",
+      "kind": "editorial",
+      "base_revision": "5daa655587709135c7225773c049a4570fa2d892",
+      "changed_id": "UC-A",
+      "one_hop_dependents": [
+        "LC-A",
+        "SB-A"
+      ],
+      "direct_uc_citation_current": false,
+      "changed_baseline_formal_pins": {
+        "confirm-capacity": [
+          "BR-A",
+          "TERM-A"
+        ],
+        "authorization": [
+          "UC-A",
+          "TERM-IDENTITY"
+        ]
+      },
+      "expected_delta_query": "unsat",
+      "historical_result": "retained for original model/assumptions",
+      "applicability": "requires review; not inferred solely from hashes",
+      "proposal_sha256": "sha256:5725000d48e865e5ff99efce12074723d11f4a6b6ea35f03b07bf8e1a7fe9e40",
+      "observed_delta_query": "unsat"
+    }
+  ],
+  "query_interpretation": "isolated delta per stage, historical pins compared cumulatively; unrelated/editorial preservation is under an explicit unchanged-encoding assumption, not NLP equivalence proof"
+}

@@ -1,0 +1,12 @@
+models/feasibility.dfy(7,0): Error: a postcondition could not be proved on this return path
+  |
+7 | { y := x; }
+  | ^
+
+models/feasibility.dfy(6,12): Related location: this is the postcondition that could not be proved
+  |
+6 |   ensures y > x
+  |             ^
+
+
+Dafny program verifier finished with 1 verified, 1 error

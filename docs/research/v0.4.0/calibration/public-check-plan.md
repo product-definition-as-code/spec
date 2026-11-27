@@ -1,4 +1,6 @@
-# Four public feasibility checks — execution blocked
+# Four public feasibility checks — initial plan
+
+Current execution and explicit corrections: [results](../experiments/README.md). The text below is the initial check selection, not an execution restriction.
 
 Selection follows [synthesis](https://github.com/product-definition-as-code/spec/blob/3da4c1b4dad6e0905ad9aff285708a22856bd243/docs/research/v0.4.0/reports/07-baseline-synthesis.md), especially fragment portability, assurance boundaries and reusable mechanisms. These checks investigate availability, licensing, installation, pinned reproduction, supported fragments and useful outputs; they do not select a formalism, architecture or pilot winner. No held-out data or scored benchmark is used.
 
@@ -9,9 +11,9 @@ Selection follows [synthesis](https://github.com/product-definition-as-code/spec
 | Alloy | Public finite relation of three nodes; seek a counterexample to an intentionally false acyclicity assertion. One bounded check. | Counterexample search is within the declared scope; absence would not prove unbounded correctness. |
 | Dafny | One file containing a valid arithmetic postcondition and a deliberately false postcondition, with distinct names; one verification invocation. Record successful obligation and concrete failure diagnostics separately. | Feasibility of contracts and diagnostics only; not the phase-3 PDaC-to-implementation bridge or a product-level result. |
 
-Before execution freeze exact source bytes, commands, tool/backend versions and assets. Budget at most one tool invocation per check (four total); installation/version inspection counts against its check and the overall execution budget. No retry, repair or substitution after failure. Record all tool and nested solver invocations, top-level queries and backend queries if observable; hidden VC/query counts must remain explicitly unknown. Do not invent an aggregate scored-pilot query ceiling from these planned counts.
+Before execution freeze exact source bytes, commands, tool/backend versions and assets. The initial sample has four tool checks; help/version inspection and explicit corrections are recorded separately. Preserve failures; ordinary bounded, versioned corrections are authorized. No automatic retry loops. Record all tool and nested solver invocations, top-level queries and backend queries if observable; hidden VC/query counts must remain explicitly unknown. Do not invent an aggregate scored-pilot query ceiling from these planned counts.
 
-Use isolated local directories and existing infrastructure, with no inference inside tool invocations. Apply the owner's wall-time/memory caps to the complete process tree. Stop on the first containment failure, unexpected charge, required privilege/service, timeout, memory breach or inability to account for consumption; retain logs and escalate rather than repair. Installation failure consumes that check. Record exit codes, durations, peak memory if measurable, exact input/output hashes, assumptions, platform, licences and exclusions. Reproduction must use the same assets and bytes; no feasibility claim until it actually runs.
+Use isolated local directories and existing infrastructure, with no inference inside tool invocations. Apply the owner's wall-time/memory caps to the complete process tree. Stop the affected job on containment failure, timeout or memory breach; retain logs. Escalate paid provisioning, security issues or unavailable dependencies. Unknown metering does not block execution. Installation failure consumes that check. Record exit codes, durations, peak memory if measurable, exact input/output hashes, assumptions, platform, licences and exclusions. Reproduction must use the same assets and bytes; no feasibility claim until it actually runs.
 
 ## Pins and licensing preflight
 

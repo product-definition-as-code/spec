@@ -1,5 +1,7 @@
 # Evolution, traceability and assurance boundaries
 
+Snapshot boundary: the documentary findings and execution-status statements below describe the original phase-one report revision. Subsequent authorized [executable exploration](../experiments/README.md) and independent review are tracked separately; unavailable cost/token metering is not a current prerequisite. No historical result is silently upgraded.
+
 Issue: [#127](https://github.com/product-definition-as-code/spec/issues/127). Retrieved 2026-11-27. Status: documentary findings and proposed dependency cases; independent review pending. [Proposal](../../v0.4.0-formal-product-definition.md) H0/H4/H5 remain untested.
 
 ## Established boundaries and reusable prior art

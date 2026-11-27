@@ -1,0 +1,70 @@
+{
+  "duration":68,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$Acyclic_n":{
+          "arity":1,
+          "data":[
+            [
+              "Node$2"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "Node$0":{
+          "next":[
+            [
+              "Node$1"
+            ]
+          ]
+        },
+        "Node$1":{
+          "next":[
+            [
+              "Node$1"
+            ],
+            [
+              "Node$2"
+            ]
+          ]
+        },
+        "Node$2":{
+          "next":[
+            [
+              "Node$0"
+            ],
+            [
+              "Node$1"
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-11-27T06:59:18.960384765",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Etc/UTC",
+  "utctime":1795762758960
+}

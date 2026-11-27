@@ -1,0 +1,52 @@
+
+NAME
+  exec                        - Execute an Alloy program. This will create a
+                                directory with the name of the source file minus
+                                the extension. You will find the solutions in
+                                this directory. This directory will also contain
+                                a receipt.json file that contains the solutions.
+
+SYNOPSIS
+   exec [options] <path>
+
+OPTIONS
+
+   [ -c, --command <string> ] - The command to run. If no command is specified,
+                                the default command will run. The command may
+                                specify wildcards to run multiple commands. If
+                                the command is an integer, it will run the
+                                command with that index.
+   [ -d, --depth <int> ]      - Depth for skolem analysis, default is 0
+   [ -e, --evaluator ]        - After resolving each command, start an evaluator
+   [ -f, --force ]            - Specify that the output directory is removed and
+                                recreated if it contains any files
+   [ -n, --nooverflow ]       - If set, the solution will include only those
+                                models in which no arithmetic overflows occurred
+   [ -o, --output <string> ]  - Specify where the output should go. Default is
+                                the a directory with the stem of the name of the
+                                source file. If a name is specified, this will
+                                become a directory with the different outputs
+                                ordered as separate files. A file is generated
+                                with the proper extension for the output type
+                                (-t/--type) and the name is the name of the
+                                command & the solution index. If the directory
+                                contains files, specify -f/--force to delete it.
+                                If the value is -, all calculated solutions or
+                                transformed files are sent to the console.
+   [ -q, --quiet ]            - Be quiet with progress information
+   [ -r, --repeat <int> ]     - Find multiple solutions, up to this number. Use
+                                0 for as many as can be found. The default is 1,
+                                only the first solution.
+   [ -s, --solver <string> ]  - Set the solver to use. You can get a list of
+                                solver names with the 'solvers' command. The
+                                default solver is SAT4J.
+   [ -t, --type <outputtype> ] - Specify the output type: none, text, table,
+                                json, xml
+   [ -u, --unrolls <int> ]    - Number of allowed recursion unrolls. Default is
+                                -1 (no unrolling)
+   [ -y, --ymmetry <int> ]    - Symmetry breaking removes instances that are
+                                symmetric to other instances. The parameter
+                                indicates the amount of effort Alloy can spend.
+                                The default is 20.
+
+

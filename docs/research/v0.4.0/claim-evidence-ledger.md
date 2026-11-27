@@ -1,6 +1,6 @@
 # Claim/evidence ledger — phase-1 preparation
 
-Issue: #128; date 2026-11-27. Status: provisional, independent review pending. Source findings are documentary, not replicated; no formal-verification or implementation experiment has run. [Synthesis and exact six-report inputs](reports/07-baseline-synthesis.md). [Approved proposal](../v0.4.0-formal-product-definition.md).
+Issue: #128; date 2026-11-27. Status: provisional, independent review pending. Source findings are documentary, not replicated; the original reports had no formal executions; subsequent public exploratory results are recorded below, without comparative claims. [Synthesis and exact six-report inputs](reports/07-baseline-synthesis.md). [Approved proposal](../v0.4.0-formal-product-definition.md).
 
 | ID | Claim / question | Evidence class and source | Boundary / required next evidence |
 | --- | --- | --- | --- |
@@ -22,4 +22,14 @@ Issue: #128; date 2026-11-27. Status: provisional, independent review pending. S
 
 Audit primary definitions and exact report revisions before accepting a claim. Record dated reviewer judgments/conflicts and linked PRs; this author's self-check is not independent review. Future experiments add run IDs, raw evidence and assumptions without overwriting negative/inconclusive attempts. Classify invalid results, correctable defects, failed verification and unsupported analyses separately from evidence against hypotheses/architectures/extensions.
 
-Access limitations and available substitutes are in the six input reports. Numerical thresholds, tool versions for execution and budgets remain pending G1; literature pages are not pinned executable artifacts. No experimental results may be inserted from historical v0.3.0 qualification. Resource metering is unavailable, not zero. This ledger is non-normative and adds no canonical Product Artifact or proof level.
+Access limitations and available substitutes are in the six input reports. Scored thresholds, tool/model freeze and held-out arrangements remain pending G1; literature pages are not pinned executable artifacts. Missing usage metering does not block exploration. No experimental results may be inserted from historical v0.3.0 qualification. Resource metering is unavailable, not zero. This ledger is non-normative and adds no canonical Product Artifact or proof level.
+
+## Subsequent exploratory evidence
+
+| ID | Observation | Evidence / limitation |
+| --- | --- | --- |
+| E01 | Two SMT engines agree on 17 declared product-model verdicts, including invariant checks, contradiction, weak-contract and vacuity probes. | [Models/raw logs](experiments/README.md); same encoding means agreement does not validate intent fidelity or H0. |
+| E02 | Alloy yields a three-node cycle; Python checks a returned cycle. | Finite counterexample, not an unbounded theorem. |
+| E03 | Dafny verifies reserve/release arithmetic and rejects a mutant. | Handwritten contract toy, not executed application correspondence or H4. |
+| E04 | Five draft change snapshots separate hashes/one-hop impact from declared formal dependencies and isolated semantic deltas. | Manual unaudited dependency map; no ProductShape apply, full conformance or automated semantic equivalence claim. |
+| E05 | Corrected SB probes add an omitted final-state conjunct; original results retained. Resource-limited query yields unknown. | Encoding defects and inconclusive outcomes are not successful verification. |

@@ -1,3 +1,7 @@
+# Historical preflight — superseded
+
+The owner explicitly removed billing/token prerequisites and authorized execution. The stop below records an earlier decision, **not a current blocker**. See [executable results](../experiments/README.md) for current status.
+
 # Calibration preflight — stopped before execution
 
 Non-normative administrative record, 2026-11-27. Coordinator: this Codex session. Baseline: PR #148 at `e5542f2ea486100c35327b418e3e020e4a93b3aa`. [Owner decision recorded at G1](https://github.com/product-definition-as-code/spec/issues/130#issuecomment-7211316146).

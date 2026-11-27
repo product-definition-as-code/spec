@@ -1,5 +1,7 @@
 # Microsoft/GitHub Next foundations
 
+Snapshot boundary: the documentary findings and execution-status statements below describe the original phase-one report revision. Subsequent authorized [executable exploration](../experiments/README.md) and independent review are tracked separately; unavailable cost/token metering is not a current prerequisite. No historical result is silently upgraded.
+
 Issue: [#122](https://github.com/product-definition-as-code/spec/issues/122). Evidence cutoff: 2026-11-27. Status: documentary findings, independent review pending. Authority: [approved research proposal](../../v0.4.0-formal-product-definition.md), not a v0.4.0 feature decision.
 
 ## Findings and provenance
@@ -24,6 +26,6 @@ Proposed observations: semantic substitutions missed by owners, reconstruction w
 
 ## Reproduction and disposition
 
-A reviewer can follow the cited sections to audit the claim boundaries. Actual replication needs accessible licensed artifacts, pinned tool/model revisions, commands, assumptions, limits and raw results; obtain approval before running it. If PDD Kit remains inaccessible, compare a clearly named external-tool workflow, never call it a PDD Kit replication.
+A reviewer can follow the cited sections to audit the claim boundaries. Actual replication needs accessible licensed artifacts, pinned tool/model revisions, commands, assumptions, limits and raw results; routine exploratory execution is now authorized; scored comparisons still require a frozen protocol and independent evaluation. If PDD Kit remains inaccessible, compare a clearly named external-tool workflow, never call it a PDD Kit replication.
 
 Independent review is pending; no statistical, product-model or implementation-proof experiment ran. No empirical finding supports or refutes H0 yet. Source retrieval and document checks are the only executed work. Token/spend and human-review metering are unavailable; there were no delegated agents or solver jobs. Continue to the other phase-1 reviews; carry the access uncertainty and strong-control requirement into synthesis and G1.

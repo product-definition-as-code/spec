@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/tmp/pdac-v040-tools/dafny-lang/dafny/dafny",
+    "verify",
+    "--help"
+  ],
+  "containment_command": [
+    "systemd-run",
+    "--user",
+    "--quiet",
+    "--wait",
+    "--pipe",
+    "-p",
+    "MemoryMax=2147483648",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "RuntimeMaxSec=30",
+    "-p",
+    "TasksMax=64",
+    "-p",
+    "KillMode=control-group",
+    "--working-directory=/tmp/pdac-v040-phase1/spec/docs/research/v0.4.0/experiments",
+    "--",
+    "/tmp/pdac-v040-tools/dafny-lang/dafny/dafny",
+    "verify",
+    "--help"
+  ],
+  "returncode": 0,
+  "wall_seconds": 0.266508,
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "stdout_sha256": "92ebaa1e13320b4fe20c348e7b7a59083d58ca9512ad66cb0ba536bf95b65699",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "llm_calls_by_runner": 0,
+  "automatic_retries": 0
+}

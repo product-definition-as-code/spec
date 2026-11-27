@@ -1,0 +1,14 @@
+rule
+sat
+((day1 31))
+domain
+sat
+((capacity2 1)
+ (used2 0))
+external
+sat
+((issuer3 1))
+unrelated
+unsat
+editorial
+unsat

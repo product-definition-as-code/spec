@@ -25,12 +25,12 @@ Architectures A–D remain a separate dimension. Phase 2 starts with A; B/C/D re
 
 ## Explore, freeze, execute, evaluate
 
-1. **Exploratory calibration only if separately authorized at G1:** confirm access/licences, installability and supported fragments using public non-held-out examples. The [resource proposal](resource-proposal.md) bounds this option. A substitute external workflow is not a PDD Kit replication. A missing kit does not block unrelated tool candidates.
-2. **Freeze before scored work:** record owner-approved intent/benchmark revision, agent/tool/library/translator revisions and digests, OS/architecture, commands, seeds/order, fault eligibility, held-out custody/manifest, reviewer identities/conflicts, budgets, thresholds and scoring. Replace all pending fields; link the immutable approved commit and owner decision. Independent evaluators keep held-out contents away from authors. No freeze or execution is claimed by merging this draft.
+1. **Exploratory technical work and calibration authorized at G1:** confirm access/licences, installability and supported fragments using public non-held-out examples. Use the [technical safeguards](resource-proposal.md); missing cost/token metering does not block exploration. A substitute external workflow is not a PDD Kit replication. A missing kit does not block unrelated tool candidates.
+2. **Freeze before scored work:** record owner-approved intent/benchmark revision, agent/tool/library/translator revisions and digests, OS/architecture, commands, seeds/order, fault eligibility, held-out custody/manifest, reviewer identities/conflicts, technical execution limits, thresholds and scoring. Replace all pending fields; link the immutable approved commit and owner decision. Independent evaluators keep held-out contents away from authors. No freeze or execution is claimed by merging this draft.
 3. Execute only authorized issues #131–133 under the frozen design. Share approved artifacts/runs across those issues rather than rerun the same authoring episode for each. Preserve every attempt and stop at a limit or unresolved semantic decision.
 4. Independent evaluation (#134) uses the [evaluation plan](evaluation-plan.md). G2 decides proceed/narrow/revise/pause/stop. No automatic phase transition.
 
-[Benchmark plan](benchmark-plan.md) proposes two domains and a small evolving sequence. All counts, caps and quantitative decision margins below are candidates requiring approval, not empirical estimates or committed budgets.
+[Benchmark plan](benchmark-plan.md) proposes two domains and a small evolving sequence. Scored task counts, technical limits and quantitative decision margins are candidates requiring freeze, not empirical estimates or committed budgets.
 
 ## Evidence and reproduction
 
@@ -38,10 +38,14 @@ Each immutable run record identifies task/cohort/seed/attempt, accepted-intent a
 
 Distinguish approved interpretation, satisfiable witness, counterexample/contradiction, proof under assumptions, exhaustive finite-model checking, bounded checking, sampled testing, unknown/timeout and unsupported analysis. Cite actual scopes; no bounded-search success or test pass becomes a universal proof. Structural impact, citation freshness, semantic dependency, mathematical validity and current-intent applicability remain separate. Preserve one-hop accounting, whole-artifact hashes and immutable old results; no automatic pin renewal, new proof fields or acceptance/apply gates.
 
-A clean reproduction requires the frozen environment and authorized reproduction allowance. Retain failed attempts and raw output even if an experiment is invalid. No discretionary reruns or amendment after seeing held-out outcomes; seek an explicitly bounded versioned repair with fresh held-out evaluation. A corrected defect does not retroactively turn its earlier result into a pass.
+A clean reproduction requires the pinned environment; ordinary exploratory reproduction and bounded corrections are authorized. Retain failed attempts and raw output even if an experiment is invalid. No discretionary reruns or amendment after seeing held-out outcomes; record a versioned repair and use fresh held-out evaluation for any later scored claim. A corrected defect does not retroactively turn its earlier result into a pass.
 
 ## Entry and stop conditions
 
-Pending: independent review of reports/protocol; named author/evaluator/product/formal-methods responsibilities; actual executable/model revisions; approved benchmark meaning and held-out custody; measurable numeric/money caps and thresholds. A full evaluation cannot start with these pending. G1 can instead authorize only the bounded calibration option.
+Pending: independent review of reports/protocol; named author/evaluator/product/formal-methods responsibilities; actual executable/model revisions; approved benchmark meaning and held-out custody; frozen technical/query limits and thresholds. A full evaluation cannot start with these pending. Exploratory technical execution is already authorized; these requirements apply to scored evaluation.
 
-Stop/escalate on a cap, missing metering/reviewer/access, ambiguous new intent, hidden assumption, unsupported guarantee, leaked held-out material or required scope change. Fabricated evidence and silent semantic decisions invalidate affected claims pending correction/review. Failed proof or inconclusive analysis is classified, not treated as automatic rejection of the direction. No production work, RFC, release or new methodology feature is authorized.
+Stop/escalate on technical containment failure, unavailable dependency, security concern, material unresolved product decision, hidden assumption, unsupported guarantee, leaked held-out material, paid provisioning or normative scope change. Missing metering/reviewer availability does not block exploratory experiments. Fabricated evidence and silent semantic decisions invalidate affected claims pending correction/review. Failed proof or inconclusive analysis is classified, not treated as automatic rejection of the direction. No production work, RFC, release or new methodology feature is authorized.
+
+## Deterministic execution boundary
+
+Agents may interpret intent and propose encodings. Mathematical validity, satisfiability, invariant preservation, counterexample search, dependency traversal and reproduction use explicit computational mechanisms, not LLM verdicts. [Executable exploration](../experiments/README.md) investigates how much runs without an LLM. It does not establish formalization fidelity, H0 benefit or comparative scientific results.

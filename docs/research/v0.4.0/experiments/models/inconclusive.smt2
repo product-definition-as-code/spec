@@ -1,0 +1,6 @@
+(set-logic QF_NIA)
+(set-option :rlimit 1)
+(declare-const x Int)
+(assert (= (* x x) 2))
+(check-sat)
+(get-info :reason-unknown)

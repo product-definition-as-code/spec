@@ -1,0 +1,19 @@
+models/booking.dfy(17,0): Error: a postcondition could not be proved on this return path
+ Related counterexample:
+ WARNING: the following counterexample may be inconsistent or invalid. See dafny.org/dafny/DafnyRef/DafnyRef#sec-counterexamples
+ models/booking.dfy(17,0): initial state:
+ assume 0 == used && 1 == capacity;
+ models/booking.dfy(17,18):
+ assume 0 == used && 1 == capacity && 2 == next;
+ 
+   |
+17 | { next := used + 2; }
+   | ^
+
+models/booking.dfy(16,20): Related location: this is the postcondition that could not be proved
+   |
+16 |   ensures 0 <= next <= capacity
+   |                     ^^
+
+
+Dafny program verifier finished with 2 verified, 1 error

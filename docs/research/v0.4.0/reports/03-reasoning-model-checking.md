@@ -1,5 +1,7 @@
 # Automated reasoning and model checking
 
+Snapshot boundary: the documentary findings and execution-status statements below describe the original phase-one report revision. Subsequent authorized [executable exploration](../experiments/README.md) and independent review are tracked separately; unavailable cost/token metering is not a current prerequisite. No historical result is silently upgraded.
+
 Issue: [#124](https://github.com/product-definition-as-code/spec/issues/124). Retrieved 2026-11-27. Status: documentary capability map; independent review pending. [Approved proposal](../../v0.4.0-formal-product-definition.md): H0/H2/H3/H5 are untested. No solver was installed or run.
 
 ## Mechanisms, bounds and trust

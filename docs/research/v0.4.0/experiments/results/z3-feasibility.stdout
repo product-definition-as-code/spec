@@ -1,0 +1,16 @@
+sat
+((x 0))
+unsat
+(upper contradiction)
+((set-logic QF_LIA)
+(proof
+(let (($x35 (<= x 2)))
+(let (($x40 (or (not upper) $x35)))
+(let ((@x43 (mp (asserted (=> upper $x35)) (rewrite (= (=> upper $x35) $x40)) $x40)))
+(let (($x52 (not $x35)))
+(let (($x62 (or (not contradiction) $x52)))
+(let ((@x60 (monotonicity (rewrite (= (> x 2) $x52)) (= (=> contradiction (> x 2)) (=> contradiction $x52)))))
+(let ((@x66 (trans @x60 (rewrite (= (=> contradiction $x52) $x62)) (= (=> contradiction (> x 2)) $x62))))
+(let ((@x67 (mp (asserted (=> contradiction (> x 2))) @x66 $x62)))
+(unit-resolution @x67 (unit-resolution @x43 (asserted upper) $x35) (asserted contradiction) false)))))))))))
+

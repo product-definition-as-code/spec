@@ -1,5 +1,7 @@
 # Product-to-implementation correspondence
 
+Snapshot boundary: the documentary findings and execution-status statements below describe the original phase-one report revision. Subsequent authorized [executable exploration](../experiments/README.md) and independent review are tracked separately; unavailable cost/token metering is not a current prerequisite. No historical result is silently upgraded.
+
 Issue: [#125](https://github.com/product-definition-as-code/spec/issues/125). Retrieved 2026-11-27. Status: documentary bridge design; independent review pending. [Proposal](../../v0.4.0-formal-product-definition.md) H0/H1/H4 remain untested. No compiler, prover or implementation bridge was run.
 
 ## Available mechanisms and limits
@@ -33,4 +35,4 @@ Keep approved prose/derived formulas, selected canonical formal properties and e
 
 ## Reproduction and next action
 
-Review the cited manual sections and proposed mapping with product and formal-methods expertise. No illustrative encoding is represented as checked. A future run must preserve source/intent/dependency revisions, assumptions, tools/configuration, executable entry point, commands, raw results, proof artifacts, limits and all failed attempts. Independent review, installation feasibility, actual proof cost and runtime correspondence are pending. Token/spend and human-attention metering are unavailable; no delegated agents or execution jobs occurred. Carry the bridge checklist and H4 boundary to synthesis/G1; do not start phase 3.
+Review the cited manual sections and proposed mapping with product and formal-methods expertise. No illustrative encoding is represented as checked. A future run must preserve source/intent/dependency revisions, assumptions, tools/configuration, executable entry point, commands, raw results, proof artifacts, limits and all failed attempts. Independent review, installation feasibility, actual proof cost and runtime correspondence are pending. Token/spend and human-attention metering are unavailable; no delegated agents or execution jobs occurred. Carry the bridge checklist and H4 boundary to synthesis/G1; do not claim evaluated phase-3 correspondence from an exploratory contract toy.

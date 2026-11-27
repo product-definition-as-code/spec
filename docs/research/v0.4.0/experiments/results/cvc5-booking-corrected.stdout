@@ -1,0 +1,43 @@
+"domain-witness"
+sat
+((capacity 1) (used 0) (state 0) (days 0) (nextUsed 0) (nextState 0) (owner 0) (nextOwner 0))
+"confirm-preserves-invariant"
+unsat
+"cancel-preserves-invariant"
+unsat
+"expire-preserves-invariant"
+unsat
+"contradictory-rules"
+unsat
+"bad-guard-vacuous-safety"
+unsat
+"bad-guard-unreachable"
+unsat
+"weak-contract-counterexample"
+sat
+((capacity 1) (used 0) (state 0) (days 0) (nextUsed 2) (nextState 1) (owner 0) (nextOwner 0))
+"structured-behaviour-baseline"
+sat
+((capacity 1) (used 0) (state 0) (days 30) (nextUsed 1) (nextState 1) (owner 0) (nextOwner 0))
+"structured-behaviour-survives-guard-mutant"
+sat
+((capacity 1) (used 0) (state 0) (days 30) (nextUsed 1) (nextState 1) (owner 0) (nextOwner 0))
+"guard-mutant-overbooks"
+sat
+((capacity 1) (used 1) (state 0) (days 0) (nextUsed 2) (nextState 0) (owner 0) (nextOwner 0))
+"missing-frame-changes-owner"
+sat
+((capacity 1) (used 0) (state 0) (days 0) (nextUsed 1) (nextState 0) (owner (- 1)) (nextOwner 0))
+"explicit-frame-preserves-owner"
+unsat
+"double-release-mutant"
+sat
+((capacity 1) (used 1) (state 1) (days 0) (nextUsed (- 1)) (nextState 0) (owner 0) (nextOwner 0))
+"correct-expiry-refuses-cancelled"
+unsat
+"lead-rule-change-breaks-old-contract"
+sat
+((capacity 1) (used 0) (state 0) (days 31) (nextUsed 0) (nextState 1) (owner 0) (nextOwner 0))
+"hours-conversion-counterexample"
+sat
+((capacity 0) (used 0) (state 0) (days 61) (nextUsed 0) (nextState 0) (owner 0) (nextOwner 0))

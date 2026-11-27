@@ -1,5 +1,7 @@
 # Formal product and requirements specification
 
+Snapshot boundary: the documentary findings and execution-status statements below describe the original phase-one report revision. Subsequent authorized [executable exploration](../experiments/README.md) and independent review are tracked separately; unavailable cost/token metering is not a current prerequisite. No historical result is silently upgraded.
+
 Issue: [#123](https://github.com/product-definition-as-code/spec/issues/123). Retrieved 2026-11-27. Status: documentary comparison; independent review pending. Authority: [approved proposal](../../v0.4.0-formal-product-definition.md). H0/H1/H2 remain untested.
 
 ## Primary-source comparison

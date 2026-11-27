@@ -1,0 +1,43 @@
+{
+  "command": [
+    "java",
+    "-Xmx1024m",
+    "-jar",
+    "/tmp/pdac-v040-tools/org.alloytools.alloy.dist.jar",
+    "exec",
+    "--help"
+  ],
+  "containment_command": [
+    "systemd-run",
+    "--user",
+    "--quiet",
+    "--wait",
+    "--pipe",
+    "-p",
+    "MemoryMax=2147483648",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "RuntimeMaxSec=30",
+    "-p",
+    "TasksMax=64",
+    "-p",
+    "KillMode=control-group",
+    "--working-directory=/tmp/pdac-v040-phase1/spec/docs/research/v0.4.0/experiments",
+    "--",
+    "java",
+    "-Xmx1024m",
+    "-jar",
+    "/tmp/pdac-v040-tools/org.alloytools.alloy.dist.jar",
+    "exec",
+    "--help"
+  ],
+  "returncode": 1,
+  "wall_seconds": 0.269266,
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "stdout_sha256": "6e72bb718b1ae690dd7f65568d32cf97ad81cee25cf3f14060527e567e0c18c0",
+  "stderr_sha256": "0e9264ed2695c5e07e8d61f21a844f0469c332ea56e71c0f93269d6ec4bdd312",
+  "llm_calls_by_runner": 0,
+  "automatic_retries": 0
+}
