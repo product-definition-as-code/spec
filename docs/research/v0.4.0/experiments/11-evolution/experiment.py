@@ -54,7 +54,7 @@ class Experiment:
         return json.loads(result.stdout) if json_output else result
 
     def artifacts(self):
-        return {fm(p)['id']:p for p in (self.repo/'docs/product/model').rglob('*.md') if p.name!='README.md'}
+        return {fm(p)['id']:p for p in sorted((self.repo/'docs/product/model').rglob('*.md')) if p.name!='README.md'}
 
     def new_change(self,id,proposed):
         self.ps(id.lower()+'-create','change','create',id)
@@ -110,7 +110,7 @@ class Experiment:
         return self.ps(label+'-new-evidence','evidence','verify','current-evidence.json')
 
     def initialize(self):
-        proposed={fm(p)['id']:p.read_bytes() for p in (HERE/'fixture').glob('*.md')}
+        proposed={fm(p)['id']:p.read_bytes() for p in sorted((HERE/'fixture').glob('*.md'))}
         d=self.new_change('CHG-INITIAL',proposed)
         before=self.snapshot()
         rejected=self.ps('initial-draft-blocked','change','apply','CHG-INITIAL',expected=None)
