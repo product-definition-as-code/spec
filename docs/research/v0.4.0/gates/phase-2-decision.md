@@ -1,3 +1,5 @@
+> **2026-11-28: owner approved G2 REVISE.** [Decision receipt](https://github.com/product-definition-as-code/spec/issues/135#issuecomment-7234784621). Environment diagnostics are complete, but compatible CLI/tool confinement remains unavailable; [results and exact dependency](../reports/12a-renewal-environment.md). The renewed trial has not been dispatched. The standing authorization covers preflight, a full public canary and one renewed trial once compatible execution is qualified. No further routine approval or phase-3 authority is inferred. The original recommendation below is historical; its pending-approval wording is superseded by this actual decision.
+
 # G2 — revise recommendation; comparative attempt invalid
 
 **Owner decision pending. Recommend `revise`, not phase 3.** [Results, raw evidence and limitations](../reports/12-independent-evaluation.md). G1 was actually approved and attempted under its exact frozen revision; it was not silently repaired or rerun.

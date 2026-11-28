@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-28",
+  "source_revision": "f530d053d685155724a73d2225ad98dc677fb982",
+  "owner_decision": "https://github.com/product-definition-as-code/spec/issues/135#issuecomment-7234784621",
+  "classification": "renewal blocked before author dispatch; no renewed comparative outcome",
+  "checks": [
+    {
+      "name": "original nested native transport",
+      "returncode": 1,
+      "accepted_boundary": true,
+      "passed": false
+    },
+    {
+      "name": "existing hardened default Docker",
+      "returncode": 1,
+      "passed": false
+    },
+    {
+      "name": "direct native transport",
+      "returncode": 0,
+      "passed": true,
+      "sufficient_for_dispatch": false
+    },
+    {
+      "name": "native tool allowlist",
+      "returncode": 0,
+      "passed": true,
+      "sufficient_for_dispatch": false
+    }
+  ],
+  "diagnosis": "kernel explicitly denies CAP_SYS_ADMIN under unpriv_bwrap to nested bwrap; native-only alternative expands CLI trust boundary and is not accepted",
+  "automatic_retries": 0,
+  "renewed_trial_dispatched": false,
+  "new_author_sessions": 0,
+  "new_scored_evaluator_invocations": 0,
+  "new_solver_queries": 0,
+  "new_documentary_trial_sessions": 0,
+  "independent_environment_review_sessions": 1,
+  "independent_review_is_human": false,
+  "heldouts_opened_or_regenerated": false,
+  "host_security_policy_modified": false,
+  "paid_provisioning": false,
+  "next_action": "An administrator must provide a compatible confined worker/service preserving outer CLI isolation while allowing native Codex tool sandboxing. Existing owner authorization permits canary and one renewed trial after qualification, without another routine approval.",
+  "policy_sha256": "d61facde27707b9c47ffe47921b7273e788784484cb5530eb819e6daac1f1990",
+  "evidence_sha256": {
+    "bwrap-userns-restrict.txt": "d61facde27707b9c47ffe47921b7273e788784484cb5530eb819e6daac1f1990",
+    "check-1-preflight/full-tool-transport.json": "e1d5ee6fbca71121de6995d47ef45c8e10cf122780800227d5461bacea27ac10",
+    "check-1-preflight/full-tool-transport.stderr": "0cbac915c0ef2eecb93813c165d1a26c50c871d181752e5e55460df7989febef",
+    "check-1-preflight/full-tool-transport.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-1-preflight/preflight.json": "8a23b389b41a846fe9b15e561cd0faa9f724e060fce9a5c311e32604e625f7ae",
+    "check-2-docker/default-docker-transport.json": "aeb131acc11bd46bd5db867bdb5e7cfb0939c432c56c2c54dbea5bce8e1dd3ea",
+    "check-2-docker/default-docker-transport.stderr": "0cbac915c0ef2eecb93813c165d1a26c50c871d181752e5e55460df7989febef",
+    "check-2-docker/default-docker-transport.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-3-direct-native/direct-native-transport.json": "fbff6941a0c0468871e4695e0c8c8c2a7a696c9bc4efd9251b3109f14f7d0b7a",
+    "check-3-direct-native/direct-native-transport.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-3-direct-native/direct-native-transport.stdout": "10b0938f219fc2e94b5c1b3a94b59b168333af1fd0329c74e88e86cedece40d6",
+    "check-4-native-allowlist/native-allowlist-transport.json": "9ee190b839758d3f38c4a942632f533e7004432ddf8d48b630c3e50b8b8d304f",
+    "check-4-native-allowlist/native-allowlist-transport.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-4-native-allowlist/native-allowlist-transport.stdout": "736cd827e6fb70a7b3e59bcc343b90d6217ef86b7587a62c8dbc3fb7100f3796",
+    "compatibility_checks.py": "085c90407146b4fbc7070aecadffc3a8b08ae3e9a57dbc0a6b6c941721892311",
+    "direct_check.py": "7935ad90fa341f293bd1973f2e72d9b657246ff8289c771f06e7b85d41d2d68d",
+    "docker-image.json": "96eae6c349829ede84cb53bd77dc1e8b07b019e4aec01edd0c3a54b33bc03ad9",
+    "isolation-review.md": "14509ab1eaf709ba0dfd78ce7bd3f834d9cf570d77c7046ec6da3f9e3456943a",
+    "kernel-denials.json": "0f1a4660638d0695faf0874e2890b73c52b6da6e87b3040b0189db11ae554fa6",
+    "native_allowlist_check.py": "a55540c79ea7406de24ff23eb4e2ece0d04c10f48cae8027e9c68b4e8f121f8a"
+  }
+}
