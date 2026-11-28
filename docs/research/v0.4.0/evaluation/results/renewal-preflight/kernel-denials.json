@@ -1,0 +1,10 @@
+[
+  {
+    "check": "check-1-preflight",
+    "entry": "audit: type=1400 audit(1795844260.480:12579): apparmor=\"DENIED\" operation=\"capable\" class=\"cap\" profile=\"unpriv_bwrap\" pid=1649529 comm=\"bwrap\" capability=21  capname=\"sys_admin\""
+  },
+  {
+    "check": "check-1-preflight",
+    "entry": "audit: type=1400 audit(1795844260.484:12580): apparmor=\"DENIED\" operation=\"capable\" class=\"cap\" profile=\"unpriv_bwrap\" pid=1649530 comm=\"bwrap\" capability=21  capname=\"sys_admin\""
+  }
+]

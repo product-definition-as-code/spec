@@ -1,0 +1,9 @@
+{
+  "returncode": 1,
+  "passed": false,
+  "model_calls": 0,
+  "benchmark_cases": 0,
+  "automatic_retries": 0,
+  "fallback_or_security_relaxation": false,
+  "purpose": "same nested tool sandbox, public read/write only; failed transport blocks preparation"
+}
